@@ -1,0 +1,153 @@
+.projects {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+}
+
+.projects > .break {
+   flex-basis: 100%;
+   height: 0;
+}
+
+.projects > .project-card {
+   width: 40%;
+}
+
+@media (max-width: 1200px) {
+   .projects > .project-card {
+      width: 100%;
+      margin-right: 0px;
+   }
+}
+
+
+.project-card-rotating-img:hover img {
+   animation: rotate 50s infinite linear;
+}
+
+.project-card-pulsating-img:hover img {
+   transform-origin: center center;
+   animation: pulsate 6s infinite;
+}
+
+body.light-theme .fwhite img { 
+   transition: filter 1s;
+}
+
+body.dark-theme .fwhite img { 
+   /* fake white */
+   filter: invert(100%) saturate(100%) brightness(100%);
+   transition: filter 1s;
+}
+
+@keyframes pulsate {
+   0% {
+      transform: scale(1);
+   }
+   50% {
+      transform: scale(1.05);
+   }
+   100% {
+      transform: scale(1);
+   }
+}
+
+.project-card-dangle-3d-img:hover img {
+   transform-origin: center center;
+   animation: dangle 6s infinite;
+}
+
+@keyframes dangle {
+   0% {
+      transform: rotateY(0deg);
+   }
+   33% {
+      transform: rotateY(22deg);
+   }
+   66% {
+      transform: rotateY(-22deg);
+   }
+   100% {
+      transform: rotateY(0deg);
+   }
+}
+
+.small-img img {
+   scale: .85;
+}
+
+@keyframes rotate {
+   0% {
+      transform: rotate(0deg);
+   }
+
+   100% {
+      transform: rotate(360deg);
+   }
+}
+
+.waddle-anim img {
+   image-rendering: pixelated;
+   scale: .85;
+}
+
+.pengu-anim img {
+   scale: 1;
+   opacity: .8;
+}
+
+.pengu-anim:hover img {
+   /* slowly move up and down */
+   animation: pengu 5s infinite;
+}
+
+@keyframes pengu {
+   0% {
+      transform: translateY(0);
+   }
+   50% {
+      transform: translateY(-4px);
+   }
+   100% {
+      transform: translateY(4px);
+   }
+}
+
+.waddle-anim:not(:hover) #waddle-play, .waddle-anim:hover #waddle-static {
+   display: none;
+   visibility: hidden;
+}
+.waddle-anim:not(:hover) #waddle-static, .waddle-anim:hover #waddle-play {
+   display: visible;
+   visibility: visible;
+}
+
+details.peeker {
+   cursor: pointer;
+   display: inline-block;
+   position: relative;
+   height: 100%;
+   transition: all .5s;
+   padding: 24pt;
+   padding-top: 0pt;
+   width: calc(100% - 24pt);
+}
+
+details.peeker summary {
+   padding-bottom: 12pt;
+   margin-left: -12pt;
+   opacity: .5;
+}
+
+
+details.peeker a, .main a {
+   font-weight: normal;
+   color: var(--text);
+   opacity: .55;
+   transition: all 1s;
+}
+
+details.peeker a:hover, .main a:hover {
+   color: var(--main-color);
+   opacity: 1;
+}

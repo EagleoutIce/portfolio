@@ -1,0 +1,15 @@
+.site-notice-position a {
+   font-size: .35em;
+   font-weight: normal;
+   opacity: .5;
+   color: var(--soft-text);
+   position: fixed;
+   right: 10px;
+   bottom: 10px;
+   transition: all 1s;
+}
+
+.site-notice-position:hover a {
+   color: var(--text);
+}
+

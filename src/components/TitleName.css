@@ -1,0 +1,84 @@
+.title-name-card {
+  display: flex;
+  align-items: center;
+  padding: 42px;
+}
+
+.profile-image {
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 42px;
+  transition: width .9s, height .9s, border-radius 0.2s, scale .1s ease-in-out;
+}
+
+.profile-image:hover {
+  border-radius: 12pt;
+}
+
+.profile-image:active {
+  animation: click-anim .25s;
+}
+
+@keyframes click-anim {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(.942);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.profile-name {
+  font-size: 1.5em;
+  font-weight: bold;
+  transition: font-size .8s, display 1s, font-weight .8s;
+}
+
+.profile-subtitle {
+  font-size: .9em;
+  font-weight: bold;
+  color: var(--soft-text);
+  transition: opacity .65s, display 1s;
+  white-space: nowrap;
+}
+
+.profile-sm {
+  display: block;
+  font-size: .75em;
+  width: 100%;
+  text-align: left;
+  padding-top: 24px;
+  padding-bottom: 12px;
+  transition: opacity .65s, display 1s;
+}
+
+/* header small update - hacky love */
+.header.sticky .title-name-card {
+  padding: 3px;
+}
+
+.header.sticky .profile-name {
+  font-size: .85em;
+  font-weight: 400;
+}
+
+.header.sticky .profile-image {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 18px;
+}
+
+.header.sticky .profile-subtitle {
+  opacity: 0;
+  display: none;
+}
+
+.header.sticky .profile-sm {
+  font-size: .4em;
+  padding-top: 0px;
+}

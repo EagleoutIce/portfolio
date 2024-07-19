@@ -1,0 +1,42 @@
+.header {
+   position: fixed;
+   left: 0;
+   top: 0;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: var(--background);
+   transition: background-color 1s;
+   z-index: 1000;
+}
+
+.header.sticky {
+   background-color: var(--background-header);
+}
+
+
+.header+.content {
+   padding-top: 13em;
+   transition: padding-top .5s;
+}
+
+.header.sticky+.content {
+   padding-top: 13em;
+}
+
+@media (max-width: 1200px) {
+   .header.sticky+.content {
+      padding-top: 3em;
+   }
+}
+
+.header-glue {
+   width: 0%;
+   height: 1px;
+   transition: all .7s ease-in-out;
+}
+
+.header.sticky .header-glue {
+   width: 55%;
+}

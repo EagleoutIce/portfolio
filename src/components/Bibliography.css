@@ -1,0 +1,27 @@
+.bibliography {
+   font-size: .85em;
+   hyphens: auto;
+}
+
+.bib-entry {
+   display: flex;
+   justify-content: space-between;   
+   margin-bottom: 1em;
+}
+
+.csl-entry {
+   display: inline-block;
+   text-align: left;
+   width: 100%;
+}
+
+.bib-entry > .bib-index {
+   display: inline-block;
+   padding-right: 12px;
+   min-width: 2.5em;
+   text-align: right;
+}
+
+.bib-entry .bib-number {
+   color: var(--main-color);
+}

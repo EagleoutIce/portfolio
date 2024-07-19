@@ -1,0 +1,15 @@
+.sm-icon {
+   background: none;
+   opacity: 0.35;
+   transition: opacity 0.5s ease-in-out;
+   margin-right: 10px;
+}
+
+.sm-icon.small {
+   font-size: .8rem;
+   vertical-align: super;
+}
+
+.sm-icon:hover {
+   opacity: 1;
+}

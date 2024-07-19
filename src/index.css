@@ -1,0 +1,75 @@
+body.dark-theme {
+  --main-color: rgba(255, 166, 0, 1);
+  --main-color-transparent: rgba(255, 166, 0, 0.3);
+  --text: #fdfdfd;
+  --soft-text: #b0b0b0;
+  --soft-glow: rgba(245, 225, 205, 0.1);
+  --background: #202227;
+  --background-header: #111010;
+  --background-crumbs:  rgba(245, 225, 205, 0.05);
+  transition: color 1s, background-color 1s;
+}
+
+body.light-theme {
+  --main-color: rgba(255, 166, 0, 1);
+  --main-color-transparent: rgba(255, 166, 0, 0.3);
+  --text: #202227;
+  --soft-text: #b0b0b0;
+  --soft-glow: rgba(20, 15, 10, 0.1);
+  --background: #fdfdfd;
+  --background-header: #fdfdfd;
+  --background-crumbs:  rgba(20, 15, 10, 0.05);
+  transition: color 1s, background-color 1s;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: var(--text);
+}
+
+a {
+  text-decoration: none;
+  color: var(--text);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+::selection, ::-moz-selection, ::-webkit-selection {
+  background-color: var(--text);
+  color: var(--background);
+}
+
+button {
+  display: inline-block;
+  padding: 8px 20px;
+  appearance: none;
+  border: none;
+  border-radius: 8pt;
+  background-color: var(--main-color);
+  color: var(--background);
+  font-weight: bold;
+  transition: background-color 1s, color 1s, scale .1s;
+}
+
+button:hover {
+  scale: 1.1;
+}
+
+button:active {
+  scale: .9;
+}

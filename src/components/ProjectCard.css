@@ -1,0 +1,62 @@
+.project-card {
+   padding: 24px;
+   margin-bottom: 24px;
+   margin-right: 24px;
+   border-radius: 12px;
+   background-color: var(--background);
+   box-shadow: 0 0 8px 0 var(--soft-glow);
+   transition: background-color 1s, box-shadow 1s, opacity .5s;
+   opacity: .75;
+   cursor: pointer;
+}
+
+.project-card:hover {
+   box-shadow: 0 0 20px 0 var(--soft-glow);
+   opacity: 1;
+}
+
+.project-card img {
+   height: 5.5em;
+   max-width: fit-content;
+   margin-right: 24px;
+   user-select: none;
+   touch-action: none;
+   float: left;
+   filter: drop-shadow(2px 2px 3px var(--soft-glow));
+}
+
+.project-card-title {
+   font-size: 1.2em;
+   font-weight: bold;
+   color: var(--text);
+   transition: color 1s;
+   padding-bottom: 6pt;
+}
+
+.project-card-description {
+   font-size: .8em;
+   font-weight: normal;
+   color: var(--soft-text);
+   transition: color 1s;
+}
+
+.breadcrumb {
+   background-color: var(--background-crumbs);
+   padding: 2px 1vmin;
+   border-radius: .85rem;
+   color: var(--soft-text);
+   fill-opacity: .2;
+}
+
+.breadcrumb-raw, .breadcrumb {
+   display: inline-block;
+   font-size: .5em;
+   font-weight: normal;
+   margin-right: 6px;
+   margin-left: -2px;
+   transition: color 1s;
+}
+
+.project-card-breadcrumbs {
+   padding-top: 6pt;
+}

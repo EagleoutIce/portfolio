@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage[glows]{tikzpingus}
+\usepackage[active, tightpage]{preview}
+\PreviewBorder0pt
+\def\s{1.6cm}
+
+\begin{document}
+\preview
+\tikz{
+   \pingu[eyes shiny, wings grab,tie=pingu@purple,body type=legacy,glow=white]
+   \pgfonlayer{very-background}
+   \fill[white,rounded corners=35pt] ([xshift=-\s,yshift=-\s-1mm]pingu-bill-bottom) rectangle ([xshift=\s,yshift=\s]pingu-bill-bottom);
+   \endpgfonlayer
+}
+\endpreview
+\end{document}
+
