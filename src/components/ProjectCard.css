@@ -18,7 +18,8 @@
 
 .project-card img {
    height: 5.5em;
-   max-width: max-content;
+   width: 5.5em;
+   object-fit: cover;
    margin-right: 24px;
    user-select: none;
    touch-action: none;
