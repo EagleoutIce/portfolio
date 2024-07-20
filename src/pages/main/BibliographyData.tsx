@@ -52,11 +52,11 @@ export const BibDataMain = `
    type = {<b>Best Paper Award</b>}
 }
 
-@article{sihler2023constructing,
+@misc{sihler2023constructing,
    title={Constructing a static program slicer for R programs},
    author={Sihler, Florian},
    year={2023},
-   publisher={Universit{\"a}t Ulm},
+   publisher={Ulm University},
    type={Master's Thesis, <b>Award for Best Master's Degree</b>}
  }
  
@@ -79,11 +79,11 @@ export const BibDataMain = `
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 
-@article{sihler2023one,
+@misc{sihler2023one,
    title={One-way Model Transformation: On structural and semantical one-way transformations for constraint-based models, exemplified in the context of roadmapping},
    author={Sihler, Florian},
    year={2023},
-   publisher={Universit{\"a}t Ulm},
+   publisher={Ulm University},
    type={Bachelor's Thesis}
  }
  
