@@ -18,7 +18,7 @@ export function MyTeaching() {
     </div>
    </div>
    <div className='no-outer main'>
-    For more slides, check out my <a target="_blank" rel="noreferrer" href="https://github.com/EagleoutIce" >GitHub Page</a>.
+    For more, check out my <a target="_blank" rel="noreferrer" href="https://github.com/EagleoutIce" >GitHub Page</a>.
   </div>
       
    <h3 id="documents">Documents</h3>
@@ -26,7 +26,7 @@ export function MyTeaching() {
     {getDocuments()}
    </div>
    <div className='no-outer main'>
-      For more documents, check out my <a target="_blank" rel="noreferrer" href="https://github.com/EagleoutIce" >GitHub Page</a>.
+      For more, check out my <a target="_blank" rel="noreferrer" href="https://github.com/EagleoutIce" >GitHub Page</a>.
     </div>
  </>;
 }
