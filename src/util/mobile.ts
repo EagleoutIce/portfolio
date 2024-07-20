@@ -1,5 +1,3 @@
 export function onMobileDevice() {
-      if (window.innerWidth <= 1200) {
-        return true;
-      }
+   return window.innerWidth <= 1200 ||/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 }

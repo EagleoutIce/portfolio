@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body.dark-theme {
   --main-color: rgba(255, 166, 0, 1);
   --main-color-transparent: rgba(255, 166, 0, 0.3);

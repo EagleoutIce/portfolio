@@ -21,6 +21,10 @@ async function ifPropertyHoldsForTime(property: () => boolean, ms: number, then:
 export function Header({ children }: HeaderProps) {
    const headerRef = useRef<HTMLDivElement>(null);
    let mobile = onMobileDevice();
+   setTimeout(() => {
+      onResize();
+      checkOnScroll();
+   }, 50);
    let stickyTop = 0;
    
    useEffect(() => {
@@ -39,9 +43,7 @@ export function Header({ children }: HeaderProps) {
    const checkOnScroll = () => {
       if(mobile) {
          // assure sticky
-         if(!headerRef.current?.classList.contains('sticky')) {
-            headerRef.current?.classList.add('sticky');
-         }
+         ensureSticky();
          return;
       }
       void ifPropertyHoldsForTime(() => window.scrollY - stickyTop > 5, 100, () => {
@@ -65,5 +67,11 @@ export function Header({ children }: HeaderProps) {
       {children}
       <div className="header-glue" />
    </header>;
+
+   function ensureSticky() {
+      if(!headerRef.current?.classList.contains('sticky')) {
+         headerRef.current?.classList.add('sticky');
+      }
+   }
 }
    

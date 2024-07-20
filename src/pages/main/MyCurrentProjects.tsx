@@ -59,10 +59,10 @@ export function MyPenguinCurrentProjects() {
       <ProjectCard
          title=<>Waddle <SocialMediaIcon className="small" icon={faPlay} key="waddle-play" /></>
          description="A learning game for children, introducing programming concepts (German)."
-         image={<>
+         image={<div>
             <img id='waddle-static' src={waddle0} alt={"A cute penguin"} />
             <img id='waddle-play' src={animation} alt={"A cute penguin"} />
-         </>}
+         </div>}
          extraClasses="waddle-anim"
          link={"https://sp2.informatik.uni-ulm.de/waddle"}
          crumbs={["TypeScript", "game", "program comprehension"]}

@@ -10,7 +10,7 @@
   border-radius: 50%;
   object-fit: cover;
   margin-right: 42px;
-  transition: width .9s, height .9s, border-radius 0.2s, scale .1s ease-in-out;
+  transition: width .35s, height .35s, border-radius 0.2s, scale .1s ease-in-out;
 }
 
 .profile-image:hover {
@@ -36,14 +36,14 @@
 .profile-name {
   font-size: 1.5em;
   font-weight: bold;
-  transition: font-size .8s, display 1s, font-weight .8s;
+  transition: font-size .35s, display 1s, font-weight .35s;
 }
 
 .profile-subtitle {
   font-size: .9em;
   font-weight: bold;
   color: var(--soft-text);
-  transition: opacity .65s, display 1s;
+  transition: opacity .35s, display 1s;
   white-space: nowrap;
 }
 
@@ -54,7 +54,7 @@
   text-align: left;
   padding-top: 24px;
   padding-bottom: 12px;
-  transition: opacity .65s, display 1s;
+  transition: opacity .35s, display 1s;
 }
 
 /* header small update - hacky love */

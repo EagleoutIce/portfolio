@@ -1,5 +1,4 @@
 .header {
-   position: fixed;
    left: 0;
    top: 0;
    width: 100%;
@@ -12,17 +11,17 @@
 }
 
 .header.sticky {
+   position: fixed;
    background-color: var(--background-header);
 }
 
 
 .header+.content {
-   padding-top: 13em;
-   transition: padding-top .5s;
+   transition: padding-top .1s;
 }
 
 .header.sticky+.content {
-   padding-top: 13em;
+   padding-top: 3em;
 }
 
 @media (max-width: 1200px) {
@@ -34,7 +33,7 @@
 .header-glue {
    width: 0%;
    height: 1px;
-   transition: all .7s ease-in-out;
+   transition: all .4s ease-in-out;
 }
 
 .header.sticky .header-glue {
