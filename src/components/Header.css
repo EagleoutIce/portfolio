@@ -24,12 +24,6 @@
    padding-top: 3em;
 }
 
-@media (max-width: 1200px) {
-   .header.sticky+.content {
-      padding-top: 3em;
-   }
-}
-
 .header-glue {
    width: 0%;
    height: 1px;

@@ -9,7 +9,7 @@ body.dark-theme {
   --soft-text: #b0b0b0;
   --soft-glow: rgba(245, 225, 205, 0.1);
   --background: #202227;
-  --background-header: #111010;
+  --background-header: #202227;
   --background-crumbs:  rgba(245, 225, 205, 0.05);
   transition: color 1s, background-color 1s;
 }
@@ -76,4 +76,9 @@ button:hover {
 
 button:active {
   scale: .9;
+}
+
+.no-outer {
+  margin: 0 !important;
+  padding: 0 !important;
 }

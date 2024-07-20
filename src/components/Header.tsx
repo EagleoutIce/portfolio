@@ -46,7 +46,7 @@ export function Header({ children }: HeaderProps) {
          ensureSticky();
          return;
       }
-      void ifPropertyHoldsForTime(() => window.scrollY - stickyTop > 5, 100, () => {
+      void ifPropertyHoldsForTime(() => window.scrollY - stickyTop > 0, 100, () => {
          headerRef.current?.classList.add('sticky');
       }, () => {
          headerRef.current?.classList.remove('sticky');
