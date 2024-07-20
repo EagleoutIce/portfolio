@@ -1,0 +1,12 @@
+.penguin-404 {
+   filter: drop-shadow(2px 2px 5px var(--soft-glow));
+   width: 40%;
+   margin: 0 auto;
+   display: block;
+   transition: all 1s;
+}
+
+.penguin-404:hover, .penguin-404:focus {
+   filter: drop-shadow(2px 2px 40px var(--soft-glow));
+   animation: pulsate 6s infinite;
+}

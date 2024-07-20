@@ -5,12 +5,14 @@ import MainPage from './pages/main/MainPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SiteNoticePage } from './pages/SiteNoticePage';
 import { ThemeButton } from './components/ThemeButton';
+import { NotFound } from './pages/NotFound';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route path="portfolio" element={<MainPage />} />
           {/* TODO: penguin not found etc */}
         <Route path="portfolio/site-notice" element={<SiteNoticePage
