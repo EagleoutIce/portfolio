@@ -21,7 +21,6 @@
    margin-right: 24px;
    user-select: none;
    touch-action: none;
-   overflow: visible;
    float: left;
    filter: drop-shadow(2px 2px 3px var(--soft-glow));
 }
