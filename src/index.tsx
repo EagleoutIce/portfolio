@@ -15,9 +15,10 @@ root.render(
           {/* TODO: penguin not found etc */}
         <Route path="portfolio/site-notice" element={<SiteNoticePage
             legalName="Florian Sihler"
+            legalEmail="florian.sihler@uni-ulm.de"
             legalAddress={
               <div>
-                University Ulm <br />
+                University of Ulm <br />
                 Institute of Software Engineering and Programming Languages<br />
                 James-Franck-Ring<br />
                 Gebäudekreuz O27, Niveau 4<br />

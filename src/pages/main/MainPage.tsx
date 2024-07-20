@@ -27,6 +27,12 @@ function MainPage() {
       <h2 id="talks">Talks</h2>
       <Bibliography biblatexContent={BibDataTalks} />
       
+      <h2 id="talks">Teaching</h2>
+      As part of my work at Ulm University, I am involved in teaching activities:
+      TODO
+      
+      <h3 id="slides">Slides</h3>
+      
     </Content>
     <SiteNotice />
   </>

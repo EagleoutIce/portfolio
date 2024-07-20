@@ -3,16 +3,20 @@ import { Content } from "../components/Content";
 
 interface SiteNoticePageProps {
    readonly legalName: string,
+   readonly legalEmail?: string,
    readonly legalAddress: JSX.Element;
 }
 
-export function SiteNoticePage({ legalName, legalAddress }: SiteNoticePageProps) {
+export function SiteNoticePage({ legalName, legalEmail, legalAddress }: SiteNoticePageProps) {
    const navigate = useNavigate();
 
    return <Content>
       <h1>Site Notice</h1>
       <i>{legalName}</i>
-      <br />{legalAddress}<br />
+      {legalEmail && <><br />
+         <a href={`mailto:${legalEmail}`}>{legalEmail}</a>
+      </>}
+      <br /><br />{legalAddress}<br />
       <button
          onClick={e => {
             e.preventDefault();

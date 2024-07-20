@@ -18,11 +18,11 @@ body.light-theme {
   --main-color: rgba(255, 166, 0, 1);
   --main-color-transparent: rgba(255, 166, 0, 0.3);
   --text: #202227;
-  --soft-text: #b0b0b0;
+  --soft-text: #a0a0a0;
   --soft-glow: rgba(20, 15, 10, 0.1);
   --background: #fdfdfd;
   --background-header: #fdfdfd;
-  --background-crumbs:  rgba(20, 15, 10, 0.05);
+  --background-crumbs:  rgba(20, 15, 10, 0.045);
   transition: color 1s, background-color 1s;
 }
 
