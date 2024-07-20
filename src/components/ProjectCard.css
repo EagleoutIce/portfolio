@@ -55,6 +55,8 @@
    margin-right: 6px;
    margin-left: -2px;
    transition: color 1s;
+   user-select: none;
+   touch-action: none;
 }
 
 .project-card-breadcrumbs {

@@ -13,6 +13,9 @@ function updateTheme(theme: string) {
    }
    body.classList.add(theme);
    sessionStorage.setItem('theme', theme);
+   setTimeout(() => {
+      window.getSelection()?.removeAllRanges();
+   }, 50)
 }
 
 /* https://codepen.io/alvarotrigo/pen/PoOXJpM */
