@@ -11,10 +11,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/">
-          <Route index element={<MainPage />} />
+        <Route path="portfolio" element={<MainPage />} />
           {/* TODO: penguin not found etc */}
-          <Route path="site-notice" element={<SiteNoticePage
+        <Route path="portfolio/site-notice" element={<SiteNoticePage
             legalName="Florian Sihler"
             legalAddress={
               <div>
@@ -26,7 +25,6 @@ root.render(
               </div>
             }
           />} />
-        </Route>
       </Routes>
     </BrowserRouter>
     <ThemeButton />

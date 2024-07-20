@@ -16,7 +16,7 @@ export function SiteNoticePage({ legalName, legalAddress }: SiteNoticePageProps)
       <button
          onClick={e => {
             e.preventDefault();
-            navigate('/');
+            navigate(-1);
          }}>Back</button>
    </Content>;
-}
+}  
