@@ -10,7 +10,7 @@
 
 .slides-list, .documents-list {
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   flex-wrap: wrap;
   flex-direction: row;
   width: 100%;
@@ -60,4 +60,5 @@
   color: var(--soft-text);
   transition: color 1s;
   margin-bottom: 5px;
+  white-space: nowrap;
 }

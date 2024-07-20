@@ -12,8 +12,8 @@ interface SocialMediaIconProps {
 }
 
 export function SocialMediaIcon({ icon, href, id, className }: SocialMediaIconProps) {
-    return href ? <a href={href} target="_blank" rel="noreferrer" className={`sm-icon ${className}`} id={id}>
+    return href ? <a href={href} target="_blank" rel="noreferrer" className={`small-media-icon ${className ?? ''}`} id={id}>
          <FontAwesomeIcon icon={icon} />  
-      </a> : <FontAwesomeIcon icon={icon} className={`sm-icon ${className}`} id={id} />;
+      </a> : <FontAwesomeIcon icon={icon} className={`small-media-icon ${className ?? ''}`} id={id} />;
 }
        

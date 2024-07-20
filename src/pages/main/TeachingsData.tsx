@@ -88,11 +88,11 @@ const documents: Ressource[] = [
       coverSource: 'https://oparu.uni-ulm.de/server/api/core/bitstreams/c168c7df-0e02-479c-b18c-e016284a98a0/content'
    },
    {
-      title: 'Limitations of Science (ASQ, 2021)',
+      title: 'Limitations of Science (2021)',
       href: 'https://media.githubusercontent.com/media/EagleoutIce/asq-limitations-of-science/gh-pages/asq-20th-ausarbeitung.pdf',
       coverSource: 'https://github.com/EagleoutIce/asq-limitations-of-science/raw/gh-pages/preview-1.png?raw=true'
    }, {
-      title: 'TikZ image collection (2022)',
+      title: 'TikZ Image Collection (2022)',
       href: 'https://github.com/EagleoutIce/latex-image-collection',
       coverSource: 'https://github.com/EagleoutIce/image-collection/raw/gh-pages/preview-01.png?raw=true'
    }

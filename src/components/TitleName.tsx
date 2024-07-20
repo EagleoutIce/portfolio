@@ -26,8 +26,8 @@ export default function TitleName({ name, subtitle, imageSrc, mediaLinks }: Titl
             Object.entries(mediaLinks).map(([key, {icon, href}]) => {
                const idKey = key.replace(/\s/g, '-').toLowerCase();
                return <div key={idKey} style={{display: 'inline'}}>
-                  <SocialMediaIcon href={href} icon={icon} key={idKey} id={`sm-icon-${idKey}`} />
-                  <Tooltip anchorSelect={`#sm-icon-${idKey}`} content={key} key={`tt-${idKey}`} place="bottom" noArrow style={{ padding: '2px 6px'}}/>
+                  <SocialMediaIcon href={href} icon={icon} key={idKey} id={`small-media-icon-${idKey}`} />
+                  <Tooltip anchorSelect={`#small-media-icon-${idKey}`} content={key} key={`tt-${idKey}`} place="bottom" noArrow style={{ padding: '2px 6px'}}/>
                </div>;
             })
          }</span>

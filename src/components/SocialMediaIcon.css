@@ -1,15 +1,23 @@
-.sm-icon {
+
+.small-media-icon {
    background: none;
    opacity: 0.35;
-   transition: opacity 0.5s ease-in-out;
-   margin-right: 10px;
+   font-size: 1.1em;
+   transition: all 0.5s ease-in-out;
+   padding-right: 15px;
 }
 
-.sm-icon.small {
+.header.sticky .small-media-icon {
+   font-size: 1em;
+   padding-right: 10px;
+}
+
+.small-media-icon.small {
    font-size: .8rem;
    vertical-align: super;
 }
 
-.sm-icon:hover {
+.small-media-icon:hover,
+.small-media-icon:focus {
    opacity: 1;
 }
