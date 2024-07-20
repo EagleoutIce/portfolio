@@ -46,9 +46,10 @@ export const BibDataMain = `
    year = "2023",
    address = "Singapore",
    publisher = "Association for Computational Linguistics",
-   url = "https://aclanthology.org/2023.genbench-1.2",
+   url = "https://acGenBenchlanthology.org/2023.genbench-1.2",
    doi = "10.18653/v1/2023.genbench-1.2",
-   pages = "12--24"
+   pages = "12--24",
+   type = {<b>Best Paper Award</b>}
 }
 
 @article{sihler2023constructing,
