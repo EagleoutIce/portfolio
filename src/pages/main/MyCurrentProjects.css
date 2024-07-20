@@ -98,18 +98,21 @@ body.dark-theme .fwhite img {
 
 .pengu-anim:hover img, .pengu-anim:focus img {
    /* slowly move up and down */
-   animation: pengu 5s infinite;
+   animation: pengu 6s infinite ease-in-out;
 }
 
 @keyframes pengu {
    0% {
-      transform: translateY(0);
+      transform: translateY(-0px);
    }
-   50% {
+   25% {
       transform: translateY(-4px);
    }
-   100% {
+   75% {
       transform: translateY(4px);
+   }
+   100% {
+      transform: translateY(0px);
    }
 }
 
