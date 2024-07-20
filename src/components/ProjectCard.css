@@ -8,6 +8,7 @@
    transition: background-color 1s, box-shadow 1s, opacity .5s;
    opacity: .75;
    cursor: pointer;
+   display: flex;
 }
 
 .project-card:hover, .project-card:focus {
@@ -21,7 +22,7 @@
    margin-right: 24px;
    user-select: none;
    touch-action: none;
-   float: left;
+   display: inline-block;
    filter: drop-shadow(2px 2px 3px var(--soft-glow));
 }
 

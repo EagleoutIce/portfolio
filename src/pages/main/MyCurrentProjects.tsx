@@ -58,7 +58,7 @@ export function MyPenguinCurrentProjects() {
    return <div className="projects">
       <ProjectCard
          title=<>Waddle <SocialMediaIcon className="small" icon={faPlay} key="waddle-play" /></>
-         description="A learning game for children, introducing programming concepts (German)."
+         description="Learning game for children, introducing programming concepts."
          image={<div>
             <img id='waddle-static' src={waddle0} alt={"A cute penguin"} />
             <img id='waddle-play' src={animation} alt={"A cute penguin"} />

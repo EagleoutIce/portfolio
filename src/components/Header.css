@@ -27,7 +27,7 @@
 .header-glue {
    width: 0%;
    height: 1px;
-   transition: all .4s ease-in-out;
+   transition: all .65s ease-in-out;
 }
 
 .header.sticky .header-glue {

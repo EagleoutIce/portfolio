@@ -12,6 +12,7 @@ interface ProjectCard {
 export function ProjectCard({ title, description, image, link, extraClasses, crumbs }: ProjectCard) {
    return <a className={`project-card ${extraClasses}`} href={link} rel="noreferrer" target="_blank">
          <div>{ typeof image === 'string' ? <img src={image} alt={description} /> : image }</div>
+         <div className="project-card-details">
          <div className="project-card-title">
             {title}
          </div>
@@ -24,6 +25,7 @@ export function ProjectCard({ title, description, image, link, extraClasses, cru
                <div className="breadcrumb" key={`crumb-${crumb}`}>{crumb}</div> :
                <div className="breadcrumb-raw" key={`crumb-${crumb.key}`}>{crumb}</div>
             )}
+         </div>
          </div>
    </a>;
 }
