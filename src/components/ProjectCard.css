@@ -10,7 +10,7 @@
    cursor: pointer;
 }
 
-.project-card:hover {
+.project-card:hover, .project-card:focus {
    box-shadow: 0 0 20px 0 var(--soft-glow);
    opacity: 1;
 }

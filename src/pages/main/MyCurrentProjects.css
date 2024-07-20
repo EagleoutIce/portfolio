@@ -21,11 +21,11 @@
 }
 
 
-.project-card-rotating-img:hover img {
+.project-card-rotating-img:hover img, .project-card-rotating-img:focus img {
    animation: rotate 50s infinite linear;
 }
 
-.project-card-pulsating-img:hover img {
+.project-card-pulsating-img:hover img, .project-card-pulsating-img:focus img {
    transform-origin: center center;
    animation: pulsate 6s infinite;
 }
@@ -52,7 +52,7 @@ body.dark-theme .fwhite img {
    }
 }
 
-.project-card-dangle-3d-img:hover img {
+.project-card-dangle-3d-img:hover img, .project-card-dangle-3d-img:focus img {
    transform-origin: center center;
    animation: dangle 6s infinite;
 }
@@ -96,7 +96,7 @@ body.dark-theme .fwhite img {
    opacity: .8;
 }
 
-.pengu-anim:hover img {
+.pengu-anim:hover img, .pengu-anim:focus img {
    /* slowly move up and down */
    animation: pengu 5s infinite;
 }
@@ -113,11 +113,11 @@ body.dark-theme .fwhite img {
    }
 }
 
-.waddle-anim:not(:hover) #waddle-play, .waddle-anim:hover #waddle-static {
+.waddle-anim:not(:hover):not(:focus) #waddle-play, .waddle-anim:hover #waddle-static, .waddle-anim:focus #waddle-static {
    display: none;
    visibility: hidden;
 }
-.waddle-anim:not(:hover) #waddle-static, .waddle-anim:hover #waddle-play {
+.waddle-anim:not(:hover):not(:focus) #waddle-static, .waddle-anim:hover #waddle-play, .waddle-anim:focus #waddle-static {
    display: visible;
    visibility: visible;
 }
@@ -147,7 +147,7 @@ details.peeker a, .main a {
    transition: all 1s;
 }
 
-details.peeker a:hover, .main a:hover {
+details.peeker a:hover, .main a:hover, details.peeker a:focus, .main a:focus {
    color: var(--main-color);
    opacity: 1;
 }
