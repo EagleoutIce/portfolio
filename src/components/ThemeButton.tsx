@@ -21,7 +21,7 @@ function updateTheme(theme: string) {
 export function getDefaultTheme() {
    // use local date time to determine the theme
    const hours = new Date().getHours();
-   return hours < 6 || hours > 18 ? 'dark-theme' : 'light-theme';
+   return hours < 6 || hours > 22 ? 'dark-theme' : 'light-theme';
 }
 
 /* https://codepen.io/alvarotrigo/pen/PoOXJpM */
