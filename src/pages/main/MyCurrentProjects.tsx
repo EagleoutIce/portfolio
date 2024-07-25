@@ -8,7 +8,7 @@ import waddle0 from '../../resources/idle-0.png';
 import animation from '../../resources/animation.gif';
 import pengu0 from '../../resources/minimal-0.png';
 import fancyqr from '../../resources/fqr.png';
-import montage from '../../resources/montage.svg';
+import montage from '../../resources/montage.png';
 import texchr from '../../resources/texchr.svg';
 import listings from '../../resources/listings.svg';
 
