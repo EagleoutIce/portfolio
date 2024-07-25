@@ -75,7 +75,7 @@ export function getSlides() {
    return slides.map(({ title, href, coverSource }) => {
       return <div className="slide-container" key={title}><a href={href} target="_blank" rel="noreferrer">
          <div className="slide-caption">{title}</div>
-         <img src={coverSource} alt={title} className="slide-cover"/>
+         <img src={coverSource} alt={title} className="slide-cover" loading="lazy"/>
       </a></div>;
    })
 };
@@ -102,7 +102,7 @@ export function getDocuments() {
    return documents.map(({ title, href, coverSource }) => {
       return <div className="document-container" key={title}><a href={href} target="_blank" rel="noreferrer">
          <div className="document-caption">{title}</div>
-         <img src={coverSource} alt={title} className="document-cover"/>
+         <img src={coverSource} alt={title} className="document-cover" loading="lazy"/>
       </a></div>;
    })
 };
