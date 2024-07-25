@@ -57,7 +57,8 @@ export const BibDataMain = `
    author={Sihler, Florian},
    year={2023},
    publisher={Ulm University},
-   type={Master's Thesis, <b>Award for Best Master's Degree</b>}
+   type={Master's Thesis, <b>Award for Best Master's Degree</b>},
+   doi={10.18725/OPARU-50107}
  }
  
 
@@ -84,7 +85,8 @@ export const BibDataMain = `
    author={Sihler, Florian},
    year={2023},
    publisher={Ulm University},
-   type={Bachelor's Thesis}
+   type={Bachelor's Thesis},
+   doi={10.18725/OPARU-47275}
  }
  
 
