@@ -14,7 +14,7 @@ function st(term: number) {
 const teaching = new Map<string, Teaching>();
 
 teaching.set('Functional Programming', {
-   terms: [wt(2022, 23), wt(2023, 24)],
+   terms: [wt(2022, 23), wt(2023, 24), wt(2024, 25)],
    link: 'https://www.uni-ulm.de/in/sp/teaching/functional-programming/'
 });
 teaching.set('Functional Programming 2', {
@@ -28,6 +28,10 @@ teaching.set('Grundlagen der praktischen Informatik', {
 teaching.set('Objektorientierte Programmierung', {
    terms: [st(2024)],
    link: 'https://www.uni-ulm.de/in/sp/teaching/objektorientierte-programmierung/'
+});
+teaching.set('Softwarequalitätssicherung', {
+   terms: [wt(2024, 25)],
+   link: 'https://www.uni-ulm.de/in/sp/teaching/software-quality-assurance/'
 });
 
 export function getTeachings() {
