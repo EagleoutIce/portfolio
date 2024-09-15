@@ -1,0 +1,9 @@
+.seminars-list {
+  font-size: smaller;
+  margin-top: 5px;
+}
+
+.seminars-list > li {
+  list-style-type: disc;
+  margin-bottom: 5px;
+}
