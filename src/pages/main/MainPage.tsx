@@ -6,6 +6,7 @@ import { Bibliography } from '../../components/Bibliography';
 import { BibDataMain, BibDataTalks } from './BibliographyData';
 import { MyIntro } from './MyIntro';
 import { MyTeaching } from './MyTeaching';
+import { MySeminars } from './MySeminars';
 
 function MainPage() {
   return (<>
@@ -29,7 +30,9 @@ function MainPage() {
       <Bibliography biblatexContent={BibDataTalks} />
 
       <h2 id="talks">Teaching</h2>
-      <MyTeaching />      
+      <MyTeaching />
+      <h2 id="schools-seminars">Summer Schools and Seminars</h2>
+      <MySeminars />
     </Content>
     <SiteNotice />
   </>
