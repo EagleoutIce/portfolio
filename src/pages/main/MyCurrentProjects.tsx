@@ -64,7 +64,7 @@ export function MyPenguinCurrentProjects() {
             <img id='waddle-play' src={animation} alt={"A cute penguin"} />
          </div>}
          extraClasses="waddle-anim"
-         link={"https://sp2.informatik.uni-ulm.de/waddle"}
+         link={"https://exia.informatik.uni-ulm.de/waddle"}
          crumbs={["TypeScript", "game", "program comprehension"]}
       />
       <ProjectCard
