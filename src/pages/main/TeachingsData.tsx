@@ -14,7 +14,7 @@ function st(term: number) {
 const teaching = new Map<string, Teaching>();
 
 teaching.set('Functional Programming', {
-   terms: [wt(2022, 23), wt(2023, 24), wt(2024, 25)],
+   terms: [wt(2024, 25), wt(2023, 24), wt(2022, 23)],
    link: 'https://www.uni-ulm.de/in/sp/teaching/functional-programming/'
 });
 teaching.set('Functional Programming 2', {
