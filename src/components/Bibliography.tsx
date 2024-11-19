@@ -6,7 +6,7 @@ import '@citation-js/plugin-csl';
 
 
 export interface BibliographyProps {
-   biblatexContent: string;
+   readonly biblatexContent: string;
 }
 
 export function Bibliography({ biblatexContent }: BibliographyProps) {

@@ -1,5 +1,41 @@
 // add new ones at the top
 export const BibDataMain = `
+@inproceedings{10.1145/3691620.3695359,
+author = {Sihler, Florian and Tichy, Matthias},
+title = {flowR: A Static Program Slicer for R},
+year = {2024},
+isbn = {9798400712487},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3691620.3695359},
+doi = {10.1145/3691620.3695359},
+abstract = {Context Many researchers rely on the R programming language to perform their statistical analyses and visualizations in the form of R scripts. However, recent research and experience show, that many of these scripts contain problems. From being hard to comprehend by combining several analyses and plots into a single source file to being non-reproducible, with a lack of analysis tools supporting the writing of correct and maintainable code. Objective In this work, we address the problem of comprehending and maintaining R scripts by proposing flowR, a program slicer and static dataflow analyzer for the R programming language, which can be integrated directly into Visual Studio Code. Given a set of variables of interest, like the generation of a single figure in a script, flowR automatically reduces the program to the parts relevant for the output of interest, like the value of a variable. Method First, we use static program analysis to construct a detailed dataflow graph of the R script. The analysis supports loops, function calls, side effects, sourcing external files, and even redefinitions of R's primitive constructs. Subsequently, we calculate the program slice by solving a reachability problem on the graph, collecting all required parts and presenting them to the user. Results Providing several interactive ways of slicing the program, we require an average of 16 ms to calculate the slice on a given dataflow graph, reducing the code by around 94\% of tokens.The demonstration video is available at https://youtu.be/Zgq6rnbvvhk. For the full source code and extensive documentation, refer to https://github.com/Code-Inspect/flowr. To try the docker image, use docker run -rm -it eagleoutice/flowr.},
+booktitle = {Proceedings of the 39th IEEE/ACM International Conference on Automated Software Engineering (Tool Demonstrations)},
+pages = {2390–2393},
+numpages = {4},
+keywords = {program slicing, static analysis, R programming language},
+location = {Sacramento, CA, USA},
+series = {ASE '24}
+}
+
+@inproceedings{10.1145/3691620.3695603,
+author = {Sihler, Florian},
+title = {Improving the Comprehension of R Programs by Hybrid Dataflow Analysis},
+year = {2024},
+isbn = {9798400712487},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3691620.3695603},
+doi = {10.1145/3691620.3695603},
+abstract = {Context Comprehending code is crucial in all areas of software development, with many existing supporting tools and techniques for various languages. However, for R, a widely used programming language, especially in the field of statistical computing, the support is limited. R offers a large number of packages as well as dynamic features, which make it challenging to analyze and understand. Objective We aim to (i) gain a better understanding of how R is used in the real world, (ii) devise better analysis strategies for R, which are able to handle its dynamic nature, and (iii) improve the comprehension of R scripts by using these analyses, providing new methods and procedures applicable to program comprehension in general. Method In eight contributions, we analyze feature usage in R scripts, develop a new static dataflow analysis intertwining control and dataflow, and more. We enable and propose new techniques for program comprehension using a combination of static and dynamic analysis.},
+booktitle = {Proceedings of the 39th IEEE/ACM International Conference on Automated Software Engineering (Doctoral Symposium)},
+pages = {2490–2493},
+numpages = {4},
+keywords = {program comprehension, hybrid analysis, R, doctoral thesis},
+location = {Sacramento, CA, USA},
+series = {ASE '24}
+}
+  
 @inproceedings{10576984,
    author={Neumüller, Denis and Sihler, Florian and Straub, Raphael and Tichy, Matthias},
    booktitle={2024 4th International Conference on Code Quality (ICCQ)}, 
