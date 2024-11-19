@@ -41,7 +41,7 @@ export function MyCurrentProjects() {
                crumbs={["TypeScript", "extension"]}
             />
             <ProjectCard
-               title=<> Addin for RStudio (WIP) <SocialMediaIcon className="small" icon={faGithub} key="flowr-rs-github" /> </>
+               title=<> Addin for RStudio <SocialMediaIcon className="small" icon={faGithub} key="flowr-rs-github" /> </>
                description="Directly slice and analyze your R code in RStudio."
                image={flowRrs}
                extraClasses="project-card-pulsating-img small-img"
