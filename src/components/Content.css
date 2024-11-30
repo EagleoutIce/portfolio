@@ -9,3 +9,11 @@
    font-size: .7em;
    padding-bottom: 30px;
 }
+
+@media (max-width: 600px) {
+   .content {
+      hyphens: auto;
+      text-align: justify;
+      text-justify: auto;
+   }  
+}
