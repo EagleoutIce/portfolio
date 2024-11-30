@@ -49,6 +49,10 @@ export function MyCurrentProjects() {
                crumbs={["R", "extension"]}
             />
          </div>
+         
+         <div className='no-outer main'>
+         For more, check out the <a target="_blank" rel="noreferrer" href="https://github.com/flowr-analysis">flowR GitHub organization</a>.
+         </div>
       </details>
    </>;
 }
