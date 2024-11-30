@@ -28,11 +28,11 @@ function MainPage() {
       
       <h2 id="talks">Talks</h2>
       <Bibliography biblatexContent={BibDataTalks} />
+      <h2 id="schools-seminars">Summer Schools and Seminars</h2>
+      <MySeminars />
 
       <h2 id="talks">Teaching</h2>
       <MyTeaching />
-      <h2 id="schools-seminars">Summer Schools and Seminars</h2>
-      <MySeminars />
     </Content>
     <SiteNotice />
   </>
