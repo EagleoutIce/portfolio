@@ -25,3 +25,12 @@
 .bib-entry .bib-number {
    color: var(--main-color);
 }
+
+.bib-entry .bib-link {
+   opacity: .8;
+   transition: 400ms;
+}
+
+.bib-entry .bib-link:hover {
+   opacity: 1;
+}

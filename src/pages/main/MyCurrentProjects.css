@@ -10,7 +10,7 @@
 }
 
 .projects > .project-card {
-   width: 40%;
+   width: 42%;
 }
 
 @media (max-width: 1200px) {
@@ -130,7 +130,7 @@ details.peeker {
    display: inline-block;
    position: relative;
    height: 100%;
-   transition: all .5s;
+   transition: color .5s;
    padding: 24pt;
    padding-top: 0pt;
    width: calc(100% - 24pt);
@@ -147,7 +147,7 @@ details.peeker a, .main a {
    font-weight: normal;
    color: var(--text);
    opacity: .55;
-   transition: all 1s;
+   transition: color 1s;
 }
 
 details.peeker a:hover, .main a:hover, details.peeker a:focus, .main a:focus {

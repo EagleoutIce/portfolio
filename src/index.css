@@ -11,7 +11,7 @@ body.dark-theme {
   --background: #202227;
   --background-header: #202227;
   --background-crumbs:  rgba(245, 225, 205, 0.05);
-  transition: color 1s, background-color 1s;
+  transition: color 1s, background-color 1s, scale .1s;
 }
 
 body.light-theme {
@@ -23,7 +23,7 @@ body.light-theme {
   --background: #fdfdfd;
   --background-header: #fdfdfd;
   --background-crumbs:  rgba(20, 15, 10, 0.045);
-  transition: color 1s, background-color 1s;
+  transition: color 1s, background-color 1s, scale .1s;
 }
 
 body {

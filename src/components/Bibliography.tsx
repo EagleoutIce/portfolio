@@ -9,12 +9,23 @@ export interface BibliographyProps {
    readonly biblatexContent: string;
 }
 
+const doiregex = /(doi:[^"]+\.)/gm;
+const urlregex = /(Available at: https?:\/\/([^"]+)\.)/g;
+
+function entryReplace(entry: string): string {
+   return entry.replace('Sihler, F.', '<b>Sihler, F.</b>')
+      .replace(doiregex, '<span class="bib-link">$1</span>')
+      .replace(urlregex, '<br/><span class="bib-link">$1</span>')
+   ;
+}
+
+// https://citation.js.org/api/0.3/tutorial-output_formats.html
 export function Bibliography({ biblatexContent }: BibliographyProps) {
    const bib = useMemo(() => {
       const cite = new Cite(biblatexContent);
       const res = cite.format('bibliography', {
          format: 'html',
-         template: 'apa',
+         template: 'harvard1',
          lang: 'en-US',
          asEntryArray: true,
          nosort: true,
@@ -28,18 +39,21 @@ export function Bibliography({ biblatexContent }: BibliographyProps) {
             }
          },
          append(entry: object) {
+            let suffix = '';
             if('DOI' in entry || 'URL' in entry) {
-               return '</a>';
-            } else {
-               return '';
+               suffix += '</a>';
             }
+            if('note' in entry) {
+               suffix += `&emsp;&emsp;${entry['note']}`;
+            }
+            return suffix;
          }
       });
       return res.map(
          ([_, entry]: string[], index: number) => {
             /* TODO: generalize? */
             return `<div key=${index} class="bib-entry">
-            <div class="bib-index">[<span class="bib-number">${res.length - index}</span>]</div> ${entry.replace('Sihler, F.', '<b>Sihler, F.</b>')}</div>`;
+            <div class="bib-index">[<span class="bib-number">${res.length - index}</span>]</div> ${entryReplace(entry)}</div>`;
          }
       ).join('');
    }, [biblatexContent]);

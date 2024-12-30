@@ -148,12 +148,22 @@ series = {ASE '24}
 
 /* TODO */
 export const BibDataTalks = `
+@misc{sihler2025deRSE,
+   title={Assisting Data Analysis using Program Slicing with flowR},
+   author={Sihler, Florian},
+   year={2025},
+   publisher={deRSE '25},
+   url={https://events.hifis.net/event/1741/contributions/13407/},
+   type={<i>Accepted</i>}
+}
+   
 @misc{sihler2024deRSE,
    title={flowR: A Program Slicer for the R Programming Language},
    author={Sihler, Florian},
    year={2024},
    publisher={deRSE '24},
    url={https://events.hifis.net/event/994/contributions/7978/},
+   note={<a href="https://www.youtube.com/watch?v=PyuHqRYy3e0" class="bib-link">YouTube</a>},
    type={<b>YoungRSE Award</b>}
  }
 
