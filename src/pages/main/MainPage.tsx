@@ -3,7 +3,7 @@ import { SiteNotice } from '../../components/SiteNotice';
 import { MyHeader } from './MyHeader';
 import { MyCurrentProjects, MyCurrentTypographyProjects, MyPenguinCurrentProjects } from './MyCurrentProjects';
 import { Bibliography } from '../../components/Bibliography';
-import { BibDataMain, BibDataTalks } from './BibliographyData';
+import { BibDataMain, BibDataPoster, BibDataTalks } from './BibliographyData';
 import { MyIntro } from './MyIntro';
 import { MyTeaching } from './MyTeaching';
 import { MySeminars } from './MySeminars';
@@ -28,6 +28,9 @@ function MainPage() {
       
       <h2 id="talks">Talks</h2>
       <Bibliography biblatexContent={BibDataTalks} />
+      <h2 id="talks">Posters</h2>
+      <Bibliography biblatexContent={BibDataPoster} />
+      
       <h2 id="schools-seminars">Summer Schools and Seminars</h2>
       <MySeminars />
 

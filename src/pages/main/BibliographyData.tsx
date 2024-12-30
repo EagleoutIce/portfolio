@@ -146,7 +146,6 @@ series = {ASE '24}
 }
 `;
 
-/* TODO */
 export const BibDataTalks = `
 @misc{sihler2025deRSE,
    title={Assisting Data Analysis using Program Slicing with flowR},
@@ -173,5 +172,23 @@ export const BibDataTalks = `
    year={2024},
    publisher={IRSER '24},
    url={https://fg-rse.gi.de/veranstaltung/international-research-software-engineering-research-community-meetup}
+ }
+`;
+
+export const BibDataPoster = `
+@misc{ase-2024-flowr-poster,
+  author = {Sihler, Florian and Tichy, Matthias},
+  title = {Static Dataflow Analysis of R Programs},
+  year = {2024},
+  publisher = {ASE '24},
+  url = {https://conf.researchr.org/details/ase-2024/ase-2024-posters/7/Static-Dataflow-Analysis-of-R-Programs}
+}
+
+ @misc{sihler2023se,
+   title={One-way Model Transformations in the Context of Technology Roadmapping },
+   author={Sihler, Florian},
+   year={2023},
+   publisher={SE '23},
+   url={https://se-2023.gi.de/fileadmin/GI/user_upload/poster_sihler.pdf}
  }
 `;

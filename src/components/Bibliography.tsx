@@ -9,8 +9,8 @@ export interface BibliographyProps {
    readonly biblatexContent: string;
 }
 
-const doiregex = /(doi:[^"]+\.)/gm;
-const urlregex = /(Available at: https?:\/\/([^"]+)\.)/g;
+const doiregex = /([^"]https?:\/\/doi.org[^ "]+)/gm;
+const urlregex = /([^">]https?:\/\/(?!doi\.org)([^"]+)($|\s|.))/gm;
 
 function entryReplace(entry: string): string {
    return entry.replace('Sihler, F.', '<b>Sihler, F.</b>')
@@ -25,7 +25,7 @@ export function Bibliography({ biblatexContent }: BibliographyProps) {
       const cite = new Cite(biblatexContent);
       const res = cite.format('bibliography', {
          format: 'html',
-         template: 'harvard1',
+         template: 'apa',
          lang: 'en-US',
          asEntryArray: true,
          nosort: true,
