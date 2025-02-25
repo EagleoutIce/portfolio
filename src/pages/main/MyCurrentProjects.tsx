@@ -21,7 +21,7 @@ export function MyCurrentProjects() {
       <div className="projects">
          <ProjectCard
             title={<>flowR <SocialMediaIcon className="small" icon={faGithub} key="flowr-github" /></>}
-            description="A dataflow analysis and program slicer framework for R."
+            description="A Dataflow Analyzer for R (Dependency Analysis, Program Slicing, ...)."
             image={flowR}
             link={"https://github.com/flowr-analysis/flowr"}
             extraClasses="project-card-rotating-img"
@@ -34,7 +34,7 @@ export function MyCurrentProjects() {
          <div className="projects">
             <ProjectCard
                title=<> Extension for Visual Studio Code <SocialMediaIcon className="small" icon={faCode} key="flowr-vsc-github" /> </>
-               description="Directly slice and analyze your R code in Visual Studio Code."
+               description="Directly analyze and slice your R code in Visual Studio Code."
                image={flowRvsc}
                extraClasses="project-card-pulsating-img small-img"
                link={"https://marketplace.visualstudio.com/items?itemName=code-inspect.vscode-flowr"}
