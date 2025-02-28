@@ -1,17 +1,30 @@
 // add new ones at the top
 export const BibDataMain = `
-@misc{sihler2025se,
-   title={On the Anatomy of Real-World {R} Code for Static Analysis ({Extended Abstract})},
-   author={Florian Sihler and
+@inproceedings{DBLP:conf/se/SihlerP0TDD25,
+  author       = {Florian Sihler and
                   Lukas Pietzschmann and
                   Raphael Straub and
                   Matthias Tichy and
                   Andor Diera and
-                  Abdelhalim Dahou},
-   year={2025},
-   publisher={SE '25},
-   type={<i>Accepted</i>}
- }
+                  Abdelhalim Hafedh Dahou},
+  editor       = {Anne Koziolek and
+                  Anna{-}Lena Lamprecht and
+                  Thomas Thüm and
+                  Erik Burger},
+  title        = {On the Anatomy of Real-World {R} Code for Static Analysis (Extended Abstract)},
+  booktitle    = {Software Engineering 2025, Fachtagung des GI-Fachbereichs Softwaretechnik,
+                  Karlsruhe, Germany, February 24-28, 2025},
+  series       = {{LNI}},
+  volume       = {{P-360}},
+  pages        = {27},
+  publisher    = {Gesellschaft für Informatik e.V.},
+  year         = {2025},
+  url          = {https://doi.org/10.18420/se2025-27},
+  doi          = {10.18420/SE2025-27},
+  timestamp    = {Fri, 21 Feb 2025 16:22:30 +0100},
+  biburl       = {https://dblp.org/rec/conf/se/SihlerP0TDD25.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
    
 @inproceedings{10.1145/3691620.3695359,
 author = {Sihler, Florian and Tichy, Matthias},
@@ -167,8 +180,7 @@ export const BibDataTalks = `
    author={Sihler, Florian},
    year={2025},
    publisher={deRSE '25},
-   url={https://events.hifis.net/event/1741/contributions/13407/},
-   type={<i>Accepted</i>}
+   url={https://events.hifis.net/event/1741/contributions/13407/}
 }
    
 @misc{sihler2024deRSE,
