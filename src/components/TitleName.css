@@ -1,8 +1,8 @@
 .title-name-card {
   display: flex;
   align-items: center;
-  padding: 42px;
-  transition: background-color 1s ease-in-out, color 1s ease-in-out;
+  transition: background-color .5s ease-in-out, color .5s ease-in-out;
+  min-width: 10em;
 }
 
 .profile-image {
@@ -11,7 +11,7 @@
   border-radius: 50%;
   object-fit: cover;
   margin-right: 33px;
-  transition: width .65s, height .65s, border-radius 0.2s, scale .1s ease-in-out, background-color 1s ease-in-out, color 1s ease-in-out;
+  transition: width .35s, height .35s, border-radius 0.2s, scale .1s ease-in-out, background-color .5s ease-in-out, color .5s ease-in-out;
 }
 
 .profile-image:hover {
@@ -37,14 +37,14 @@
 .profile-name {
   font-size: 1.5em;
   font-weight: bold;
-  transition: font-size .65s, display 1s, font-weight .65s;
+  transition: font-size .35s, display .35s, font-weight .35s;
 }
 
 .profile-subtitle {
   font-size: .9em;
   font-weight: bold;
   color: var(--soft-text);
-  transition: opacity .65s, display 1s;
+  transition: all .3s, opacity .35s, display .35s;
   white-space: nowrap;
 }
 
@@ -55,7 +55,7 @@
   text-align: left;
   padding-top: 24px;
   padding-bottom: 12px;
-  transition: opacity .65s, display 1s;
+  transition: all .3s, opacity .35s, display .35s;
 }
 
 /* header small update - hacky love */

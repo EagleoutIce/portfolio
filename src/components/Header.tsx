@@ -18,6 +18,15 @@ async function ifPropertyHoldsForTime(property: () => boolean, ms: number, then:
    }
 }
 
+export function headerIsSticky(id = 'header'): boolean {
+   const header = document.getElementById(id);
+   if(!header) {
+      return false;
+   }
+   return header.classList.contains('sticky');
+}
+
+
 export function Header({ children }: HeaderProps) {
    const headerRef = useRef<HTMLDivElement>(null);
    let mobile = onMobileDevice();
@@ -37,7 +46,7 @@ export function Header({ children }: HeaderProps) {
    }, []);
    
    useEffect(() => {
-      stickyTop = headerRef.current?.offsetTop ?? 0;
+      stickyTop = (headerRef.current?.offsetTop ?? 0) + 0.33 * (headerRef.current?.clientHeight ?? 0);
    }, [headerRef.current]);
    
    const checkOnScroll = () => {
@@ -46,7 +55,7 @@ export function Header({ children }: HeaderProps) {
          ensureSticky();
          return;
       }
-      void ifPropertyHoldsForTime(() => window.scrollY - stickyTop > 0, 100, () => {
+      void ifPropertyHoldsForTime(() => window.scrollY - stickyTop > 0, 50, () => {
          headerRef.current?.classList.add('sticky');
       }, () => {
          headerRef.current?.classList.remove('sticky');
@@ -63,10 +72,10 @@ export function Header({ children }: HeaderProps) {
       }
    }
 
-   return <header ref={headerRef} className="header">
-      {children}
-      <div className="header-glue" />
-   </header>;
+   return <header ref={headerRef} className="header" id="header">
+         {children}
+         <div className="header-glue" />
+      </header>;
 
    function ensureSticky() {
       if(!headerRef.current?.classList.contains('sticky')) {

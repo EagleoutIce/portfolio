@@ -3,16 +3,23 @@
    top: 0;
    width: 100%;
    display: flex;
+   margin-top: 40px;
+   padding: 42px 0px;
+   flex-direction: column;
    justify-content: center;
    align-items: center;
    background-color: var(--background);
-   transition: background-color 1s;
+   transition: all .25s, background-color .25s, margin-top 0s;
    z-index: 1000;
 }
 
 .header.sticky {
    position: fixed;
    background-color: var(--background-header);
+   padding: 5px;
+   padding-left: 42px;
+   margin-top: 0px;
+   flex-direction: row;
 }
 
 
@@ -27,7 +34,7 @@
 .header-glue {
    width: 0%;
    height: 1px;
-   transition: all .65s ease-in-out, scale .1s;
+   transition: all .4s ease-in-out, scale .1s;
 }
 
 .header.sticky .header-glue {
