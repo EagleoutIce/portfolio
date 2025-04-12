@@ -28,7 +28,7 @@ function MainPage() {
       
       <h2 id="talks">Talks</h2>
       <Bibliography biblatexContent={BibDataTalks} />
-      <h2 id="talks">Posters</h2>
+      <h2 id="posters">Posters</h2>
       <Bibliography biblatexContent={BibDataPoster} />
       
       <h2 id="schools-seminars">Summer Schools and Seminars</h2>

@@ -1,0 +1,36 @@
+.quick-links {
+  display: flex;
+  align-items: center;
+  transition: background-color 1s ease-in-out, color 1s ease-in-out;
+  padding-top: 52px;
+  min-width: 6em;
+}
+
+.header.sticky .quick-links {
+  padding-top: 0;
+  font-size: .75em;
+  margin-left: 2em;
+}
+
+.quick-link {
+  color: lightgray;
+  font-size: .7em;
+  user-select: none;
+  transition: all .45s;
+  cursor: pointer;
+  padding: 0 .33em;
+}
+
+
+.quick-link-label {
+  color: var(--main-color);
+  font-weight: 550;
+  opacity: .6;
+  transition: opacity .65s, display 1s;
+  white-space: nowrap;
+}
+
+
+.quick-link-label:hover {
+  opacity: .92;
+}

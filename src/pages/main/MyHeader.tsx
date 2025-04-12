@@ -3,6 +3,8 @@ import { Header } from "../../components/Header";
 import TitleName from "../../components/TitleName";
 import { faGithub, faGoogleScholar, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import me from '../../resources/me.jpg';
+import QuickLinks from '../../components/QuickLinks';
+import './MyHeader.css';
 
 export function MyHeader() {
    return <Header>
@@ -33,5 +35,14 @@ export function MyHeader() {
        }
      }}
    />
+   <div className="header-row"></div>
+   <QuickLinks sections={{
+      projects: { page: 'my-projects'},
+      publications: { page: 'publications'},
+      talks: { page: 'talks'},
+      posters: { page: 'posters'},
+      seminars: { page: 'schools-seminars'},
+      teaching: { page: 'teaching'},
+   }}></QuickLinks>
  </Header>;
 }
