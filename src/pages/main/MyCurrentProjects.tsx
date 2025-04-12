@@ -20,7 +20,7 @@ export function MyCurrentProjects() {
    return <>
       <div className="projects">
          <ProjectCard
-            title={<>flowR <SocialMediaIcon className="small" icon={faGithub} key="flowr-github" /></>}
+            title={<>flowR&nbsp;<SocialMediaIcon className="small" icon={faGithub} key="flowr-github" /></>}
             description="A Dataflow Analyzer for R (Dependency Analysis, Program Slicing, ...)."
             image={flowR}
             link={"https://github.com/flowr-analysis/flowr"}
@@ -33,7 +33,7 @@ export function MyCurrentProjects() {
 
          <div className="projects">
             <ProjectCard
-               title=<> Extension for Visual Studio Code <SocialMediaIcon className="small" icon={faCode} key="flowr-vsc-github" /> </>
+               title=<> Extension for Visual Studio Code&nbsp;<SocialMediaIcon className="small" icon={faCode} key="flowr-vsc-github" /> </>
                description="Directly analyze and slice your R code in Visual Studio Code."
                image={flowRvsc}
                extraClasses="project-card-pulsating-img small-img"
@@ -41,7 +41,7 @@ export function MyCurrentProjects() {
                crumbs={["TypeScript", "extension"]}
             />
             <ProjectCard
-               title=<> Addin for RStudio <SocialMediaIcon className="small" icon={faGithub} key="flowr-rs-github" /> </>
+               title=<> Addin for RStudio&nbsp;<SocialMediaIcon className="small" icon={faGithub} key="flowr-rs-github" /> </>
                description="Directly slice and analyze your R code in RStudio."
                image={flowRrs}
                extraClasses="project-card-pulsating-img small-img"
@@ -61,7 +61,7 @@ export function MyCurrentProjects() {
 export function MyPenguinCurrentProjects() {
    return <div className="projects">
       <ProjectCard
-         title=<>Waddle <SocialMediaIcon className="small" icon={faPlay} key="waddle-play" /></>
+         title=<>Waddle&nbsp;<SocialMediaIcon className="small" icon={faPlay} key="waddle-play" /></>
          description="Learning game for children, introducing programming concepts."
          image={<div>
             <img id='waddle-static' src={waddle0} alt={"A cute penguin"} />
@@ -72,7 +72,7 @@ export function MyPenguinCurrentProjects() {
          crumbs={["TypeScript", "game", "program comprehension"]}
       />
       <ProjectCard
-         title=<>TikZpingus <SocialMediaIcon className="small" icon={faGithub} key="tikzpingus-github" /></>
+         title=<>TikZpingus&nbsp;<SocialMediaIcon className="small" icon={faGithub} key="tikzpingus-github" /></>
          description="Cute Penguins in LaTeX with TikZ."
          image={pengu0}
          extraClasses="pengu-anim"
@@ -86,7 +86,7 @@ export function MyCurrentTypographyProjects() {
    return <>
       <div className="projects">
          <ProjectCard
-            title=<>fancyqr <SocialMediaIcon className="small" icon={faGithub} key="fancyqr-github" /></>
+            title=<>fancyqr&nbsp;<SocialMediaIcon className="small" icon={faGithub} key="fancyqr-github" /></>
             description="Creating rounded and colorful QR codes in LaTeX."
             image={fancyqr}
             extraClasses="project-card-dangle-3d-img"
@@ -95,7 +95,7 @@ export function MyCurrentTypographyProjects() {
          />
 
          <ProjectCard
-            title=<>beamer-themes <SocialMediaIcon className="small" icon={faGithub} key="fancyqr-github" /></>
+            title=<>beamer-themes&nbsp;<SocialMediaIcon className="small" icon={faGithub} key="fancyqr-github" /></>
             description="A collection of beamer-themes I have created over the years."
             image={montage}
             extraClasses="project-card-pulsating-img"
@@ -104,7 +104,7 @@ export function MyCurrentTypographyProjects() {
          />
          { /* TODO: sopra-collections, code-animation */}
          <ProjectCard
-            title=<>sopra-collections <SocialMediaIcon className="small" icon={faGithub} key="fancyqr-github" /></>
+            title=<>sopra-collections&nbsp;<SocialMediaIcon className="small" icon={faGithub} key="fancyqr-github" /></>
             description="A collection of various useful LaTeX packages."
             image={listings}
             extraClasses="project-card-pulsating-img fwhite"
@@ -112,7 +112,7 @@ export function MyCurrentTypographyProjects() {
             crumbs={["LaTeX", "packages"]}
          />
          <ProjectCard
-            title=<>TexCHR <SocialMediaIcon className="small" icon={faGithub} key="fancyqr-github" /></>
+            title=<>TexCHR&nbsp;<SocialMediaIcon className="small" icon={faGithub} key="fancyqr-github" /></>
             description="A plain-tex implementation of FreeCHR."
             image={texchr}
             extraClasses="project-card-pulsating-img fwhite"

@@ -40,11 +40,12 @@ export function Bibliography({ biblatexContent }: BibliographyProps) {
          },
          append(entry: object) {
             let suffix = '';
+
             if('DOI' in entry || 'URL' in entry) {
                suffix += '</a>';
             }
             if('note' in entry) {
-               suffix += `&emsp;&emsp;${entry['note']}`;
+               suffix += `&emsp;${entry['note']}`;
             }
             return suffix;
          }
