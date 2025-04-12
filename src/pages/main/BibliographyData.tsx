@@ -175,11 +175,21 @@ series = {ASE '24}
 `;
 
 export const BibDataTalks = `
+@misc{sihler2025convey,
+   title={LaTeX Workshop},
+   author={Sihler, Florian},
+   year={2025},
+   publisher={ConVeY '25},
+   note={Burghausen, Germany&nbsp;(Invited Talk)},
+   url={https://convey.ifi.lmu.de/workshops/2025/spring/program.html}
+}
+
 @misc{sihler2025deRSE,
    title={Assisting Data Analysis using Program Slicing with flowR},
    author={Sihler, Florian},
    year={2025},
    publisher={deRSE '25},
+   note={Karlsruhe, Germany},
    url={https://events.hifis.net/event/1741/contributions/13407/}
 }
    
@@ -189,7 +199,7 @@ export const BibDataTalks = `
    year={2024},
    publisher={deRSE '24},
    url={https://events.hifis.net/event/994/contributions/7978/},
-   note={<a href="https://www.youtube.com/watch?v=PyuHqRYy3e0" class="bib-link">YouTube</a>},
+   note={Würzburg, Germany&emsp;<a href="https://www.youtube.com/watch?v=PyuHqRYy3e0" class="bib-link">YouTube</a>},
    type={<b>YoungRSE Award</b>}
  }
 
