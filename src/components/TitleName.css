@@ -6,11 +6,11 @@
 }
 
 .profile-image {
-  width: 5em;
-  height: 5em;
+  width: 6em;
+  height: 6em;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 42px;
+  margin-right: 33px;
   transition: width .65s, height .65s, border-radius 0.2s, scale .1s ease-in-out, background-color 1s ease-in-out, color 1s ease-in-out;
 }
 
