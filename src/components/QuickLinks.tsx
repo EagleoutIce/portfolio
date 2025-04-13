@@ -11,7 +11,7 @@ export interface QuickLinkProps {
 }
 
 
-function scrollHelper(id: string, offset = 300) {
+function scrollHelper(id: string, offset = 200) {
    if(id === 'top') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
@@ -33,12 +33,22 @@ function scrollTo(id: string) {
    }, 200);
 }
 
-function QuickLink({ label, page }: { label: string; page: string }) {
+export function QuickLink({ label, page }: { label: string; page: string }) {
    return (
       <div className="quick-link" onClick={() => scrollTo(page)}>
          [<span className="quick-link-label">{label}</span>]
       </div>
    )
+}
+
+export function StaticQuickLinks({ sections }: QuickLinkProps) {
+   return <div className="static-quick-links">
+      {
+         [...Object.entries(sections)].map(([k, v]) => 
+            (<QuickLink label={k} page={v.page} key={k} />)
+         )
+      }
+   </div>;
 }
 
 export default function QuickLinks({ sections }: QuickLinkProps) {

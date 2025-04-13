@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import MainPage from './pages/main/MainPage';
-import { BrowserRouter, Routes, Route, RouterProvider, createHashRouter } from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import { SiteNoticePage } from './pages/SiteNoticePage';
 import { ThemeButton } from './components/ThemeButton';
 import { NotFound } from './pages/NotFound';
