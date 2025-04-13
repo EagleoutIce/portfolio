@@ -1,9 +1,17 @@
-.quick-links {
+.quick-links, .static-quick-links {
   display: flex;
   align-items: center;
   transition: background-color 1s ease-in-out, color 1s ease-in-out;
-  padding-top: 52px;
   min-width: 6em;
+}
+
+
+.static-quick-links {
+  padding: 0;
+}
+
+.quick-links {
+  padding-top: 52px;
 }
 
 .header.sticky .quick-links {
@@ -21,15 +29,24 @@
   padding: 0 .33em;
 }
 
+.static-quick-links .quick-link {
+  padding: 0 .33em .5em 0;
+  font-size: .8em;
+  color: var(--text);
+}
+
 
 .quick-link-label {
   color: var(--soft-text);
   font-weight: 550;
   opacity: .6;
-  transition: opacity .65s, display 1s;
+  transition: opacity .65s, color .65s, display 1s;
   white-space: nowrap;
 }
 
+.static-quick-links .quick-link-label {
+  color: var(--text);
+}
 
 .quick-link-label:hover {
   opacity: .92;

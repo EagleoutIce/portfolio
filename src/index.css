@@ -82,3 +82,12 @@ button:active {
   margin: 0 !important;
   padding: 0 !important;
 }
+
+h2 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+h3 {
+  margin: .5em 0em;
+}

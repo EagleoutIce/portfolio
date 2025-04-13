@@ -7,6 +7,8 @@ import { BibDataMain, BibDataPoster, BibDataTalks } from './BibliographyData';
 import { MyIntro } from './MyIntro';
 import { MyTeaching } from './MyTeaching';
 import { MySeminars } from './MySeminars';
+import { MyService } from './MyService';
+import QuickLinks, { StaticQuickLinks } from '../../components/QuickLinks';
 
 function MainPage() {
   return (<>
@@ -24,15 +26,26 @@ function MainPage() {
       <MyCurrentTypographyProjects />
 
       <h2 id="publications">Publications</h2>
-      <Bibliography biblatexContent={BibDataMain} />
-      
-      <h2 id="talks">Talks</h2>
-      <Bibliography biblatexContent={BibDataTalks} />
-      <h2 id="posters">Posters</h2>
-      <Bibliography biblatexContent={BibDataPoster} />
+         <StaticQuickLinks sections={{
+            papers: { page: 'papers'},
+            talks: { page: 'talks'},
+            posters: { page: 'posters'}
+         }}></StaticQuickLinks>
+         
+        <h3 id="papers">Papers</h3>
+        <Bibliography biblatexContent={BibDataMain} />
+              
+        <h3 id="talks">Talks</h3>
+        <Bibliography biblatexContent={BibDataTalks} />
+
+        <h3 id="posters">Posters</h3>
+        <Bibliography biblatexContent={BibDataPoster} />
       
       <h2 id="schools-seminars">Summer Schools and Seminars</h2>
       <MySeminars />
+
+      <h2 id="service">Service</h2>
+      <MyService />
 
       <h2 id="teaching">Teaching</h2>
       <MyTeaching />
