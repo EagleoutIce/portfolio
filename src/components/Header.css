@@ -9,7 +9,7 @@
    justify-content: center;
    align-items: center;
    background-color: var(--background);
-   transition: all .25s, background-color .25s, margin-top 0s;
+   transition: all .25s, background-color 1s, color 1s, margin-top 0s;
    z-index: 1000;
 }
 
@@ -20,8 +20,8 @@
    padding-left: 42px;
    margin-top: 0px;
    flex-direction: row;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
-
 
 .header+.content {
    transition: padding-top .1s;
@@ -34,9 +34,9 @@
 .header-glue {
    width: 0%;
    height: 1px;
-   transition: all .4s ease-in-out, scale .1s;
+   transition: all .25s, scale .1s;
 }
 
 .header.sticky .header-glue {
-   width: 55%;
+   width: 35%;
 }
