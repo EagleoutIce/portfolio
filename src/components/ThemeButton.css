@@ -4,7 +4,7 @@
 
 .wrapper {
    position: fixed;
-   top: .55em;
+   top: .1em;
    right: 42px;
    scale: .2;
    transform-origin: top right;

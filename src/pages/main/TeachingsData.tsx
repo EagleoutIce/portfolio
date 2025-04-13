@@ -4,15 +4,19 @@ interface Teaching {
 }
 
 function wt(first: number, last: number) {
-   return `Winter Term ${first}/${last}`;
+   return `Winter ${first}/${last}`;
 }
 function st(term: number) {
-   return `Summer Term ${term}`;
+   return `Summer ${term}`;
 }
    
 
 const teaching = new Map<string, Teaching>();
 
+teaching.set('Bachelor Seminar: Static Program Analysis', {
+   terms: [st(2025)],
+   link: 'https://www.uni-ulm.de/en/in/sp/teaching/seminar-fortgeschrittene-konzepte-der-softwaretechnik-static-program-analysis/'
+});
 teaching.set('Functional Programming', {
    terms: [wt(2024, 25), wt(2023, 24), wt(2022, 23)],
    link: 'https://www.uni-ulm.de/in/sp/teaching/functional-programming/'
@@ -25,11 +29,11 @@ teaching.set('Grundlagen der praktischen Informatik', {
    terms: [wt(2022, 23)],
    link: 'https://www.uni-ulm.de/in/sp/teaching/grundlagen-der-praktischen-informatik/'
 });
-teaching.set('Objektorientierte Programmierung', {
-   terms: [st(2024)],
+teaching.set('Object-Oriented Programming', {
+   terms: [st(2025), st(2024)],
    link: 'https://www.uni-ulm.de/in/sp/teaching/objektorientierte-programmierung/'
 });
-teaching.set('Softwarequalitätssicherung', {
+teaching.set('Software Quality Assurance (Static Analysis)', {
    terms: [wt(2024, 25)],
    link: 'https://www.uni-ulm.de/in/sp/teaching/software-quality-assurance/'
 });
