@@ -34,7 +34,7 @@ function MainPage() {
       <h2 id="schools-seminars">Summer Schools and Seminars</h2>
       <MySeminars />
 
-      <h2 id="talks">Teaching</h2>
+      <h2 id="teaching">Teaching</h2>
       <MyTeaching />
     </Content>
     <SiteNotice />
