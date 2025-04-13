@@ -2,6 +2,7 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import "./TitleName.css";
 import { SocialMediaIcon } from "./SocialMediaIcon";
 import { Tooltip } from "react-tooltip";
+import { headerIsSticky } from "./Header";
 
 export interface TitleNameProps {
    readonly name: string;
@@ -18,7 +19,11 @@ export interface TitleNameProps {
 
 export default function TitleName({ name, subtitle, imageSrc, mediaLinks }: TitleNameProps) {
    return <div className="title-name-card">
-      <img src={imageSrc} alt={name} className="profile-image" />
+      <img src={imageSrc} alt={name} className="profile-image" onClick={() => {
+         if(headerIsSticky()) {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+         }
+      }} />
       <div>
          <span className="profile-name">{name} <br /></span>
          <span className="profile-subtitle">{subtitle}<br /></span>
