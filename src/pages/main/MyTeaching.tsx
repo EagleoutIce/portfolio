@@ -1,5 +1,5 @@
 import './MyTeaching.css';
-import { getDocuments, getSlides, getTeachings } from './TeachingsData';
+import { TypeToStringMap, getDocuments, getSlides, getTeachings } from './TeachingsData';
 
 
 
@@ -7,9 +7,13 @@ import { getDocuments, getSlides, getTeachings } from './TeachingsData';
 export function MyTeaching() {
   return <>
    As part of my work at the University of Ulm, I am involved in teaching:
+      
+   <div className='note'> {TypeToStringMap['tutor']('sample-t')} = Tutor, {TypeToStringMap['teaching-assistant']('sample-ta')} = Teaching Assistant, {TypeToStringMap['lecturer']('sample-l')} = Lecturer</div>
+
    <ul className='teachings-list'>
       {getTeachings()}
    </ul>
+
    
    <h3 id="slides">Slides</h3>
    <div className='slides-list'>

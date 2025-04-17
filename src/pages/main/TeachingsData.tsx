@@ -1,13 +1,28 @@
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { SocialMediaIcon } from "../../components/SocialMediaIcon";
+import Acronym from "../../components/Acronym";
+import { Tooltip } from "react-tooltip";
+import { escapeId } from "../../util/id";
+
 interface Teaching {
-   terms: string[];
-   link: string;
+   terms: JSX.Element[];
+   type: 'teaching-assistant' | 'tutor' | 'lecturer';
+   note?: string;
+   link?: string;
 }
 
-function wt(first: number, last: number) {
-   return `Winter ${first}/${last}`;
+export const TypeToStringMap = {
+   'teaching-assistant': (id: string) => <Acronym short={<span className='small-caps'>ta</span>} long="Teaching Assistant (Exercise Instructor)" id={id}/>,
+   'tutor': (id: string) => <Acronym short={<span className='small-caps'>t</span>} long="Tutor" id={id}/>,
+   'lecturer': (id: string) => <Acronym short={<span className='small-caps'>l</span>} long="Lecturer" id={id}/>
+} as const
+
+function wt(first: number, last?: number) {
+   last ??= first-2000 + 1
+   return <span key={'wt' + first + last}><Acronym short={<span className='small-caps'>wt</span>} long="Winter Term"/> {first}/{last}</span>;
 }
 function st(term: number) {
-   return `Summer ${term}`;
+   return <span key={'st' + term}><Acronym short={<span className='small-caps'>st</span>} long="Summer Term"/> {term}</span>;
 }
    
 
@@ -15,26 +30,38 @@ const teaching = new Map<string, Teaching>();
 
 teaching.set('Bachelor Seminar: Static Program Analysis', {
    terms: [st(2025)],
+   type: 'lecturer',
    link: 'https://www.uni-ulm.de/en/in/sp/teaching/seminar-fortgeschrittene-konzepte-der-softwaretechnik-static-program-analysis/'
 });
 teaching.set('Functional Programming', {
-   terms: [wt(2024, 25), wt(2023, 24), wt(2022, 23)],
+   terms: [wt(2022), wt(2023), wt(2024)],
+   type: 'teaching-assistant',
    link: 'https://www.uni-ulm.de/in/sp/teaching/functional-programming/'
 });
 teaching.set('Functional Programming 2', {
    terms: [st(2024)],
+   type: 'teaching-assistant',
    link: 'https://www.uni-ulm.de/in/sp/teaching/functional-programming-2/'
 });
 teaching.set('Grundlagen der praktischen Informatik', {
-   terms: [wt(2022, 23)],
+   terms: [wt(2022)],
+   type: 'tutor',
+   note: 'Supporting the creation of the lecture and the slides',
    link: 'https://www.uni-ulm.de/in/sp/teaching/grundlagen-der-praktischen-informatik/'
 });
 teaching.set('Object-Oriented Programming', {
-   terms: [st(2025), st(2024)],
+   terms: [st(2024), st(2025)],
+   type: 'teaching-assistant',
    link: 'https://www.uni-ulm.de/in/sp/teaching/objektorientierte-programmierung/'
 });
+teaching.set('Introduction to Computer Science', {
+   terms: [wt(2019), st(2020), wt(2020), st(2021), <>{wt(2021)}&nbsp;<SocialMediaIcon icon={faGithub} className="small" href="https://github.com/EagleoutIce/uulm-eidi-tut-ws2021-22-slides"/></>, <>{st(2022)}&nbsp;<SocialMediaIcon icon={faGithub} className="small" href="https://github.com/EagleoutIce/uulm-eidi-tut-ss2022-slides"/></>],
+   type: 'tutor',
+});
 teaching.set('Software Quality Assurance (Static Analysis)', {
-   terms: [wt(2024, 25)],
+   terms: [<>wt(2024)&nbsp;<SocialMediaIcon icon={faGithub} href="https://github.com/EagleoutIce/sqa-static-analysis" className="small" /></>],
+   type: 'lecturer',
+   note: 'Specifically for two lectures on static analysis',
    link: 'https://www.uni-ulm.de/in/sp/teaching/software-quality-assurance/'
 });
 
@@ -43,10 +70,14 @@ export function getTeachings() {
    return entries.toSorted(
       ([a,], [b,]) => a.localeCompare(b)
    )
-   .map(([name, { terms, link }]) => {
-      return <li key={name}>
-         <a href={link} target="_blank" rel="noreferrer"><strong>{name}</strong><br /> {terms.map((term, i) => <span key={term}>{term}{i < terms.length - 1 ? ', ' : ''}</span>)}</a>
-      </li>;
+   .map(([name, { terms, link, type, note }]) => {
+      const id = escapeId(name);
+      return <><li key={id}>
+         <a href={link} target="_blank" rel="noreferrer"> <strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;{TypeToStringMap[type]('type-' + name)}</a><br /> 
+         {terms.map((term, i) => <>{term}{i < terms.length - 1 ? ', ' : ''}</>)}
+      </li>
+      { note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/> : '' }
+      </>;
    });
 }
 
