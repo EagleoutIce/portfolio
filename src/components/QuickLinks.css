@@ -32,7 +32,7 @@
 .static-quick-links .quick-link {
   padding: 0 .33em .5em 0;
   font-size: .8em;
-  color: var(--text);
+  color: var(--semi-soft-text);
 }
 
 
