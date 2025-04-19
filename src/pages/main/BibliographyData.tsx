@@ -192,7 +192,7 @@ export const BibDataTalks = `
    note={Karlsruhe, Germany},
    url={https://events.hifis.net/event/1741/contributions/13407/}
 }
-   
+
 @misc{sihler2024deRSE,
    title={flowR: A Program Slicer for the R Programming Language},
    author={Sihler, Florian},
@@ -203,7 +203,7 @@ export const BibDataTalks = `
    type={<b>YoungRSE Award</b>}
  }
 
- @misc{sihler2023irser,
+ @misc{sihler2024irser,
    title={Statically Analyzing the Dataflow of R Programs With flowR},
    author={Sihler, Florian},
    year={2024},
