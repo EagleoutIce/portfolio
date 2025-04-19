@@ -15,6 +15,13 @@
   box-shadow: 6px 6px 42px 0.1px var(--background-crumbs);
 }
 
+.easter {
+  /* egg shape */
+  width: 4.90em;
+  height: 6em;
+  border-radius: 50% 50% 50% 50% / 62% 62% 42% 42%;
+}
+
 .profile-image:hover {
   border-radius: 20%;
 }
