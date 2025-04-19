@@ -5,7 +5,7 @@ html {
 body.dark-theme {
   --main-color: rgba(255, 166, 0, 1);
   --main-color-transparent: rgba(255, 166, 0, 0.3);
-  --text: #fdfdfd;
+  --text: #fafafa;
   --soft-text: #b0b0b0;
   --semi-soft-text: #e4e4e4;
   --soft-glow: rgba(245, 225, 205, 0.1);
