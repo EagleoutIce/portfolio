@@ -61,7 +61,7 @@ export function MyCurrentProjects() {
 export function MyPenguinCurrentProjects() {
    return <div className="projects">
       <ProjectCard
-         title=<>Waddle&nbsp;<SocialMediaIcon className="small" icon={faPlay} key="waddle-play" /></>
+         title=<>Waddle&nbsp;<SocialMediaIcon className="small" icon={faPlay} key="waddle-play" suffix="&nbsp;&nbsp;&nbsp;(de)" /></>
          description="Learning game for children, introducing programming concepts."
          image={<div>
             <img id='waddle-static' src={waddle0} alt={"A cute penguin"} />
