@@ -147,7 +147,7 @@ details.peeker a, .main a {
    font-weight: normal;
    color: var(--text);
    opacity: .55;
-   transition: color 1s;
+   transition: color 1s, opacity 1s;
 }
 
 details.peeker a:hover, .main a:hover, details.peeker a:focus, .main a:focus {
