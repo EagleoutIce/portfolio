@@ -35,7 +35,7 @@ function getEaster(year: number): [number, number] {
 
 function isInRangeOfDate(date: Date, base: Date, days: number): boolean {
    const start = new Date(base.getTime() - days * 24 * 60 * 60 * 1000);
-   const end = new Date(base.getTime() + days * 24 * 60 * 60 * 1000);
+   const end = new Date(base.getTime() + (days + 1) * 24 * 60 * 60 * 1000);
    return date >= start && date <= end;
 }
 
