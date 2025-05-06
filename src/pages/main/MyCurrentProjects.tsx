@@ -33,11 +33,11 @@ export function MyCurrentProjects() {
 
          <div className="projects">
             <ProjectCard
-               title=<> Extension for Visual Studio Code&nbsp;<SocialMediaIcon className="small" icon={faCode} key="flowr-vsc-github" /> </>
-               description="Directly analyze and slice your R code in Visual Studio Code."
+               title=<> Extension for Positron & VS Code&nbsp;<SocialMediaIcon className="small" icon={faCode} key="flowr-vsc-github" /> </>
+               description="Directly analyze and slice your R code in Positron and VS Code."
                image={flowRvsc}
                extraClasses="project-card-pulsating-img small-img"
-               link={"https://marketplace.visualstudio.com/items?itemName=code-inspect.vscode-flowr"}
+               link={"https://github.com/flowr-analysis/vscode-flowr"}
                crumbs={["TypeScript", "extension"]}
             />
             <ProjectCard
