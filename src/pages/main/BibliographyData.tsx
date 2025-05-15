@@ -175,6 +175,16 @@ series = {ASE '24}
 `;
 
 export const BibDataTalks = `
+@misc{sihler2025hirse,
+   title={(Award Presentation) flowR: A Program Slicer for the R Programming Language},
+   author={Sihler, Florian},
+   year={2025},
+   month={May},
+   publisher={42nd HiRSE},
+   note={Online&nbsp;(Invited Talk)},
+   url={https://www.helmholtz-hirse.de/series/2025_05_15-seminar_42.html}
+}
+
 @misc{sihler2025convey,
    title={LaTeX Workshop},
    author={Sihler, Florian},
