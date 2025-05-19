@@ -239,3 +239,16 @@ export const BibDataPoster = `
    url={https://se-2023.gi.de/fileadmin/GI/user_upload/poster_sihler.pdf}
  }
 `;
+
+
+export const BibDataOther = `
+@book{game-theory-book25,
+  author = {Nickerl, Julian and Sihler, Florian and Torán, Jacobo},
+  title = {Algorithmische Spieltheorie},
+  note = {Lehrbuch},
+  year = {2025},
+  publisher = {Lehmanns Media},
+  url = {https://www.lehmanns.de/shop/mathematik-informatik/76728693-9783965435797-algorithmische-spieltheorie},
+  isbn = 9783965435797 
+}
+`;

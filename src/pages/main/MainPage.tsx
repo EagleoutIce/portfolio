@@ -3,12 +3,12 @@ import { SiteNotice } from '../../components/SiteNotice';
 import { MyHeader } from './MyHeader';
 import { MyCurrentProjects, MyCurrentTypographyProjects, MyPenguinCurrentProjects } from './MyCurrentProjects';
 import { Bibliography } from '../../components/Bibliography';
-import { BibDataMain, BibDataPoster, BibDataTalks } from './BibliographyData';
+import { BibDataMain, BibDataPoster, BibDataTalks, BibDataOther } from './BibliographyData';
 import { MyIntro } from './MyIntro';
 import { MyTeaching } from './MyTeaching';
 import { MySeminars } from './MySeminars';
 import { MyService } from './MyService';
-import QuickLinks, { StaticQuickLinks } from '../../components/QuickLinks';
+import { StaticQuickLinks } from '../../components/QuickLinks';
 
 function MainPage() {
   return (<>
@@ -29,7 +29,8 @@ function MainPage() {
          <StaticQuickLinks sections={{
             papers: { page: 'papers'},
             talks: { page: 'talks'},
-            posters: { page: 'posters'}
+            posters: { page: 'posters'},
+            other: { page: 'other-publications'}
          }}></StaticQuickLinks>
          
         <h3 id="papers">Papers</h3>
@@ -41,6 +42,9 @@ function MainPage() {
         <h3 id="posters">Posters</h3>
         <Bibliography biblatexContent={BibDataPoster} />
       
+        <h3 id="other-publications">Other</h3>
+        <Bibliography biblatexContent={BibDataOther} />
+
       <h2 id="schools-seminars">Summer Schools and Seminars</h2>
       <MySeminars />
 
