@@ -6,7 +6,7 @@ import { escapeId } from "../../util/id";
 
 interface Teaching {
    terms: JSX.Element[];
-   type: 'teaching-assistant' | 'tutor' | 'lecturer';
+   type: 'teaching-assistant' | 'tutor' | 'lecturer' | 'guest-lecturer';
    note?: string;
    link?: string;
 }
@@ -14,7 +14,8 @@ interface Teaching {
 export const TypeToStringMap = {
    'teaching-assistant': (id: string) => <Acronym short={<span className='small-caps'>ta</span>} long="Teaching Assistant (Exercise Instructor)" id={id}/>,
    'tutor': (id: string) => <Acronym short={<span className='small-caps'>t</span>} long="Tutor" id={id}/>,
-   'lecturer': (id: string) => <Acronym short={<span className='small-caps'>l</span>} long="Lecturer" id={id}/>
+   'lecturer': (id: string) => <Acronym short={<span className='small-caps'>l</span>} long="Lecturer" id={id}/>,
+   'guest-lecturer': (id: string) => <Acronym short={<span className='small-caps'>gl</span>} long="Guest Lecturer" id={id}/>
 } as const
 
 function wt(first: number, last?: number) {
@@ -63,6 +64,13 @@ teaching.set('Software Quality Assurance (Static Analysis)', {
    type: 'lecturer',
    note: 'Specifically for two lectures on static analysis',
    link: 'https://www.uni-ulm.de/in/sp/teaching/software-quality-assurance/'
+});
+
+teaching.set('Software Engineering 2 (Static Analysis)', {
+   terms: [<>{st(2025)} at TU Braunschweig</>],
+   type: 'guest-lecturer',
+   note: 'I was invited to give a guest lecture on static analysis at the TU Braunschweig',
+   link: 'https://www.tu-braunschweig.de/isf/teaching/se2'
 });
 
 export function getTeachings() {
