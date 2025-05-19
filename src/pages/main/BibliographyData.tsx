@@ -175,16 +175,6 @@ series = {ASE '24}
 `;
 
 export const BibDataTalks = `
-@misc{sihler2025se2,
-  title={(Guest Lecture) Static Analysis},
-  author={Sihler, Florian},
-  year={2025},
-  month={May},
-  publisher={SE2},
-  note={at TU Braunschweig, Germany},
-  url={https://www.tu-braunschweig.de/isf/teaching/se2}
-}
-
 @misc{sihler2025hirse,
    title={(Award Presentation) flowR: A Program Slicer for the R Programming Language},
    author={Sihler, Florian},
