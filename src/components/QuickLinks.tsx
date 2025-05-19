@@ -59,8 +59,8 @@ export default function QuickLinks({ sections }: QuickLinkProps) {
       }
    }
    function update() {
-      // if less than 850 px, only offer the action "jump to top"
-      if(window.innerWidth < 850) {
+      // if less than X px, only offer the action "jump to top"
+      if(window.innerWidth < 650) {
          if(headerIsSticky() && window.scrollY > 200) {
             updateIfDifferent({
                'Jump to top': { page: 'top' }
