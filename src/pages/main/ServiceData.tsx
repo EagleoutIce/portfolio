@@ -23,11 +23,23 @@ const entries: Entry[] = [{
    shortTitle: 'SLE \'25',
    year: 2025,
    link: 'https://conf.researchr.org/committee/sle-2025'
+}, {
+   type: 'reviewing',
+   conference: 'Research Software Engineering Conference',
+   shortTitle: 'RSECon \'25',
+   year: 2025,
+   link: 'https://rsecon25.society-rse.org/'
 }]
 
 export function getService() {
    return entries.toSorted(
-      (a, b) => b.year - a.year
+      (a, b) => {
+         if(b.year - a.year !== 0) {
+            return b.year - a.year;
+         } else {
+            return a.conference.localeCompare(b.conference);
+         }
+      }
    )
    .map(({
       type,
