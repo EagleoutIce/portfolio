@@ -34,16 +34,16 @@ function MainPage() {
          }}></StaticQuickLinks>
          
         <h3 id="papers">Papers</h3>
-        <Bibliography biblatexContent={BibDataMain} />
+        <Bibliography biblatexContent={BibDataMain} type='Papers' />
               
         <h3 id="talks">Talks</h3>
-        <Bibliography biblatexContent={BibDataTalks} />
+        <Bibliography biblatexContent={BibDataTalks} type='Talks'/>
 
         <h3 id="posters">Posters</h3>
-        <Bibliography biblatexContent={BibDataPoster} />
+        <Bibliography biblatexContent={BibDataPoster} type='Posters'/>
       
         <h3 id="other-publications">Other</h3>
-        <Bibliography biblatexContent={BibDataOther} />
+        <Bibliography biblatexContent={BibDataOther} type='Other Publications'/>
 
       <h2 id="schools-seminars">Summer Schools and Seminars</h2>
       <MySeminars />
