@@ -189,6 +189,7 @@ export const BibDataTalks = `
    title={LaTeX Workshop},
    author={Sihler, Florian},
    year={2025},
+   month={April},
    publisher={ConVeY '25},
    note={Burghausen, Germany&nbsp;(Invited Talk)},
    url={https://convey.ifi.lmu.de/workshops/2025/spring/program.html}
@@ -198,15 +199,25 @@ export const BibDataTalks = `
    title={Assisting Data Analysis using Program Slicing with flowR},
    author={Sihler, Florian},
    year={2025},
+   month={February},
    publisher={deRSE '25},
    note={Karlsruhe, Germany},
    url={https://events.hifis.net/event/1741/contributions/13407/}
+}
+
+@misc{sihler2025dlr,
+  title={An Introduction to Static Code Analysis},
+  author={Sihler, Florian},
+  year={2025},
+  month={January},
+  note={Deutsches Zentrum für Luft- und Raumfahrt (DLR) Ulm, Germany}
 }
 
 @misc{sihler2024deRSE,
    title={flowR: A Program Slicer for the R Programming Language},
    author={Sihler, Florian},
    year={2024},
+   month={March},
    publisher={deRSE '24},
    url={https://events.hifis.net/event/994/contributions/7978/},
    note={Würzburg, Germany&emsp;<a href="https://www.youtube.com/watch?v=PyuHqRYy3e0" class="bib-link">YouTube</a>},
@@ -217,6 +228,7 @@ export const BibDataTalks = `
    title={Statically Analyzing the Dataflow of R Programs With flowR},
    author={Sihler, Florian},
    year={2024},
+   month={January},
    publisher={IRSER '24},
    url={https://fg-rse.gi.de/veranstaltung/international-research-software-engineering-research-community-meetup}
  }
