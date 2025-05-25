@@ -143,14 +143,14 @@ details.peeker summary {
 }
 
 
-details.peeker a, .main a {
+details.peeker a, .main a, .link {
    font-weight: normal;
    color: var(--text);
    opacity: .55;
    transition: color 1s, opacity 1s;
 }
 
-details.peeker a:hover, .main a:hover, details.peeker a:focus, .main a:focus {
+details.peeker a:hover, .main a:hover, details.peeker a:focus, .main a:focus, .link:hover, .link:focus {
    color: var(--main-color);
    opacity: 1;
 }

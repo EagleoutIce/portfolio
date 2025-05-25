@@ -52,11 +52,6 @@ function MainPage() {
       <MyService />
 
       <h2 id="teaching">Teaching</h2>
-      <StaticQuickLinks sections={{
-            lectures: { page: 'lectures'},
-            slides: { page: 'slides'},
-            documents: { page: 'documents'}
-         }}></StaticQuickLinks>
       <MyTeaching />
     </Content>
     <SiteNotice />
