@@ -35,6 +35,11 @@ teaching.set('Bachelor Seminar', {
    type: 'lecturer',
    link: 'https://www.uni-ulm.de/en/in/sp/teaching/seminar-fortgeschrittene-konzepte-der-softwaretechnik-static-program-analysis/'
 });
+teaching.set('Software Engineering Project (Bachelor & Master)', {
+   terms: [<>{wt(2024)}&nbsp;<ShortLong short={<>(Waddle) <SocialMediaIcon icon={faInfoCircle} className="small" href="https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"/></>} long={'Improving on the Language, Level-Editor, and Tutorial for Waddle'} id={'se-waddle-1-2425'}/></>, <>{st(2025)}&nbsp;<ShortLong short={<>(R Projects) <SocialMediaIcon icon={faInfoCircle} className="small" href="https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"/></>} long={'Adding project support for flowR'} id={'se-flowr-1-25'}/></>],
+   type: 'lecturer',
+   link: 'https://www.uni-ulm.de/en/in/sp/teaching/seminar-fortgeschrittene-konzepte-der-softwaretechnik-static-program-analysis/'
+});
 teaching.set('Functional Programming', {
    terms: [wt(2022), wt(2023), wt(2024)],
    type: 'teaching-assistant',
