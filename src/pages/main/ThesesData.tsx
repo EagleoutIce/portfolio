@@ -114,7 +114,6 @@ export function getTheses() {
          </details>
          
          {link && <a href={link} target="_blank" rel="noreferrer">Link to Thesis</a>}
-            <Tooltip anchorSelect={`#link-${id}`} content="Open Thesis Link" place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/>
       </li>
       </>;
    });
