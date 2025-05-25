@@ -6,7 +6,7 @@ import { TypeToStringMap, getDocuments, getSlides, getTeachings } from './Teachi
 // TODO: move wrapper into get* fns
 export function MyTeaching() {
   return <>
-   <h3 id="lectures">Lectures</h3>
+   <h3 id="lectures">Lectures, Seminars, and Projects</h3>
    As part of my work at the University of Ulm, I am involved in teaching:
       
    <div className='note'> {TypeToStringMap['tutor']('sample-t')} = Tutor, {TypeToStringMap['teaching-assistant']('sample-ta')} = Teaching Assistant, {TypeToStringMap['lecturer']('sample-l')} = Lecturer, {TypeToStringMap['guest-lecturer']('sample-gl')} = Guest Lecturer</div>
