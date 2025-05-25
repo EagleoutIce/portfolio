@@ -1,8 +1,9 @@
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { SocialMediaIcon } from "../../components/SocialMediaIcon";
-import Acronym from "../../components/Acronym";
+import ShortLong from "../../components/Acronym";
 import { Tooltip } from "react-tooltip";
 import { escapeId } from "../../util/id";
+import { faInfo, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 interface Teaching {
    terms: JSX.Element[];
@@ -12,25 +13,25 @@ interface Teaching {
 }
 
 export const TypeToStringMap = {
-   'teaching-assistant': (id: string) => <Acronym short={<span className='small-caps'>ta</span>} long="Teaching Assistant (Exercise Instructor)" id={id}/>,
-   'tutor': (id: string) => <Acronym short={<span className='small-caps'>t</span>} long="Tutor" id={id}/>,
-   'lecturer': (id: string) => <Acronym short={<span className='small-caps'>l</span>} long="Lecturer" id={id}/>,
-   'guest-lecturer': (id: string) => <Acronym short={<span className='small-caps'>gl</span>} long="Guest Lecturer" id={id}/>
+   'teaching-assistant': (id: string) => <ShortLong short={<span className='small-caps'>ta</span>} long="Teaching Assistant (Exercise Instructor)" id={id}/>,
+   'tutor': (id: string) => <ShortLong short={<span className='small-caps'>t</span>} long="Tutor" id={id}/>,
+   'lecturer': (id: string) => <ShortLong short={<span className='small-caps'>l</span>} long="Lecturer" id={id}/>,
+   'guest-lecturer': (id: string) => <ShortLong short={<span className='small-caps'>gl</span>} long="Guest Lecturer" id={id}/>
 } as const
 
 function wt(first: number, last?: number) {
    last ??= first-2000 + 1
-   return <span key={'wt' + first + last}><Acronym short={<span className='small-caps'>wt</span>} long="Winter Term"/> {first}/{last}</span>;
+   return <span key={'wt' + first + last}><ShortLong short={<span className='small-caps'>wt</span>} long="Winter Term"/> {first}/{last}</span>;
 }
 function st(term: number) {
-   return <span key={'st' + term}><Acronym short={<span className='small-caps'>st</span>} long="Summer Term"/> {term}</span>;
+   return <span key={'st' + term}><ShortLong short={<span className='small-caps'>st</span>} long="Summer Term"/> {term}</span>;
 }
    
 
 const teaching = new Map<string, Teaching>();
 
-teaching.set('Bachelor Seminar: Static Program Analysis', {
-   terms: [st(2025)],
+teaching.set('Bachelor Seminar', {
+   terms: [<>{wt(2024)}&nbsp;<ShortLong short={<>(Serious Games) <SocialMediaIcon icon={faInfoCircle} className="small" href="https://exia.informatik.uni-ulm.de/waddle/"/></>} long={'Bachelor Seminar: State-of-the-Art in Serious Games to Teach Programming'} id={'ba-serious-games-2425'}/></>, <>{st(2025)}&nbsp;<ShortLong short={<>(Static Analysis) <SocialMediaIcon icon={faInfoCircle} className="small" href="https://www.uni-ulm.de/en/in/sp/teaching/seminar-fortgeschrittene-konzepte-der-softwaretechnik-static-program-analysis/"/></>} long={'Bachelor Seminar: Static Program Analysis'} id={'ba-sa-25'}/></>],
    type: 'lecturer',
    link: 'https://www.uni-ulm.de/en/in/sp/teaching/seminar-fortgeschrittene-konzepte-der-softwaretechnik-static-program-analysis/'
 });
