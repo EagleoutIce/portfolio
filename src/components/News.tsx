@@ -27,7 +27,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-05-02"),
-   text: 'Reviewing for RSECon25',
+   text: 'Reviewing for RSECon 2025',
    link: 'https://rsecon25.society-rse.org/'
 })
 news.push({
