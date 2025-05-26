@@ -175,6 +175,16 @@ series = {ASE '24}
 `;
 
 export const BibDataTalks = `
+@misc{sihler2025grk,
+  title={Using flowR to improve the work with R code},
+  author={Sihler, Florian},
+  year={2025},
+  month={May},
+  publisher={GRK 2624},
+  note={Dortmund, Germany&nbsp;(Invited Talk)},
+  url={https://grk2624.statistik.tu-dortmund.de/seminar/}
+}
+
 @misc{sihler2025hirse,
    title={(Award Presentation) flowR: A Program Slicer for the R Programming Language},
    author={Sihler, Florian},
