@@ -46,7 +46,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-04-09"),
-   text: 'Workshop on LateX at the ConVeY Retreat',
+   text: 'Workshop on LateX at the ConVeY Retreat 2025',
    link: 'https://convey.ifi.lmu.de/workshops/2025/spring/program.html'
 })
 news.push({
