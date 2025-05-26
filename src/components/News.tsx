@@ -106,7 +106,7 @@ export function News() {
                   year: 'numeric',
                   month: 'short',
                   day: 'numeric'
-               })}:</span> <span className="news-content">{item.link ? <a href={item.link} target="_blank" rel="noreferrer" className="link">{item.text}</a> : <span className="link" style={{ color: 'black' }}>{item.text}</span>}</span>
+               })}:</span> <span className="news-content">{item.link ? <a href={item.link} target="_blank" rel="noreferrer" className="link">{item.text}</a> : <span className="link" style={{ color: 'var(--text)' }}>{item.text}</span>}</span>
             </li>
          ))}
          {
