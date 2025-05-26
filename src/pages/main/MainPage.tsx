@@ -10,12 +10,15 @@ import { MySeminars } from './MySeminars';
 import { MyService } from './MyService';
 import { StaticQuickLinks } from '../../components/QuickLinks';
 import { LastUpdated } from '../../components/LastUpdated';
+import { News } from '../../components/News';
 
 function MainPage() {
   return (<>
     <MyHeader />
     <Content>
       <MyIntro />
+      
+      <News />
       
       <h2 id="my-projects">My Projects</h2>
       <MyCurrentProjects />

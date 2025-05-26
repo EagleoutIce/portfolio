@@ -22,7 +22,7 @@ const entries: Entry[] = [{
    conference: 'International Conference on Software Language Engineering',
    shortTitle: 'SLE \'25',
    year: 2025,
-   link: 'https://conf.researchr.org/committee/sle-2025'
+   link: 'https://conf.researchr.org/committee/sle-2025/sle-2025-papers-artifact-evaluation-committee'
 }, {
    type: 'reviewing',
    conference: 'Research Software Engineering Conference',
@@ -30,6 +30,7 @@ const entries: Entry[] = [{
    year: 2025,
    link: 'https://rsecon25.society-rse.org/'
 }]
+
 
 export function getService() {
    return entries.toSorted(
