@@ -31,11 +31,16 @@ news.push({
    link: 'https://rsecon25.society-rse.org/'
 })
 news.push({
+   when: new Date("2025-04-23"),
+   text: 'Accepted at the CSV 2025',
+   link: 'https://unive-ssv.github.io/csv.html'
+})
+news.push({
    when: new Date("2025-04-14"),
    text: 'Master\'s thesis by R. Dunkel on Feature Slicing',
 })
 news.push({
-   when: new Date("2025-04-14"),
+   when: new Date("2025-04-11"),
    text: 'Accepted at the 12th Heidelberg Laureate Forum',
    link: 'https://www.heidelberg-laureate-forum.org/forum/12th-hlf-2025/'
 })
