@@ -1,0 +1,16 @@
+.last-updated-position {
+   font-size: .35em;
+   font-weight: normal;
+   opacity: .5;
+   color: var(--soft-text);
+   position: fixed;
+   left: 10px;
+   bottom: 10px;
+   transition: all 1s, scale .1s, color .1s;
+   user-select: none;
+}
+
+.last-updated-position:hover  {
+   color: var(--text);
+}
+
