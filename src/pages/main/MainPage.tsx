@@ -9,6 +9,7 @@ import { MyTeaching } from './MyTeaching';
 import { MySeminars } from './MySeminars';
 import { MyService } from './MyService';
 import { StaticQuickLinks } from '../../components/QuickLinks';
+import { LastUpdated } from '../../components/LastUpdated';
 
 function MainPage() {
   return (<>
@@ -55,6 +56,7 @@ function MainPage() {
       <MyTeaching />
     </Content>
     <SiteNotice />
+    <LastUpdated />
   </>
   );
 }

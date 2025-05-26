@@ -33,6 +33,11 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
+      - name: Overwrite Last Updated
+        # const LAST_UPDATED = "2024-01-01T00:00:00";
+        # in src/components/LastUpdated.tsx
+        run: echo "const LAST_UPDATED = \"${{ github.event.head_commit.timestamp }}\";" > src/components/LastUpdated.tsx
+        
       - name: Build
         run: npm run build
       - name: Setup Pages
