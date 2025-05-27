@@ -115,7 +115,7 @@ export function News() {
    const filteredNews = useMemo(() => {
       const filterFor = new RegExp(filter.toLowerCase().replace(/\s+/g, '.*').trim(), 'i');
       return news.filter(item => 
-         filterFor.test(item.text)
+         filterFor.test(item.text) || filterFor.test(getDate(item))  || filterFor.test(getDate(item, false))
       );
    }, [filter])
    
@@ -133,11 +133,7 @@ export function News() {
                opacity: showLast <= 5 && filteredNews.length > 5 ? 
                   1 - (index / 5) : 1
             }}>
-               <span className="date">{item.when.toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric'
-               })}:</span> <span className="news-content">{item.link ? <a href={item.link} target="_blank" rel="noreferrer" className="link">{item.text}</a> : <span className="link" style={{ color: 'var(--text)' }}>{item.text}</span>}</span>
+               <span className="date">{getDate(item)}:</span> <span className="news-content">{item.link ? <a href={item.link} target="_blank" rel="noreferrer" className="link">{item.text}</a> : <span className="link" style={{ color: 'var(--text)' }}>{item.text}</span>}</span>
             </li>
          ))}
          {
@@ -173,4 +169,12 @@ export function News() {
          }
       </ul>
    </div>;
+}
+
+function getDate(item: News, short = true) {
+   return item.when.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: short ? 'short' : 'long',
+      day: 'numeric'
+   });
 }
