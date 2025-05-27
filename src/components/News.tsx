@@ -127,13 +127,31 @@ export function News() {
          {
             news.length > showLast ? 
             <li className="show-more">
-               <button onClick={() => setShowLast(showLast + 5)}>
-                  Show more
+               <button onClick={() => setShowLast(news.length)}>
+                  show all
                </button>
+               &emsp;
+               <button onClick={() => setShowLast(showLast + 5)}>
+                  show more
+               </button>
+               &emsp;
+               {showLast > 5 ? 
+               <><button onClick={() => setShowLast(showLast - 5)}>
+                  show less
+               </button>
+               &emsp;
+               <button onClick={() => setShowLast(5)}>
+                  reset
+               </button>
+               </> : <></>}
             </li> : 
             <li className="show-more">
+               <button onClick={() => setShowLast(showLast - 5)}>
+                  show less
+               </button>
+               &emsp;
                <button onClick={() => setShowLast(5)}>
-                  Show less
+                  reset
                </button>
             </li>
          }
