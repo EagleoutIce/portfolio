@@ -11,6 +11,11 @@ interface News {
 const news: News[] = []
 
 news.push({
+   when: new Date("2025-05-27"),
+   text: 'Released flowR v2.2.13 (CFG, Graphics, Aliasing)',
+   link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.2.13'
+})
+news.push({
    when: new Date("2025-05-26"),
    text: 'Presentation at the GRK 2624 Seminar',
    link: 'https://grk2624.statistik.tu-dortmund.de/seminar/'
