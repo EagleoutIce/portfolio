@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import "./News.css"
 import { LastUpdated, getLastUpdated } from "./LastUpdated";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 interface News {
    when: Date,
@@ -108,13 +110,27 @@ news.sort((a, b) => b.when.getTime() - a.when.getTime());
 
 export function News() {
    const [showLast, setShowLast] = useState(5);
+   const [filter, setFilter] = useState('');
+   
+   const filteredNews = useMemo(() => {
+      const filterFor = new RegExp(filter.toLowerCase().replace(/\s+/g, '.*').trim(), 'i');
+      return news.filter(item => 
+         filterFor.test(item.text)
+      );
+   }, [filter])
    
    return <div className="news">
-      <h4>News <span style={{fontSize: 'small', fontWeight: 'normal'}}>as of {getLastUpdated()}</span></h4>
+      <h4>News <span style={{fontSize: 'small', fontWeight: 'normal'}}>as of {getLastUpdated()}&emsp;<input type="text" className="news-filter" placeholder="filter news" value={filter}
+         onChange={(e) => {
+            setFilter(e.target.value);
+         }}
+      />{filter.length > 0 ? <button className='clear-news' onClick={() => {
+            setFilter('');
+      }}><FontAwesomeIcon icon={faTimes} /></button> : <></> }</span></h4>
       <ul>
-         {news.slice(0, showLast).map((item, index) => (
+         {filteredNews.slice(0, showLast).map((item, index) => (
             <li key={index} style={{
-               opacity: showLast <= 5 && news.length > 5 ? 
+               opacity: showLast <= 5 && filteredNews.length > 5 ? 
                   1 - (index / 5) : 1
             }}>
                <span className="date">{item.when.toLocaleDateString('en-US', {
@@ -125,9 +141,9 @@ export function News() {
             </li>
          ))}
          {
-            news.length > showLast ? 
+            filteredNews.length > showLast ? 
             <li className="show-more">
-               <button onClick={() => setShowLast(news.length)}>
+               <button onClick={() => setShowLast(filteredNews.length)}>
                   show all
                </button>
                &emsp;
@@ -144,7 +160,7 @@ export function News() {
                   reset
                </button>
                </> : <></>}
-            </li> : 
+            </li> : filteredNews.length >= 5 ? 
             <li className="show-more">
                <button onClick={() => setShowLast(showLast - 5)}>
                   show less
@@ -153,7 +169,7 @@ export function News() {
                <button onClick={() => setShowLast(5)}>
                   reset
                </button>
-            </li>
+            </li> : <></>
          }
       </ul>
    </div>;
