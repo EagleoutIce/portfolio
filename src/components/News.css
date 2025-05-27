@@ -53,7 +53,7 @@
    display: inline-block;
    text-align: left;
    border: none;
-   border-bottom: 1pt solid var(--text);
+   border-bottom: 1pt solid var(--soft-text);
    background-color: transparent;
    transition: all 1s, scale .1s, color .1s;
    border-radius: 1%;
