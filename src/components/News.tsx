@@ -21,6 +21,11 @@ news.push({
    link: 'https://grk2624.statistik.tu-dortmund.de/seminar/'
 })
 news.push({
+   when: new Date("2025-05-23"),
+   text: 'Booth for Waddle at the Uni-Ulm LaDeWi 2025',
+   link: 'https://www.uni-ulm.de/in/fakultaet/in-detailseiten/news-detail/article/langer-abend-der-wissenschaft-2025/'
+})
+news.push({
    when: new Date("2025-05-01"),
    text: 'Book on Algorithmic Game Theory published',
    link: 'https://www.lehmanns.de/shop/mathematik-informatik/76728693-9783965435797-algorithmische-spieltheorie'
@@ -53,6 +58,11 @@ news.push({
    when: new Date("2025-04-09"),
    text: 'Workshop on LaTeX at the ConVeY Retreat 2025',
    link: 'https://convey.ifi.lmu.de/workshops/2025/spring/program.html'
+})
+news.push({
+   when: new Date("2025-04-03"),
+   text: 'Workshop for Waddle at the Girl\'s and Boy\'s day 2025',
+   link: 'https://www.girls-day.de'
 })
 news.push({
    when: new Date("2025-04-1"),
