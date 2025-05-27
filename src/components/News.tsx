@@ -44,7 +44,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-04-23"),
-   text: 'Accepted at the CSV 2025',
+   text: 'Accepted presentation at the CSV 2025',
    link: 'https://unive-ssv.github.io/csv.html'
 })
 news.push({
