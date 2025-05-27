@@ -104,7 +104,7 @@ news.push({
    text: 'Master\'s thesis by L. Pietzschmann on Slicing Coverage',
 })
 news.push({
-   when: new Date("2024-08-13"),
+   when: new Date("2023-08-13"),
    text: 'Master\'s thesis by me on flowR',
    link: 'http://dx.doi.org/10.18725/OPARU-50107'
 })
