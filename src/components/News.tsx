@@ -103,8 +103,16 @@ news.push({
    when: new Date("2025-01-02"),
    text: 'Master\'s thesis by L. Pietzschmann on Slicing Coverage',
 })
-
-
+news.push({
+   when: new Date("2024-08-13"),
+   text: 'Master\'s thesis by me on flowR',
+   link: 'http://dx.doi.org/10.18725/OPARU-50107'
+})
+news.push({
+   when: new Date("2021-11-30"),
+   text: 'Bachelor\'s thesis by me on One-Way Transformations',
+   link: 'http://dx.doi.org/10.18725/OPARU-47275'
+})
 
 news.sort((a, b) => b.when.getTime() - a.when.getTime());
 
