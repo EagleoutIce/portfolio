@@ -57,6 +57,9 @@
    background-color: transparent;
    transition: all 1s, scale .1s, color .1s;
    border-radius: 1%;
+   width: 100%;
+   min-width: 6em;
+   max-width: 15em;
 }
 
 .news .clear-news {

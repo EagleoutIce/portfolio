@@ -120,7 +120,7 @@ export function News() {
    }, [filter])
    
    return <div className="news">
-      <h4>News <span style={{fontSize: 'small', fontWeight: 'normal'}}>as of {getLastUpdated()}&emsp;<input type="text" className="news-filter" placeholder="filter news" value={filter}
+      <h4 style={{textAlign: "left" }}>News <span style={{fontSize: 'small', fontWeight: 'normal'}}>as of {getLastUpdated()}&emsp;<input type="text" className="news-filter" placeholder="filter news" value={filter}
          onChange={(e) => {
             setFilter(e.target.value);
          }}
