@@ -60,6 +60,7 @@
    width: 100%;
    min-width: 6em;
    max-width: 15em;
+   opacity: 0.75;
 }
 
 .news .clear-news {
@@ -84,11 +85,13 @@
 
 .news .news-filter:hover {
    cursor: text;
-   border-bottom: 2pt solid var(--main-color);
+   border-bottom: 1pt solid var(--text);
+   opacity: .9;
 }
 
 .news .news-filter:focus {
    outline: none;
-   border-bottom: 2pt solid var(--main-color);
    color: var(--text);
+   border-bottom: 1pt solid var(--text);
+   opacity: 1;
 }
