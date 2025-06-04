@@ -175,6 +175,16 @@ series = {ASE '24}
 `;
 
 export const BibDataTalks = `
+@misc{sihler2025csv,
+  title={Abstract Interpretation to Support Reproducibility of R},
+  author={Sihler, Florian},
+  year={2025},
+  month={June},
+  publisher={CSV '25},
+  note={Venice, Italy},
+  url={https://unive-ssv.github.io/csv.html}
+}
+
 @misc{sihler2025grk,
   title={Using flowR to improve the work with R code},
   author={Sihler, Florian},
