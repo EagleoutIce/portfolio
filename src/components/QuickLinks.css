@@ -24,7 +24,7 @@
   color: lightgray;
   font-size: .7em;
   user-select: none;
-  transition: all .45s;
+  transition: all .45s, scale 0s, font-size .1s;
   cursor: pointer;
   padding: 0 .33em;
 }

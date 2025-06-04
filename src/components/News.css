@@ -1,5 +1,5 @@
 .news {
-   transition: all 1s, scale .1s, color .1s;
+   transition: color .1s;
    margin-bottom: 2em;
 }
 
