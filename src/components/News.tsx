@@ -13,6 +13,11 @@ interface News {
 const news: News[] = []
 
 news.push({
+   when: new Date("2025-06-05"),
+   text: 'Presentation at the CSV 25 on Regression Analysis',
+   link: 'https://unive-ssv.github.io/csv.html'
+})
+news.push({
    when: new Date("2025-05-27"),
    text: 'Released flowR v2.2.13 (CFG, Graphics, Aliasing)',
    link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.2.13'
@@ -113,6 +118,7 @@ news.push({
    text: 'Bachelor\'s thesis by me on One-Way Transformations',
    link: 'http://dx.doi.org/10.18725/OPARU-47275'
 })
+
 
 news.sort((a, b) => b.when.getTime() - a.when.getTime());
 
