@@ -18,6 +18,16 @@ news.push({
    link: 'https://unive-ssv.github.io/csv.html'
 })
 news.push({
+   when: new Date("2025-06-02"),
+   text: 'Released flowR v2.2.15 (Value-Vector-Support)',
+   link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.2.15'
+})
+news.push({
+   when: new Date("2025-05-31"),
+   text: 'Released flowR v2.2.14 (Linting)',
+   link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.2.14'
+})
+news.push({
    when: new Date("2025-05-27"),
    text: 'Released flowR v2.2.13 (CFG, Graphics, Aliasing)',
    link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.2.13'
