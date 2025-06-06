@@ -230,7 +230,7 @@ export const BibDataTalks = `
   author={Sihler, Florian},
   year={2025},
   month={January},
-  note={Deutsches Zentrum für Luft- und Raumfahrt (DLR) Ulm, Germany}
+  note={Deutsches Zentrum für Luft- und Raumfahrt (DLR) Ulm, Germany&nbsp;(Invited Talk)}
 }
 
 @misc{sihler2024deRSE,
