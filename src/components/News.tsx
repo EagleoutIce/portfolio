@@ -15,7 +15,7 @@ const news: News[] = []
 news.push({
    when: new Date("2025-06-05"),
    text: 'Presentation at the CSV 25 on Regression Analysis',
-   link: 'https://unive-ssv.github.io/csv.html'
+   link: 'https://unive-ssv.github.io/events/2025/06/05/csv.html'
 })
 news.push({
    when: new Date("2025-06-02"),

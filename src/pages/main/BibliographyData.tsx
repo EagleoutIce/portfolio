@@ -182,7 +182,7 @@ export const BibDataTalks = `
   month={June},
   publisher={CSV '25},
   note={Venice, Italy},
-  url={https://unive-ssv.github.io/csv.html}
+  url={https://unive-ssv.github.io/events/2025/06/05/csv.html}
 }
 
 @misc{sihler2025grk,
