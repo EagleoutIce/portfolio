@@ -175,6 +175,16 @@ series = {ASE '24}
 `;
 
 export const BibDataTalks = `
+@misc{sihler2025tidy,
+  title={flowR: static program analysis and program slicing for R},
+  author={Sihler, Florian},
+  year={2025},
+  month={June},
+  publisher={Tidyteem Meeting},
+  note={Online&nbsp;(Invited Talk)},
+  url={https://github.com/tidyverse}
+}
+
 @misc{sihler2025csv,
   title={Abstract Interpretation to Support Reproducibility of R},
   author={Sihler, Florian},
