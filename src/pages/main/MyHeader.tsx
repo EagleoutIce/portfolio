@@ -39,8 +39,8 @@ export function MyHeader() {
    <QuickLinks sections={{
       projects: { page: 'my-projects'},
       publications: { page: 'publications'},
-      seminars: { page: 'schools-seminars'},
       service: { page: 'service'},
+      honors: { page: 'honors-awards-and-grants'},
       teaching: { page: 'teaching'},
    }}></QuickLinks>
  </Header>;

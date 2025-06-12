@@ -4,7 +4,7 @@ import "./LastUpdated.css"
 const LAST_UPDATED = "2024-01-01T00:00:00";
 
 export function getLastUpdated(): string {
-   return new Date(LAST_UPDATED).toLocaleDateString('en-US', {
+   return new Date(LAST_UPDATED === "2024-01-01T00:00:00" ? Date.now() : LAST_UPDATED).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'numeric',
       day: 'numeric',

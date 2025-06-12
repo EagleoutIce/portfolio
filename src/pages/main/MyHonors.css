@@ -1,0 +1,9 @@
+.honors-list {
+  font-size: smaller;
+  margin-top: 12px;
+}
+
+.honors-list > li {
+  list-style-type: disc;
+  margin-bottom: 5px;
+}
