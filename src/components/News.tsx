@@ -13,7 +13,7 @@ interface News {
 const news: News[] = []
 news.push({
    when: new Date("2025-06-09"),
-   text: 'Presentation at the Tidyteam Meeting',
+   text: 'Presentation at the tidyteam meeting',
    link: 'https://github.com/tidyverse'
 })
 news.push({
