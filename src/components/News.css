@@ -61,6 +61,7 @@
    min-width: 6em;
    max-width: 15em;
    opacity: 0.75;
+   color: var(--text);
 }
 
 .news .clear-news {
