@@ -77,7 +77,7 @@ export function getHonors() {
    .map(({type, title, year, month, link, note}) => {
       const id = escapeId(title);
       return <><li key={id}>
-         <a href={link} target="_blank" rel="noreferrer"><strong id={'link-' + id}>{TypeToStringMap[type]()}:</strong>&nbsp;{title}&nbsp;({year}, {monthToString[month]})</a>
+         <a href={link} target="_blank" rel="noreferrer"><strong id={'link-' + id}>{TypeToStringMap[type]()}:</strong>&nbsp;{title}&nbsp;({year}, {monthToString[month - 1]})</a>
       </li>
       { note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/> : '' }
       </>;
