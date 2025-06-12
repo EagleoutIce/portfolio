@@ -12,6 +12,10 @@ interface News {
 
 const news: News[] = []
 news.push({
+   when: new Date("2025-06-11"),
+   text: 'Received the Abbe Grant by the Carl-Zeiss-Stiftung',
+})
+news.push({
    when: new Date("2025-06-09"),
    text: 'Presentation at the tidyteam meeting',
    link: 'https://github.com/tidyverse'
