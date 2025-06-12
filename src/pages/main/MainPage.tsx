@@ -11,6 +11,7 @@ import { MyService } from './MyService';
 import { StaticQuickLinks } from '../../components/QuickLinks';
 import { LastUpdated } from '../../components/LastUpdated';
 import { News } from '../../components/News';
+import { MyHonors } from './MyHonors';
 
 function MainPage() {
   return (<>
@@ -29,12 +30,13 @@ function MainPage() {
       <h3 id="typography">TeX, Typst, and Typography</h3>
       <MyCurrentTypographyProjects />
 
-      <h2 id="publications">Publications</h2>
+      <h2 id="publications">Publications and Travel</h2>
          <StaticQuickLinks sections={{
             papers: { page: 'papers'},
             talks: { page: 'talks'},
             posters: { page: 'posters'},
-            other: { page: 'other-publications'}
+            other: { page: 'other-publications'},
+            seminars: { page: 'schools-seminars'}
          }}></StaticQuickLinks>
          
         <h3 id="papers">Papers</h3>
@@ -49,11 +51,14 @@ function MainPage() {
         <h3 id="other-publications">Other</h3>
         <Bibliography biblatexContent={BibDataOther} type='Other Publications'/>
 
-      <h2 id="schools-seminars">Summer Schools and Seminars</h2>
-      <MySeminars />
+        <h3 id="schools-seminars">Summer Schools and Seminars</h3>
+        <MySeminars />
 
-      <h2 id="service">Service</h2>
+      <h2 id="service">Academic Service</h2>
       <MyService />
+
+      <h2 id="honors-awards-and-grants">Honors, Awards, and Grants</h2>
+      <MyHonors />
 
       <h2 id="teaching">Teaching</h2>
       <MyTeaching />
