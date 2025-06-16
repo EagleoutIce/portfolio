@@ -12,6 +12,11 @@ interface News {
 
 const news: News[] = []
 news.push({
+   when: new Date("2025-06-13"),
+   text: 'Presentation accepted at the 2025 RSECon',
+   link: 'https://rsecon25.society-rse.org/'
+})
+news.push({
    when: new Date("2025-06-11"),
    text: 'Received the Abbe Grant by the Carl-Zeiss-Stiftung',
 })
