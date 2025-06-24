@@ -29,7 +29,12 @@ export const TypeToStringMap = {
    
 
 const honors: Honors[] = [];
-
+honors.push({
+   type: 'grant',
+   title: 'iwimint-grant by the University of Ulm for Waddle',
+   year: 2025,
+   month: 6
+})
 honors.push({
    type: 'grant',
    title: 'Abbe Grant by the Carl-Zeiss-Stiftung',
@@ -52,7 +57,7 @@ honors.push({
 })
 honors.push({
    type: 'award',
-   title: 'Prizes for the Abitur',
+   title: 'Various prizes for the Abitur',
    year: 2018,
    month: 7,
    note: 'Ferry Porsche Award, Physics Abitur Award (DPG), Paul-Schempp Award, Math Abitur Award (DMV)',

@@ -12,6 +12,20 @@ interface News {
 
 const news: News[] = []
 news.push({
+   when: new Date("2025-06-24"),
+   text: 'Received the iwimint-grant for Waddle',
+})
+news.push({
+   when: new Date("2025-06-24"),
+   text: 'Poster and flash presentation accepted at the 12th HLF',
+   link: 'https://www.heidelberg-laureate-forum.org/forum/12th-hlf-2025/'
+})
+news.push({
+   when: new Date("2025-06-24"),
+   text: 'Paper accepted at the SEEA 2025',
+   link: 'https://dsd-seaa.com/seaa2025/'
+})
+news.push({
    when: new Date("2025-06-13"),
    text: 'Presentation accepted at the 2025 RSECon',
    link: 'https://rsecon25.society-rse.org/'
