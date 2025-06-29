@@ -14,11 +14,12 @@ const news: News[] = []
 news.push({
    when: new Date("2025-06-24"),
    text: 'Received the iwimint-grant for Waddle',
+   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/waddle-receives-iwimint-funding/'
 })
 news.push({
    when: new Date("2025-06-24"),
    text: 'Poster and flash presentation accepted at the 12th HLF',
-   link: 'https://www.heidelberg-laureate-forum.org/forum/12th-hlf-2025/'
+   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/florian-sihler-accepted-at-the-12th-heidelberg-laureate-forum/'
 })
 news.push({
    when: new Date("2025-06-24"),
@@ -33,6 +34,7 @@ news.push({
 news.push({
    when: new Date("2025-06-11"),
    text: 'Received the Abbe Grant by the Carl-Zeiss-Stiftung',
+   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/florian-sihler-accepted-at-the-12th-heidelberg-laureate-forum/'
 })
 news.push({
    when: new Date("2025-06-09"),
@@ -96,7 +98,7 @@ news.push({
 news.push({
    when: new Date("2025-04-11"),
    text: 'Accepted at the 12th Heidelberg Laureate Forum',
-   link: 'https://www.heidelberg-laureate-forum.org/forum/12th-hlf-2025/'
+   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/florian-sihler-accepted-at-the-12th-heidelberg-laureate-forum/'
 })
 news.push({
    when: new Date("2025-04-09"),
