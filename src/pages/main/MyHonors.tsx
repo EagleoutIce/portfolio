@@ -4,7 +4,7 @@ import { getService } from './ServiceData';
 
 export function MyHonors() {
   return <>
-    So far, me and my work received the following honors, awards, and grants:
+    So far, me and my work received the following honors, awards, and grants/stipends:
     
     <ul className='honors-list'>
       {getHonors()}

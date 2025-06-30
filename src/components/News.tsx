@@ -12,6 +12,11 @@ interface News {
 
 const news: News[] = []
 news.push({
+   when: new Date("2025-06-27"),
+   text: 'Received a DAAD stipend for a research stay at CTU',
+   link: 'https://prl-prg.github.io/'
+})
+news.push({
    when: new Date("2025-06-24"),
    text: 'Received the iwimint-grant for Waddle',
    link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/waddle-receives-iwimint-funding/'

@@ -31,15 +31,24 @@ export const TypeToStringMap = {
 const honors: Honors[] = [];
 honors.push({
    type: 'grant',
+   title: 'DAAD stipend for a research stay at the CTU in Prague',
+   year: 2025,
+   month: 6,
+   link: 'https://prl-prg.github.io/'
+})
+honors.push({
+   type: 'grant',
    title: 'iwimint-grant by the University of Ulm for Waddle',
    year: 2025,
-   month: 6
+   month: 6,
+   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/waddle-receives-iwimint-funding/'
 })
 honors.push({
    type: 'grant',
    title: 'Abbe Grant by the Carl-Zeiss-Stiftung',
    year: 2025,
-   month: 6
+   month: 6,
+   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/florian-sihler-accepted-at-the-12th-heidelberg-laureate-forum/'
 })
 honors.push({
    type: 'award',
