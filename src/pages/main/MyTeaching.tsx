@@ -24,7 +24,7 @@ export function MyTeaching() {
       {getTeachings()}
    </ul>
    
-   <h3 id="lectures">Supervised Theses</h3>
+   <h3 id="theses">Supervised Theses</h3>
    So far, I had the pleasure of supervising the following theses:
    <ul className='teachings-list'>
       {getTheses()}
