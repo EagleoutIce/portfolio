@@ -12,6 +12,11 @@ interface News {
 
 const news: News[] = []
 news.push({
+   when: new Date("2025-07-21"),
+   text: 'Released flowR v2.3.0 (Data Frame Shape Inference)',
+   link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.3.0'
+})
+news.push({
    when: new Date("2025-06-27"),
    text: 'Received a DAAD stipend for a research stay at CTU',
    link: 'https://prl-prg.github.io/'
