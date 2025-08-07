@@ -12,6 +12,16 @@ interface News {
 
 const news: News[] = []
 news.push({
+   when: new Date("2025-08-06"),
+   text: 'Released flowR v2.4.0 (Forward-Slicing, Bugfixes)',
+   link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.4.0'
+})
+news.push({
+   when: new Date("2025-08-01"),
+   text: 'Started Research Stay with Jan Vitek at PRL-PRG',
+   link: 'https://prl-prg.github.io/'
+})
+news.push({
    when: new Date("2025-07-21"),
    text: 'Released flowR v2.3.0 (Data Frame Shape Inference)',
    link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.3.0'
