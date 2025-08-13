@@ -13,7 +13,8 @@ interface News {
 const news: News[] = []
 news.push({
    when: new Date("2025-08-13"),
-   text: 'Invited to the R Core Meeting 2025',
+   text: 'Accepted paper at OOPSLA 2025',
+   link: 'https://2025.splashcon.org/'
 })
 news.push({
    when: new Date("2025-08-11"),
