@@ -1,6 +1,6 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import "./News.css"
-import { LastUpdated, getLastUpdated } from "./LastUpdated";
+import { getLastUpdated } from "./LastUpdated";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -11,6 +11,14 @@ interface News {
 }
 
 const news: News[] = []
+news.push({
+   when: new Date("2025-08-13"),
+   text: 'Invited to the R Core Meeting 2025',
+})
+news.push({
+   when: new Date("2025-08-11"),
+   text: 'Invited to the R Core Meeting 2025',
+})
 news.push({
    when: new Date("2025-08-06"),
    text: 'Released flowR v2.4.0 (Forward-Slicing, Bugfixes)',
