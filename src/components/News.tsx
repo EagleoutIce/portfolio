@@ -27,7 +27,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-08-01"),
-   text: 'Started Research Stay with Jan Vitek at PRL-PRG',
+   text: 'Started Research Stay with Jan Vitek at PRL-PRG', // Charles University
    link: 'https://prl-prg.github.io/'
 })
 news.push({
