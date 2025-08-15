@@ -250,7 +250,7 @@ export const BibDataTalks = `
    month={March},
    publisher={deRSE '24},
    url={https://events.hifis.net/event/994/contributions/7978/},
-   note={Würzburg, Germany&emsp;<a href="https://www.youtube.com/watch?v=PyuHqRYy3e0" class="bib-link">YouTube</a>},
+   note={Würzburg, Germany&emsp;<a target="_blank" href="https://www.youtube.com/watch?v=PyuHqRYy3e0" class="bib-link">YouTube</a>},
    type={<b>YoungRSE Award</b>}
  }
 
@@ -270,6 +270,7 @@ export const BibDataPoster = `
   title = {Static Dataflow Analysis of R Programs},
   year = {2024},
   publisher = {ASE '24},
+  note={<a target="_blank" href="https://doi.org/10.5281/zenodo.14575532" class="bib-link">Poster (PDF)</a>},
   url = {https://conf.researchr.org/details/ase-2024/ase-2024-posters/7/Static-Dataflow-Analysis-of-R-Programs}
 }
 
@@ -278,7 +279,8 @@ export const BibDataPoster = `
    author={Sihler, Florian},
    year={2023},
    publisher={SE '23},
-   url={https://se-2023.gi.de/fileadmin/GI/user_upload/poster_sihler.pdf}
+   note={<a target="_blank" href="https://se-2023.gi.de/fileadmin/GI/user_upload/poster_sihler.pdf" class="bib-link">Poster (PDF)</a>},
+   url={https://se-2023.gi.de/programm/student-research-competition}
  }
 `;
 

@@ -10,8 +10,8 @@ export interface BibliographyProps {
    readonly type: string;
 }
 
-const doiregex = /([^"]https?:\/\/doi.org[^ "]+)/gm;
-const urlregex = /([^">]https?:\/\/(?!doi\.org)([^"]+)($|\s|.))/gm;
+const doiregex = /[^"]https?:\/\/(doi.org[^ "]+)/gm;
+const urlregex = /[^">]https?:\/\/((?!doi\.org)([^"<]+))/gm;
 
 function entryReplace(entry: string): string {
    return entry.replace('Sihler, F.', '<b>Sihler, F.</b>')
@@ -70,8 +70,6 @@ export function Bibliography({ biblatexContent, type }: BibliographyProps) {
       ).join('');
    }, [biblatexContent]);
    
-   
-
    return <>
       <div className="bibliography-header"><a onClick={() => downloadBib(biblatexContent, type)}>download <span className="code">.bib</span></a></div>
       <div className="bibliography" dangerouslySetInnerHTML={{ __html: bib }} />
