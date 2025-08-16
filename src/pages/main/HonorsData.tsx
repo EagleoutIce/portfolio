@@ -31,7 +31,7 @@ export const TypeToStringMap = {
 const honors: Honors[] = [];
 honors.push({
    type: 'grant',
-   title: 'DAAD stipend for a research stay at the CTU in Prague',
+   title: 'DAAD stipend for a research stay at the CU/CTU in Prague',
    year: 2025,
    month: 6,
    link: 'https://prl-prg.github.io/'

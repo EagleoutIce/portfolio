@@ -37,7 +37,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-06-27"),
-   text: 'Received a DAAD stipend for a research stay at CTU',
+   text: 'Received a DAAD stipend for a research stay at CU/CTU',
    link: 'https://prl-prg.github.io/'
 })
 news.push({
