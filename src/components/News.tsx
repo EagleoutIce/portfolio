@@ -177,6 +177,11 @@ news.push({
    text: 'Master\'s thesis by L. Pietzschmann on Slicing Coverage',
 })
 news.push({
+   when: new Date("2024-01-24"),
+   text: 'Accepted Paper at MSR \'24',
+   link: 'https://doi.org/10.1145/3643991.3644911'
+})
+news.push({
    when: new Date("2023-08-13"),
    text: 'Master\'s thesis by me on flowR',
    link: 'http://dx.doi.org/10.18725/OPARU-50107'
