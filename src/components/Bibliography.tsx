@@ -15,16 +15,18 @@ const urlregex = /[^">]https?:\/\/((?!doi\.org)([^"<]+))/gm;
 
 function entryReplace(entry: string): string {
    return entry.replace('Sihler, F.', '<b>Sihler, F.</b>')
-      .replace(doiregex, '<span class="bib-link">$1</span>')
-      .replace(urlregex, '<br/><span class="bib-link">$1</span>')
-   ;
+      .replace(doiregex, ' <span class="bib-link">$1</span>')
+      .replace(urlregex,  (s) => {
+        return (s.length > 30 ? '<br/>' : '') + `<div class="bib-link">${s}</div>`;
+})
+      ;
 }
 
 function downloadBib(content: string, name: string): void {
    const blob = new Blob([content], { type: 'text/plain' });
    const link = document.createElement('a');
    link.href = URL.createObjectURL(blob);
-   link.download = name.toLocaleLowerCase().replace(/[^a-z0-9]/g,'-') +'.bib';
+   link.download = name.toLocaleLowerCase().replace(/[^a-z0-9]/g, '-') + '.bib';
    document.body.appendChild(link);
    link.click();
    document.body.removeChild(link);
@@ -41,13 +43,17 @@ export function Bibliography({ biblatexContent, type }: BibliographyProps) {
          asEntryArray: true,
          nosort: true,
          prepend(entry: object) {
+            let prefix: string = '<div style="position: relative">';
             if('DOI' in entry) {
-               return '<a href="https://doi.org/' + entry['DOI'] + '" target="_blank" rel="noreferrer">';
-            } else if ('URL' in entry) {
-               return '<a href="' + entry['URL'] + '" target="_blank" rel="noreferrer">';
-            } else {
-               return '';
+               prefix += '<a href="https://doi.org/' + entry['DOI'] + '" target="_blank" rel="noreferrer">';
+            } else if('URL' in entry) {
+               prefix += '<a href="' + entry['URL'] + '" target="_blank" rel="noreferrer">';
             }
+            if('title-short' in entry) {
+               prefix += ` <div class="breadcrumb-container"><span class="breadcrumb">${entry['title-short']}</span></div>`;
+            }
+            return prefix;
+
          },
          append(entry: object) {
             let suffix = '';
@@ -58,6 +64,7 @@ export function Bibliography({ biblatexContent, type }: BibliographyProps) {
             if('note' in entry) {
                suffix += `&emsp;${entry['note']}`;
             }
+            suffix += '</div>';
             return suffix;
          }
       });
@@ -69,7 +76,7 @@ export function Bibliography({ biblatexContent, type }: BibliographyProps) {
          }
       ).join('');
    }, [biblatexContent]);
-   
+
    return <>
       <div className="bibliography-header"><a onClick={() => downloadBib(biblatexContent, type)}>download <span className="code">.bib</span></a></div>
       <div className="bibliography" dangerouslySetInnerHTML={{ __html: bib }} />

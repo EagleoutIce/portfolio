@@ -14,10 +14,13 @@ export const BibDataMain = `
   title        = {On the Anatomy of Real-World {R} Code for Static Analysis (Extended Abstract)},
   booktitle    = {Software Engineering 2025, Fachtagung des GI-Fachbereichs Softwaretechnik,
                   Karlsruhe, Germany, February 24-28, 2025},
+  shorttitle   = {SE '25},
   series       = {{LNI}},
   volume       = {{P-360}},
   pages        = {27},
   publisher    = {Gesellschaft für Informatik e.V.},
+  issn         = {2944-7682},
+  eissn        = {2944-7682},
   year         = {2025},
   url          = {https://doi.org/10.18420/se2025-27},
   doi          = {10.18420/SE2025-27},
@@ -38,6 +41,7 @@ doi = {10.1145/3691620.3695359},
 abstract = {Context Many researchers rely on the R programming language to perform their statistical analyses and visualizations in the form of R scripts. However, recent research and experience show, that many of these scripts contain problems. From being hard to comprehend by combining several analyses and plots into a single source file to being non-reproducible, with a lack of analysis tools supporting the writing of correct and maintainable code. Objective In this work, we address the problem of comprehending and maintaining R scripts by proposing flowR, a program slicer and static dataflow analyzer for the R programming language, which can be integrated directly into Visual Studio Code. Given a set of variables of interest, like the generation of a single figure in a script, flowR automatically reduces the program to the parts relevant for the output of interest, like the value of a variable. Method First, we use static program analysis to construct a detailed dataflow graph of the R script. The analysis supports loops, function calls, side effects, sourcing external files, and even redefinitions of R's primitive constructs. Subsequently, we calculate the program slice by solving a reachability problem on the graph, collecting all required parts and presenting them to the user. Results Providing several interactive ways of slicing the program, we require an average of 16 ms to calculate the slice on a given dataflow graph, reducing the code by around 94\% of tokens.The demonstration video is available at https://youtu.be/Zgq6rnbvvhk. For the full source code and extensive documentation, refer to https://github.com/Code-Inspect/flowr. To try the docker image, use docker run -rm -it eagleoutice/flowr.},
 booktitle = {Proceedings of the 39th IEEE/ACM International Conference on Automated Software Engineering},
 pages = {2390–2393},
+shorttitle = {ASE '24},
 numpages = {4},
 keywords = {program slicing, static analysis, R programming language},
 location = {Sacramento, CA, USA},
@@ -56,6 +60,7 @@ url = {https://doi.org/10.1145/3691620.3695603},
 doi = {10.1145/3691620.3695603},
 abstract = {Context Comprehending code is crucial in all areas of software development, with many existing supporting tools and techniques for various languages. However, for R, a widely used programming language, especially in the field of statistical computing, the support is limited. R offers a large number of packages as well as dynamic features, which make it challenging to analyze and understand. Objective We aim to (i) gain a better understanding of how R is used in the real world, (ii) devise better analysis strategies for R, which are able to handle its dynamic nature, and (iii) improve the comprehension of R scripts by using these analyses, providing new methods and procedures applicable to program comprehension in general. Method In eight contributions, we analyze feature usage in R scripts, develop a new static dataflow analysis intertwining control and dataflow, and more. We enable and propose new techniques for program comprehension using a combination of static and dynamic analysis.},
 booktitle = {Proceedings of the 39th IEEE/ACM International Conference on Automated Software Engineering},
+shorttitle = {ASE '24},
 pages = {2490–2493},
 numpages = {4},
 keywords = {program comprehension, hybrid analysis, R, doctoral thesis},
@@ -68,6 +73,7 @@ series = {ASE '24}
    author={Neumüller, Denis and Sihler, Florian and Straub, Raphael and Tichy, Matthias},
    booktitle={2024 4th International Conference on Code Quality (ICCQ)}, 
    title={Exploring the Effectiveness of Abstract Syntax Tree Patterns for Algorithm Recognition}, 
+   shorttitle={ICCQ '24},
    year={2024},
    volume={},
    number={},
@@ -87,6 +93,7 @@ series = {ASE '24}
   title        = {On the Anatomy of Real-World {R} Code for Static Analysis},
   booktitle    = {21st {IEEE/ACM} International Conference on Mining Software Repositories,
                   {MSR} 2024, Lisbon, Portugal, April 15-16, 2024},
+  shorttitle   = {MSR '24},
   pages        = {619--630},
   publisher    = {{ACM}},
   year         = {2024},
@@ -106,6 +113,7 @@ series = {ASE '24}
      Sihler, Florian  and
      Scherp, Ansgar",
    booktitle = "Proceedings of the 1st GenBench Workshop on (Benchmarking) Generalisation in NLP",
+   shorttitle = "{G}en{B}ench '23",
    month = dec,
    year = "2023",
    address = "Singapore",
@@ -133,6 +141,7 @@ series = {ASE '24}
   title        = {One-Way Model Transformations in the Context of the Technology-Roadmapping
                   Tool {IRIS}},
   journal      = {J. Object Technol.},
+  shorttitle   = {JOT '23},
   volume       = {22},
   number       = {2},
   pages        = {1--14},
@@ -153,7 +162,6 @@ series = {ASE '24}
    doi={10.18725/OPARU-47275}
  }
  
-
 @article{DBLP:journals/jss/BreckelPJST22,
   author       = {Alexander Breckel and
                   Jakob Pietron and
@@ -163,6 +171,7 @@ series = {ASE '24}
   title        = {A domain-specific language for modeling and analyzing solution spaces
                   for technology roadmapping},
   journal      = {J. Syst. Softw.},
+  shorttitle   = {JSS '22},
   volume       = {184},
   pages        = {111094},
   year         = {2022},
@@ -191,6 +200,7 @@ export const BibDataTalks = `
   year={2025},
   month={June},
   publisher={CSV '25},
+  shorttitle={CSV '25},
   note={Venice, Italy},
   url={https://unive-ssv.github.io/events/2025/06/05/csv.html}
 }
@@ -211,6 +221,7 @@ export const BibDataTalks = `
    year={2025},
    month={May},
    publisher={42nd HiRSE},
+   shorttitle={HiRSE '25},
    note={Online&nbsp;(Invited Talk)},
    url={https://www.helmholtz-hirse.de/series/2025_05_15-seminar_42.html}
 }
@@ -231,6 +242,7 @@ export const BibDataTalks = `
    year={2025},
    month={February},
    publisher={deRSE '25},
+   shorttitle={deRSE '25},
    note={Karlsruhe, Germany},
    url={https://events.hifis.net/event/1741/contributions/13407/}
 }
@@ -249,6 +261,7 @@ export const BibDataTalks = `
    year={2024},
    month={March},
    publisher={deRSE '24},
+   shorttitle={deRSE '24},
    url={https://events.hifis.net/event/994/contributions/7978/},
    note={Würzburg, Germany&emsp;<a target="_blank" href="https://www.youtube.com/watch?v=PyuHqRYy3e0" class="bib-link">YouTube</a>},
    type={<b>YoungRSE Award</b>}
@@ -260,6 +273,7 @@ export const BibDataTalks = `
    year={2024},
    month={January},
    publisher={IRSER '24},
+   shorttitle={IRSER '24},
    url={https://fg-rse.gi.de/veranstaltung/international-research-software-engineering-research-community-meetup}
  }
 `;
@@ -270,6 +284,7 @@ export const BibDataPoster = `
   title = {Static Dataflow Analysis of R Programs},
   year = {2024},
   publisher = {ASE '24},
+  shorttitle = {ASE '24},
   note={<a target="_blank" href="https://doi.org/10.5281/zenodo.14575532" class="bib-link">Poster (PDF)</a>},
   url = {https://conf.researchr.org/details/ase-2024/ase-2024-posters/7/Static-Dataflow-Analysis-of-R-Programs}
 }
@@ -279,6 +294,7 @@ export const BibDataPoster = `
    author={Sihler, Florian},
    year={2023},
    publisher={SE '23},
+  shorttitle={SE '23},
    note={<a target="_blank" href="https://se-2023.gi.de/fileadmin/GI/user_upload/poster_sihler.pdf" class="bib-link">Poster (PDF)</a>},
    url={https://se-2023.gi.de/programm/student-research-competition}
  }

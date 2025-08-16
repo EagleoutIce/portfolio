@@ -63,10 +63,26 @@
 }
 
 .bib-entry .bib-link {
+   display: inline;
    opacity: .8;
    transition: 400ms;
 }
 
 .bib-entry .bib-link:hover {
    opacity: 1;
+}
+
+.bibliography .breadcrumb-container {
+   display: inline-block;
+   /* anchor to the same height but to the waay right */
+   position: absolute;
+   right: calc(-1em - 2cm);
+   text-align: left;
+   width: 2cm;
+}
+
+.bibliography .breadcrumb {
+   font-size: 0.75rem;
+   word-break: keep-all;
+   white-space: nowrap;
 }
