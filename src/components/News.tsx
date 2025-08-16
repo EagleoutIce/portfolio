@@ -13,7 +13,7 @@ interface News {
 const news: News[] = []
 news.push({
    when: new Date("2025-08-13"),
-   text: 'Accepted paper at OOPSLA \'25',
+   text: 'Paper accepted at OOPSLA \'25',
    link: 'https://2025.splashcon.org/'
 })
 news.push({
@@ -52,7 +52,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-06-24"),
-   text: 'Paper accepted at the SEEA 2025',
+   text: 'Paper accepted at SEEA \'25',
    link: 'https://dsd-seaa.com/seaa2025/'
 })
 news.push({
@@ -62,7 +62,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-06-11"),
-   text: 'Received the Abbe Grant by the Carl-Zeiss-Stiftung',
+   text: 'Received the Abbe Grant by the Carl-Zeiss-Stiftung (HLF)',
    link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/florian-sihler-accepted-at-the-12th-heidelberg-laureate-forum/'
 })
 news.push({
@@ -117,7 +117,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-04-23"),
-   text: 'Accepted presentation at the CSV 2025',
+   text: 'Presentation accepted at the CSV 2025',
    link: 'https://unive-ssv.github.io/csv.html'
 })
 news.push({
@@ -126,7 +126,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-04-11"),
-   text: 'Accepted at the 12th Heidelberg Laureate Forum',
+   text: 'Accepted at the 12th Heidelberg Laureate Forum (HLF)',
    link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/florian-sihler-accepted-at-the-12th-heidelberg-laureate-forum/'
 })
 news.push({
@@ -178,7 +178,7 @@ news.push({
 })
 news.push({
    when: new Date("2024-01-24"),
-   text: 'Accepted Paper at MSR \'24',
+   text: 'Paper accepted at MSR \'24',
    link: 'https://doi.org/10.1145/3643991.3644911'
 })
 news.push({
