@@ -23,7 +23,12 @@ function scrollHelper(id: string, offset = 200) {
       window.scrollTo({ top: offsetTop, behavior: 'smooth' });
    }
 }
-function scrollTo(id: string) {
+
+export function scrollTo(id: string, addToHistory = true) {
+   if(addToHistory) {
+      // update the url without reloading the page
+      window.history.pushState({}, '', id !== 'top' ? `#/${id}` : '/');
+   }
    scrollHelper(id);
    setTimeout(() => {
       scrollHelper(id);

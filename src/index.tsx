@@ -6,6 +6,7 @@ import { RouterProvider, createHashRouter } from "react-router-dom";
 import { SiteNoticePage } from './pages/SiteNoticePage';
 import { ThemeButton } from './components/ThemeButton';
 import { NotFound } from './pages/NotFound';
+import { scrollTo } from './components/QuickLinks';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -28,7 +29,18 @@ const router = createHashRouter([
         </div>
       }
     />
-      }
+      },
+      /* for any other path, try to jump to an id with the same name */
+      { 
+        path: '*',
+        element: <MainPage />,
+        loader: async ({ params }) => {
+          const id = params['*'];
+          if (id) {
+            setTimeout(() => scrollTo(id, false), 100);
+          }
+          return null;
+      }}
     ]
   }
 ])
