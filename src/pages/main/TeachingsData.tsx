@@ -41,7 +41,7 @@ teaching.set('Software Engineering Project (Bachelor & Master)', {
    link: 'https://www.uni-ulm.de/en/in/sp/teaching/seminar-fortgeschrittene-konzepte-der-softwaretechnik-static-program-analysis/'
 });
 teaching.set('Functional Programming', {
-   terms: [wt(2022), wt(2023), wt(2024)],
+   terms: [wt(2022), wt(2023), wt(2024), wt(2025)],
    type: 'teaching-assistant',
    link: 'https://www.uni-ulm.de/in/sp/teaching/functional-programming/'
 });
