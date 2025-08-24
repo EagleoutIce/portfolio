@@ -8,6 +8,11 @@
   margin-bottom: 5px;
 }
 
+.theses-author-meta {
+  word-break: keep-all;
+  white-space: nowrap;
+}
+
 .slides-list, .documents-list {
   display: flex;
   flex-wrap: wrap;

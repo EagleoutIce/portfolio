@@ -1,4 +1,5 @@
 import { escapeId } from "../../util/id";
+import { monthToString } from "./HonorsData";
 
 function joinLastWith(arr: JSX.Element[], separator = ',', lastSeparator = ' and ') {
    if (arr.length === 0) return '';
@@ -118,14 +119,16 @@ The supported features of our concept and implementation are limited, as there a
    examiners: ['mtt', 'rh'],
 })
 
-export function getTheses() {
-   return theses.toSorted(
+export function getTheses(type: 'master' | 'bachelor'): JSX.Element[] {
+   return theses
+   .filter(t => t.type === (type + '-thesis'))
+   .toSorted(
       ({year, month}, {year: yearB, month: monthB}) => yearB - year || monthB - month
    )
-   .map(({ title, author, examiners, abstract, type, link, year, month}) => {
+   .map(({ title, author, examiners, abstract, link, year, month}) => {
       const id = escapeId(title);
       return <><li key={id}>
-         <strong id={'link-' + id}>{TypeToStringMap[type]} ({author !== 'anonymous' ? author + ', ' : ''}{year}):<br/>{title}</strong><br />
+         <strong id={'link-' + id}>{title} <span className='theses-author-meta'>({author !== 'anonymous' ? author + ', ' : ''}{monthToString[month - 1]}&nbsp;{year})</span></strong><br />
          <span>Examiners: {joinLastWith(examiners.map(e => ExaminerMap[e]))}</span>
          <details style={{ margin: '0.5em 0 1em 0' }}>
             <summary><i>Abstract</i></summary>
