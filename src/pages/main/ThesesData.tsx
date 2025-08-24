@@ -1,4 +1,3 @@
-import { Tooltip } from "react-tooltip";
 import { escapeId } from "../../util/id";
 
 function joinLastWith(arr: JSX.Element[], separator = ',', lastSeparator = ' and ') {
@@ -20,6 +19,7 @@ const ExaminerMap ={
    'mtt': <a className='link' href='https://www.uni-ulm.de/in/sp/team/tichy/'>Prof. Dr. Matthias Tichy</a>,
    'sw': <a className='link' href='https://www.stefan-winter.net/'>Prof. Dr. Stefan Winter</a>,
    'tt': <a className='link' href='https://www.tu-braunschweig.de/isf/team/thuem'>Prof. Dr. Thomas Thüm</a>,
+   'rh': <a className='link' href='https://www.uni-ulm.de/in/sp/team/prof-dr-robert-heinrich/'>Prof. Dr. Robert Heinrich</a>
 }
 
 interface Thesis {
@@ -97,6 +97,25 @@ Our implementation’s capabilities are limited by the language subset that we s
 Our results show that our algorithm provides a solid proof of concept, while our implementation yields a slightly greater slicing reduction for the number of normalized tokens of 82.42&nbsp;&nbsp;15.59&nbsp;%, a tolerable runtime increase of 13.81&nbsp;ms in the median, and a doubling in data flow graph size on average.</>,
    type: 'bachelor-thesis',
    examiners: ['mtt']
+})
+theses.push({
+   author: 'Oliver Gerstl',
+   type: 'master-thesis',
+   year: 2025,
+   month: 8,
+   title: 'Tracking the Shape of Data Frames in R Programs Using Abstract Interpretation',
+   abstract: <>
+In this thesis, we propose a theoretical concept and a proof-of-concept implementation to infer the shape of data frames in R programs using abstract interpretation.
+<p/>
+R is a programming language widely used in data science and statistical programming that is mostly used by people without a background in computer science. However, there is a lack of sufficient static code analysis tools for R. One of the most important data structures in R is the data
+frame which is used to store, transform, and visualize data in R scripts.
+<p/>
+Therefore, we provide the theoretical concept and a proof-of-concept implementation to track the shape of data frames in R programs using abstract interpretation. We identify data frame operations and transformations that are relevant to track shape information about data frames, define a formal concept to abstract the concrete semantics of the data frame operations, discuss the implementation of the abstract interpretation of data frame shapes, and evaluate our implementation on a large set of real-world R scripts.
+<p/>
+We first identify relevant data frame operations by analyzing the most commonly used data frame functions in R scripts and R packages. Then, we define the abstract domain to track the shape of data frames in R programs. We abstract the concrete data frame functions to abstract data frame operations to describe the abstract semantics of these abstract operations with respect to shape constraints for the data frames. Based on the theoretical concept, we develop an <a href="https://github.com/flowr-analysis/flowr/tree/7f17ef8772f5e40156c92fc98a7a0b1462532f7f/src/abstract-interpretation/data-frame" target="_blank">implementation</a> of the abstract interpretation of data frame shapes in flowR, an open-source static analyzer for the R programming language. Using the implementation, we provide a query to retrieve the shape of data frames and a linter rule to validate accessed columns and rows of data frames in R. Finally, we evaluate our implementation on a set of labelled real-world R scripts with a ground truth to analyze the correctness and accuracy of our implementation, and perform a large-scale evaluation on 33&nbsp;314 real-world R scripts to determine how many constraints can be inferred by our implementation and measure the runtime performance of the implementation.
+<p/>
+The supported features of our concept and implementation are limited, as there are many different data frame functions in R with many edge cases. Moreover, there is no formal definition of the operational semantics of R and most semantics are defined implicitly. As the scope of this thesis is limited, we focus on a subset of data frame operations identified based on the most common data frame functions in R scripts and R packages. Our implementation was correct for all points of interest of the evaluated labelled R scripts. We inferred data frame shapes for 73.4&nbsp;% of the evaluated points of interest that represent data frames. Of the total number of 33&nbsp;314&nbsp;real-world R scripts, our implementation inferred data frames shapes for 66.9&nbsp;% of all scripts. In total, we inferred data frame shape constraints for 406&nbsp;890 data frame expressions with partial shape information for 34.1&nbsp;% and full shape information for 2.6&nbsp;% of the data frame expressions. Our implementation required, on average, 4.16&nbsp;s with high outliers and a median of 209&nbsp;ms. The average runtime of the total analysis, including the parsing, data flow graph construction, and control flow graph generation, was 4.9&nbsp;s with a median of 598&nbsp;ms. We consider the median total runtime of 598&nbsp;ms to be fast enough for most use cases.</>,
+   examiners: ['mtt', 'rh'],
 })
 
 export function getTheses() {
