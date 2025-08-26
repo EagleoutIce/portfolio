@@ -184,12 +184,23 @@ series = {ASE '24}
 `;
 
 export const BibDataTalks = `
+@misc{sihler2025rse,
+   title={flowR: Program Slicing and Dependency Analysis to Improve the Reuse of R Scripts},
+   author={Sihler, Florian and Scheck, Johanna, and Tichy, Matthias},
+   year={2025},
+   month={September},
+   publisher={RSE '25},
+   shorttitle={RSE '25},
+   note={Coventry, England&nbsp;(accepted)},
+   url={https://virtual.oxfordabstracts.com/event/75166/submission/31},
+}
+  
 @misc{sihler2025tidy,
   title={flowR: static program analysis and program slicing for R},
   author={Sihler, Florian},
   year={2025},
   month={June},
-  publisher={Tidyteem Meeting},
+  publisher={Tidyteam Meeting},
   note={Online&nbsp;(Invited Talk)},
   url={https://github.com/tidyverse}
 }
