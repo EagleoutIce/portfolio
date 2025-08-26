@@ -290,6 +290,15 @@ export const BibDataTalks = `
 `;
 
 export const BibDataPoster = `
+@misc{hlf-2025-flowr-poster,
+  author = {Sihler, Florian},
+  title = {Program Analysis to Improve Comprehension and Reuse},
+  year = {2025},
+  publisher = {12<sup>th</sup> Heidelberg Laureate Forum},
+  shorttitle = {HLF '24},
+  note={(accepted)}
+}
+
 @misc{ase-2024-flowr-poster,
   author = {Sihler, Florian and Tichy, Matthias},
   title = {Static Dataflow Analysis of R Programs},
