@@ -1,5 +1,19 @@
 // add new ones at the top
 export const BibDataMain = `
+@inproceedings{wipOOPSLA,
+  author = {Sihler, Florian and Tichy, Matthias},
+  title = {Statically Analyzing the Dataflow of R Programs},
+  year = {2025},
+  booktitle = {OOPSLA '25},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/3763087},
+  doi = {10.1145/3763087},
+  shorttitle = {OOPSLA '25},
+  series = {OOPSLA '25},
+  note = {(accepted)}
+}
+
 @inproceedings{DBLP:conf/se/SihlerP0TDD25,
   author       = {Florian Sihler and
                   Lukas Pietzschmann and
