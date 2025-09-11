@@ -205,7 +205,7 @@ export const BibDataTalks = `
    month={September},
    publisher={RSE '25},
    shorttitle={RSE '25},
-   note={Coventry, England&nbsp;(accepted)},
+   note={Coventry, England},
    url={https://virtual.oxfordabstracts.com/event/75166/submission/31},
 }
   

@@ -30,6 +30,13 @@ export const TypeToStringMap = {
 
 const honors: Honors[] = [];
 honors.push({
+   type: 'award',
+   title: 'Rising Star award at the RSECon25',
+   year: 2025,
+   month: 9,
+   link: 'https://rsecon25.society-rse.org/awards/'
+})
+honors.push({
    type: 'grant',
    title: 'DAAD stipend for a research stay at the CU/CTU in Prague',
    year: 2025,

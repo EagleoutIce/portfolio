@@ -12,6 +12,21 @@ interface News {
 
 const news: News[] = []
 news.push({
+   when: new Date("2025-09-11"),
+   text: 'Received the Rising Star award at the RSECon25',
+   link: 'https://rsecon25.society-rse.org/awards/'
+})
+news.push({
+   when: new Date("2025-08-31"),
+   text: 'Finished Research Stay with Jan Vitek at PRL-PRG', // Charles University
+   link: 'https://prl-prg.github.io/'
+})
+// news.push({
+//    when: new Date("2025-08-15"),
+//    text: 'Shortlisted for the Rising Star award at the RSECon25',
+//    link: 'https://rsecon25.society-rse.org/awards/'
+// })
+news.push({
    when: new Date("2025-08-13"),
    text: 'Paper accepted at OOPSLA \'25',
    link: 'https://2025.splashcon.org/'
