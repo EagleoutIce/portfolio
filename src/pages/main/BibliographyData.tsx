@@ -198,6 +198,17 @@ series = {ASE '24}
 `;
 
 export const BibDataTalks = `
+@misc{sihler2025hlf,
+   title={Program Analysis to Improve Program Comprehension and Reuse},
+   author={Sihler, Florian},
+   year={2025},
+   month={September},
+   publisher={HLF '25},
+   shorttitle={HLF '25},
+   note={Heidelberg, Germany&emsp;<a target="_blank" href="https://www.youtube.com/watch?v=9C05VuVf6ik&t=1585s" class="bib-link">YouTube</a>},
+   url={https://www.youtube.com/watch?v=9C05VuVf6ik&t=1585s},
+}
+
 @misc{sihler2025rse,
    title={flowR: Program Slicing and Dependency Analysis to Improve the Reuse of R Scripts},
    author={Sihler, Florian and Scheck, Johanna, and Tichy, Matthias},
@@ -310,7 +321,7 @@ export const BibDataPoster = `
   year = {2025},
   publisher = {12<sup>th</sup> Heidelberg Laureate Forum},
   shorttitle = {HLF '24},
-  note={(accepted)}
+  note={<a target="_blank" href="https://doi.org/10.5281/zenodo.17147872" class="bib-link">Poster (PDF)</a>}
 }
 
 @misc{ase-2024-flowr-poster,

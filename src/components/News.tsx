@@ -12,6 +12,11 @@ interface News {
 
 const news: News[] = []
 news.push({
+   when: new Date("2025-09-15"),
+   text: 'Poster-Flash Presentation at the 12th (HLF)',
+   link: 'https://www.youtube.com/watch?v=9C05VuVf6ik&t=1585s'
+})
+news.push({
    when: new Date("2025-09-11"),
    text: 'Received the Rising Star award at the RSECon25',
    link: 'https://rsecon25.society-rse.org/awards/'
