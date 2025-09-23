@@ -189,25 +189,59 @@ We observe that the capabilities of our created model, which utilizes zero-shot 
 </>,
    examiners: ['mtt'],
 })
+theses.push({
+   author: 'Lukas Rohde',
+   type: 'bachelor-thesis',
+   year: 2025,
+   month: 9,
+   title: 'typeR: Static Interprocedural Subtype Inference for R Programs',
+   abstract: <>R is a programming language that is widely used in data analysis and statistical computing. While the flexibility granted by its highly dynamic execution model enables effortless exploration and transformation of data, contributing to its popularity among statisticians, the lack of static types and other code validation mechanisms makes writing larger R programs error-prone and hard to maintain.
+<p/>
+We aim to address the challenges posed by the lack of static types in R by introducing a static type system and interprocedural type inference algorithm.
+The proposed solution, consisting of a theoretical framework and practical prototype implementation, seeks to infer accurate and informative types for expressions in R programs, while remaining lightweight and easy to integrate into existing codebases, without relying on type annotations by the user.
+<p/>
+Our type inference system is designed on a theoretical level to handle a wide range of R’s dynamic features and type constructs, including expressive types for functions, lists, and vectors, as well as type unions and intersections to account for polymorphism, while also integrating empirical type signatures extracted from real-world R packages to improve precision.
+It is implemented as extension to the static analyzer flowR and builds upon the type inference approach by Parreaux to infer types through the resolution of subtyping constraints while leveraging flowR’s dataflow analysis capabilities.
+<p/>
+While our approach is accurate for a wide range of expressions in R programs, it has limitations in handling certain dynamic features of the language, such as nonstandard evaluation and object-oriented programming features.
+Therefore, we rely on a set of assumptions about the code being analyzed, which we assume to hold with or without our knowledge.
+Furthermore, the precision of inferred types is heavily dependent on the inherently limited coverage of the empirical type signatures used in the analysis.
+<p/>
+The correctness of our type inference system is ensured through a comprehensive set of 128 unit tests covering all inference rules and key components of our implementation with a statement coverage of 83&nbsp;%.
+Additional evaluations on a set of 78 deterministic real-world R scripts indicate that our type inference system is capable of inferring accurate types in 40&nbsp;% of cases, while incorrect results are inferred in 41&nbsp;% of cases. However, when not relying on dynamically extracted type signatures to improve precision, the number of incorrectly inferred types reduces to a single case while 16&nbsp;% of types can be correctly inferred, revealing the limitations of our signature datasets.
+In a separate performance evaluation on a sample of 1000 scripts, we observe a median inference time of 791&nbsp;ms per script with 62&nbsp;% of scripts being processed in under 1&nbsp;second, demonstrating the potential of typeR for interactive type checking in R development. Note, however, that this time only accounts for type inference and not flowR’s dataflow analysis, which is performed as a prerequisite for our analysis.
+</>,
+   examiners: ['mtt'],
+})
 
-export function getTheses(type: 'master' | 'bachelor'): JSX.Element[] {
-   return theses
-   .filter(t => t.type === (type + '-thesis'))
-   .toSorted(
-      ({year, month}, {year: yearB, month: monthB}) => yearB - year || monthB - month
-   )
-   .map(({ title, author, examiners, abstract, link, year, month}) => {
-      const id = escapeId(title);
-      return <li key={id}>
-         <strong id={'link-' + id}>{title} <span className='theses-author-meta'>({author !== 'anonymous' ? author + ', ' : ''}{monthToString[month - 1]}&nbsp;{year})</span></strong><br />
-         <span>Examiners: {joinLastWith(examiners.map(e => ExaminerMap[e]))}</span>
-         <details style={{ margin: '0.5em 0 1em 0' }}>
-            <summary><i>Abstract</i></summary>
-            <p>{abstract}</p>
-         </details>
-         
-         {link && <a href={link} target="_blank" rel="noreferrer">Link to Thesis</a>}
-      </li>;
-   });
+export function getTheses(type: 'master' | 'bachelor', header: (count: JSX.Element) => JSX.Element): JSX.Element {
+   const activeTheses = theses
+            .filter(t => t.type === (type + '-thesis'))
+            .toSorted(
+               ({year, month}, {year: yearB, month: monthB}) => yearB - year || monthB - month
+            );
+   return <>
+   {header(<span style={{ fontSize: 'smaller', color: 'gray' }}>{activeTheses.length}×</span>)}
+   <ul className='teachings-list' style={{marginTop: '-1em'}}>
+         {
+            activeTheses
+            .map(({ title, author, examiners, abstract, link, year, month}) => {
+               const id = escapeId(title);
+               return <li key={id}>
+                  <strong id={'link-' + id}>{title}</strong> <span className='theses-author-meta'>({author !== 'anonymous' ? author + ', ' : ''}{monthToString[month - 1]}&nbsp;{year})</span><br />
+                  <details style={{ margin: '0em 0 .5em 0', cursor: 'pointer', userSelect: 'none' }}>
+                     <summary><i>Details</i></summary>
+                     <span>Examiners: {joinLastWith(examiners.map(e => ExaminerMap[e]))}</span>
+                     <p />
+                     <b>Abstract</b>
+                     <p>{abstract}</p>
+                  </details>
+                  
+                  {link && <a href={link} target="_blank" rel="noreferrer">Link to Thesis</a>}
+               </li>;
+            })
+         }
+      </ul>
+      </>;
 }
 

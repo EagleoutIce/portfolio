@@ -32,15 +32,11 @@ export function MyTeaching() {
       }}></StaticQuickLinks>
       
    So far, I had the pleasure of supervising the following theses:
-   <h4 id="master-theses">Master's Theses</h4>
-   <ul className='teachings-list' style={{marginTop: '-1em'}}>
-      {getTheses('master')}
-   </ul>
    
-   <h4 id="bachelor-theses">Bachelor's Theses</h4>
-   <ul className='teachings-list' style={{marginTop: '-1em'}}>
-      {getTheses('bachelor')}
-   </ul>
+   {getTheses('master', c => <h4 id="master-theses">{c}Master's Theses</h4>)}
+   
+   
+   {getTheses('bachelor', c => <h4 id="bachelor-theses">{c}Bachelor's Theses</h4>)}
 
    <h3 id="slides">Slides</h3>
    <div className='slides-list'>
