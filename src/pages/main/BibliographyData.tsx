@@ -13,6 +13,33 @@ export const BibDataMain = `
   series = {OOPSLA '25},
   note = {(accepted)}
 }
+  
+@inproceedings{DBLP:conf/euromicro/StraubSTWGKT25,
+  author       = {Raphael Straub and
+                  Florian Sihler and
+                  Ali Torbati and
+                  Cong Wang and
+                  Raffaela Groner and
+                  Verena Klös and
+                  Matthias Tichy},
+  editor       = {Davide Taibi and
+                  Darja Smite},
+  title        = {Explainability in Self-Adaptive Systems: {A} Systematic Literature
+                  Review},
+  booktitle    = {Software Engineering and Advanced Applications - 51st Euromicro Conference,
+                  {SEAA} 2025, Salerno, Italy, September 10-12, 2025, Proceedings, Part
+                  {II}},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {16082},
+  pages        = {280--297},
+  publisher    = {Springer},
+  year         = {2025},
+  url          = {https://doi.org/10.1007/978-3-032-04200-2\_19},
+  doi          = {10.1007/978-3-032-04200-2\_19},
+  timestamp    = {Thu, 25 Sep 2025 17:54:31 +0200},
+  biburl       = {https://dblp.org/rec/conf/euromicro/StraubSTWGKT25.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
 
 @inproceedings{DBLP:conf/se/SihlerP0TDD25,
   author       = {Florian Sihler and
@@ -198,12 +225,22 @@ series = {ASE '24}
 `;
 
 export const BibDataTalks = `
+@misc{sihler2025rcore,
+   title={Improving Static Analysis Support for R},
+   author={Sihler, Florian and Tichy, Matthias},
+   year={2025},
+   month={September},
+   publisher={R Core Team Meeting 2025},
+   shorttitle={RCore '25},
+   note={Wien, Austria}
+}
+
 @misc{sihler2025hlf,
    title={Program Analysis to Improve Program Comprehension and Reuse},
    author={Sihler, Florian},
    year={2025},
    month={September},
-   publisher={HLF '25},
+   publisher={12th Heidelberg Laureate Forum (2025)},
    shorttitle={HLF '25},
    note={Heidelberg, Germany&emsp;<a target="_blank" href="https://www.youtube.com/watch?v=9C05VuVf6ik&t=1585s" class="bib-link">YouTube</a>},
    url={https://www.youtube.com/watch?v=9C05VuVf6ik&t=1585s},
@@ -214,10 +251,11 @@ export const BibDataTalks = `
    author={Sihler, Florian and Scheck, Johanna, and Tichy, Matthias},
    year={2025},
    month={September},
-   publisher={RSE '25},
+   publisher={Research Software Engineering Conference 2025},
    shorttitle={RSE '25},
    note={Coventry, England},
    url={https://virtual.oxfordabstracts.com/event/75166/submission/31},
+   type={<b>Rising Star Award</b>}
 }
   
 @misc{sihler2025tidy,
@@ -235,7 +273,7 @@ export const BibDataTalks = `
   author={Sihler, Florian},
   year={2025},
   month={June},
-  publisher={CSV '25},
+  publisher={Challenges of Software Verification Symposium 2025},
   shorttitle={CSV '25},
   note={Venice, Italy},
   url={https://unive-ssv.github.io/events/2025/06/05/csv.html}
@@ -277,7 +315,7 @@ export const BibDataTalks = `
    author={Sihler, Florian},
    year={2025},
    month={February},
-   publisher={deRSE '25},
+   publisher={German RSE Conference 2025},
    shorttitle={deRSE '25},
    note={Karlsruhe, Germany},
    url={https://events.hifis.net/event/1741/contributions/13407/}
@@ -296,7 +334,7 @@ export const BibDataTalks = `
    author={Sihler, Florian},
    year={2024},
    month={March},
-   publisher={deRSE '24},
+   publisher={German RSE Conference 2024},
    shorttitle={deRSE '24},
    url={https://events.hifis.net/event/994/contributions/7978/},
    note={Würzburg, Germany&emsp;<a target="_blank" href="https://www.youtube.com/watch?v=PyuHqRYy3e0" class="bib-link">YouTube</a>},
@@ -308,7 +346,7 @@ export const BibDataTalks = `
    author={Sihler, Florian},
    year={2024},
    month={January},
-   publisher={IRSER '24},
+   publisher={International Research Software Engineering Research Community Meetup 2024},
    shorttitle={IRSER '24},
    url={https://fg-rse.gi.de/veranstaltung/international-research-software-engineering-research-community-meetup}
  }

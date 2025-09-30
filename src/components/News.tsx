@@ -12,6 +12,15 @@ interface News {
 
 const news: News[] = []
 news.push({
+   when: new Date("2025-09-30"),
+   text: 'Presentation at the R Core Meeting 2025',
+})
+news.push({
+   when: new Date("2025-09-24"),
+   text: 'Non-Archival Paper accepted at SPLASH-E \'25',
+   link: 'https://2025.splashcon.org/track/splash-2025-SPLASH-E'
+})
+news.push({
    when: new Date("2025-09-15"),
    text: 'Poster-Flash Presentation at the 12th HLF',
    link: 'https://www.youtube.com/watch?v=9C05VuVf6ik&t=1585s'

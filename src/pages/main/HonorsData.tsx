@@ -34,7 +34,7 @@ honors.push({
    title: 'Rising Star award at the RSECon25',
    year: 2025,
    month: 9,
-   link: 'https://rsecon25.society-rse.org/awards/'
+   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/rising-star-award-at-rsecon25/'
 })
 honors.push({
    type: 'grant',
