@@ -23,7 +23,7 @@ news.push({
 news.push({
    when: new Date("2025-09-24"),
    text: 'Non-Archival Paper accepted at SPLASH-E \'25',
-   link: 'https://2025.splashcon.org/track/splash-2025-SPLASH-E'
+   link: 'https://2025.splashcon.org/details/splash-2025-SPLASH-E/10/Waddle-A-Serious-Game-to-Teach-Writing-Reading-and-Debugging-Programs '
 })
 news.push({
    when: new Date("2025-09-15"),
