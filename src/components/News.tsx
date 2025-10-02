@@ -12,6 +12,11 @@ interface News {
 
 const news: News[] = []
 news.push({
+   when: new Date("2025-10-02"),
+   text: 'Selected as Junior PC Member for MSR 2026',
+   link: 'https://2026.msrconf.org/'
+})
+news.push({
    when: new Date("2025-09-30"),
    text: 'Presentation at the R Core Meeting 2025',
 })
