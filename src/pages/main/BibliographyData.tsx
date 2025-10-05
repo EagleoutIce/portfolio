@@ -26,6 +26,7 @@ export const BibDataMain = `
                   Darja Smite},
   title        = {Explainability in Self-Adaptive Systems: {A} Systematic Literature
                   Review},
+  shorttitle   = {SEAA '25},
   booktitle    = {Software Engineering and Advanced Applications - 51st Euromicro Conference,
                   {SEAA} 2025, Salerno, Italy, September 10-12, 2025, Proceedings, Part
                   {II}},
