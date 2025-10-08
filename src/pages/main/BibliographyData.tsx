@@ -30,6 +30,7 @@ export const BibDataMain = `
   booktitle    = {Software Engineering and Advanced Applications - 51st Euromicro Conference,
                   {SEAA} 2025, Salerno, Italy, September 10-12, 2025, Proceedings, Part
                   {II}},
+  shorttitle   = {SEAA '25},
   series       = {Lecture Notes in Computer Science},
   volume       = {16082},
   pages        = {280--297},
@@ -359,7 +360,7 @@ export const BibDataPoster = `
   title = {Program Analysis to Improve Comprehension and Reuse},
   year = {2025},
   publisher = {12<sup>th</sup> Heidelberg Laureate Forum},
-  shorttitle = {HLF '24},
+  shorttitle = {HLF '25},
   note={<a target="_blank" href="https://doi.org/10.5281/zenodo.17147872" class="bib-link">Poster (PDF)</a>}
 }
 
