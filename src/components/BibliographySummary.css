@@ -1,0 +1,17 @@
+.conf-count {
+   font-size: smaller;
+   color: gray;
+}
+
+.conf-year-banner {
+   font-weight: bold;
+   display: inline-block;
+   margin-right: 1em;
+}
+
+.conf-entry {
+   display: inline-block;
+   margin-right: 1em;
+   margin-bottom: 0.25em;
+   word-break: keep-all;
+}
