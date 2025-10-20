@@ -12,6 +12,7 @@ import { StaticQuickLinks } from '../../components/QuickLinks';
 import { LastUpdated } from '../../components/LastUpdated';
 import { News } from '../../components/News';
 import { MyHonors } from './MyHonors';
+import { BibliographySummary } from '../../components/BibliographySummary';
 
 function MainPage() {
   return (<>
@@ -38,6 +39,13 @@ function MainPage() {
             other: { page: 'other-publications'},
             seminars: { page: 'schools-seminars'}
          }}></StaticQuickLinks>
+         
+         <BibliographySummary biblatexContent={{
+          publication: BibDataMain, 
+          talk:        BibDataTalks,
+          poster:      BibDataPoster,
+          other:       BibDataOther
+        }} />
          
         <h3 id="papers">Papers</h3>
         <Bibliography biblatexContent={BibDataMain} type='Papers' />
