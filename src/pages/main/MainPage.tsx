@@ -43,6 +43,9 @@ function MainPage() {
         <Bibliography biblatexContent={BibDataMain} type='Papers' />
               
         <h3 id="talks">Talks</h3>
+        
+        <p>Talks refer to all presentations that do not have an accompanying full/short paper publication, e.g., invited talks or talks at workshops without proceedings.</p>
+
         <Bibliography biblatexContent={BibDataTalks} type='Talks'/>
 
         <h3 id="posters">Posters</h3>

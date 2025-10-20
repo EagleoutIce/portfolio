@@ -1,17 +1,20 @@
 // add new ones at the top
 export const BibDataMain = `
-@inproceedings{wipOOPSLA,
+@inproceedings{sihler2025statically,
   author = {Sihler, Florian and Tichy, Matthias},
   title = {Statically Analyzing the Dataflow of R Programs},
   year = {2025},
   booktitle = {OOPSLA '25},
-  publisher = {Association for Computing Machinery},
+  publisher={ACM New York, NY, USA},
+  journal={Proceedings of the ACM on Programming Languages},
+  volume={9},
+  number={OOPSLA2},
+  pages={1034--1062},
   address = {New York, NY, USA},
   url = {https://doi.org/10.1145/3763087},
   doi = {10.1145/3763087},
   shorttitle = {OOPSLA '25},
   series = {OOPSLA '25},
-  note = {(accepted)}
 }
   
 @inproceedings{DBLP:conf/euromicro/StraubSTWGKT25,
@@ -227,6 +230,16 @@ series = {ASE '24}
 `;
 
 export const BibDataTalks = `
+@misc{sihler2025splashe,
+   title={Waddle: A Serious Game to Teach Writing, Reading, and Debugging Programs},
+   author={Sihler, Florian and Panda, Naomi and Berlinger, Simon and Tichy, Matthias},
+   year={2025},
+   month={October},
+   publisher={SPLASH-E 2025},
+   shorttitle={SPLASH-E '25},
+   note={Singapore, Singapore (non-archival paper)},
+}
+  
 @misc{sihler2025rcore,
    title={Improving Static Analysis Support for R},
    author={Sihler, Florian and Tichy, Matthias},
@@ -355,6 +368,16 @@ export const BibDataTalks = `
 `;
 
 export const BibDataPoster = `
+@misc{oopsla-2025-flowr-poster,
+  author = {Sihler, Florian and Tichy, Matthias},
+  title = {Statically Analyzing the Dataflow of R Programs},
+  year = {2025},
+  publisher = {OOPSLA '25},
+  shorttitle = {OOPSLA '25},
+  note={<a target="_blank" href="https://doi.org/10.5281/zenodo.17395146" class="bib-link">Poster (PDF)</a>},
+  url = {https://2025.splashcon.org/details/OOPSLA/103/Statically-Analyzing-the-Dataflow-of-R-Programs}
+}
+
 @misc{hlf-2025-flowr-poster,
   author = {Sihler, Florian},
   title = {Program Analysis to Improve Comprehension and Reuse},
