@@ -44,8 +44,7 @@ export function BibliographySummary({ biblatexContent }: BibliographySummaryProp
          
       
       const children: JSX.Element[] = []
-      const years = byYear.keys().toArray().sort();
-      // TODO: details as tooltip
+      const years = [...byYear.keys()].sort();
       for(const year of years) {
          children.push(<div key={`year-${year}`} className="conf-year-banner">• 20{year}</div>)
          const entries = Array.from(byYear.get(year)?.entries() ?? []);
