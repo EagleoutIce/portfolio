@@ -247,7 +247,7 @@ export const BibDataTalks = `
    month={September},
    publisher={R Core Team Meeting 2025},
    shorttitle={RCore '25},
-   note={Wien, Austria}
+   note={Vienna, Austria}
 }
 
 @misc{sihler2025hlf,
