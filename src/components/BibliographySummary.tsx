@@ -53,7 +53,7 @@ export function BibliographySummary({ biblatexContent }: BibliographySummaryProp
             const total = Array.from(typeMap.values()).reduce((a, b) => a + b, 0);
             const byType: string[] = []
             for(const [type, count] of typeMap.entries()) {
-               byType.push(`${count}× ${type}${count !== 1 ? 's' : ''}`);
+               byType.push(`${count}× ${type}${count === 1 ? '' : 's'}`);
             }
             children.push(
                <span key={`conf-${year}-${conf}`} id={`conf-${year}-${conf}`}  className="conf-entry">
