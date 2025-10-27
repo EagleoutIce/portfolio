@@ -44,7 +44,7 @@ export function BibliographySummary({ biblatexContent }: BibliographySummaryProp
          
       
       const children: JSX.Element[] = []
-      const years = [...byYear.keys()].sort();
+      const years = [...byYear.keys()].sort((a, b) => b - a);
       for(const year of years) {
          children.push(<div key={`year-${year}`} className="conf-year-banner">• 20{year}</div>)
          const entries = Array.from(byYear.get(year)?.entries() ?? []);
@@ -65,7 +65,7 @@ export function BibliographySummary({ biblatexContent }: BibliographySummaryProp
          }
       }
       
-      return <> { children } </>;
+      return <div className='bib-summary-children'> { children } </div>;
    }, [biblatexContent]);
 
    return bib;
