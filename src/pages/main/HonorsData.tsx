@@ -91,16 +91,16 @@ honors.push({
    month: 6
 })
 
-export function getHonors() {
+export function getHonors(): [li: JSX.Element, tooltip: JSX.Element | undefined][] {
    return honors.toSorted(
       (a, b) => b.year - a.year || b.month - a.month || a.title.localeCompare(b.title)
    )
    .map(({type, title, year, month, link, note}) => {
-      const id = escapeId(title);
-      return <><li key={id}>
+      const id = escapeId(title).substring(0,10);
+      
+      return [<li key={`list-${id}`}>
          <a href={link} target="_blank" rel="noreferrer"><strong id={'link-' + id}>{TypeToStringMap[type]()}&nbsp;({monthToString[month - 1]}, {year}):</strong>&nbsp;{title}</a>
-      </li>
-      { note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/> : '' }
-      </>;
+      </li>, 
+      note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/> : undefined];
    });
 }

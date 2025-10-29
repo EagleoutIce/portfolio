@@ -1,0 +1,229 @@
+@inproceedings{10.1145/3691620.3695359,
+  abstract   = {Context Many researchers rely on the R programming language to perform their statistical analyses and visualizations in the form of R scripts. However, recent research and experience show, that many of these scripts contain problems. From being hard to comprehend by combining several analyses and plots into a single source file to being non-reproducible, with a lack of analysis tools supporting the writing of correct and maintainable code. Objective In this work, we address the problem of comprehending and maintaining R scripts by proposing flowR, a program slicer and static dataflow analyzer for the R programming language, which can be integrated directly into Visual Studio Code. Given a set of variables of interest, like the generation of a single figure in a script, flowR automatically reduces the program to the parts relevant for the output of interest, like the value of a variable. Method First, we use static program analysis to construct a detailed dataflow graph of the R script. The analysis supports loops, function calls, side effects, sourcing external files, and even redefinitions of R's primitive constructs. Subsequently, we calculate the program slice by solving a reachability problem on the graph, collecting all required parts and presenting them to the user. Results Providing several interactive ways of slicing the program, we require an average of 16 ms to calculate the slice on a given dataflow graph, reducing the code by around 94\% of tokens.The demonstration video is available at https://youtu.be/Zgq6rnbvvhk. For the full source code and extensive documentation, refer to https://github.com/Code-Inspect/flowr. To try the docker image, use docker run -rm -it eagleoutice/flowr.},
+  address    = {New York, NY, USA},
+  author     = {Sihler, Florian and Tichy, Matthias},
+  booktitle  = {Proceedings of the 39th IEEE/ACM International Conference on Automated Software Engineering},
+  doi        = {10.1145/3691620.3695359},
+  isbn       = {9798400712487},
+  keywords   = {program slicing, static analysis, R programming language},
+  location   = {Sacramento, CA, USA},
+  numpages   = {4},
+  pages      = {2390–2393},
+  publisher  = {Association for Computing Machinery},
+  series     = {ASE '24},
+  eventtitle = {ASE '24},
+  title      = {flowR: A Static Program Slicer for R},
+  type       = {Tool Demonstrations},
+  url        = {https://doi.org/10.1145/3691620.3695359},
+  year       = {2024}
+}
+  
+@inproceedings{10.1145/3691620.3695603,
+  abstract   = {Context Comprehending code is crucial in all areas of software development, with many existing supporting tools and techniques for various languages. However, for R, a widely used programming language, especially in the field of statistical computing, the support is limited. R offers a large number of packages as well as dynamic features, which make it challenging to analyze and understand. Objective We aim to (i) gain a better understanding of how R is used in the real world, (ii) devise better analysis strategies for R, which are able to handle its dynamic nature, and (iii) improve the comprehension of R scripts by using these analyses, providing new methods and procedures applicable to program comprehension in general. Method In eight contributions, we analyze feature usage in R scripts, develop a new static dataflow analysis intertwining control and dataflow, and more. We enable and propose new techniques for program comprehension using a combination of static and dynamic analysis.},
+  address    = {New York, NY, USA},
+  author     = {Sihler, Florian},
+  booktitle  = {Proceedings of the 39th IEEE/ACM International Conference on Automated Software Engineering},
+  doi        = {10.1145/3691620.3695603},
+  isbn       = {9798400712487},
+  keywords   = {program comprehension, hybrid analysis, R, doctoral thesis},
+  location   = {Sacramento, CA, USA},
+  numpages   = {4},
+  pages      = {2490–2493},
+  publisher  = {Association for Computing Machinery},
+  series     = {ASE '24},
+  eventtitle = {ASE '24},
+  title      = {Improving the Comprehension of R Programs by Hybrid Dataflow Analysis},
+  type       = {Doctoral Symposium},
+  url        = {https://doi.org/10.1145/3691620.3695603},
+  year       = {2024}
+}
+
+@inproceedings{10576984,
+  author     = {Neumüller, Denis and Sihler, Florian and Straub, Raphael and Tichy, Matthias},
+  booktitle  = {2024 4th International Conference on Code Quality (ICCQ)},
+  doi        = {10.1109/ICCQ60895.2024.10576984},
+  keywords   = {Software maintenance;Codes;Scalability;Software algorithms;Prototypes;Syntactics;Usability;algorithm recognition;program comprehension;pattern matching;abstract syntax tree;domain-specific language;reverse engineering;maintenance},
+  number     = {},
+  pages      = {1-18},
+  eventtitle = {ICCQ '24},
+  title      = {Exploring the Effectiveness of Abstract Syntax Tree Patterns for Algorithm Recognition},
+  volume     = {},
+  year       = {2024}
+}
+   
+@inproceedings{DBLP:conf/euromicro/StraubSTWGKT25,
+  author     = {Raphael Straub and
+                Florian Sihler and
+                Ali Torbati and
+                Cong Wang and
+                Raffaela Groner and
+                Verena Klös and
+                Matthias Tichy},
+  bibsource  = {dblp computer science bibliography, https://dblp.org},
+  biburl     = {https://dblp.org/rec/conf/euromicro/StraubSTWGKT25.bib},
+  booktitle  = {Software Engineering and Advanced Applications - 51st Euromicro Conference,
+                {SEAA} 2025, Salerno, Italy, September 10-12, 2025, Proceedings, Part
+                {II}},
+  doi        = {10.1007/978-3-032-04200-2\_19},
+  editor     = {Davide Taibi and
+                Darja Smite},
+  pages      = {280--297},
+  publisher  = {Springer},
+  series     = {Lecture Notes in Computer Science},
+  eventtitle = {SEAA '25},
+  timestamp  = {Thu, 25 Sep 2025 17:54:31 +0200},
+  title      = {Explainability in Self-Adaptive Systems: {A} Systematic Literature
+                Review},
+  url        = {https://doi.org/10.1007/978-3-032-04200-2\_19},
+  volume     = {16082},
+  year       = {2025},
+  month      = {9}
+}
+
+@inproceedings{DBLP:conf/msr/SihlerPSTDD24,
+  author     = {Florian Sihler and
+                Lukas Pietzschmann and
+                Raphael Straub and
+                Matthias Tichy and
+                Andor Diera and
+                Abdelhalim Dahou},
+  bibsource  = {dblp computer science bibliography, https://dblp.org},
+  biburl     = {https://dblp.org/rec/conf/msr/SihlerPSTDD24.bib},
+  booktitle  = {21st {IEEE/ACM} International Conference on Mining Software Repositories,
+                {MSR} 2024, Lisbon, Portugal, April 15-16, 2024},
+  doi        = {10.1145/3643991.3644911},
+  pages      = {619--630},
+  publisher  = {{ACM}},
+  eventtitle = {MSR '24},
+  timestamp  = {Wed, 03 Jul 2024 16:57:34 +0200},
+  title      = {On the Anatomy of Real-World {R} Code for Static Analysis},
+  url        = {https://doi.org/10.1145/3643991.3644911},
+  year       = {2024}
+}
+  
+@inproceedings{DBLP:conf/se/SihlerP0TDD25,
+  author     = {Florian Sihler and
+                Lukas Pietzschmann and
+                Raphael Straub and
+                Matthias Tichy and
+                Andor Diera and
+                Abdelhalim Hafedh Dahou},
+  bibsource  = {dblp computer science bibliography, https://dblp.org},
+  biburl     = {https://dblp.org/rec/conf/se/SihlerP0TDD25.bib},
+  booktitle  = {Software Engineering 2025, Fachtagung des GI-Fachbereichs Softwaretechnik,
+                Karlsruhe, Germany, February 24-28, 2025},
+  doi        = {10.18420/SE2025-27},
+  editor     = {Anne Koziolek and
+                Anna{-}Lena Lamprecht and
+                Thomas Thüm and
+                Erik Burger},
+  eissn      = {2944-7682},
+  issn       = {2944-7682},
+  pages      = {27},
+  publisher  = {Gesellschaft für Informatik e.V.},
+  series     = {{LNI}},
+  eventtitle = {SE '25},
+  timestamp  = {Fri, 21 Feb 2025 16:22:30 +0100},
+  title      = {On the Anatomy of Real-World {R} Code for Static Analysis (Extended Abstract)},
+  url        = {https://doi.org/10.18420/se2025-27},
+  volume     = {{P-360}},
+  year       = {2025},
+  month      = {2}
+}
+
+
+@article{DBLP:journals/jot/SihlerTP23,
+  author     = {Florian Sihler and
+                Matthias Tichy and
+                Jakob Pietron},
+  bibsource  = {dblp computer science bibliography, https://dblp.org},
+  biburl     = {https://dblp.org/rec/journals/jot/SihlerTP23.bib},
+  doi        = {10.5381/JOT.2023.22.2.A2},
+  journal    = {J. Object Technol.},
+  number     = {2},
+  pages      = {1--14},
+  eventtitle = {JOT '23},
+  timestamp  = {Sat, 30 Sep 2023 10:20:03 +0200},
+  title      = {One-Way Model Transformations in the Context of the Technology-Roadmapping
+                Tool {IRIS}},
+  url        = {https://doi.org/10.5381/jot.2023.22.2.a2},
+  volume     = {22},
+  year       = {2023}
+}
+
+@article{DBLP:journals/jss/BreckelPJST22,
+  author     = {Alexander Breckel and
+                Jakob Pietron and
+                Katharina Juhnke and
+                Florian Sihler and
+                Matthias Tichy},
+  bibsource  = {dblp computer science bibliography, https://dblp.org},
+  biburl     = {https://dblp.org/rec/journals/jss/BreckelPJST22.bib},
+  doi        = {10.1016/J.JSS.2021.111094},
+  journal    = {J. Syst. Softw.},
+  pages      = {111094},
+  eventtitle = {JSS '22},
+  timestamp  = {Sat, 08 Jan 2022 02:23:26 +0100},
+  title      = {A domain-specific language for modeling and analyzing solution spaces
+                for technology roadmapping},
+  url        = {https://doi.org/10.1016/j.jss.2021.111094},
+  volume     = {184},
+  year       = {2022}
+}
+
+@inproceedings{diera-etal-2023-gencodesearchnet,
+  address    = {Singapore},
+  author     = {Diera, Andor  and
+                Dahou, Abdelhalim  and
+                Galke, Lukas  and
+                Karl, Fabian  and
+                Sihler, Florian  and
+                Scherp, Ansgar},
+  booktitle  = {Proceedings of the 1st GenBench Workshop on (Benchmarking) Generalisation in NLP},
+  doi        = {10.18653/v1/2023.genbench-1.2},
+  month      = dec,
+  pages      = {12--24},
+  publisher  = {Association for Computational Linguistics},
+  eventtitle = {{G}en{B}ench '23},
+  title      = {{G}en{C}ode{S}earch{N}et: A Benchmark Test Suite for Evaluating Generalization in Programming Language Understanding},
+  type       = {<b>Best Paper Award</b>},
+  url        = {https://acGenBenchlanthology.org/2023.genbench-1.2},
+  year       = {2023}
+}
+ 
+
+@misc{sihler2023constructing,
+  author    = {Sihler, Florian},
+  doi       = {10.18725/OPARU-50107},
+  publisher = {Ulm University},
+  title     = {Constructing a static program slicer for R programs},
+  type      = {Master's Thesis, <b>Award for Best Master's Degree</b>},
+  year      = {2023}
+}
+
+@misc{sihler2023one,
+  author    = {Sihler, Florian},
+  doi       = {10.18725/OPARU-47275},
+  publisher = {Ulm University},
+  title     = {One-way Model Transformation: On structural and semantical one-way transformations for constraint-based models, exemplified in the context of roadmapping},
+  type      = {Bachelor's Thesis},
+  year      = {2023}
+}
+ 
+@inproceedings{sihler2025statically,
+  address    = {New York, NY, USA},
+  author     = {Sihler, Florian and Tichy, Matthias},
+  booktitle  = {OOPSLA '25},
+  doi        = {10.1145/3763087},
+  journal    = {Proceedings of the ACM on Programming Languages},
+  number     = {OOPSLA2},
+  pages      = {1034--1062},
+  publisher  = {ACM New York, NY, USA},
+  series     = {OOPSLA '25},
+  eventtitle = {OOPSLA '25},
+  title      = {Statically Analyzing the Dataflow of R Programs},
+  url        = {https://doi.org/10.1145/3763087},
+  volume     = {9},
+  year       = {2025},
+  month      = {10}
+}

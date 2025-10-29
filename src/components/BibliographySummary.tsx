@@ -14,8 +14,8 @@ export function BibliographySummary({ biblatexContent }: BibliographySummaryProp
       for(const [type, content] of Object.entries(biblatexContent)) {   
          const cite = new Cite(content);
          // maps conference id to count of types
-         for(const entry of cite.data) {
-            const conf = entry['title-short'] ?? '??';
+         for(const entry of cite.data) { 
+            const conf = entry['event'] ?? entry['event-title'] ?? '??';
             if(!confTypeCount.has(conf)) {
                confTypeCount.set(conf, new Map());
             }

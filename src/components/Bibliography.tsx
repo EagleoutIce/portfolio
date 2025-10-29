@@ -32,10 +32,19 @@ function downloadBib(content: string, name: string): void {
    document.body.removeChild(link);
 }
 
+interface IssuedObject {
+   issued: {
+      'date-parts': [year: number, month?: number, day?: number][];
+   }
+}
+
 // https://citation.js.org/api/0.3/tutorial-output_formats.html
 export function Bibliography({ biblatexContent, type }: BibliographyProps) {
    const bib = useMemo(() => {
       const cite = new Cite(biblatexContent);
+      cleanUpData(cite);
+      sortAccordingToYear(cite);
+
       const res = cite.format('bibliography', {
          format: 'html',
          template: 'apa',
@@ -44,20 +53,19 @@ export function Bibliography({ biblatexContent, type }: BibliographyProps) {
          nosort: true,
          prepend(entry: object) {
             let prefix: string = '<div style="position: relative">';
-            if('DOI' in entry) {
+            if('DOI' in entry && typeof entry['DOI'] === 'string') {
                prefix += '<a href="https://doi.org/' + entry['DOI'] + '" target="_blank" rel="noreferrer">';
             } else if('URL' in entry) {
                prefix += '<a href="' + entry['URL'] + '" target="_blank" rel="noreferrer">';
             }
-            if('title-short' in entry) {
-               prefix += ` <div class="breadcrumb-container"><span class="breadcrumb">${entry['title-short']}</span></div>`;
+            
+            if('event' in entry) {
+               prefix += ` <div class="breadcrumb-container"><span class="breadcrumb">${entry['event']}</span></div>`;
             }
             return prefix;
-
          },
          append(entry: object) {
             let suffix = '';
-
             if('DOI' in entry || 'URL' in entry) {
                suffix += '</a>';
             }
@@ -68,6 +76,7 @@ export function Bibliography({ biblatexContent, type }: BibliographyProps) {
             return suffix;
          }
       });
+      
       return res.map(
          ([_, entry]: string[], index: number) => {
             /* TODO: generalize? */
@@ -81,4 +90,29 @@ export function Bibliography({ biblatexContent, type }: BibliographyProps) {
       <div className="bibliography-header"><a onClick={() => downloadBib(biblatexContent, type)}>download <span className="code">.bib</span></a></div>
       <div className="bibliography" dangerouslySetInnerHTML={{ __html: bib }} />
    </>;
+}
+
+function sortAccordingToYear(cite: any) {
+   cite.sort(({ issued: a }: IssuedObject, { issued: b }: IssuedObject) => {
+      const yearA = a['date-parts'][0][0];
+      const yearB = b['date-parts'][0][0];
+      if(yearA !== yearB) {
+         return yearB - yearA;
+      }
+      const monthA = a['date-parts'][0][1] || 0;
+      const monthB = b['date-parts'][0][1] || 0;
+      return monthB - monthA;
+   });
+}
+
+function cleanUpData(cite: any) {
+   cite.set(cite.data.map((entry: object) => {
+      if(entry === undefined || typeof entry !== 'object') {
+         return entry;
+      }
+      if('DOI' in entry && typeof entry['DOI'] === 'string') {
+         entry['DOI'] = entry['DOI'].replaceAll(String.raw`\_`, '_').trim();
+      }
+      return entry;
+   }));
 }

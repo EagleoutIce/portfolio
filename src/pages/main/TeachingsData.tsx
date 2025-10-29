@@ -79,19 +79,19 @@ teaching.set('Software Engineering 2 (Static Analysis)', {
    link: 'https://www.tu-braunschweig.de/isf/teaching/se2'
 });
 
-export function getTeachings() {
+export function getTeachings(): [li: JSX.Element, tooltip: JSX.Element | undefined][] {
    const entries = Array.from(teaching.entries());
    return entries.toSorted(
       ([a,], [b,]) => a.localeCompare(b)
    )
    .map(([name, { terms, link, type, note }]) => {
       const id = escapeId(name);
-      return <><li key={id}>
+      
+      return [<li key={id}>
          <a href={link} target="_blank" rel="noreferrer"> <span style={{ fontSize: 'smaller', color: 'gray' }}>{terms.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;{TypeToStringMap[type]('type-' + name)}</a><br /> 
          {terms.map((term, i) => <>{term}{i < terms.length - 1 ? ', ' : ''}</>)}
-      </li>
-      { note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/> : '' }
-      </>;
+      </li>, 
+      note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/> : undefined];
    });
 }
 

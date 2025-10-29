@@ -234,7 +234,7 @@ export function getTheses(type: 'master' | 'bachelor', header: (count: JSX.Eleme
                      <span>Examiners: {joinLastWith(examiners.map(e => ExaminerMap[e]))}</span>
                      <p />
                      <b>Abstract</b>
-                     <p>{abstract}</p>
+                     <div>{abstract}</div>
                   </details>
                   
                   {link && <a href={link} target="_blank" rel="noreferrer">Link to Thesis</a>}
