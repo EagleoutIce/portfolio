@@ -1,6 +1,7 @@
 const TypeMap = {
    'reviewing': 'Reviewer',
-   'artifact-eval': 'Artifact Evaluation'
+   'artifact-eval': 'Artifact Evaluation',
+   'junior-pc': 'Junior PC'
 } as const
 
 interface Entry {
@@ -29,6 +30,12 @@ const entries: Entry[] = [{
    shortTitle: 'RSECon \'25',
    year: 2025,
    link: 'https://rsecon25.society-rse.org/'
+}, {
+   type: 'junior-pc',
+   conference: 'Mining Software Repositories Conference',
+   shortTitle: 'MSR \'26',
+   year: 2026,
+   link: 'https://2026.msrconf.org/committee/msr-2026-junior-pc-technical-papers---junior-program-committee'
 }]
 
 
