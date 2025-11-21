@@ -32,7 +32,7 @@ const entries: Entry[] = [{
    link: 'https://rsecon25.society-rse.org/'
 }, {
    type: 'junior-pc',
-   conference: 'Mining Software Repositories Conference',
+   conference: 'International Conference on Mining Software Repositories',
    shortTitle: 'MSR \'26',
    year: 2026,
    link: 'https://2026.msrconf.org/committee/msr-2026-junior-pc-technical-papers---junior-program-committee'
