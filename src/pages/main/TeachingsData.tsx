@@ -57,7 +57,7 @@ teaching.set('Grundlagen der praktischen Informatik', {
    link: 'https://www.uni-ulm.de/in/sp/teaching/grundlagen-der-praktischen-informatik/'
 });
 teaching.set('Object-Oriented Programming', {
-   terms: [st(2024), st(2025)],
+   terms: [<>{st(2024)}&nbsp;[some lecturing]</>, <>{st(2025)}&nbsp;[some lecturing]</>],
    type: 'teaching-assistant',
    link: 'https://www.uni-ulm.de/in/sp/teaching/objektorientierte-programmierung/'
 });
