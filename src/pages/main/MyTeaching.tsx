@@ -37,7 +37,6 @@ export function MyTeaching() {
 
       {getTheses('master', c => <h4 id="master-theses">{c}Master's Theses</h4>)}
 
-
       {getTheses('bachelor', c => <h4 id="bachelor-theses">{c}Bachelor's Theses</h4>)}
 
       <h3 id="slides">Slides</h3>

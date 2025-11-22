@@ -13,6 +13,7 @@ import { LastUpdated } from '../../components/LastUpdated';
 import { News } from '../../components/News';
 import { MyHonors } from './MyHonors';
 import { BibliographySummary } from '../../components/BibliographySummary';
+import { MyEvents } from './EventsData';
 
 function MainPage() {
   return (<>
@@ -37,6 +38,7 @@ function MainPage() {
             talks: { page: 'talks'},
             posters: { page: 'posters'},
             other: { page: 'other-publications'},
+            events: { page: 'events'},
             seminars: { page: 'schools-seminars'}
          }}></StaticQuickLinks>
          
@@ -61,6 +63,12 @@ function MainPage() {
       
         <h3 id="other-publications">Other</h3>
         <Bibliography biblatexContent={BibDataOther} type='Other Publications'/>
+
+        <h3 id="events">Events</h3>
+        
+        Alongside my work on waddle and flowR, I contributed and participated in the following events:
+        
+        <MyEvents/>
 
         <h3 id="schools-seminars">Summer Schools and Seminars</h3>
         <MySeminars />

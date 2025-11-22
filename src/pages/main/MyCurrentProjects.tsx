@@ -21,7 +21,7 @@ export function MyCurrentProjects() {
       <div className="projects">
          <ProjectCard
             title={<>flowR&nbsp;<SocialMediaIcon className="small" icon={faGithub} key="flowr-github" /></>}
-            description="A Dataflow Analyzer for R (Dependency Analysis, Program Slicing,&nbsp;...)."
+            description="A Dataflow Analysis Framework for R (Dependency Analysis, Program Slicing,&nbsp;...)."
             image={flowR}
             link={"https://github.com/flowr-analysis/flowr"}
             extraClasses="project-card-rotating-img"
