@@ -12,6 +12,16 @@ interface News {
 
 const news: News[] = []
 news.push({
+   when: new Date("2025-12-1"),
+   text: 'Paper accepted at ICSE NIER \'26',
+   link: 'https://conf.researchr.org/track/icse-2026/icse-2026-nier'
+})
+news.push({
+   when: new Date("2025-11-28"),
+   text: 'Extended Abstract accepted at SE \'26',
+   link: 'https://se2026.inf.unibe.ch/de/program/'
+})
+news.push({
    when: new Date("2025-10-18"),
    text: 'Presentation at SPLASH-E \'25',
    link: 'https://2025.splashcon.org/details/splash-2025-SPLASH-E/10/Waddle-A-Serious-Game-to-Teach-Writing-Reading-and-Debugging-Programs'
