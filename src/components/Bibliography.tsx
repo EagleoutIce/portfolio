@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import "./Bibliography.css";
 import { Cite } from '@citation-js/core';
 import '@citation-js/plugin-bibtex';
@@ -8,6 +8,9 @@ import '@citation-js/plugin-csl';
 export interface BibliographyProps {
    readonly biblatexContent: string;
    readonly type: string;
+   readonly filters?: { [name: string]: 
+         (entry: Record<string, unknown>) => boolean
+   }
 }
 
 const doiregex = /[^"]https?:\/\/(doi.org[^ "]+)/gm;
@@ -39,7 +42,16 @@ interface IssuedObject {
 }
 
 // https://citation.js.org/api/0.3/tutorial-output_formats.html
-export function Bibliography({ biblatexContent, type }: BibliographyProps) {
+export function Bibliography({ biblatexContent, type, filters }: BibliographyProps) {
+   const [activeFilters, setActiveFilters] = useState<{ [name: string]: boolean }>(() => {
+      const init: { [name: string]: boolean } = {};
+      if(filters) {
+         for(const name of Object.keys(filters)) {
+            init[name] = false;
+         }
+      }
+      return init;
+   });
    const bib = useMemo(() => {
       const cite = new Cite(biblatexContent);
       cleanUpData(cite);
@@ -83,11 +95,52 @@ export function Bibliography({ biblatexContent, type }: BibliographyProps) {
             return `<div key=${index} class="bib-entry">
             <div class="bib-index">[<span class="bib-number">${res.length - index}</span>]</div> ${entryReplace(entry)}</div>`;
          }
-      ).join('');
-   }, [biblatexContent]);
-
+      ).filter((_entry: string, index: number) => {
+         if(!filters) {
+            return true;
+         }
+         for(const [name, predicate] of Object.entries(filters)) {
+            if(activeFilters[name]) {
+               const citeEntry = cite.data[index];
+               if(!predicate(citeEntry)) {
+                  return false;
+               }
+            }
+         }
+         return true;
+      })
+      .join('');
+   }, [biblatexContent, activeFilters]);
+   
+   const filterElems: JSX.Element[] = [];
+   // show all filters as buttons
+   if(filters) {
+      for(const [name, ] of Object.entries(filters)) {
+         filterElems.push(
+            <button 
+               key={`filter-btn-${name}`} 
+               className={activeFilters[name] ? 'filter-active' : 'filter-inactive'}
+               onClick={() => {
+                  setActiveFilters((prev) => {
+                     const newState = { ...prev };
+                     newState[name] = !newState[name];
+                     return newState;
+                  });
+               }}
+            >
+              {name}
+            </button>
+         );
+      }
+   }
+            
    return <>
       <div className="bibliography-header"><a onClick={() => downloadBib(biblatexContent, type)}>download <span className="code">.bib</span></a></div>
+      <div className="bibliography-filters">
+         {filterElems.length > 0 ? <>
+            {filterElems}
+         </> : <span></span>}
+      </div>
       <div className="bibliography" dangerouslySetInnerHTML={{ __html: bib }} />
    </>;
 }

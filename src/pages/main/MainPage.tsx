@@ -50,7 +50,22 @@ function MainPage() {
         }} />
          
         <h3 id="papers">Papers</h3>
-        <Bibliography biblatexContent={BibDataMain} type='Papers' />
+        <Bibliography biblatexContent={BibDataMain} type='Papers' 
+          filters = {{
+            ['first author']: (entry: Record<string, unknown>) => {
+                if('author' in entry && Array.isArray(entry['author']) && entry['author'].length > 0) {
+                    return entry['author'][0].given === 'Florian' && entry['author'][0].family === 'Sihler';
+                }
+                return false;
+            },
+            ['main paper']: (entry: Record<string, unknown>) => {
+              const smallVenues = ['SEAA', 'SE', 'deRSE', 'RSE', 'RCore', 'ICCQ', 'IRSER', 'CSV', 'SPLASH-E', 'GenBench', 'HLF', 'JOT', 'JSS']
+              return ('event-title' in entry && typeof entry['event-title'] === 'string' &&
+                !smallVenues.some(venue => (entry['event-title'] as string).startsWith(venue))
+              ) && !((entry['genre'] as string)?.includes('Doctoral Symposium'));
+            }
+          }}
+        />
               
         <h3 id="talks">Talks</h3>
         

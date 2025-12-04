@@ -86,3 +86,35 @@
    word-break: keep-all;
    white-space: nowrap;
 }
+
+.bibliography-filters {
+   margin-bottom: 1em;
+   display: flex;
+   flex-wrap: wrap;
+   gap: 0.5em;
+}
+
+.bibliography-filters button {
+   padding: 0.33em 0.5em;
+   font-size: 0.55em;
+   font-weight: normal;
+   border: solid .5px var(--soft-glow);
+   border-radius: 9pt;
+   background-color: var(--soft-glow);
+   color: var(--text);
+   cursor: pointer;
+   transition: background-color 500ms, color 500ms;
+}
+
+.bibliography-filters button.filter-active {
+   background-color: var(--main-color);
+   color: var(--background);
+}
+
+.bibliography-filters button:hover {
+   scale: 1;
+   background-color: var(--main-color-transparent);
+   font-size: 0.55em;
+   font-weight: normal;
+   padding: 0.33em 0.5em;
+}
