@@ -30,6 +30,13 @@ export const TypeToStringMap = {
 
 const honors: Honors[] = [];
 honors.push({
+   type: 'grant',
+   title: 'Unrestricted Gift by Posit for a "Security and Taint Analysis for R"',
+   year: 2026,
+   month: 1,
+   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/flowr-receives-unrestricted-gift-from-posit/'
+})
+honors.push({
    type: 'award',
    title: 'Rising Star award at the RSECon25',
    year: 2025,

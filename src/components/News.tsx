@@ -46,6 +46,11 @@ news.push({
    text: 'Presentation at the R Core Meeting 2025',
 })
 news.push({
+   when: new Date("2025-09-29"),
+   text: 'Unrestricted Gift by Posit for a "Security and Taint Analysis for R"',
+   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/flowr-receives-unrestricted-gift-from-posit/'
+})
+news.push({
    when: new Date("2025-09-24"),
    text: 'Non-Archival Paper accepted at SPLASH-E \'25',
    link: 'https://2025.splashcon.org/details/splash-2025-SPLASH-E/10/Waddle-A-Serious-Game-to-Teach-Writing-Reading-and-Debugging-Programs '
