@@ -7,6 +7,7 @@ export function MyIntro() {
       My work received the <a href="https://www.uni-ulm.de/in/sp/institute/news-detail/article/youngrse-award-at-derse24/" target="_blank" rel="noreferrer">YoungRSE</a> award at the deRSE24, the <a href="https://www.uni-ulm.de/in/sp/institute/news-detail/article/award-for-the-best-masters-degree/" target="_blank" rel="noreferrer">award for the best master's degree</a> in the field of computer science at Ulm University, and the <a href="https://rsecon25.society-rse.org/awards/" target="_blank" rel="noreferrer">Rising Star</a> award at the RSECon25.
       Additionally, I am an Alumni of the <a href="https://www.uni-ulm.de/in/sp/institute/news-detail/article/florian-sihler-accepted-at-the-12th-heidelberg-laureate-forum/" target="_blank" rel="noreferrer">
       12th Heidelberg Laureate Forum (HLF)</a>.
+      Since 2025, I am a workplace first aider and <a href="https://www.mhfa-ersthelfer.de/de/">MHFA</a> certified mental health first aider.
       <br /><br />
       
       If you want to know more about my work, please check out the projects below.
