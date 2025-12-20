@@ -36,6 +36,12 @@ const entries: Entry[] = [{
    shortTitle: 'MSR \'26',
    year: 2026,
    link: 'https://2026.msrconf.org/committee/msr-2026-junior-pc-technical-papers---junior-program-committee'
+}, {
+   type: 'artifact-eval',
+   conference: 'International Conference on Systems, Programming, Languages and Applications: Software for Humanity',
+   shortTitle: 'OOPSLA \'26',
+   year: 2026,
+   link: 'https://2026.splashcon.org/committee/splash-2026-artifact-evaluation-artifact-evaluation-committee'
 }]
 
 
