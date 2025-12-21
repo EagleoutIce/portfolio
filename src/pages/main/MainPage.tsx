@@ -43,10 +43,10 @@ function MainPage() {
          }}></StaticQuickLinks>
          
          <BibliographySummary biblatexContent={{
-          publication: BibDataMain, 
-          talk:        BibDataTalks,
-          poster:      BibDataPoster,
-          other:       BibDataOther
+          paper:  BibDataMain, 
+          talk:   BibDataTalks,
+          poster: BibDataPoster,
+          other:  BibDataOther
         }} />
          
         <h3 id="papers">Papers</h3>

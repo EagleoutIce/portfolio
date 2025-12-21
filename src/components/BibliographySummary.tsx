@@ -3,6 +3,7 @@ import "./BibliographySummary.css";
 import { Cite } from '@citation-js/core';
 import '@citation-js/plugin-bibtex';
 import { Tooltip } from "react-tooltip";
+import { escapeId } from "../util/id";
 
 export interface BibliographySummaryProps {
    readonly biblatexContent: { [type: string]: string };
@@ -55,11 +56,12 @@ export function BibliographySummary({ biblatexContent }: BibliographySummaryProp
             for(const [type, count] of typeMap.entries()) {
                byType.push(`${count}×${type}${count === 1 ? '' : 's'}`);
             }
+            const safeConf = escapeId(conf);
             children.push(
-               <span key={`conf-${year}-${conf}`} id={`conf-${year}-${conf}`} className="conf-entry">
+               <span key={`conf-${year}-${safeConf}`} id={`conf-${year}-${safeConf}`} className="conf-entry">
                   <span className='conf-count'>{total}×</span>
                   {conf}
-               <Tooltip anchorSelect={`#conf-${year}-${conf}`} content={byType.join(', ')} key={`tt-conf-${year}-${conf}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/>
+               <Tooltip anchorSelect={`#conf-${year}-${safeConf}`} content={byType.join(', ')} key={`tt-conf-${year}-${safeConf}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/>
                </span>
             );
          }
