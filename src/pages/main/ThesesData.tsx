@@ -213,6 +213,40 @@ In a separate performance evaluation on a sample of 1000 scripts, we observe a m
 </>,
    examiners: ['mtt'],
 })
+theses.push({
+   author: 'Luca Schlecker',
+   type: 'bachelor-thesis',
+   year: 2026,
+   month: 1,
+   title: 'Static Analysis for Self-Modifying R Programs',
+   abstract: <>In this thesis, we explore and implement string inference for the R programming language
+using abstract interpretation.
+<p/>
+<i>Context:</i>&nbsp;R is widely adopted in the scientific community for data-analysis and visualisation. It allows
+for a high degree of dynamism, which is often relied upon by its users. This is demonstrated
+by the prominent use of the <code>eval</code> primitive, which allows executing runtime strings as code.
+Excessive use of <code>eval</code> exposes users to a variety of pitfalls as it can execute arbitrary code
+without a static analysis tool being able to properly help. 
+<p/>
+<i>Objective:</i>&nbsp;We aim to address this situation by empowering static analysers to reason about the flow of strings throughout the program. The gained information about the value-domain of string
+expressions can be used to determine or approximate the side-effects dynamic operations like
+<code>eval</code>, <code>assign</code>, and <code>read.csv</code> incur. We proposed a solution consisting of a theoretical concept
+and a prototype implementation on top of the flowR static analyzer.
+<p/>
+<i>Method:</i>&nbsp;We choose three abstract domains, the <i>constant</i>, <i>constant-set</i>, and <i>presuffix</i> domain. They can represent strings by equality, being part of a set, or its prefix and suffix respectively. We define
+known semantics of R functions as <i>abstract operations</i> for each domain and use them to determine, over-approximating where needed, <i>abstract values</i> for expressions within a script. At the
+core of our implementation, expression relations are represented as a directed graph, allowing
+for efficient update propagation. We traverse a script’s AST and assign relevant values an
+abstract operation node. If a value’s result depends on another value, that relation is captured
+as an edge. The resulting graph resembles constraints on the domains of the expressions, which
+we solve by iterating over the nodes and propagating updates to its dependers. 
+<p/>
+<i>Limitations:</i>&nbsp;The analysis is tailored towards scalar string values and cannot handle other data types like numbers and vectors. This deficiency significantly limits our ability to infer strings in cases where they are employed. Manual analysis has shown that a common pattern for dataset-loading in the R world makes use of both and as a result, hinders our success in these cases. Furthermore, we cannot guarantee correctness in all cases for our presuffix domain due to the recycling rules for vectors and our inability to differentiate between them and single values.
+<p/>
+<i>Results:</i>&nbsp;We evaluated our approach using two different datasets. 77 deterministic and executable scripts are executable and were used to build a ground-truth to verify our implementation against. The presuffix domain was able to infer correct values other than top for 79.6% of the instrumented expressions. Within this smaller dataset, no incorrect values were inferred. Out of the 33,314 files of the other dataset, a total of 563 resulted in timeouts or unknown errors during analysis. Across the rest of them, 20.8% of expressions were inferred to be exactly one known string, whilst 37.3% could be inferred partially &mdash; meaning that only a part of the string is known. Added up, a total of 58.1% expressions were assigned a non-top value. This may not be as much as the first dataset, but the vastly increased script count paints a more representative picture.
+</>,
+   examiners: ['mtt'],
+})
 
 export function getTheses(type: 'master' | 'bachelor', header: (count: JSX.Element) => JSX.Element): JSX.Element {
    const activeTheses = theses
