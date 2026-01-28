@@ -12,6 +12,10 @@ interface News {
 
 const news: News[] = []
 news.push({
+   when: new Date("2026-01-16"),
+   text: 'Bachelor thesis by L. Schlecker on String Inference'
+})
+news.push({
    when: new Date("2025-12-1"),
    text: 'Paper accepted at ICSE NIER \'26',
    link: 'https://conf.researchr.org/track/icse-2026/icse-2026-nier'
