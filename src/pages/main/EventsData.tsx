@@ -25,7 +25,7 @@ events.set('Summer Science Camp', {
    link: 'https://www.uni-ulm.de/einrichtungen/ulmer-3-generationen-uni/science-camps/'
 });
 events.set('BOGY (Berufs-Orientierung an Gymnasien)', {
-   when: [time(4, 2024), time(5, 2024), time(4, 2025),<>{time(1,2026)} (thank you to J. Schubert)</>],
+   when: [time(4, 2024), time(5, 2024), time(4, 2025),<>{time(1,2026)} (thank you to J. Schubert)</>, time(2, 2026)],
    where: 'Ulm University',
    link: 'https://www.uni-ulm.de/studium/studienberatung/veranstaltungen-fuer-studieninteressierte/'
 });
