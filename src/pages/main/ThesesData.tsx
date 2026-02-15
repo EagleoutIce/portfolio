@@ -230,7 +230,7 @@ without a static analysis tool being able to properly help.
 <p/>
 <i>Objective:</i>&nbsp;We aim to address this situation by empowering static analysers to reason about the flow of strings throughout the program. The gained information about the value-domain of string
 expressions can be used to determine or approximate the side-effects dynamic operations like
-<code>eval</code>, <code>assign</code>, and <code>read.csv</code> incur. We proposed a solution consisting of a theoretical concept
+  <code>eval</code>, <code>assign</code>, and <code>read.csv</code> incur. We proposed a solution consisting of a theoretical concept
 and a prototype implementation on top of the flowR static analyzer.
 <p/>
 <i>Method:</i>&nbsp;We choose three abstract domains, the <i>constant</i>, <i>constant-set</i>, and <i>presuffix</i> domain. They can represent strings by equality, being part of a set, or its prefix and suffix respectively. We define
