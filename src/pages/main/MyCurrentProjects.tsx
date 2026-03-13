@@ -102,9 +102,8 @@ export function MyCurrentTypographyProjects() {
             link={"https://github.com/EagleoutIce/beamer-themes"}
             crumbs={["LaTeX", "beamer"]}
          />
-         { /* TODO: sopra-collections, code-animation */}
          <ProjectCard
-            title=<>sopra-collections&nbsp;<SocialMediaIcon className="small" icon={faGithub} key="fancyqr-github" /></>
+            title=<>sopra-collection&nbsp;<SocialMediaIcon className="small" icon={faGithub} key="fancyqr-github" /></>
             description="A collection of various useful LaTeX packages."
             image={listings}
             extraClasses="project-card-pulsating-img fwhite"
