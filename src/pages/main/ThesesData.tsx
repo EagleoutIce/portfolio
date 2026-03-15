@@ -119,6 +119,36 @@ The supported features of our concept and implementation are limited, as there a
    examiners: ['mtt', 'rh'],
 })
 theses.push({
+   author: 'Adrian Skutecki',
+   type: 'master-thesis',
+   year: 2025,
+   month: 10,
+   title: 'Investigating a Package-Based Dynamic Analysis Framework in R for Provenance',
+   abstract: <>With existing comprehensive program analysis tools for R being either
+external, static analysis tools, and dynamic analysis tools making use of
+invasive modifications to the R interpreter, resulting increased effort on
+the user side—installing and managing multiple R builds—as well as on
+the developer side—maintaining a modified R interpreter across versions—we investigate the feasibility of creating trackR, a dynamic program
+analysis framework for R that can be distributed as an R package for easy
+installation and avoids invasive modifications to the R interpreter, aiming
+to collect enough data to perform provenance analysis on the execution
+logs. We achieve this by instrumenting functions called by user code
+to log relevant events during program execution before performing the
+intended action, relying on R’s flexibility and reflective capabilities to
+inject the instrumented functions into the search path of the user program
+and effectively intercept calls to those functions, as well as by making
+use of advanced language features to improve tracking fidelity further.
+<p/>
+While the current implementation of trackR only implements a small
+subset of the envisioned features—requiring further expansion to answer
+the question of feasibility conclusively— we demonstrate a range of
+instrumentation techniques in the implemented features. The evaluation
+shows the correctness of the collected execution traces and acceptable
+performance overhead for many use cases, indicating that the approach is
+promising.</>,
+   examiners: ['mtt', 'rh'],
+})
+theses.push({
    author: 'Julian Schubert',
    type: 'bachelor-thesis',
    year: 2025,
@@ -166,6 +196,40 @@ of files containing no match. Our evaluation additionally shows that our
 linter requires a median time of 695&nbsp;ms, with the average time of 7&nbsp;259&nbsp;ms
 being heavily affected by outliers in the form of very large scripts in our
 dataset.</>,
+   examiners: ['mtt'],
+})
+theses.push({
+   author: 'Elias Gerster',
+   type: 'bachelor-thesis',
+   year: 2025,
+   month: 8,
+   title: 'A new error tolerant parser for R',
+   abstract: <>R is widely used in data science, statistics, and research. High-quality
+tooling — such as syntax-aware editors and linters — relies on parsers that
+can recover from incomplete or incorrect code without discarding valid
+parts. Tree-sitter provides such capabilities, but the quality of recovery
+depends on the language grammar.
+<p/>
+Evaluate and improve the error recovery capabilities of tree-sitter-r,
+with a focus on common and simple error types encountered during R
+development.
+<p/>
+We generate syntax errors using two complementary techniques: chopping (removing leaf AST nodes) to simulate code editing errors, and
+streaming (incrementally adding tokens) to simulate typing errors. The
+resulting erroneous code is parsed, and the recovery quality is measured
+by comparing the recovered ASTs to their correct counterparts using both
+edit distance and a node by node similarity. The most frequent error
+patterns are identified and targeted with grammar modifications.
+<p/>
+Both error generation methods are simplified models of real-world
+programming behavior. Integrated development environments, multilocation edits, and other user interactions may produce error types not
+covered by our dataset.
+<p/>
+Tree-sitter-r already recovers well from many simple errors. Targeted
+grammar rules reduced average edit distance by 2.07&nbsp;across all file sizes
+(1.1&nbsp; in the largest bucket) with negligible performance cost (+0.02&nbsp;s).
+Node by node similarity showed minimal change, indicating it is not a
+suitable stand-alone metric for recovery evaluation.</>,
    examiners: ['mtt'],
 })
 theses.push({
