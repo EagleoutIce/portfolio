@@ -7,7 +7,7 @@ import { getTheses } from './ThesesData';
 
 // TODO: move wrapper into get* fns
 export function MyTeaching() {
-   const teachings = getTeachings();
+   const { def: teachings, roles: teachingCounts } = getTeachings();
    return <>
       <StaticQuickLinks sections={{
          lectures: { page: 'lectures' },
@@ -19,7 +19,17 @@ export function MyTeaching() {
       <h3 id="lectures">Lectures, Seminars, and Projects</h3>
       As part of my work at the University of Ulm, I am involved in teaching:
 
-      <div className='note'> {TypeToStringMap['tutor']('sample-t')} = Tutor, {TypeToStringMap['teaching-assistant']('sample-ta')} = Teaching Assistant, {TypeToStringMap['lecturer']('sample-l')} = Lecturer, {TypeToStringMap['guest-lecturer']('sample-gl')} = Guest Lecturer</div>
+      <div className='note'> 
+         {
+            ([['tutor', 'Tutor'], ['teaching-assistant', 'Teaching Assistant'], ['lecturer', 'Lecturer'], ['guest-lecturer', 'Guest Lecturer']] as const).map(([type, lab]) => 
+                  <span key={type} className={'sample-' + type}>
+                     <span style={{ fontSize: 'smaller', color: 'gray' }}>{teachingCounts.get(type)}×</span> 
+                     {TypeToStringMap[type]('sample-' + type)} = {lab}
+                  </span>
+               )
+               .reduce((prev, curr) => [prev, <>,&emsp;</>, curr] as never)
+         }
+   </div>
 
       <ul className='teachings-list'>
          {teachings.map(t => t[0])}
