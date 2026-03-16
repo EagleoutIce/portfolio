@@ -10,6 +10,7 @@ interface Entry {
    readonly shortTitle: string;
    readonly year:       number;
    readonly link:       string;
+   readonly order?:     number;
 }
 
 const entries: Entry[] = [{
@@ -35,19 +36,29 @@ const entries: Entry[] = [{
    conference: 'International Conference on Mining Software Repositories',
    shortTitle: 'MSR \'26',
    year: 2026,
+   order: 1,
    link: 'https://2026.msrconf.org/committee/msr-2026-junior-pc-technical-papers---junior-program-committee'
 }, {
    type: 'artifact-eval',
    conference: ' European Conference on Object-Oriented Programming',
    shortTitle: 'ECOOP \'26',
    year: 2026,
+   order: 2,
    link: 'https://2026.ecoop.org/committee/ecoop-2026-artifact-evaluation-artifact-evaluation-committee'
 }, {
    type: 'artifact-eval',
    conference: 'International Conference on Systems, Programming, Languages and Applications: Software for Humanity',
    shortTitle: 'OOPSLA \'26',
    year: 2026,
+   order: 3,
    link: 'https://2026.splashcon.org/committee/splash-2026-artifact-evaluation-artifact-evaluation-committee'
+}, {
+   type: 'artifact-eval',
+   conference: 'Static Analysis Symposium',
+   shortTitle: 'SAS \'26',
+   year: 2026,
+   order: 4,
+   link: 'https://conf.researchr.org/home/splash-issta-2026/sas-2026'
 }]
 
 
@@ -56,6 +67,8 @@ export function getService() {
       (a, b) => {
          if(b.year - a.year !== 0) {
             return b.year - a.year;
+         } else if((a.order ?? 0) - (b.order ?? 0) !== 0) {
+            return (b.order ?? 0) - (a.order ?? 0);
          } else {
             return a.conference.localeCompare(b.conference);
          }
