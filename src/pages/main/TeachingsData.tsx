@@ -68,7 +68,7 @@ teaching.set('Introduction to Computer Science', {
 teaching.set('Software Quality Assurance (Static Analysis)', {
    terms: [<>{wt(2024)}&nbsp;<SocialMediaIcon icon={faGithub} href="https://github.com/EagleoutIce/sqa-static-analysis" className="small" /></>, <>{wt(2025)}&nbsp;<SocialMediaIcon icon={faGithub} href="https://github.com/EagleoutIce/sqa-static-analysis" className="small" /></>],
    type: 'lecturer',
-   note: 'Specifically for two lectures on static analysis',
+   note: 'Specifically for three lectures on static analysis',
    link: 'https://www.uni-ulm.de/in/sp/teaching/software-quality-assurance/'
 });
 
