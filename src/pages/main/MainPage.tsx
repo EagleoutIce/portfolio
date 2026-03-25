@@ -18,13 +18,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiamond, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 function divider() {
-  return <div className='hide-on-sticky' style={{
+  return <div style={{
       textAlign: 'center', 
       color: 'var(--main-color)', 
       filter: 'drop-shadow(0px 1px 1px var(--main-color))',
       userSelect: 'none',
       paddingBottom: '0em',
-      marginBottom: '-1.25em',
+      marginBottom: '-.25em',
       marginTop: '2em',
       fontSize: '0.75em'
     }}>
