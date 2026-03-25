@@ -14,13 +14,31 @@ import { News } from '../../components/News';
 import { MyHonors } from './MyHonors';
 import { BibliographySummary } from '../../components/BibliographySummary';
 import { MyEvents } from './EventsData';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDiamond, faMinus } from '@fortawesome/free-solid-svg-icons';
+
+function divider() {
+  return <div className='hide-on-sticky' style={{
+      textAlign: 'center', 
+      color: 'var(--main-color)', 
+      filter: 'drop-shadow(0px 1px 1px var(--main-color))',
+      userSelect: 'none',
+      paddingBottom: '0em',
+      marginBottom: '-1.25em',
+      marginTop: '2em',
+      fontSize: '0.75em'
+    }}>
+    <FontAwesomeIcon icon={faMinus} />&nbsp;<FontAwesomeIcon icon={faDiamond} />&nbsp;<FontAwesomeIcon icon={faMinus} />
+    </div>
+}
 
 function MainPage() {
   return (<>
     <MyHeader />
     <Content>
+    {divider()}
       <MyIntro />
-      
+    {divider()}
       <News />
       
       <h2 id="my-projects">My Projects</h2>

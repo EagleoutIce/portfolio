@@ -299,10 +299,6 @@ export function News() {
          {
             filteredNews.length > showLast ? 
             <li className="show-more">
-               <button onClick={() => setShowLast(filteredNews.length)}>
-                  show all
-               </button>
-               &emsp;
                <button onClick={() => setShowLast(showLast + 5)}>
                   show more
                </button>

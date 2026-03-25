@@ -96,3 +96,7 @@
    border-bottom: 1pt solid var(--text);
    opacity: 1;
 }
+
+.show-more {
+   user-select: none;
+}

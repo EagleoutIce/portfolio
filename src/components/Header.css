@@ -23,6 +23,10 @@
    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
+.header.sticky .hide-on-sticky {
+   display: none;
+}
+
 .header+.content {
    transition: padding-top .1s;
 }
