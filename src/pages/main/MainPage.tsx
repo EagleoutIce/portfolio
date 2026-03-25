@@ -36,7 +36,6 @@ function MainPage() {
   return (<>
     <MyHeader />
     <Content>
-    {divider()}
       <MyIntro />
     {divider()}
       <News />
