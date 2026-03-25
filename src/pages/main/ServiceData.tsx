@@ -1,7 +1,8 @@
 const TypeMap = {
    'reviewing': 'Reviewer',
    'artifact-eval': 'Artifact Evaluation',
-   'junior-pc': 'Junior PC'
+   'junior-pc': 'Junior PC',
+   'local-chair': 'Local Chair'
 } as const
 
 interface Entry {
@@ -59,6 +60,12 @@ const entries: Entry[] = [{
    year: 2026,
    order: 4,
    link: 'https://conf.researchr.org/home/splash-issta-2026/sas-2026'
+}, {
+   type: 'local-chair',
+   conference: 'Frühjahrstagung der Deutschsprachigen Anwendervereinigung TeX',
+   shortTitle: 'DANTE \'27',
+   year: 2027,
+   link: 'https://www.dante.de/veranstaltungen/dante2027/'
 }]
 
 

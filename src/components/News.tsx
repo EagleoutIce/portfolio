@@ -12,6 +12,11 @@ interface News {
 
 const news: News[] = []
 news.push({
+   when: new Date("2026-03-25"),
+   text: 'Local Chair for DANTE 2027 in Ulm',
+   link: 'https://www.dante.de/veranstaltungen/'
+})
+news.push({
    when: new Date("2026-03-18"),
    text: 'Paper accepted at FSE Tool Demonstrations \'26',
    link: 'https://conf.researchr.org/track/fse-2026/fse-2026-demonstrations'
