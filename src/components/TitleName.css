@@ -69,6 +69,7 @@
 /* header small update - hacky love */
 .header.sticky .title-name-card {
   padding: 3px;
+  padding-top: 1px;
 }
 
 .header.sticky .profile-name {
@@ -80,6 +81,7 @@
   width: 1.5em;
   height: 1.5em;
   margin-right: 18px;
+  margin-top: 4px
 }
 
 .header.sticky .profile-subtitle {
@@ -88,7 +90,7 @@
 }
 
 .header.sticky .profile-sm {
-  font-size: .4em;
+  font-size: .45em;
   padding-top: 0px;
-  padding-bottom: 3px;
+  padding-bottom: 2px
 }
