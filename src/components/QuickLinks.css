@@ -57,3 +57,10 @@
   opacity: .92;
   color: var(--main-color);
 }
+
+@media (max-width: 800px) {
+  .quick-links, .static-quick-links {
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+}
