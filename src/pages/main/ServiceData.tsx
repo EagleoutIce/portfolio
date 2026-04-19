@@ -27,6 +27,13 @@ const entries: Entry[] = [{
    year: 2025,
    link: 'https://conf.researchr.org/committee/sle-2025/sle-2025-papers-artifact-evaluation-committee'
 }, {
+   type: 'artifact-eval',
+   conference: 'International Conference on Software Language Engineering',
+   shortTitle: 'SLE \'26',
+   year: 2026,
+   order: 5,
+   link: 'https://conf.researchr.org/home/sle-2026#Call-for-Artifacts'
+}, {
    type: 'reviewing',
    conference: 'Research Software Engineering Conference',
    shortTitle: 'RSECon \'25',
