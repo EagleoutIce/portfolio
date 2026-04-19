@@ -77,6 +77,8 @@ const entries: Entry[] = [{
 
 
 export function getService() {
+   const currentYear = new Date().getFullYear();
+
    return entries.toSorted(
       (a, b) => {
          if(b.year - a.year !== 0) {
@@ -92,9 +94,10 @@ export function getService() {
       type,
       conference,
       shortTitle,
-      link
+      link,
+      year
    }) => {
-      return <li key={shortTitle}>
+      return <li key={shortTitle} style={year > currentYear ? { opacity: 0.72 } : undefined}>
          <a href={link} target="_blank" rel="noreferrer">
             <strong>{TypeMap[type]}</strong> for {shortTitle}<br/>
             {conference}
