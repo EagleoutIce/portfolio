@@ -15,10 +15,12 @@ export interface BibliographyProps {
 
 const doiregex = /[^"]https?:\/\/(doi.org[^ "]+)/gm;
 const urlregex = /[^">]https?:\/\/((?!doi\.org)([^"<]+))/gm;
+const arxivregex = /[^"](https?:\/\/arxiv.org\/abs\/([^ "<]+))/gm;
 
 function entryReplace(entry: string): string {
    return entry.replace('Sihler, F.', '<b>Sihler, F.</b>')
       .replace(doiregex, ' <span class="bib-link">$1</span>')
+      .replace(arxivregex, ' <span class="bib-link"><a target="_blank" href="$1">arXiv:$2</a></span>')
       .replace(urlregex,  (s) => {
         return (s.length > 30 ? '<br/>' : '') + `<div class="bib-link">${s}</div>`;
 })
