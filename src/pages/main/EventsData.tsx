@@ -30,7 +30,7 @@ events.set('BOGY (Berufs-Orientierung an Gymnasien)', {
    link: 'https://www.uni-ulm.de/studium/studienberatung/veranstaltungen-fuer-studieninteressierte/'
 });
 events.set('Girls\' Day', {
-   when: [time( 'no', 2024), time( 'no', 2025), time(4, 2026)],
+   when: [time( 'no', 2024), time( 'no', 2025), time('no', 2026)],
    where: 'Ulm University',
    link: 'https://www.uni-ulm.de/einrichtungen/ulmer-3-generationen-uni/girls-boys-day/'
 });
