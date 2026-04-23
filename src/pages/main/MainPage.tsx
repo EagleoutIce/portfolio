@@ -98,7 +98,7 @@ function MainPage() {
 
         <h3 id="events">Events</h3>
         
-        Alongside my work on waddle and flowR, I contributed to the following events:
+        Alongside my work on waddle and flowR, I contributed to and organized the following events:
         
         <MyEvents/>
 
