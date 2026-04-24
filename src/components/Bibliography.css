@@ -62,13 +62,13 @@
    color: var(--main-color);
 }
 
-.bib-entry .bib-link {
+.bib-link {
    display: inline;
    opacity: .8;
-   transition: 400ms;
+   transition: color 400ms, opacity 400ms;
 }
 
-.bib-entry .bib-link:hover {
+.bib-link:hover {
    opacity: 1;
 }
 

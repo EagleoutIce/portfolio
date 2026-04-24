@@ -64,6 +64,7 @@ theses.push({
    type: 'master-thesis',
    year: 2025,
    month: 4,
+   link: 'https://doi.org/10.18725/OPARU-57508',
    title: 'Cut to the Core – Automated Feature Extraction in R Using Program Slicing',
    abstract: <>
 In this master thesis we describe the development and evaluating of a tool that tries to re-engineer R research scripts into a Software Product Line.
@@ -104,6 +105,7 @@ theses.push({
    type: 'master-thesis',
    year: 2025,
    month: 8,
+   link: 'https://doi.org/10.18725/OPARU-58621',
    title: 'Tracking the Shape of Data Frames in R Programs Using Abstract Interpretation',
    abstract: <>
 In this thesis, we propose a theoretical concept and a proof-of-concept implementation to infer the shape of data frames in R programs using abstract interpretation.
@@ -153,6 +155,7 @@ theses.push({
    type: 'bachelor-thesis',
    year: 2025,
    month: 8,
+   link: 'https://doi.org/10.18725/OPARU-58026',
    title: 'Designing a Query Language for Linting R Scripts to Improve Reproducibility',
    abstract: <>In this bachelor’s thesis, we develop a query language which allows
 analyzing semantic information extracted from R scripts. We create an
@@ -258,6 +261,7 @@ theses.push({
    type: 'bachelor-thesis',
    year: 2025,
    month: 9,
+   link: 'https://doi.org/10.18725/OPARU-59821',
    title: 'typeR: Static Interprocedural Subtype Inference for R Programs',
    abstract: <>R is a programming language that is widely used in data analysis and statistical computing. While the flexibility granted by its highly dynamic execution model enables effortless exploration and transformation of data, contributing to its popularity among statisticians, the lack of static types and other code validation mechanisms makes writing larger R programs error-prone and hard to maintain.
 <p/>
@@ -326,16 +330,15 @@ export function getTheses(type: 'master' | 'bachelor', header: (count: JSX.Eleme
             .map(({ title, author, examiners, abstract, link, year, month}) => {
                const id = escapeId(title);
                return <li key={id}>
-                  <strong id={'link-' + id}>{title}</strong> <span className='theses-author-meta'>({author !== 'anonymous' ? author + ', ' : ''}{monthToString[month - 1]}&nbsp;{year})</span><br />
+                  <strong id={'link-' + id}>{title}</strong> <span className='theses-author-meta'>({author !== 'anonymous' ? author + ', ' : ''}{monthToString[month - 1]}&nbsp;{year})</span>{link && <>&emsp;<a href={link} className="bib-link" target="_blank" rel="noreferrer">[PDF]</a></>}<br />
                   <details style={{ margin: '0em 0 .5em 0', cursor: 'pointer', userSelect: 'none' }}>
                      <summary><i>Details</i></summary>
-                     <span>Examiners: {joinLastWith(examiners.map(e => ExaminerMap[e]))}</span>
+                     <span>Examiners: {joinLastWith(examiners.map(e => ExaminerMap[e]))}</span><br/>
+                     <span>{link && <>Link: <a href={link} className="bib-link" target="_blank" rel="noreferrer">{link}</a></>}</span>
                      <p />
                      <b>Abstract</b>
                      <div>{abstract}</div>
                   </details>
-                  
-                  {link && <a href={link} target="_blank" rel="noreferrer">Link to Thesis</a>}
                </li>;
             })
          }
