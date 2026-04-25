@@ -119,6 +119,47 @@
    padding: 0.33em 0.5em;
 }
 
+.bibliography-pagination {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+   gap: 0.5em;
+   margin-bottom: 0.75em;
+   user-select: none;
+}
+
+.bib-page-label,
+.bib-page-ellipsis,
+.bib-page-link,
+.bib-page-current {
+   font-size: 0.75em;
+}
+
+.bib-page-label,
+.bib-page-ellipsis {
+   color: var(--text);
+   opacity: .55;
+}
+
+.bib-page-link {
+   color: var(--text);
+   opacity: .55;
+   cursor: pointer;
+   transition: color 400ms, opacity 400ms;
+}
+
+.bib-page-link:hover {
+   color: var(--main-color);
+   opacity: 1;
+}
+
+.bib-page-current {
+   font-weight: bold;
+   color: var(--main-color);
+   cursor: default;
+}
+
 @media (max-width: 800px) {
    .bib-entry {
       flex-direction: column;
