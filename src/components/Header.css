@@ -4,23 +4,25 @@
    width: 100%;
    display: flex;
    margin-top: 50px;
-   padding: 32px 0px;
+   --p: 0;
+   padding-top: calc(32px - 27px * var(--p));
+   padding-bottom: calc(32px - 27px * var(--p));
+   padding-left: calc(42px * var(--p));
+   padding-right: calc(5px * var(--p));
    flex-direction: column;
    justify-content: center;
    align-items: center;
    background-color: var(--background);
-   transition: all .25s, background-color 1s, color 1s, margin-top 0s;
+   transition: background-color 1s, color 1s;
    z-index: 1000;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, calc(0.2 * var(--p)));
 }
 
 .header.sticky {
    position: fixed;
    background-color: var(--background-header);
-   padding: 5px;
-   padding-left: 42px;
    margin-top: 0px;
    flex-direction: row;
-   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .header.sticky .hide-on-sticky {
@@ -36,11 +38,7 @@
 }
 
 .header-glue {
-   width: 0%;
+   width: calc(35% * var(--p));
    height: 1px;
-   transition: all .25s, scale .1s;
-}
-
-.header.sticky .header-glue {
-   width: 35%;
+   transition: scale .1s;
 }

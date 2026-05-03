@@ -3,7 +3,7 @@
    background: none;
    opacity: 0.35;
    font-size: 1em;
-   transition: all 0.25s ease-in-out;
+   transition: opacity 0.25s ease-in-out, padding-right 0.25s ease-in-out;
    padding-right: 15px;
 }
 

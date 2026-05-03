@@ -5,31 +5,24 @@
   min-width: 6em;
 }
 
-
 .static-quick-links {
   padding: 0;
 }
 
 .quick-links {
-  padding-top: 52px;
-  margin-top: -1.5em;
-  margin-bottom: -1.5em;
-}
-
-.header.sticky .quick-links {
-  padding-top: 0;
-  font-size: .85em;
-  margin-left: 2em;
-  margin-right: -3em;
-  margin-bottom: 0;
-  margin-top: 0;
+  padding-top: calc(52px * (1 - var(--p, 0)));
+  margin-top: calc(-1.5em * (1 - var(--p, 0)));
+  margin-bottom: calc(-1.5em * (1 - var(--p, 0)));
+  margin-left: calc(2em * var(--p, 0));
+  margin-right: calc(-3em * var(--p, 0));
+  font-size: calc(1em - 0.15em * var(--p, 0));
 }
 
 .quick-link {
   color: lightgray;
   font-size: .7em;
   user-select: none;
-  transition: all .45s, scale 0s, font-size .1s;
+  transition: color .45s, opacity .45s, scale 0s;
   cursor: pointer;
   padding: 0 .33em;
 }

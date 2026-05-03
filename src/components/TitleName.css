@@ -1,17 +1,25 @@
 .title-name-card {
   display: flex;
   align-items: center;
-  transition: width .25s, height .25s, background-color .5s ease-in-out, color .5s ease-in-out;
+  transition: background-color .5s ease-in-out, color .5s ease-in-out;
   min-width: 10em;
+  margin-bottom: .5em;
+  padding: calc(3px * var(--p));
+  padding-top: calc(1px * var(--p));
+}
+
+.header.sticky .title-name-card {
+  margin-bottom: 0em;
 }
 
 .profile-image {
-  width: 6em;
-  height: 6em;
+  width: calc(6em - 4.5em * var(--p));
+  height: calc(6em - 4.5em * var(--p));
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 33px;
-  transition: width .25s, height .25s, border-radius 0.2s, scale .1s ease-in-out;
+  margin-right: calc(33px - 15px * var(--p));
+  margin-top: calc(4px * var(--p));
+  transition: border-radius 0.2s, scale .1s ease-in-out;
   box-shadow: 6px 6px 42px 0.1px var(--background-crumbs);
 }
 
@@ -43,54 +51,26 @@
 }
 
 .profile-name {
-  font-size: 1.5em;
-  font-weight: bold;
-  transition: font-size .2s, display .25s, font-weight .25s;
+  font-size: calc(1.5em - 0.65em * var(--p));
+  font-weight: calc(700 - 300 * var(--p));
 }
 
 .profile-subtitle {
   font-size: .9em;
-  font-weight: bold;
   color: var(--soft-text);
-  transition: all .2s, opacity .35s, display .25s;
+  opacity: calc(1 - var(--p));
   white-space: nowrap;
+}
+
+.header.sticky .profile-subtitle {
+  display: none;
 }
 
 .profile-sm {
   display: block;
-  font-size: .75em;
+  font-size: calc(0.75em - 0.3em * var(--p));
   width: 100%;
   text-align: left;
-  padding-top: 24px;
-  padding-bottom: 12px;
-  transition: all .2s, opacity .25s, display .25s;
-}
-
-/* header small update - hacky love */
-.header.sticky .title-name-card {
-  padding: 3px;
-  padding-top: 1px;
-}
-
-.header.sticky .profile-name {
-  font-size: .85em;
-  font-weight: 400;
-}
-
-.header.sticky .profile-image {
-  width: 1.5em;
-  height: 1.5em;
-  margin-right: 18px;
-  margin-top: 4px
-}
-
-.header.sticky .profile-subtitle {
-  opacity: 0;
-  display: none;
-}
-
-.header.sticky .profile-sm {
-  font-size: .45em;
-  padding-top: 0px;
-  padding-bottom: 2px
+  padding-top: calc(24px * (1 - var(--p)));
+  padding-bottom: calc(12px - 10px * var(--p));
 }

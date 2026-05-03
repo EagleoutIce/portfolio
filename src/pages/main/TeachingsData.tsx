@@ -110,6 +110,11 @@ interface Ressource {
 
 const slides: Ressource[] = [
    {
+      title: 'Introduction to Static Analysis (3 parts, 2025)',
+      href: 'https://github.com/EagleoutIce/sqa-static-analysis/tree/gh-pages',
+      coverSource: 'https://raw.githubusercontent.com/EagleoutIce/sqa-static-analysis/refs/heads/gh-pages/preview-sa.png'
+   },
+   {
       title: 'Intermediate Presentation (Master\'s Thesis, 2023)',
       href: 'https://media.githubusercontent.com/media/EagleoutIce/ma-slicing-interim/gh-pages/noanim_ma-interim-r-slicing.pdf',
       coverSource: 'https://media.githubusercontent.com/media/EagleoutIce/ma-slicing-interim/gh-pages/preview-01.png'
