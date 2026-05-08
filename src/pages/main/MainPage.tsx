@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Content } from '../../components/Content';
 import { SiteNotice } from '../../components/SiteNotice';
 import { MyHeader } from './MyHeader';
@@ -15,20 +16,66 @@ import { MyHonors } from './MyHonors';
 import { BibliographySummary } from '../../components/BibliographySummary';
 import { MyEvents } from './EventsData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiamond, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faDiamond } from '@fortawesome/free-solid-svg-icons';
+import { onMobileDevice } from '../../util/mobile';
 
-function divider() {
-  return <div style={{
-      textAlign: 'center', 
-      color: 'var(--main-color)', 
-      filter: 'drop-shadow(0px 1px 1px var(--main-color))',
+function Divider() {
+  const [hovered, setHovered] = useState(false);
+  const isMobile = onMobileDevice();
+
+  return <div
+    onMouseEnter={isMobile ? undefined : () => setHovered(true)}
+    onMouseLeave={isMobile ? undefined : () => setHovered(false)}
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.9rem',
+      color: 'var(--main-color)',
       userSelect: 'none',
-      paddingBottom: '0em',
-      marginBottom: '-.25em',
-      marginTop: '2em',
-      fontSize: '0.75em'
+      pointerEvents: 'none',
+      marginTop: '2.2rem',
+      marginBottom: '0.5rem',
+      transform: hovered ? 'translateY(-1px)' : 'translateY(0)',
+      transition: isMobile ? 'none' : 'transform 180ms ease'
     }}>
-    <FontAwesomeIcon icon={faMinus} />&nbsp;<FontAwesomeIcon icon={faDiamond} />&nbsp;<FontAwesomeIcon icon={faMinus} />
+    <span style={{
+      flex: '1 1 120px',
+      height: '1px',
+      background: 'linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--main-color) 55%, transparent) 22%, var(--main-color) 100%)',
+      boxShadow: '0 0 8px color-mix(in srgb, var(--main-color) 35%, transparent)',
+      transform: hovered ? 'scaleX(1.03)' : 'scaleX(1)',
+      transformOrigin: 'center',
+      transition: isMobile ? 'none' : 'transform 180ms ease, opacity 180ms ease'
+    }} />
+    <span style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '2.25rem',
+      height: '2.25rem',
+      borderRadius: '999px',
+      border: '1px solid color-mix(in srgb, var(--main-color) 55%, transparent)',
+      background: 'linear-gradient(180deg, color-mix(in srgb, var(--main-color) 12%, transparent), transparent)',
+      boxShadow: '0 0 0 4px color-mix(in srgb, var(--main-color) 8%, transparent), 0 8px 18px rgba(0, 0, 0, 0.10)',
+      filter: 'drop-shadow(0px 1px 1px color-mix(in srgb, var(--main-color) 35%, transparent))',
+      transform: hovered ? 'translateY(-2px) scale(1.04)' : 'translateY(0) scale(1)',
+      transition: isMobile ? 'none' : 'transform 180ms ease, box-shadow 180ms ease, filter 180ms ease'
+    }}>
+      <FontAwesomeIcon icon={faDiamond} style={{
+        fontSize: '0.8rem',
+        opacity: hovered ? 1 : 0.92,
+        transition: isMobile ? 'none' : 'opacity 180ms ease'
+      }} />
+    </span>
+    <span style={{
+      flex: '1 1 120px',
+      height: '1px',
+      background: 'linear-gradient(90deg, var(--main-color) 0%, color-mix(in srgb, var(--main-color) 55%, transparent) 78%, transparent 100%)',
+      boxShadow: '0 0 8px color-mix(in srgb, var(--main-color) 35%, transparent)',
+      transform: hovered ? 'scaleX(1.03)' : 'scaleX(1)',
+      transformOrigin: 'center',
+      transition: isMobile ? 'none' : 'transform 180ms ease, opacity 180ms ease'
+    }} />
     </div>
 }
 
@@ -37,7 +84,7 @@ function MainPage() {
     <MyHeader />
     <Content>
       <MyIntro />
-    {divider()}
+      <Divider />
       <News />
       
       <h2 id="my-projects">My Projects</h2>
