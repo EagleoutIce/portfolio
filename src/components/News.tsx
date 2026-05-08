@@ -12,6 +12,10 @@ interface News {
 
 const news: News[] = []
 news.push({
+   when: new Date("2026-05-04"),
+   text: 'Pupil started a 1-week internship at the institute',
+})
+news.push({
    when: new Date("2026-04-19"),
    text: 'Part of the AEC of SLE 2026',
    link: 'https://conf.researchr.org/home/sle-2026#Call-for-Artifacts'
