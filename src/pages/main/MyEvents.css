@@ -7,3 +7,8 @@
   list-style-type: disc;
   margin-bottom: 5px;
 }
+
+/* Grayed-out style for future dates */
+.future-time {
+  color: gray;
+}

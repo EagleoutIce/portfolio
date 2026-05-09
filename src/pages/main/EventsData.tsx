@@ -11,7 +11,11 @@ interface Event {
 }
 
 function time(month: number | 'no', year: number) {
-   return <span key={`time-${month}-${year}`}>{month === 'no' ? '' : monthToString[month - 1] + ' '}{year}</span>;
+   const now = new Date();
+   const currentYear = now.getFullYear();
+   const currentMonth = now.getMonth() + 1; // 1-12
+   const isFuture = year > currentYear || (year === currentYear && month !== 'no' && typeof month === 'number' && month > currentMonth);
+   return <span key={`time-${month}-${year}`} className={isFuture ? 'future-time' : undefined}>{month === 'no' ? '' : monthToString[month - 1] + ' '}{year}</span>;
 }
 
 
@@ -20,7 +24,7 @@ const events = new Map<string, Event>();
 
 // LaDeWi, BOGY, Girls' Day, Summer Science Camp
 events.set('Summer Science Camp', {
-   when: [time('no', 2024)],
+   when: [time('no', 2024), time(8, 2026)],
    where: 'Ulm University',
    link: 'https://www.uni-ulm.de/einrichtungen/ulmer-3-generationen-uni/science-camps/'
 });
@@ -35,9 +39,13 @@ events.set('Girls\' Day', {
    link: 'https://www.uni-ulm.de/einrichtungen/ulmer-3-generationen-uni/girls-boys-day/'
 });
 events.set('Langer Abend der Wissenschaft', {
-   when: [time( 'no', 2024), time( 'no', 2025)],
+   when: [time( 'no', 2024), time( 'no', 2025), time(5, 2026)],
    where: 'Ulm University',
    link: 'https://www.uni-ulm.de/universitaet/hochschulkommunikation/veranstaltungen/langer-abend-der-wissenschaft/'
+});
+events.set('Pupil Internships', {
+   when: [time(5, 2026)],
+   where: 'Ulm University',
 });
 
 export function MyEvents(): JSX.Element {
