@@ -12,6 +12,8 @@ interface Honors {
    month: number;
    note?: string;
    link?: string;
+   // in Euro
+   amount?: number;
 }
 
 export const monthToString = [
@@ -34,6 +36,7 @@ honors.push({
    title: 'Unrestricted Gift by Posit for a "Security and Taint Analysis for R"',
    year: 2026,
    month: 1,
+   amount: 60000,
    link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/flowr-receives-unrestricted-gift-from-posit/'
 })
 honors.push({
@@ -55,6 +58,7 @@ honors.push({
    title: 'iwimint-grant by the University of Ulm for Waddle',
    year: 2025,
    month: 6,
+   amount: 4200,
    link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/waddle-receives-iwimint-funding/'
 })
 honors.push({
@@ -98,16 +102,35 @@ honors.push({
    month: 6
 })
 
+export function formatEuro(amount: number): string {
+   return `€${amount.toLocaleString('en-US')}`;
+}
+
+export function getGrantCount(): { count: number; grants: Array<{ title: string; amount?: number }> } {
+   const grants = honors
+      .filter(h => h.type === 'grant')
+      .toSorted((a, b) => {
+         const hasA = a.amount !== undefined ? 1 : 0;
+         const hasB = b.amount !== undefined ? 1 : 0;
+         if (hasB !== hasA) return hasB - hasA;
+         return b.year - a.year || b.month - a.month;
+      });
+   return { count: grants.length, grants: grants.map(g => ({ title: g.title, amount: g.amount })) };
+}
+
 export function getHonors(): [li: JSX.Element, tooltip: JSX.Element | undefined][] {
    return honors.toSorted(
       (a, b) => b.year - a.year || b.month - a.month || a.title.localeCompare(b.title)
    )
-   .map(({type, title, year, month, link, note}) => {
+   .map(({type, title, year, month, link, note, amount}) => {
       const id = escapeId(title).substring(0,10);
-      
+
       return [<li key={`list-${id}`}>
-         <a href={link} target="_blank" rel="noreferrer"><strong id={'link-' + id}>{TypeToStringMap[type]()}&nbsp;({monthToString[month - 1]}, {year}):</strong>&nbsp;{title}</a>
-      </li>, 
+         <a href={link} target="_blank" rel="noreferrer">
+            <strong id={'link-' + id}>{TypeToStringMap[type]()}&nbsp;({monthToString[month - 1]}, {year}):</strong>
+            &nbsp;{title}{amount !== undefined && <>&ensp;<span style={{ color: 'gray', fontSize: 'smaller' }}>({formatEuro(amount)})</span></>}
+         </a>
+      </li>,
       note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/> : undefined];
    });
 }
