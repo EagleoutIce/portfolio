@@ -9,6 +9,7 @@ import { MyIntro } from './MyIntro';
 import { MyTeaching } from './MyTeaching';
 import { MySeminars } from './MySeminars';
 import { MyService } from './MyService';
+import { PageSummary } from './PageSummary';
 import { StaticQuickLinks } from '../../components/QuickLinks';
 import { LastUpdated } from '../../components/LastUpdated';
 import { News } from '../../components/News';
@@ -84,6 +85,7 @@ function MainPage() {
     <MyHeader />
     <Content>
       <MyIntro />
+      <PageSummary />
       <Divider />
       <News />
       

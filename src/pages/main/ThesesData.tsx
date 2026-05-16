@@ -316,6 +316,17 @@ we solve by iterating over the nodes and propagating updates to its dependers.
    examiners: ['mtt'],
 })
 
+export function getThesisCounts() {
+   const sort = (a: Thesis, b: Thesis) => b.year - a.year || b.month - a.month;
+   const ba = theses.filter(t => t.type === 'bachelor-thesis').toSorted(sort);
+   const ma = theses.filter(t => t.type === 'master-thesis').toSorted(sort);
+   const names = (list: Thesis[]) => list.filter(t => t.author !== 'anonymous').map(t => t.author as string);
+   return {
+      ba: { count: ba.length, students: names(ba) },
+      ma: { count: ma.length, students: names(ma) },
+   };
+}
+
 export function getTheses(type: 'master' | 'bachelor', header: (count: JSX.Element) => JSX.Element): JSX.Element {
    const activeTheses = theses
             .filter(t => t.type === (type + '-thesis'))

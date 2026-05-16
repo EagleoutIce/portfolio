@@ -1,8 +1,15 @@
 const TypeMap = {
-   'reviewing': 'Reviewer',
+   'reviewing':     'Reviewer',
    'artifact-eval': 'Artifact Evaluation',
-   'junior-pc': 'Junior PC',
-   'local-chair': 'Local Chair'
+   'junior-pc':     'Junior PC',
+   'local-chair':   'Local Chair'
+} as const
+
+const TypeDisplayMap = {
+   'reviewing':     { abbr: 'Reviewer',  full: TypeMap['reviewing']     },
+   'artifact-eval': { abbr: 'AEC',   full: TypeMap['artifact-eval'] },
+   'junior-pc':     { abbr: 'Junior PC',   full: TypeMap['junior-pc']     },
+   'local-chair':   { abbr: 'Local Chair',    full: TypeMap['local-chair']   },
 } as const
 
 interface Entry {
@@ -82,6 +89,42 @@ const entries: Entry[] = [{
    link: 'https://www.dante.de/veranstaltungen/dante2027/'
 }]
 
+
+export function getServiceRoleInfo(): Array<{ abbr: string; full: string; count: number; confs: string[] }> {
+   const byType = new Map<keyof typeof TypeMap, { count: number; confs: string[] }>();
+   for (const entry of entries.toSorted((a, b) => b.year - a.year)) {
+      if (!byType.has(entry.type)) byType.set(entry.type, { count: 0, confs: [] });
+      const r = byType.get(entry.type)!;
+      r.count++;
+      r.confs.push(entry.shortTitle);
+   }
+   return (Object.keys(TypeDisplayMap) as (keyof typeof TypeDisplayMap)[])
+      .filter(k => byType.has(k))
+      .map(k => ({ ...TypeDisplayMap[k], ...byType.get(k)!, confs: byType.get(k)!.confs.toSorted((a, b) => a.localeCompare(b)) }));
+}
+
+export function getServiceSummary() {
+   const byYear = new Map<number, Map<keyof typeof TypeMap, number>>();
+   for (const entry of entries) {
+      if (!byYear.has(entry.year)) byYear.set(entry.year, new Map());
+      const typeMap = byYear.get(entry.year)!;
+      typeMap.set(entry.type, (typeMap.get(entry.type) ?? 0) + 1);
+   }
+
+   const children: JSX.Element[] = [];
+   for (const year of Array.from(byYear.keys()).sort((a, b) => b - a)) {
+      children.push(<div key={`year-${year}`} className="conf-year-banner">• {year}</div>);
+      for (const [type, count] of byYear.get(year)!.entries()) {
+         children.push(
+            <span key={`service-${year}-${type}`} className="conf-entry">
+               <span className='conf-count'>{count}×</span>
+               {TypeDisplayMap[type].abbr}
+            </span>
+         );
+      }
+   }
+   return <div className='bib-summary-children'>{children}</div>;
+}
 
 export function getService() {
    const currentYear = new Date().getFullYear();
