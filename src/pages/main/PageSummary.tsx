@@ -8,6 +8,7 @@ import { BibDataMain, BibDataPoster, BibDataTalks, BibDataOther } from './Biblio
 import { getServiceRoleInfo } from './ServiceData';
 import { getGrantCount, formatEuro } from './HonorsData';
 import { getThesisCounts } from './ThesesData';
+import { getTeachingDutySplitInfo } from './TeachingsData';
 
 const ttStyle    = { padding: '2px 6px', margin: '-6px 0px' } as const;
 const ttInner    = { maxWidth: '320px', wordBreak: 'break-word' } as const;
@@ -71,6 +72,7 @@ export function PageSummary() {
   const serviceRoles                               = getServiceRoleInfo();
   const { count: grantCount, grants: grantList }   = getGrantCount();
   const { ba, ma }                                 = getThesisCounts();
+  const teachingDuties                             = getTeachingDutySplitInfo();
 
   return <div className="bib-summary-children" style={{ marginTop: '1em', marginBottom: '-.5em', textAlign: 'center' }}>
     {pubEntries.filter(e => e.total > 0).map(({ key, href, label, total, detail }) =>
@@ -86,8 +88,17 @@ export function PageSummary() {
         tooltipContent={`${full}: ${confs.join(', ')}`} />
     )}
 
-    {(ba.count > 0 || ma.count > 0) && <>
+    {(ba.count > 0 || ma.count > 0 || teachingDuties.lecturer.count > 0 || teachingDuties.teachingAssistant.count > 0) && <>
       <br />
+      {teachingDuties.lecturer.count > 0 && <Badge id="page-sum-teaching-lecturer" href="#teaching" count={teachingDuties.lecturer.count} label="Lecturer"
+        tooltipContent={<div style={ttInner}>
+          Lecturer duties, including guest lectures: {teachingDuties.lecturer.duties.join(', ')}
+        </div>} />}
+      {teachingDuties.teachingAssistant.count > 0 && <Badge id="page-sum-teaching-ta" href="#teaching" count={teachingDuties.teachingAssistant.count} label="Teaching Assistant"
+        tooltipContent={<div style={ttInner}>
+          Teaching assistant duties: {teachingDuties.teachingAssistant.duties.join(', ')}
+        </div>} />}
+      {(teachingDuties.lecturer.count > 0 || teachingDuties.teachingAssistant.count > 0) && (ba.count > 0 || ma.count > 0) && <div className="conf-year-banner"> / </div>}
       {ba.count > 0 && <Badge id="page-sum-ba" href="#bachelor-theses" count={ba.count} label="BA"
         tooltipContent={<div style={ttInner}>
           Supervised Bachelor's Theses: {[...ba.students].sort((a, b) => a.localeCompare(b)).join(', ')}

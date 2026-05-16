@@ -9,7 +9,7 @@ const TypeDisplayMap = {
    'reviewing':     { abbr: 'Reviewer',  full: TypeMap['reviewing']     },
    'artifact-eval': { abbr: 'AEC',   full: TypeMap['artifact-eval'] },
    'junior-pc':     { abbr: 'Junior PC',   full: TypeMap['junior-pc']     },
-   'local-chair':   { abbr: 'Local Chair',    full: TypeMap['local-chair']   },
+   'local-chair':   { abbr: 'LC',    full: TypeMap['local-chair']   },
 } as const
 
 interface Entry {

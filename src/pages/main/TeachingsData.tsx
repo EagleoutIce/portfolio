@@ -101,6 +101,57 @@ export function getTeachings(): { def: [li: JSX.Element, tooltip: JSX.Element | 
    };
 }
 
+export function getTeachingDutyInfo(): { count: number; duties: string[] } {
+   const duties: string[] = [];
+   let count = 0;
+
+   for(const [name, { type, terms }] of teaching.entries()) {
+      if(type === 'tutor') continue;
+
+      count += terms.length;
+      duties.push(`${name} (${terms.length}×)`);
+   }
+
+   return {
+      count,
+      duties: duties.toSorted((a, b) => a.localeCompare(b))
+   };
+}
+
+export function getTeachingDutySplitInfo(): {
+   lecturer: { count: number; duties: string[] };
+   teachingAssistant: { count: number; duties: string[] };
+} {
+   const lecturerDuties: string[] = [];
+   const teachingAssistantDuties: string[] = [];
+   let lecturerCount = 0;
+   let teachingAssistantCount = 0;
+
+   for(const [name, { type, terms }] of teaching.entries()) {
+      if(type === 'tutor') continue;
+
+      const duty = `${name} (${terms.length}×)`;
+      if(type === 'teaching-assistant') {
+         teachingAssistantCount += terms.length;
+         teachingAssistantDuties.push(duty);
+      } else {
+         lecturerCount += terms.length;
+         lecturerDuties.push(duty);
+      }
+   }
+
+   return {
+      lecturer: {
+         count: lecturerCount,
+         duties: lecturerDuties.toSorted((a, b) => a.localeCompare(b))
+      },
+      teachingAssistant: {
+         count: teachingAssistantCount,
+         duties: teachingAssistantDuties.toSorted((a, b) => a.localeCompare(b))
+      }
+   };
+}
+
 
 interface Ressource {
    title: string;
