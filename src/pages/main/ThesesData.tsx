@@ -29,6 +29,7 @@ interface Thesis {
    examiners: (keyof typeof ExaminerMap)[];
    abstract: JSX.Element;
    type: keyof typeof TypeToStringMap;
+   extra?: JSX.Element;
    link?: string;
    year: number;
    month: number;
@@ -262,6 +263,9 @@ theses.push({
    year: 2025,
    month: 9,
    link: 'https://doi.org/10.18725/OPARU-59821',
+   extra: <>
+   Received the <a className='link' href='https://www.uni-ulm.de/in/sp/institute/news-detail/article/award-for-the-best-bachelors-degree/' target="_blank"><b>Award for the Best Bachelor’s Degree 2026</b></a> by the University of Ulm.
+   </>,
    title: 'typeR: Static Interprocedural Subtype Inference for R Programs',
    abstract: <>R is a programming language that is widely used in data analysis and statistical computing. While the flexibility granted by its highly dynamic execution model enables effortless exploration and transformation of data, contributing to its popularity among statisticians, the lack of static types and other code validation mechanisms makes writing larger R programs error-prone and hard to maintain.
 <p/>
@@ -338,10 +342,11 @@ export function getTheses(type: 'master' | 'bachelor', header: (count: JSX.Eleme
    <ul className='teachings-list' style={{marginTop: '-1em'}}>
          {
             activeTheses
-            .map(({ title, author, examiners, abstract, link, year, month}) => {
+            .map(({ title, author, examiners, abstract, link, year, month, extra }) => {
                const id = escapeId(title);
                return <li key={id}>
                   <strong id={'link-' + id}>{title}</strong> <span className='theses-author-meta'>({author !== 'anonymous' ? author + ', ' : ''}{monthToString[month - 1]}&nbsp;{year})</span>{link && <>&emsp;<a href={link} className="bib-link" target="_blank" rel="noreferrer">[PDF]</a></>}<br />
+                  {extra ? <><span> {extra} </span></> : null}
                   <details style={{ margin: '0em 0 .5em 0', cursor: 'pointer', userSelect: 'none' }}>
                      <summary><i>Details</i></summary>
                      <span>Examiners: {joinLastWith(examiners.map(e => ExaminerMap[e]))}</span><br/>
