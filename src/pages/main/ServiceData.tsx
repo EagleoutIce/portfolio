@@ -67,6 +67,13 @@ const entries: Entry[] = [{
    year: 2026,
    order: 4,
    link: 'https://conf.researchr.org/home/splash-issta-2026/sas-2026'
+},  {
+   type: 'reviewing',
+   conference: 'Research Software Engineering Conference',
+   shortTitle: 'RSECon \'26',
+   year: 2026,
+   order: 4,
+   link: 'https://rsecon26.society-rse.org/'
 }, {
    type: 'local-chair',
    conference: 'Frühjahrstagung der Deutschsprachigen Anwendervereinigung TeX',
