@@ -27,16 +27,19 @@ function parseBib(content: string, label?: string) {
   const byConf  = new Map<string, number>();
   const byType  = new Map<string, number>();
   for (const entry of data) {
-    const raw = ((entry['event'] ?? entry['event-title'] ?? '') as string).trim();
+    const ev  = entry['event'] ?? entry['event-title'] ?? '';
+    const raw = typeof ev === 'string' ? ev.trim() : '';
     if (raw) {
       const conf = raw.replace(yearSuffix, '').trim() || raw;
       byConf.set(conf, (byConf.get(conf) ?? 0) + 1);
+    } else {
+      byConf.set('Other', (byConf.get('Other') ?? 0) + 1);
     }
-    const t = (entry['type'] as string) ?? '';
+    const t = typeof entry['type'] === 'string' ? entry['type'] : '';
     if (t) byType.set(t, (byType.get(t) ?? 0) + 1);
   }
   const detail = Array.from(byConf.entries())
-    .sort(([a], [b]) => a.localeCompare(b))
+    .sort(([a], [b]) => a === 'Other' ? 1 : b === 'Other' ? -1 : a.localeCompare(b))
     .map(([c, n]) => n > 1 ? `${c} (${n}×)` : c)
     .join(', ');
   if (!label) {
