@@ -114,7 +114,9 @@ export function getServiceSummary() {
    const children: JSX.Element[] = [];
    for (const year of Array.from(byYear.keys()).sort((a, b) => b - a)) {
       children.push(<div key={`year-${year}`} className="conf-year-banner">• {year}</div>);
-      for (const [type, count] of byYear.get(year)!.entries()) {
+      for (const type of Object.keys(TypeDisplayMap) as (keyof typeof TypeDisplayMap)[]) {
+         const count = byYear.get(year)!.get(type);
+         if (!count) continue;
          children.push(
             <span key={`service-${year}-${type}`} className="conf-entry">
                <span className='conf-count'>{count}×</span>
