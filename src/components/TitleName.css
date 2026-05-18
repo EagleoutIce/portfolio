@@ -3,7 +3,7 @@
   align-items: center;
   transition: background-color .5s ease-in-out, color .5s ease-in-out;
   min-width: 10em;
-  margin-bottom: .5em;
+  margin-bottom: 1em;
   padding: calc(3px * var(--p));
   padding-top: calc(1px * var(--p));
 }
@@ -17,10 +17,10 @@
   height: calc(6em - 4.5em * var(--p));
   border-radius: 50%;
   object-fit: cover;
-  margin-right: calc(33px - 15px * var(--p));
+  margin-right: calc(42px - 19px * var(--p));
   margin-top: calc(4px * var(--p));
   transition: border-radius 0.2s, scale .1s ease-in-out;
-  box-shadow: 6px 6px 42px 0.1px var(--background-crumbs);
+  box-shadow: 6px 4px 22px -3.5px var(--soft-glow);
 }
 
 .easter {
