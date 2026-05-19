@@ -29,12 +29,14 @@ export function MyTeaching() {
                )
                .reduce((prev, curr) => [prev, <>,&emsp;</>, curr] as never)
          }
-   </div>
+      </div>
 
       <ul className='teachings-list'>
          {teachings.map(t => t[0])}
       </ul>
       {teachings.map(t => t[1]).filter(e => e !== undefined)}
+
+      I have also created various teaching materials, including partial and complete lectures (e.g., with "Grundlagen der praktischen Informatik", "Software Quality Assurance", and "Functional Programming 2").
 
       <h3 id="theses">Supervised Theses</h3>
 
