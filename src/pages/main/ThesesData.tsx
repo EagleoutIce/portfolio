@@ -319,6 +319,25 @@ we solve by iterating over the nodes and propagating updates to its dependers.
 </>,
    examiners: ['mtt'],
 })
+theses.push({
+   author: 'Jonas Kruger',
+   type: 'bachelor-thesis',
+   year: 2026,
+   month: 5,
+   title: 'Improving Dataflow Analysis Performance in flowR — with Parallelization and Lazy Function Evaluation',
+   abstract: <>
+<i>Context:</i>&nbsp;Static analysis tools have become a fundamental part of modern software development by providing insights into code quality and potential faults. These features are especially relevant for a programming language like R, which is mostly used by people without a background in computer science. These static analysers can possess a wide range of features, but it is important that they provide fast results for usage in interactive environments. Therefore, the runtime performance of such tools is crucial for their usability, as users can tolerate only a few hundred milliseconds of delay before perceiving it as a disruption.
+<p/>
+<i>Objective:</i>&nbsp;This thesis investigates optimization strategies to improve the cold-start performance of flowR, while preserving the correctness of the analysis results. One of these strategies is file-level parallelization, which aims to distribute the analysis workload across multiple threads. The other strategy is lazy function evaluation, which defers the analysis of function definitions until they are actually used in the analysis, thus avoiding unnecessary computations. We expect these optimizations to reduce the runtime of flowR, especially for larger projects with many files and functions, while maintaining the accuracy of the analysis results.
+<p/>
+<i>Method:</i>&nbsp;For this purpose, these strategies were designed, implemented in Type-Script and integrated into flowR. This proved to be non-trivial, as flowR was not designed with these optimizations in mind, and required multiple changes to accommodate them. File-level parallelization distributes the file analysis across multiple workers using a pool abstraction built on top of piscina. This implementation includes an over approximating linking procedure to restore all inter-file links. Lazy function evaluation defers the analysis of function definitions until the first use, which is achieved by us- ing a placeholder. Both of these strategies preserve the original procedure for the later evaluation. The performance and correctness were evaluated against the unmodified baseline using two datasets: a project-metadata- curated small set of approximately 680&nbsp;files and a randomly sampled large set of 2,000&nbsp;files.
+<p/>
+<i>Limitations:</i>&nbsp;The file-level parallelization strategy caused multiple out-of-memory errors and two internal errors during the evaluation, which reduced the sample size for this optimization as we excluded the failed projects. For the lazy function evaluation, we have observed a sporadic failure for the small dataset, which we could not reproduce and therefore had to exclude from the evaluation. Furthermore, both datasets were sampled from the same source, which may limit the generalizability of the results to other types of R projects.
+<p/>
+<i>Results:</i>&nbsp;The evaluation revealed that for all projects, lazy function evaluation provided no significant performance improvement, but showed significant median speed-up for projects with at least 50% unused functions, confirming the effectiveness for the intended use case. File-level parallelization consistently degrades runtime performance across various thread counts with most projects experiencing a 4–6× higher runtime. The main reason for this degradation is the serialization overhead, with roughly 23% share of total runtime, and the copy overhead from the parallelization. Both optimizations were not able to fully preserve the correctness, leaving only 65% correct for the parallelization. For the lazy evaluation, we observed 80% as correct. While we have plausible explanations for these correctness issues, they require further investigation.
+</>,
+   examiners: ['mtt'],
+})
 
 export function getThesisCounts() {
    const sort = (a: Thesis, b: Thesis) => b.year - a.year || b.month - a.month;
