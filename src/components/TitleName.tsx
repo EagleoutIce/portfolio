@@ -57,6 +57,7 @@ export default function TitleName({ name, subtitle, imageSrc, mediaLinks }: Titl
       <img src={imageSrc} alt={name} className={`profile-image ${specials()}`} onClick={() => {
          if(headerIsSticky()) {
             window.scrollTo({top: 0, behavior: 'smooth'});
+            history.replaceState(null, '', window.location.pathname + window.location.search);
          }
       }} />
       <div>
