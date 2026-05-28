@@ -1,24 +1,24 @@
 const TypeMap = {
-   'reviewing':     'Reviewer',
+   'reviewing': 'Reviewer',
    'artifact-eval': 'Artifact Evaluation',
-   'junior-pc':     'Junior PC',
-   'local-chair':   'Local Chair'
-} as const
+   'junior-pc': 'Junior PC',
+   'local-chair': 'Local Chair'
+} as const;
 
 const TypeDisplayMap = {
-   'reviewing':     { abbr: 'Reviewer',  full: TypeMap['reviewing']     },
-   'artifact-eval': { abbr: 'AEC',   full: TypeMap['artifact-eval'] },
-   'junior-pc':     { abbr: 'Junior PC',   full: TypeMap['junior-pc']     },
-   'local-chair':   { abbr: 'LC',    full: TypeMap['local-chair']   },
-} as const
+   'reviewing': { abbr: 'Reviewer', full: TypeMap['reviewing'] },
+   'artifact-eval': { abbr: 'AEC', full: TypeMap['artifact-eval'] },
+   'junior-pc': { abbr: 'Junior PC', full: TypeMap['junior-pc'] },
+   'local-chair': { abbr: 'LC', full: TypeMap['local-chair'] },
+} as const;
 
 interface Entry {
-   readonly type:       keyof typeof TypeMap;
+   readonly type: keyof typeof TypeMap;
    readonly conference: string;
    readonly shortTitle: string;
-   readonly year:       number;
-   readonly link:       string;
-   readonly order?:     number;
+   readonly year: number;
+   readonly link: string;
+   readonly order?: number;
 }
 
 const entries: Entry[] = [{
@@ -74,7 +74,7 @@ const entries: Entry[] = [{
    year: 2026,
    order: 4,
    link: 'https://conf.researchr.org/home/splash-issta-2026/sas-2026'
-},  {
+}, {
    type: 'reviewing',
    conference: 'Research Software Engineering Conference',
    shortTitle: 'RSECon \'26',
@@ -82,18 +82,25 @@ const entries: Entry[] = [{
    order: 4,
    link: 'https://rsecon26.society-rse.org/'
 }, {
+   type: 'reviewing',
+   conference: 'International Conference on Systems, Programming, Languages and Applications: Software for Humanity (Educational Track)',
+   shortTitle: 'SPLASH-E \'26',
+   year: 2026,
+   order: 10,
+   link: 'https://2026.splashcon.org/committee/splash-2026-splash-e-program-committee'
+}, {
    type: 'local-chair',
    conference: 'Frühjahrstagung der Deutschsprachigen Anwendervereinigung TeX',
    shortTitle: 'DANTE \'27',
    year: 2027,
    link: 'https://www.dante.de/veranstaltungen/dante2027/'
-}]
+}];
 
 
-export function getServiceRoleInfo(): Array<{ abbr: string; full: string; count: number; confs: string[] }> {
-   const byType = new Map<keyof typeof TypeMap, { count: number; confs: string[] }>();
-   for (const entry of entries.toSorted((a, b) => b.year - a.year)) {
-      if (!byType.has(entry.type)) byType.set(entry.type, { count: 0, confs: [] });
+export function getServiceRoleInfo(): Array<{ abbr: string; full: string; count: number; confs: string[]; }> {
+   const byType = new Map<keyof typeof TypeMap, { count: number; confs: string[]; }>();
+   for(const entry of entries.toSorted((a, b) => b.year - a.year)) {
+      if(!byType.has(entry.type)) byType.set(entry.type, { count: 0, confs: [] });
       const r = byType.get(entry.type)!;
       r.count++;
       r.confs.push(entry.shortTitle);
@@ -105,18 +112,18 @@ export function getServiceRoleInfo(): Array<{ abbr: string; full: string; count:
 
 export function getServiceSummary() {
    const byYear = new Map<number, Map<keyof typeof TypeMap, number>>();
-   for (const entry of entries) {
-      if (!byYear.has(entry.year)) byYear.set(entry.year, new Map());
+   for(const entry of entries) {
+      if(!byYear.has(entry.year)) byYear.set(entry.year, new Map());
       const typeMap = byYear.get(entry.year)!;
       typeMap.set(entry.type, (typeMap.get(entry.type) ?? 0) + 1);
    }
 
    const children: JSX.Element[] = [];
-   for (const year of Array.from(byYear.keys()).sort((a, b) => b - a)) {
+   for(const year of Array.from(byYear.keys()).sort((a, b) => b - a)) {
       children.push(<div key={`year-${year}`} className="conf-year-banner">• {year}</div>);
-      for (const type of Object.keys(TypeDisplayMap) as (keyof typeof TypeDisplayMap)[]) {
+      for(const type of Object.keys(TypeDisplayMap) as (keyof typeof TypeDisplayMap)[]) {
          const count = byYear.get(year)!.get(type);
-         if (!count) continue;
+         if(!count) continue;
          children.push(
             <span key={`service-${year}-${type}`} className="conf-entry">
                <span className='conf-count'>{count}×</span>
@@ -142,18 +149,18 @@ export function getService() {
          }
       }
    )
-   .map(({
-      type,
-      conference,
-      shortTitle,
-      link,
-      year
-   }) => {
-      return <li key={shortTitle} style={year > currentYear ? { opacity: 0.72 } : undefined}>
-         <a href={link} target="_blank" rel="noreferrer">
-            <strong>{TypeMap[type]}</strong> for {shortTitle}<br/>
-            {conference}
-         </a>
-      </li>;
-   });
+      .map(({
+         type,
+         conference,
+         shortTitle,
+         link,
+         year
+      }) => {
+         return <li key={shortTitle} style={year > currentYear ? { opacity: 0.72 } : undefined}>
+            <a href={link} target="_blank" rel="noreferrer">
+               <strong>{TypeMap[type]}</strong> for {shortTitle}<br />
+               {conference}
+            </a>
+         </li>;
+      });
 }
