@@ -6,20 +6,18 @@
    position: fixed;
    top: .1em;
    right: 42px;
-   scale: .2;
    transform-origin: top right;
    opacity: .25;
    transition: opacity .5s;
    z-index: 4000;
-   transform: rotate(-90deg) translateX(-15%);
+   transform: rotate(-90deg) translateX(-15%) scale(.2);
 }
 
 @media (max-width: 1200px) {
    .wrapper {
       top: 10px;
       right: 10px;
-      scale:  .15;
-      transform: none;
+      transform: scale(.15);
    }
 }
 
