@@ -1,14 +1,93 @@
+import { useEffect, useMemo, useState } from 'react';
 import { StaticQuickLinks } from '../../components/QuickLinks';
 import { SectionHeading } from '../../components/SectionHeading';
+import { Pagination } from '../../components/Pagination';
 import './MyTeaching.css';
-import { TypeToStringMap, getDocuments, getSlides, getTeachings } from './TeachingsData';
-import { getTheses } from './ThesesData';
+import { getDocuments, getSlides, getTeachings, type TeachingRole } from './TeachingsData';
+import { getTheses, getThesisTypes, type ThesisType } from './ThesesData';
 
+const THESES_PAGE_SIZE = 5;
 
+/* doubles as the legend for the role abbreviations used in the list */
+const roleLegend = [
+   ['tutor', 't', 'Tutor'],
+   ['teaching-assistant', 'ta', 'Teaching Assistant'],
+   ['lecturer', 'l', 'Lecturer'],
+   ['guest-lecturer', 'gl', 'Guest Lecturer']
+] as const;
+
+function SupervisedTheses() {
+   const [types, setTypes] = useState<ReadonlySet<ThesisType>>(new Set());
+   const [page, setPage] = useState(0);
+   const allTheses = useMemo(() => getTheses(), []);
+
+   /* the news deep-link to single theses (#/link-<title>), make sure the
+      target is on the visible page before the router scrolls to it */
+   useEffect(() => {
+      const jumpToTarget = () => {
+         const hash = decodeURIComponent(window.location.hash);
+         if(!hash.startsWith('#/link-')) {
+            return;
+         }
+         const target = hash.slice('#/link-'.length);
+         const index = allTheses.findIndex(t => t.id === target);
+         if(index >= 0) {
+            setTypes(new Set());
+            setPage(Math.floor(index / THESES_PAGE_SIZE));
+         }
+      };
+      jumpToTarget();
+      window.addEventListener('hashchange', jumpToTarget);
+      return () => window.removeEventListener('hashchange', jumpToTarget);
+   }, [allTheses]);
+
+   const toggle = (type: ThesisType) => {
+      setTypes(prev => {
+         const next = new Set(prev);
+         if(next.has(type)) {
+            next.delete(type);
+         } else {
+            next.add(type);
+         }
+         return next;
+      });
+      setPage(0);
+   };
+
+   const visible = types.size === 0 ? allTheses : allTheses.filter(t => types.has(t.type));
+   const totalPages = Math.ceil(visible.length / THESES_PAGE_SIZE);
+   const currentPage = Math.min(page, Math.max(0, totalPages - 1));
+
+   return <>
+      <div className='filter-row'>
+         {getThesisTypes().map(({ key, abbr, label, count }) =>
+            <button key={key} className={types.has(key) ? 'filter-active' : 'filter-inactive'}
+               title="shows entries matching any selected type" onClick={() => toggle(key)}>
+               <span className='filter-count'>{count}&times;</span>
+               <span className='small-caps'>{abbr}</span> = {label}
+            </button>
+         )}
+      </div>
+      <ul className='teachings-list'>
+         {visible.slice(currentPage * THESES_PAGE_SIZE, (currentPage + 1) * THESES_PAGE_SIZE).map(t => t.li)}
+      </ul>
+      <Pagination current={currentPage} total={totalPages} onChange={setPage} />
+   </>;
+}
 
 // TODO: move wrapper into get* fns
 export function MyTeaching() {
-   const { def: teachings, roles: teachingCounts } = getTeachings();
+   const [roles, setRoles] = useState<ReadonlySet<TeachingRole>>(new Set());
+   const toggle = (role: TeachingRole) => setRoles(prev => {
+      const next = new Set(prev);
+      if(next.has(role)) {
+         next.delete(role);
+      } else {
+         next.add(role);
+      }
+      return next;
+   });
+   const { def: teachings, roles: teachingCounts } = getTeachings(roles);
    return <>
       <StaticQuickLinks sections={{
          lectures: { page: 'lectures' },
@@ -20,16 +99,14 @@ export function MyTeaching() {
       <SectionHeading id="lectures" as="h3">Lectures, Seminars, and Projects</SectionHeading>
       As part of my work at the University of Ulm, I am involved in teaching:
 
-      <div className='note'> 
-         {
-            ([['tutor', 'Tutor'], ['teaching-assistant', 'Teaching Assistant'], ['lecturer', 'Lecturer'], ['guest-lecturer', 'Guest Lecturer']] as const).map(([type, lab]) => 
-                  <span key={type} className={'sample-' + type}>
-                     <span style={{ fontSize: 'smaller', color: 'gray' }}>{teachingCounts.get(type)}×</span> 
-                     {TypeToStringMap[type]('sample-' + type)} = {lab}
-                  </span>
-               )
-               .reduce((prev, curr) => [prev, <>,&emsp;</>, curr] as never)
-         }
+      <div className='filter-row'>
+         {roleLegend.map(([type, abbr, lab]) =>
+            <button key={type} className={roles.has(type) ? 'filter-active' : 'filter-inactive'}
+               title="shows entries matching any selected role" onClick={() => toggle(type)}>
+               <span className='filter-count'>{teachingCounts.get(type)}&times;</span>
+               <span className='small-caps'>{abbr}</span> = {lab}
+            </button>
+         )}
       </div>
 
       <ul className='teachings-list lectures-columns'>
@@ -41,22 +118,13 @@ export function MyTeaching() {
 
       <SectionHeading id="theses" as="h3">Supervised Theses</SectionHeading>
 
-      <StaticQuickLinks sections={{
-         "master": { page: 'master-theses' },
-         "bachelor": { page: 'bachelor-theses' }
-      }}></StaticQuickLinks>
-
       So far, I had the pleasure of supervising the following theses:
 
-      {getTheses('master', c => <h4 id="master-theses">{c}Master's Theses</h4>)}
-
-      {getTheses('bachelor', c => <h4 id="bachelor-theses">{c}Bachelor's Theses</h4>)}
+      <SupervisedTheses />
 
       <SectionHeading id="slides" as="h3">Slides</SectionHeading>
       <div className='slides-list'>
          {getSlides()}
-         <div>
-         </div>
       </div>
       <div className='no-outer main'>
          For more, check out my <a target="_blank" rel="noreferrer" href="https://github.com/EagleoutIce" >GitHub Page</a>.

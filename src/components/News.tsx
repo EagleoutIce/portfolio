@@ -298,24 +298,33 @@ news.push({
 news.sort((a, b) => b.when.getTime() - a.when.getTime());
 
 export function News() {
+   const [open, setOpen] = useState(false);
    const [showLast, setShowLast] = useState(5);
    const [filter, setFilter] = useState('');
-   
+
    const filteredNews = useMemo(() => {
       const filterFor = new RegExp(filter.toLowerCase().replace(/\s+/g, '.*').trim(), 'i');
-      return news.filter(item => 
+      return news.filter(item =>
          filterFor.test(item.text) || filterFor.test(getDate(item))  || filterFor.test(getDate(item, false))
       );
    }, [filter])
-   
-   return <div className="news">
-      <h4 style={{textAlign: "left" }}>News <span style={{fontSize: 'small', fontWeight: 'normal'}}>as of {getLastUpdated()}&emsp;<input type="text" className="news-filter" placeholder="filter news" value={filter}
-         onChange={(e) => {
-            setFilter(e.target.value);
-         }}
-      />{filter.length > 0 ? <button className='clear-news' onClick={() => {
-            setFilter('');
-      }}><FontAwesomeIcon icon={faTimes} /></button> : <></> }</span></h4>
+
+   return <details className="news collapse-section" open={open} onToggle={e => setOpen((e.target as HTMLDetailsElement).open)}>
+      <summary>
+         <span className="collapse-title">News</span>
+         {!open && <span className="news-teaser">{getDate(news[0])}: {news[0].text}</span>}
+         {/* preventDefault keeps clicks on the filter from toggling the details */}
+         {open && <span className="news-filter-box" onClick={e => e.preventDefault()}>
+            <input type="text" className="news-filter" placeholder="filter news" value={filter}
+               onChange={(e) => {
+                  setFilter(e.target.value);
+               }}
+            />{filter.length > 0 ? <button className='clear-news' onClick={() => {
+                  setFilter('');
+            }}><FontAwesomeIcon icon={faTimes} /></button> : <></> }
+         </span>}
+         <span className="collapse-chevron" />
+      </summary>
       <ul>
          {filteredNews.slice(0, showLast).map((item, index) => (
             <li key={index} style={{
@@ -325,35 +334,25 @@ export function News() {
                <span className="date">{getDate(item)}:</span> <span className="news-content">{item.link ? <a href={item.link} {...item.link.startsWith('#') ? {} : { target: '_blank', rel: 'noreferrer' }} className="link">{item.text}</a> : <span className="link" style={{ color: 'var(--text)' }}>{item.text}</span>}</span>
             </li>
          ))}
-         {
-            filteredNews.length > showLast ? 
-            <li className="show-more">
-               <button onClick={() => setShowLast(showLast + 5)}>
-                  show more
-               </button>
-               &emsp;
-               {showLast > 5 ? 
-               <><button onClick={() => setShowLast(showLast - 5)}>
-                  show less
-               </button>
-               &emsp;
-               <button onClick={() => setShowLast(5)}>
-                  reset
-               </button>
-               </> : <></>}
-            </li> : filteredNews.length >= 5 ? 
-            <li className="show-more">
-               <button onClick={() => setShowLast(showLast - 5)}>
-                  show less
-               </button>
-               &emsp;
-               <button onClick={() => setShowLast(5)}>
-                  reset
-               </button>
-            </li> : <></>
-         }
+         <li className="show-more">
+            {filteredNews.length > showLast ?
+            <><button onClick={() => setShowLast(showLast + 5)}>
+               show more
+            </button>
+            &emsp;</> : <></>}
+            {(showLast > 5 || filteredNews.length <= showLast) && filteredNews.length >= 5 ?
+            <><button onClick={() => setShowLast(showLast - 5)}>
+               show less
+            </button>
+            &emsp;
+            <button onClick={() => setShowLast(5)}>
+               reset
+            </button>
+            &emsp;</> : <></>}
+            <span className="news-asof">as of {getLastUpdated()}</span>
+         </li>
       </ul>
-   </div>;
+   </details>;
 }
 
 function getDate(item: News, short = true) {

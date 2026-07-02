@@ -79,12 +79,15 @@ teaching.set('Software Engineering 2 (Static Analysis)', {
    link: 'https://www.tu-braunschweig.de/isf/teaching/se2'
 });
 
-export function getTeachings(): { def: [li: JSX.Element, tooltip: JSX.Element | undefined][], roles: Map<Teaching['type'], number> } {
-   const roleCounter = new Map<Teaching['type'], number>();
+export type TeachingRole = Teaching['type'];
+
+export function getTeachings(types?: ReadonlySet<TeachingRole>): { def: [li: JSX.Element, tooltip: JSX.Element | undefined][], roles: Map<TeachingRole, number> } {
+   const roleCounter = new Map<TeachingRole, number>();
    for(const { type, terms } of teaching.values()) {
       roleCounter.set(type, (roleCounter.get(type) ?? 0) + terms.length);
    }
-   const entries = Array.from(teaching.entries());
+   const entries = Array.from(teaching.entries())
+      .filter(([, { type }]) => !types || types.size === 0 || types.has(type));
    return { 
       def: entries.toSorted(
          ([a,], [b,]) => a.localeCompare(b)
@@ -187,7 +190,7 @@ const slides: Ressource[] = [
 export function getSlides() {
    return slides.map(({ title, href, coverSource }) => {
       return <div className="slide-container" key={title}><a href={href} target="_blank" rel="noreferrer">
-         <div className="slide-caption">{title}</div>
+         <div className="slide-caption" title={title}>{title}</div>
          <img src={coverSource} alt={title} className="slide-cover" loading="lazy"/>
       </a></div>;
    })
@@ -214,7 +217,7 @@ const documents: Ressource[] = [
 export function getDocuments() {
    return documents.map(({ title, href, coverSource }) => {
       return <div className="document-container" key={title}><a href={href} target="_blank" rel="noreferrer">
-         <div className="document-caption">{title}</div>
+         <div className="document-caption" title={title}>{title}</div>
          <img src={coverSource} alt={title} className="document-cover" loading="lazy"/>
       </a></div>;
    })

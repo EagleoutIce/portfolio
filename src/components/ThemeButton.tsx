@@ -3,11 +3,17 @@ import "./ThemeButton.css";
 
 const themes = ['light-theme', 'dark-theme'];
 
+let themeTransitionTimer: number | undefined;
+
 function updateTheme(theme: string) {
    const body = document.querySelector('body');
    if(!body) {
       return;
    }
+   /* fades every element in sync while the colors change, see index.css */
+   body.classList.add('theme-transition');
+   clearTimeout(themeTransitionTimer);
+   themeTransitionTimer = window.setTimeout(() => body.classList.remove('theme-transition'), 1000);
    for(const t of themes) {
       body.classList.remove(t);
    }

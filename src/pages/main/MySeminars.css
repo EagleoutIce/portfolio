@@ -19,6 +19,18 @@
   padding-bottom: 0;
 }
 
+/* the last entry hides its border so the line ends at its dot, this stub
+   still connects the previous entry down to that dot */
+.seminars-list > li:last-child::after {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 0;
+  width: 1px;
+  height: .3em;
+  background-color: color-mix(in srgb, var(--text) 22%, transparent);
+}
+
 .seminars-list > li::before {
   content: '';
   position: absolute;

@@ -350,34 +350,41 @@ export function getThesisCounts() {
    };
 }
 
-export function getTheses(type: 'master' | 'bachelor', header: (count: JSX.Element) => JSX.Element): JSX.Element {
-   const activeTheses = theses
-            .filter(t => t.type === (type + '-thesis'))
-            .toSorted(
-               ({year, month}, {year: yearB, month: monthB}) => yearB - year || monthB - month
-            );
-   return <>
-   {header(<span style={{ fontSize: 'smaller', color: 'gray' }}>{activeTheses.length}×</span>)}
-   <ul className='teachings-list' style={{marginTop: '-1em'}}>
-         {
-            activeTheses
-            .map(({ title, author, examiners, abstract, link, year, month, extra }) => {
-               const id = escapeId(title);
-               return <li key={id}>
-                  <strong id={'link-' + id}>{title}</strong> <span className='theses-author-meta'>({author !== 'anonymous' ? author + ', ' : ''}{monthToString[month - 1]}&nbsp;{year})</span>{link && <>&emsp;<a href={link} className="bib-link" target="_blank" rel="noreferrer">[PDF]</a></>}<br />
-                  {extra ? <><span> {extra} </span></> : null}
-                  <details style={{ margin: '0em 0 .5em 0', cursor: 'pointer', userSelect: 'none' }}>
-                     <summary><i>Details</i></summary>
-                     <span>Examiners: {joinLastWith(examiners.map(e => ExaminerMap[e]))}</span><br/>
-                     <span>{link && <>Link: <a href={link} className="bib-link" target="_blank" rel="noreferrer">{link}</a></>}</span>
-                     <p />
-                     <b>Abstract</b>
-                     <div>{abstract}</div>
-                  </details>
-               </li>;
-            })
-         }
-      </ul>
-      </>;
+export type ThesisType = keyof typeof TypeToStringMap;
+
+const ThesisAbbrMap = {
+   'bachelor-thesis': 'ba',
+   'master-thesis': 'ma'
+} as const;
+
+/** thesis types with their totals, in display order */
+export function getThesisTypes(): Array<{ key: ThesisType; abbr: string; label: string; count: number }> {
+   return (Object.keys(TypeToStringMap) as ThesisType[])
+      .map(k => ({ key: k, abbr: ThesisAbbrMap[k], label: TypeToStringMap[k], count: theses.filter(t => t.type === k).length }))
+      .filter(t => t.count > 0);
+}
+
+/** all theses sorted by recency, the id backs the news deep links */
+export function getTheses(): { id: string; type: ThesisType; li: JSX.Element }[] {
+   return theses
+      .toSorted(
+         ({year, month}, {year: yearB, month: monthB}) => yearB - year || monthB - month
+      )
+      .map(({ title, author, examiners, abstract, link, year, month, extra, type }) => {
+         const id = escapeId(title);
+         const li = <li key={id}>
+            <strong id={'link-' + id}>{title}</strong>&nbsp;<span className='small-caps'>{ThesisAbbrMap[type]}</span> <span className='theses-author-meta'>({author !== 'anonymous' ? author + ', ' : ''}{monthToString[month - 1]}&nbsp;{year})</span>{link && <>&emsp;<a href={link} className="bib-link" target="_blank" rel="noreferrer">[PDF]</a></>}<br />
+            {extra ? <><span> {extra} </span></> : null}
+            <details style={{ margin: '0em 0 .5em 0', cursor: 'pointer', userSelect: 'none' }}>
+               <summary><i>Details</i></summary>
+               <span>Examiners: {joinLastWith(examiners.map(e => ExaminerMap[e]))}</span><br/>
+               <span>{link && <>Link: <a href={link} className="bib-link" target="_blank" rel="noreferrer">{link}</a></>}</span>
+               <p />
+               <b>Abstract</b>
+               <div>{abstract}</div>
+            </details>
+         </li>;
+         return { id, type, li };
+      });
 }
 

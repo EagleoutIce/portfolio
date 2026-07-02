@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo, useState } from 'react';
+import { lazy, Suspense, useMemo, useState, type ReactNode } from 'react';
 import { Content } from '../../components/Content';
 import { SiteNotice } from '../../components/SiteNotice';
 import { MyHeader } from './MyHeader';
@@ -30,6 +30,27 @@ function Bibliography(props: BibliographyProps) {
   </Suspense>;
 }
 
+interface CollapsibleSectionProps {
+  readonly id: string;
+  readonly heading: string;
+  readonly summary: string;
+  readonly defaultOpen?: boolean;
+  readonly children: ReactNode;
+}
+
+/* only renders the content while expanded */
+function CollapsibleSection({ id, heading, summary, defaultOpen = false, children }: CollapsibleSectionProps) {
+  const [open, setOpen] = useState(defaultOpen);
+  return <details className="collapse-section" open={open} onToggle={e => setOpen((e.target as HTMLDetailsElement).open)}>
+    <summary>
+      <SectionHeading id={id} as="h3">{heading}</SectionHeading>
+      <span className="collapse-count">{summary}</span>
+      <span className="collapse-chevron" />
+    </summary>
+    {open && children}
+  </details>;
+}
+
 interface CollapsibleBibliographyProps extends BibliographyProps {
   readonly id: string;
   readonly heading: string;
@@ -37,19 +58,13 @@ interface CollapsibleBibliographyProps extends BibliographyProps {
   readonly defaultOpen?: boolean;
 }
 
-/* only renders (and formats) the entries while expanded */
-function CollapsibleBibliography({ id, heading, intro, defaultOpen = false, ...bib }: CollapsibleBibliographyProps) {
-  const [open, setOpen] = useState(defaultOpen);
+function CollapsibleBibliography({ id, heading, intro, defaultOpen, ...bib }: CollapsibleBibliographyProps) {
   const count = useMemo(() => (bib.biblatexContent.match(/^\s*@/gm) ?? []).length, [bib.biblatexContent]);
-  return <details className="collapse-section" open={open} onToggle={e => setOpen((e.target as HTMLDetailsElement).open)}>
-    <summary>
-      <SectionHeading id={id} as="h3">{heading}</SectionHeading>
-      <span className="collapse-count">{count} {count === 1 ? 'entry' : 'entries'}</span>
-      <span className="collapse-chevron" />
-    </summary>
+  return <CollapsibleSection id={id} heading={heading} defaultOpen={defaultOpen}
+    summary={`${count} ${count === 1 ? 'entry' : 'entries'}`}>
     {intro}
-    {open && <Bibliography {...bib} />}
-  </details>;
+    <Bibliography {...bib} />
+  </CollapsibleSection>;
 }
 
 function Divider() {
@@ -75,8 +90,9 @@ function MainPage() {
       <SectionHeading id="penguins" as="h3">Penguins</SectionHeading>
       <MyPenguinCurrentProjects />
 
-      <SectionHeading id="typography" as="h3">TeX, Typst, and Typography</SectionHeading>
-      <MyCurrentTypographyProjects />
+      <CollapsibleSection id="typography" heading="TeX, Typst, and Typography" summary="4 projects">
+        <MyCurrentTypographyProjects />
+      </CollapsibleSection>
 
       <SectionHeading id="publications">Publications and Travel</SectionHeading>
          <StaticQuickLinks sections={{

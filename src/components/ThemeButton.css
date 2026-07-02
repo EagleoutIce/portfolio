@@ -44,7 +44,8 @@ body.compact-header .wrapper {
    height: 100px;
    background: #211042;
    border-radius: 50px;
-   transition: 500ms;
+   /* the sky fades with the page theme (1s), only the scene morphs quicker */
+   transition: all 500ms, background-color 1s;
    overflow: hidden;
 }
 

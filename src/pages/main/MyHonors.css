@@ -28,9 +28,19 @@
   font-size: 1.25em;
 }
 
+.featured-grant-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
 .featured-grant-meta {
   color: var(--soft-text);
   font-size: .85em;
+  /* stick to the bottom so all cards of a row align, even one-liners */
+  margin-top: auto;
+  padding-top: .15em;
 }
 
 .honors-other {

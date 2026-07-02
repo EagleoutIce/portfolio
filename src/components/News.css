@@ -1,11 +1,39 @@
+/* 1s matches the theme transition of the rest of the page, a faster
+   value makes the news text flicker when switching between day and night */
 .news {
-   transition: color .1s;
+   transition: color 1s;
    margin-bottom: 2em;
 }
 
-.news h4 {
-   margin-bottom: 0em;
-   padding-bottom: 0em;
+/* unlike the publication sections the collapsed line keeps the full width,
+   so the teaser of the latest entry can ellipsize instead of overflowing */
+.news.collapse-section:not([open]) {
+   display: block;
+   margin-right: 0;
+}
+
+.news-teaser {
+   flex: 0 1 auto;
+   min-width: 0;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   font-size: .85em;
+   color: var(--semi-soft-text);
+   transition: color 1s;
+}
+
+.news-asof {
+   font-size: .75em;
+   color: var(--soft-text);
+   transition: color 1s;
+}
+
+.news-filter-box {
+   display: inline-flex;
+   align-items: center;
+   font-size: small;
+   font-weight: normal;
 }
 
 .news .date {
@@ -19,6 +47,7 @@
    white-space: nowrap;
    font-variant-numeric: tabular-nums;
    color: var(--semi-soft-text);
+   transition: color 1s;
 }
 
 .news .news-content {

@@ -26,36 +26,28 @@
 }
 
 
+/* the covers share one grid rhythm, wide cells for slides (landscape)
+   and narrower ones for documents (portrait) */
 .slides-list, .documents-list {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+  display: grid;
+  gap: 1.25em 1.75em;
+  align-items: start;
   width: 100%;
   margin-top: 1em;
+  margin-bottom: .5em;
 }
 
-.slide-container {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 1em;
-  padding-right: 2em;
-  width: 45%;
+.slides-list {
+  grid-template-columns: repeat(auto-fill, minmax(17em, 1fr));
+}
+
+.documents-list {
+  grid-template-columns: repeat(auto-fill, minmax(11em, 1fr));
+}
+
+.slide-container, .document-container {
   text-align: left;
-}
-
-.document-container {
-  padding-right: 1em;
-  width: 30%;
-}
-
-@media (max-width: 1200px) {
-  .slide-container, .document-container {
-     width: 80%;
-     margin-right: 0px;
-  }
-  .document-container {
-    width: 45%; 
-  }
+  min-width: 0;
 }
 
 .slide-cover, .document-cover {
@@ -79,6 +71,8 @@
   transition: color 1s;
   margin-bottom: 5px;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .note {

@@ -67,7 +67,6 @@ const entries: Entry[] = [{
    shortTitle: 'OOPSLA \'26',
    year: 2026,
    order: 3,
-   note: 'Rounds 1 & 2',
    link: 'https://2026.splashcon.org/committee/splash-2026-artifact-evaluation-artifact-evaluation-committee'
 }, {
    type: 'artifact-eval',
@@ -137,10 +136,25 @@ export function getServiceSummary() {
    return <div className='bib-summary-children'>{children}</div>;
 }
 
-export function getService() {
+export type ServiceType = keyof typeof TypeMap;
+
+/** role types present in the data with their totals, in display order */
+export function getServiceTypes(): Array<{ key: ServiceType; full: string; count: number }> {
+   const counts = new Map<ServiceType, number>();
+   for(const e of entries) {
+      counts.set(e.type, (counts.get(e.type) ?? 0) + 1);
+   }
+   return (Object.keys(TypeDisplayMap) as ServiceType[])
+      .filter(k => counts.has(k))
+      .map(k => ({ key: k, full: TypeMap[k], count: counts.get(k)! }));
+}
+
+export function getService(types?: ReadonlySet<ServiceType>) {
    const currentYear = new Date().getFullYear();
 
-   return entries.toSorted(
+   return entries
+      .filter(e => !types || types.size === 0 || types.has(e.type))
+      .toSorted(
       (a, b) => {
          if(b.year - a.year !== 0) {
             return b.year - a.year;

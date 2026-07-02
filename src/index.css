@@ -62,6 +62,14 @@ body {
   align-items: center;
 }
 
+/* present for one second after a theme switch (see ThemeButton), so every
+   element fades in sync instead of some snapping to the new colors,
+   the toggle itself is excluded to not stall its day/night animation */
+body.theme-transition,
+body.theme-transition *:not(.wrapper, .wrapper *) {
+  transition: color 1s, background-color 1s, border-color 1s, box-shadow 1s;
+}
+
 a {
   text-decoration: none;
   color: var(--text);
@@ -97,6 +105,111 @@ button:active {
   scale: .9;
 }
 
+.filter-row {
+  margin-top: .75em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5em;
+}
+
+/* shared look of the filter toggles (publications, academic service,
+   teaching): compact, barely rounded, and only filled while selected */
+button.filter-active,
+button.filter-inactive {
+  padding: .2em .6em;
+  font-size: .55em;
+  font-weight: normal;
+  border: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
+  border-radius: 3px;
+  background-color: transparent;
+  color: var(--semi-soft-text);
+  cursor: pointer;
+  transition: background-color .2s, border-color .2s, color 1s;
+}
+
+button.filter-active {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+  color: var(--background);
+}
+
+button.filter-active:hover {
+  scale: 1;
+}
+
+button.filter-inactive:hover {
+  scale: 1;
+  border-color: var(--main-color);
+  background-color: var(--main-color-transparent);
+}
+
+/* filters that have to match all at once (AND) are visibly rounder
+   than the either-or role toggles */
+.filters-and button.filter-active,
+.filters-and button.filter-inactive {
+  border-radius: 8px;
+}
+
+.filter-count {
+  opacity: .65;
+  margin-right: .3em;
+}
+
+/* shared pagination (publications, theses), see Pagination.tsx */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-bottom: 0.75em;
+  user-select: none;
+}
+
+.page-label,
+.page-ellipsis,
+.page-link,
+.page-current,
+.page-arrow {
+  font-size: 0.75em;
+}
+
+.page-label,
+.page-ellipsis {
+  color: var(--text);
+  opacity: .55;
+}
+
+.page-link {
+  color: var(--text);
+  opacity: .55;
+  cursor: pointer;
+  transition: color 400ms, opacity 400ms;
+}
+
+.page-link:hover {
+  color: var(--main-color);
+  opacity: 1;
+}
+
+.page-current {
+  font-weight: bold;
+  color: var(--main-color);
+  cursor: default;
+}
+
+.page-arrow {
+  font-weight: bold;
+  padding: 0 .25em;
+}
+
+.page-arrow-disabled {
+  color: var(--text);
+  opacity: .2;
+  cursor: default;
+}
+
 .no-outer {
   margin: 0 !important;
   padding: 0 !important;
@@ -125,6 +238,7 @@ button:active {
 .collapse-count {
   font-size: .7em;
   color: var(--soft-text);
+  white-space: nowrap;
 }
 
 .collapse-title {

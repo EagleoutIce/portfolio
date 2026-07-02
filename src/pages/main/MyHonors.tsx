@@ -12,7 +12,7 @@ export function MyHonors() {
 
     <div className='featured-grants'>
       {grants.map(({ title, amount, link, year, month }) =>
-        <a key={title} className='featured-grant' href={link} target="_blank" rel="noreferrer">
+        <a key={title} className='featured-grant' href={link} target="_blank" rel="noreferrer" title={title}>
           <span className='featured-grant-amount'>{amount !== undefined ? formatEuro(amount) : year}</span>
           <span className='featured-grant-title'>{title}</span>
           <span className='featured-grant-meta'>Grant, {monthToString[month - 1]} {year}</span>
@@ -22,7 +22,7 @@ export function MyHonors() {
 
     <div className='featured-grants'>
       {awards.map(({ title, link, year, month }) =>
-        <a key={title} className='featured-grant' href={link} target="_blank" rel="noreferrer">
+        <a key={title} className='featured-grant' href={link} target="_blank" rel="noreferrer" title={title}>
           <span className='featured-grant-amount'><FontAwesomeIcon icon={faAward} /> {year}</span>
           <span className='featured-grant-title'>{title}</span>
           <span className='featured-grant-meta'>Award, {monthToString[month - 1]} {year}</span>

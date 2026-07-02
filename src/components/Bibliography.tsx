@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./Bibliography.css";
+import { Pagination } from "./Pagination";
 import { Cite } from '@citation-js/core';
 import '@citation-js/plugin-bibtex';
 import '@citation-js/plugin-csl';
@@ -46,21 +47,6 @@ interface IssuedObject {
 
 const PAGE_SIZE = 10;
 
-function pageItems(current: number, total: number): (number | '...')[] {
-   if(total <= 7) return Array.from({ length: total }, (_, i) => i);
-   const visible = new Set<number>([0, total - 1]);
-   for(let i = Math.max(0, current - 1); i <= Math.min(total - 1, current + 1); i++) visible.add(i);
-   const sorted = Array.from(visible).sort((a, b) => a - b);
-   const result: (number | '...')[] = [];
-   for(let i = 0; i < sorted.length; i++) {
-      if(i > 0 && sorted[i] - sorted[i - 1] > 1) {
-         result.push('...');
-      }
-      result.push(sorted[i]);
-   }
-   return result;
-}
-
 // https://citation.js.org/api/0.3/tutorial-output_formats.html
 export function Bibliography({ biblatexContent, type, filters, pageSize = PAGE_SIZE }: BibliographyProps) {
    const [activeFilters, setActiveFilters] = useState<{ [name: string]: boolean }>(() => {
@@ -74,7 +60,7 @@ export function Bibliography({ biblatexContent, type, filters, pageSize = PAGE_S
    });
    const [currentPage, setCurrentPage] = useState(0);
 
-   const allEntries = useMemo(() => {
+   const { formatted, data } = useMemo(() => {
       const cite = new Cite(biblatexContent);
       cleanUpData(cite);
       sortAccordingToYear(cite);
@@ -110,29 +96,31 @@ export function Bibliography({ biblatexContent, type, filters, pageSize = PAGE_S
          }
       });
 
-      return res.map(
+      const formatted = res.map(
          ([_, entry]: string[], index: number) => {
             return `<div key=${index} class="bib-entry">
             <div class="bib-index">[<span class="bib-number">${res.length - index}</span>]</div> ${entryReplace(entry)}</div>`;
          }
-      ).filter((_entry: string, index: number) => {
-         if(!filters) {
-            return true;
-         }
-         for(const [name, predicate] of Object.entries(filters)) {
-            if(activeFilters[name]) {
-               if(!predicate(cite.data[index])) {
-                  return false;
-               }
+      );
+      return { formatted, data: cite.data as Record<string, unknown>[] };
+   }, [biblatexContent]);
+
+   const allEntries = useMemo(() => formatted.filter((_entry: string, index: number) => {
+      if(!filters) {
+         return true;
+      }
+      for(const [name, predicate] of Object.entries(filters)) {
+         if(activeFilters[name]) {
+            if(!predicate(data[index])) {
+               return false;
             }
          }
-         return true;
-      });
-   }, [biblatexContent, activeFilters]);
+      }
+      return true;
+   }), [formatted, data, activeFilters]);
 
    useEffect(() => { setCurrentPage(0); }, [allEntries]);
 
-   const bibRef = useRef<HTMLDivElement>(null);
    const needsPagination = allEntries.length >= pageSize;
    const totalPages = needsPagination ? Math.ceil(allEntries.length / pageSize) : 1;
    const pagedEntries = needsPagination
@@ -140,20 +128,15 @@ export function Bibliography({ biblatexContent, type, filters, pageSize = PAGE_S
       : allEntries;
    const bib = pagedEntries.join('');
 
-   function goToPage(page: number) {
-      setCurrentPage(page);
-      requestAnimationFrame(() =>
-         bibRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      );
-   }
-
    const filterElems: JSX.Element[] = [];
    if(filters) {
-      for(const [name, ] of Object.entries(filters)) {
+      for(const [name, predicate] of Object.entries(filters)) {
+         const count = data.filter(d => predicate(d)).length;
          filterElems.push(
             <button
                key={`filter-btn-${name}`}
                className={activeFilters[name] ? 'filter-active' : 'filter-inactive'}
+               title="entries have to match all selected filters"
                onClick={() => {
                   setActiveFilters((prev) => {
                      const newState = { ...prev };
@@ -162,34 +145,23 @@ export function Bibliography({ biblatexContent, type, filters, pageSize = PAGE_S
                   });
                }}
             >
-              {name}
+              <span className='filter-count'>{count}&times;</span>{name}
             </button>
          );
       }
    }
 
    const pagination = needsPagination && (
-      <div className="bibliography-pagination">
-         <span className="bib-page-label">Pages:</span>
-         {pageItems(currentPage, totalPages).map((item, i) =>
-            item === '...'
-               ? <span key={`ellipsis-${i}`} className="bib-page-ellipsis">…</span>
-               : <a
-                    key={item}
-                    className={item === currentPage ? 'bib-page-current' : 'bib-page-link'}
-                    onClick={() => goToPage(item)}
-                 >{item + 1}</a>
-         )}
-      </div>
+      <Pagination current={currentPage} total={totalPages} onChange={setCurrentPage} />
    );
 
    return <>
       <div className="bibliography-header"><a onClick={() => downloadBib(biblatexContent, type)}>download <span className="code">.bib</span></a></div>
-      <div className="bibliography-filters">
+      <div className="bibliography-filters filters-and">
          {filterElems.length > 0 ? <>{filterElems}</> : <span></span>}
       </div>
+      <div className="bibliography" dangerouslySetInnerHTML={{ __html: bib }} />
       {pagination}
-      <div className="bibliography" ref={bibRef} dangerouslySetInnerHTML={{ __html: bib }} />
    </>;
 }
 
