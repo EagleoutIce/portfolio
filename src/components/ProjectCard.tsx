@@ -11,7 +11,7 @@ interface ProjectCard {
 
 export function ProjectCard({ title, description, image, link, extraClasses, crumbs }: ProjectCard) {
    return <a className={`project-card ${extraClasses}`} href={link} rel="noreferrer" target="_blank">
-         <div>{ typeof image === 'string' ? <img src={image} alt={description} /> : image }</div>
+         <div>{ typeof image === 'string' ? <img src={image} alt={description} loading="lazy" decoding="async" /> : image }</div>
          <div className="project-card-details">
          <div className="project-card-title">
             {title}

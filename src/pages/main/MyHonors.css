@@ -1,3 +1,42 @@
+.featured-grants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .9em;
+  margin-top: 14px;
+}
+
+.featured-grant {
+  flex: 1 1 14em;
+  display: flex;
+  flex-direction: column;
+  gap: .15em;
+  border-left: 3px solid var(--main-color);
+  border-radius: 0 8px 8px 0;
+  padding: .55em .8em;
+  font-size: smaller;
+  transition: background-color 1s, scale .1s;
+}
+
+.featured-grant:hover {
+  background-color: var(--background-crumbs);
+  scale: 1.02;
+}
+
+.featured-grant-amount {
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: 1.25em;
+}
+
+.featured-grant-meta {
+  color: var(--soft-text);
+  font-size: .85em;
+}
+
+.honors-other {
+  margin-top: 1em;
+}
+
 .honors-list {
   font-size: smaller;
   margin-top: 12px;

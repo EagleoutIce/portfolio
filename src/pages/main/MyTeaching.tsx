@@ -1,4 +1,5 @@
 import { StaticQuickLinks } from '../../components/QuickLinks';
+import { SectionHeading } from '../../components/SectionHeading';
 import './MyTeaching.css';
 import { TypeToStringMap, getDocuments, getSlides, getTeachings } from './TeachingsData';
 import { getTheses } from './ThesesData';
@@ -16,7 +17,7 @@ export function MyTeaching() {
          documents: { page: 'documents' }
       }}></StaticQuickLinks>
 
-      <h3 id="lectures">Lectures, Seminars, and Projects</h3>
+      <SectionHeading id="lectures" as="h3">Lectures, Seminars, and Projects</SectionHeading>
       As part of my work at the University of Ulm, I am involved in teaching:
 
       <div className='note'> 
@@ -31,14 +32,14 @@ export function MyTeaching() {
          }
       </div>
 
-      <ul className='teachings-list'>
+      <ul className='teachings-list lectures-columns'>
          {teachings.map(t => t[0])}
       </ul>
       {teachings.map(t => t[1]).filter(e => e !== undefined)}
 
       I have also created various teaching materials, including partial and complete lectures (e.g., with "Grundlagen der praktischen Informatik", "Software Quality Assurance", and "Functional Programming 2").
 
-      <h3 id="theses">Supervised Theses</h3>
+      <SectionHeading id="theses" as="h3">Supervised Theses</SectionHeading>
 
       <StaticQuickLinks sections={{
          "master": { page: 'master-theses' },
@@ -51,7 +52,7 @@ export function MyTeaching() {
 
       {getTheses('bachelor', c => <h4 id="bachelor-theses">{c}Bachelor's Theses</h4>)}
 
-      <h3 id="slides">Slides</h3>
+      <SectionHeading id="slides" as="h3">Slides</SectionHeading>
       <div className='slides-list'>
          {getSlides()}
          <div>
@@ -61,7 +62,7 @@ export function MyTeaching() {
          For more, check out my <a target="_blank" rel="noreferrer" href="https://github.com/EagleoutIce" >GitHub Page</a>.
       </div>
 
-      <h3 id="documents">Documents</h3>
+      <SectionHeading id="documents" as="h3">Documents</SectionHeading>
       <div className='documents-list'>
          {getDocuments()}
       </div>

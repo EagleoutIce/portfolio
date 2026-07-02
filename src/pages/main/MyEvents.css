@@ -8,6 +8,15 @@
   margin-bottom: 5px;
 }
 
+.event-time {
+  display: inline-block;
+  background-color: var(--background-crumbs);
+  border-radius: 999px;
+  padding: 0 .55em;
+  margin: .12em .18em .12em 0;
+  transition: background-color 1s;
+}
+
 /* Grayed-out style for future dates */
 .future-time {
   color: gray;

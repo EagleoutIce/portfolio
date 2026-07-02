@@ -3,6 +3,7 @@ import "./News.css"
 import { getLastUpdated } from "./LastUpdated";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { escapeId } from "../util/id";
 
 interface News {
    when: Date,
@@ -10,10 +11,21 @@ interface News {
    link?: string
 }
 
+/** internal permalink to a supervised thesis, see getTheses in ThesesData */
+function thesisLink(title: string): string {
+   return '#/link-' + escapeId(title);
+}
+
 const news: News[] = []
 news.push({
+   when: new Date("2026-06-18"),
+   text: 'Paper accepted at ASE \'26 on Data Frame Shape Inference',
+   link: 'https://conf.researchr.org/home/ase-2026'
+})
+news.push({
    when: new Date("2026-05-11"),
-   text: 'Bachelor thesis by J. Kruger on Parallelising SA'
+   text: 'Bachelor\'s thesis by J. Kruger on Parallelising SA',
+   link: thesisLink('Improving Dataflow Analysis Performance in flowR — with Parallelization and Lazy Function Evaluation')
 })
 news.push({
    when: new Date("2026-05-04"),
@@ -36,7 +48,8 @@ news.push({
 })
 news.push({
    when: new Date("2026-01-16"),
-   text: 'Bachelor thesis by L. Schlecker on String Inference'
+   text: 'Bachelor\'s thesis by L. Schlecker on String Inference',
+   link: thesisLink('Static Analysis for Self-Modifying R Programs')
 })
 news.push({
    when: new Date("2025-12-1"),
@@ -89,7 +102,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-09-11"),
-   text: 'Received the Rising Star award at the RSECon25',
+   text: 'Received the Rising Star Award at RSECon \'25',
    link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/rising-star-award-at-rsecon25/'
 })
 news.push({
@@ -138,12 +151,12 @@ news.push({
 })
 news.push({
    when: new Date("2025-06-24"),
-   text: 'Paper accepted at SEEA \'25',
+   text: 'Paper accepted at SEAA \'25',
    link: 'https://dsd-seaa.com/seaa2025/'
 })
 news.push({
    when: new Date("2025-06-13"),
-   text: 'Presentation accepted at the 2025 RSECon',
+   text: 'Presentation accepted at RSECon \'25',
    link: 'https://rsecon25.society-rse.org/'
 })
 news.push({
@@ -198,7 +211,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-05-02"),
-   text: 'Reviewing for RSECon 2025',
+   text: 'Reviewing for RSECon \'25',
    link: 'https://rsecon25.society-rse.org/'
 })
 news.push({
@@ -209,6 +222,7 @@ news.push({
 news.push({
    when: new Date("2025-04-14"),
    text: 'Master\'s thesis by R. Dunkel on Feature Slicing',
+   link: thesisLink('Cut to the Core – Automated Feature Extraction in R Using Program Slicing')
 })
 news.push({
    when: new Date("2025-04-11"),
@@ -228,6 +242,7 @@ news.push({
 news.push({
    when: new Date("2025-04-1"),
    text: 'Bachelor\'s thesis by F. Schlegel on Pointer Analysis',
+   link: thesisLink('Field-Sensitive Pointer Analysis for Static Dataflow in the R Programming Language')
 })
 news.push({
    when: new Date("2025-03-17"),
@@ -246,7 +261,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-02-26"),
-   text: 'Presentation at the deRSE 2025',
+   text: 'Presentation at deRSE \'25',
    link: 'https://events.hifis.net/event/1741/contributions/13407/'
 })
 news.push({
@@ -261,6 +276,7 @@ news.push({
 news.push({
    when: new Date("2025-01-02"),
    text: 'Master\'s thesis by L. Pietzschmann on Slicing Coverage',
+   link: thesisLink('Improving Code Coverage Metrics using Static Program Slicing for R')
 })
 news.push({
    when: new Date("2024-01-24"),
@@ -306,7 +322,7 @@ export function News() {
                opacity: showLast <= 5 && filteredNews.length > 5 ? 
                   1 - (index / 5) : 1
             }}>
-               <span className="date">{getDate(item)}:</span> <span className="news-content">{item.link ? <a href={item.link} target="_blank" rel="noreferrer" className="link">{item.text}</a> : <span className="link" style={{ color: 'var(--text)' }}>{item.text}</span>}</span>
+               <span className="date">{getDate(item)}:</span> <span className="news-content">{item.link ? <a href={item.link} {...item.link.startsWith('#') ? {} : { target: '_blank', rel: 'noreferrer' }} className="link">{item.text}</a> : <span className="link" style={{ color: 'var(--text)' }}>{item.text}</span>}</span>
             </li>
          ))}
          {

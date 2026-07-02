@@ -2,6 +2,16 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
 body.dark-theme {
   --main-color: rgba(255, 166, 0, 1);
   --main-color-transparent: rgba(255, 166, 0, 0.3);
@@ -45,6 +55,13 @@ body {
   color: var(--text);
 }
 
+#root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 a {
   text-decoration: none;
   color: var(--text);
@@ -83,6 +100,49 @@ button:active {
 .no-outer {
   margin: 0 !important;
   padding: 0 !important;
+}
+
+/* collapsible sections with an inline heading, count, and chevron;
+   collapsed sections flow next to each other on one line */
+.collapse-section:not([open]) {
+  display: inline-block;
+  margin-right: 2em;
+}
+
+.collapse-section > summary {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: .75em;
+  list-style: none;
+}
+
+.collapse-section > summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapse-count {
+  font-size: .7em;
+  color: var(--soft-text);
+}
+
+.collapse-title {
+  font-weight: bold;
+  margin: .5em 0;
+}
+
+.collapse-chevron {
+  width: .4em;
+  height: .4em;
+  border-right: 2px solid var(--soft-text);
+  border-bottom: 2px solid var(--soft-text);
+  transform: rotate(-45deg);
+  transition: transform .2s;
+}
+
+.collapse-section[open] > summary .collapse-chevron {
+  transform: rotate(45deg) translate(-15%, -15%);
 }
 
 h2 {

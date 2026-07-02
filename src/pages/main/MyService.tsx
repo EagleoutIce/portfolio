@@ -6,7 +6,7 @@ export function MyService() {
   return <>
    I serve(d) as chair, reviewer, or artifact evaluator for the following conferences:
    {getServiceSummary()}
-   <ul className='seminars-list'>
+   <ul className='service-grid'>
       {getService()}
    </ul>
  </>;

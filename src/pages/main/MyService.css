@@ -1,9 +1,39 @@
-.service-list {
-  font-size: smaller;
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16em, 1fr));
+  gap: .6em .9em;
+  padding-left: 0;
   margin-top: 12px;
+  font-size: smaller;
 }
 
-.service-list > li {
-  list-style-type: disc;
-  margin-bottom: 5px;
+.service-grid > li {
+  list-style: none;
+  background-color: var(--background-crumbs);
+  border-radius: 8px;
+  padding: .5em .75em;
+  transition: background-color 1s, scale .1s;
+}
+
+.service-grid > li:hover {
+  scale: 1.02;
+}
+
+.service-conference {
+  color: var(--semi-soft-text);
+  font-size: .85em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* the note already takes a line, keep the cards evenly sized */
+.service-grid > li:has(.service-note) .service-conference {
+  -webkit-line-clamp: 2;
+}
+
+.service-note {
+  color: var(--soft-text);
+  font-size: .85em;
 }

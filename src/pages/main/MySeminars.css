@@ -1,9 +1,57 @@
+/* a small timeline instead of cards */
 .seminars-list {
-  font-size: smaller;
+  list-style: none;
+  padding-left: 0;
   margin-top: 12px;
+  margin-left: .4em;
+  font-size: smaller;
 }
 
 .seminars-list > li {
-  list-style-type: disc;
-  margin-bottom: 5px;
+  position: relative;
+  padding-left: 1.5em;
+  padding-bottom: 1em;
+  border-left: 1px solid color-mix(in srgb, var(--text) 22%, transparent);
+}
+
+.seminars-list > li:last-child {
+  border-left-color: transparent;
+  padding-bottom: 0;
+}
+
+.seminars-list > li::before {
+  content: '';
+  position: absolute;
+  box-sizing: border-box;
+  /* -.5px is the middle of the 1px border line (offsets are padding-box relative),
+     the translate then centers the dot on it independent of its size */
+  left: -.5px;
+  transform: translateX(-50%) scale(1);
+  top: .3em;
+  /* integer pixels rasterize as a clean circle on fractional dpi scaling */
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--main-color);
+  transition: transform .1s;
+}
+
+.seminars-list > li:hover::before {
+  /* keep the centering translate in the same transform, a separate
+     scale property would compose after it and rescale the shift */
+  transform: translateX(-50%) scale(1.35);
+}
+
+/* same geometry as the filled dot, the ring is drawn inside via inset shadow */
+.seminars-list > li.seminar-upcoming::before {
+  background-color: var(--background);
+  box-shadow: inset 0 0 0 1.5px var(--main-color);
+}
+
+.seminar-short {
+  white-space: nowrap;
+}
+
+.seminar-meta {
+  color: var(--semi-soft-text);
 }

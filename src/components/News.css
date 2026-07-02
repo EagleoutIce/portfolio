@@ -10,13 +10,20 @@
 
 .news .date {
    display: inline-block;
-   width: 6.5em;
-   text-align: start;
+   font-size: .85em;
+   /* em-based sizes below scale with the reduced font, ~7.5em of the parent */
+   width: 8.8em;
+   text-align: end;
+   padding-right: .6em;
+   box-sizing: border-box;
+   white-space: nowrap;
+   font-variant-numeric: tabular-nums;
+   color: var(--semi-soft-text);
 }
 
 .news .news-content {
    display: inline-block;
-   width: calc(100% - 7em);
+   width: calc(100% - 8em);
    vertical-align: top;
 }
 

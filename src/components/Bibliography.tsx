@@ -8,7 +8,8 @@ import '@citation-js/plugin-csl';
 export interface BibliographyProps {
    readonly biblatexContent: string;
    readonly type: string;
-   readonly filters?: { [name: string]: 
+   readonly pageSize?: number;
+   readonly filters?: { [name: string]:
          (entry: Record<string, unknown>) => boolean
    }
 }
@@ -61,7 +62,7 @@ function pageItems(current: number, total: number): (number | '...')[] {
 }
 
 // https://citation.js.org/api/0.3/tutorial-output_formats.html
-export function Bibliography({ biblatexContent, type, filters }: BibliographyProps) {
+export function Bibliography({ biblatexContent, type, filters, pageSize = PAGE_SIZE }: BibliographyProps) {
    const [activeFilters, setActiveFilters] = useState<{ [name: string]: boolean }>(() => {
       const init: { [name: string]: boolean } = {};
       if(filters) {
@@ -132,10 +133,10 @@ export function Bibliography({ biblatexContent, type, filters }: BibliographyPro
    useEffect(() => { setCurrentPage(0); }, [allEntries]);
 
    const bibRef = useRef<HTMLDivElement>(null);
-   const needsPagination = allEntries.length >= PAGE_SIZE;
-   const totalPages = needsPagination ? Math.ceil(allEntries.length / PAGE_SIZE) : 1;
+   const needsPagination = allEntries.length >= pageSize;
+   const totalPages = needsPagination ? Math.ceil(allEntries.length / pageSize) : 1;
    const pagedEntries = needsPagination
-      ? allEntries.slice(currentPage * PAGE_SIZE, (currentPage + 1) * PAGE_SIZE)
+      ? allEntries.slice(currentPage * pageSize, (currentPage + 1) * pageSize)
       : allEntries;
    const bib = pagedEntries.join('');
 

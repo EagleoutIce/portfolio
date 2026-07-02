@@ -22,7 +22,7 @@
   color: lightgray;
   font-size: .7em;
   user-select: none;
-  transition: color .45s, opacity .45s, scale 0s;
+  transition: color 1s, opacity .45s, scale 0s;
   cursor: pointer;
   padding: 0 .33em;
 }

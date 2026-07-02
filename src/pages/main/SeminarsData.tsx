@@ -37,6 +37,14 @@ const entries: Entry[] = [{
    startDate: new Date('2024-09-01'),
    endDate: new Date('2024-09-07'),
    location: 'Lipari'
+}, {
+   type: 'summer-school',
+   title: 'Lipari Summer School on Abstract Interpretation',
+   shortTitle: 'AbsInt \'26',
+   link: 'https://absint26.liparischool.it/',
+   startDate: new Date('2026-08-30'),
+   endDate: new Date('2026-09-05'),
+   location: 'Lipari'
 }
 ]
 
@@ -49,8 +57,9 @@ function readableDateRange(startDate: Date, endDate: Date) {
    if(startDate.getMonth() === endDate.getMonth()) {
       return `${startDate.toLocaleDateString('en-US', dateOptions)} - ${endDate.getDate()}, ${endDate.getFullYear()}`;
    }
+   return `${startDate.toLocaleDateString('en-US', dateOptions)} - ${endDate.toLocaleDateString('en-US', dateOptions)}, ${endDate.getFullYear()}`;
   }
-   return `${startDate.toLocaleDateString('en-US', dateOptions)} - ${endDate.toLocaleDateString('en-US', dateOptions)}`;
+   return `${startDate.toLocaleDateString('en-US', dateOptions)}, ${startDate.getFullYear()} - ${endDate.toLocaleDateString('en-US', dateOptions)}, ${endDate.getFullYear()}`;
 }
 
 export function getSeminars() {
@@ -66,10 +75,11 @@ export function getSeminars() {
       location,
       link
    }) => {
-      return <li key={title}>
+      const upcoming = startDate.getTime() > Date.now();
+      return <li key={shortTitle} className={upcoming ? 'seminar-upcoming' : undefined}>
          <a href={link} target="_blank" rel="noreferrer">
-            <strong>{title} ({shortTitle})</strong><br />
-            {types[type]}, {readableDateRange(startDate, endDate)}, {location}
+            <strong>{title} <span className='seminar-short'>({shortTitle})</span></strong><br />
+            <span className='seminar-meta'>{types[type]}, {readableDateRange(startDate, endDate)}, {location}{upcoming ? ' (upcoming)' : ''}</span>
          </a>
       </li>;
    });

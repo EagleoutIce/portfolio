@@ -14,6 +14,8 @@ export interface TitleNameProps {
          href: string;
       };
    };
+   /** keeps element ids unique when the component is rendered more than once */
+   readonly idPrefix?: string;
 }
 
 // based on https://stackoverflow.com/a/1284335
@@ -52,7 +54,7 @@ function specials() {
 }
 
 
-export default function TitleName({ name, subtitle, imageSrc, mediaLinks }: TitleNameProps) {
+export default function TitleName({ name, subtitle, imageSrc, mediaLinks, idPrefix = '' }: TitleNameProps) {
    return <div className="title-name-card">
       <img src={imageSrc} alt={name} className={`profile-image ${specials()}`} onClick={() => {
          if(headerIsSticky()) {
@@ -65,7 +67,7 @@ export default function TitleName({ name, subtitle, imageSrc, mediaLinks }: Titl
          <span className="profile-subtitle">{subtitle}<br /></span>
          <span className="profile-sm">{
             Object.entries(mediaLinks).map(([key, {icon, href}]) => {
-               const idKey = key.replace(/\s/g, '-').toLowerCase();
+               const idKey = idPrefix + key.replace(/\s/g, '-').toLowerCase();
                return <div key={idKey} style={{display: 'inline'}}>
                   <SocialMediaIcon href={href} icon={icon} key={idKey} id={`small-media-icon-${idKey}`} />
                   <Tooltip anchorSelect={`#small-media-icon-${idKey}`} content={key} key={`tt-${idKey}`} place="bottom" noArrow style={{ padding: '2px 6px'}}/>

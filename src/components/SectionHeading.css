@@ -1,0 +1,49 @@
+.section-heading {
+   position: relative;
+}
+
+.heading-anchor {
+   display: none;
+   position: absolute;
+   left: -1.5em;
+   top: 50%;
+   transform: translateY(-50%);
+   /* generous padding only grows the clickable area, not the text layout */
+   padding: .3em .35em;
+   line-height: 1;
+   font-size: 1.1em;
+   opacity: 0;
+   color: var(--soft-text);
+   font-weight: normal;
+   transition: opacity .1s, color .15s, transform .15s;
+}
+
+/* only devices that can hover get the permalink, it would clutter touch layouts */
+@media (hover: hover) {
+   .heading-anchor {
+      display: inline;
+   }
+
+   .section-heading:hover .heading-anchor,
+   .heading-anchor:focus-visible {
+      opacity: .6;
+   }
+
+   /* darker and larger on direct hover, darker again while clicked */
+   .heading-anchor:hover {
+      opacity: 1;
+      color: var(--semi-soft-text);
+      transform: translateY(-50%) scale(1.2);
+   }
+
+   .heading-anchor:active {
+      color: var(--text);
+   }
+}
+
+/* never show the anchor on small screens */
+@media (max-width: 800px) {
+   .heading-anchor {
+      display: none;
+   }
+}

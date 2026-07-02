@@ -1,0 +1,43 @@
+.divider {
+   display: flex;
+   align-items: center;
+   gap: 0.9rem;
+   color: var(--main-color);
+   user-select: none;
+   pointer-events: none;
+   margin-top: 2.2rem;
+   margin-bottom: 0.5rem;
+}
+
+.divider-line {
+   flex: 1 1 120px;
+   height: 1px;
+   box-shadow: 0 0 8px color-mix(in srgb, var(--main-color) 35%, transparent);
+}
+
+.divider-line.left {
+   background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--main-color) 55%, transparent) 22%, var(--main-color) 100%);
+}
+
+.divider-line.right {
+   background: linear-gradient(90deg, var(--main-color) 0%, color-mix(in srgb, var(--main-color) 55%, transparent) 78%, transparent 100%);
+}
+
+.divider-icon {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 2.25rem;
+   height: 2.25rem;
+   border-radius: 999px;
+   border: 1px solid color-mix(in srgb, var(--main-color) 55%, transparent);
+   background: linear-gradient(180deg, color-mix(in srgb, var(--main-color) 12%, transparent), transparent);
+   /* theme-aware glow instead of a fixed black shadow, which looks muddy on dark */
+   box-shadow: 0 0 0 4px color-mix(in srgb, var(--main-color) 8%, transparent), 0 8px 18px var(--soft-glow);
+   filter: drop-shadow(0px 1px 1px color-mix(in srgb, var(--main-color) 35%, transparent));
+}
+
+.divider-icon svg {
+   font-size: 0.8rem;
+   opacity: 0.92;
+}

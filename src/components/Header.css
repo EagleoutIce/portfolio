@@ -1,44 +1,43 @@
 .header {
-   left: 0;
-   top: 0;
    width: 100%;
+   box-sizing: border-box;
    display: flex;
    margin-top: 50px;
    --p: 0;
-   padding-top: calc(32px - 27px * var(--p));
-   padding-bottom: calc(32px - 27px * var(--p));
-   padding-left: calc(42px * var(--p));
-   padding-right: calc(5px * var(--p));
+   padding: 32px 0;
    flex-direction: column;
    justify-content: center;
    align-items: center;
    background-color: var(--background);
    transition: background-color 1s, color 1s;
-   z-index: 1000;
-   box-shadow: 0 2px 8px rgba(0, 0, 0, calc(0.2 * var(--p)));
 }
 
 .header.sticky {
+   --p: 1;
    position: fixed;
-   background-color: var(--background-header);
-   margin-top: 0px;
+   left: 0;
+   top: 0;
+   margin-top: 0;
+   z-index: 1000;
    flex-direction: row;
+   padding: 5px 5px 5px 42px;
+   background-color: var(--background-header);
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+   transform: translateY(-101%);
+   visibility: hidden;
+   transition: transform .3s ease, visibility .3s, background-color 1s, color 1s;
+}
+
+.header.sticky.shown {
+   transform: translateY(0);
+   visibility: visible;
 }
 
 .header.sticky .hide-on-sticky {
    display: none;
 }
 
-.header+.content {
-   transition: padding-top .1s;
-}
-
-.header.sticky+.content {
-   padding-top: 3em;
-}
-
 .header-glue {
-   width: calc(35% * var(--p));
+   width: 35%;
    height: 1px;
-   transition: scale .1s;
 }

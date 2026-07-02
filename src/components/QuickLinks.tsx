@@ -18,6 +18,12 @@ function scrollHelper(id: string, offset = 200) {
    }
    const element = document.getElementById(id);
    if (element) {
+      /* expand any collapsed section the target sits in before scrolling */
+      let details = element.closest('details');
+      while(details) {
+         details.open = true;
+         details = details.parentElement?.closest('details') ?? null;
+      }
       const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
       const offsetTop = elementTop - offset;
       window.scrollTo({ top: offsetTop, behavior: 'smooth' });
@@ -78,15 +84,24 @@ export default function QuickLinks({ sections }: QuickLinkProps) {
          updateIfDifferent(sections);
       }
    }
-   window.addEventListener('resize', () => update());
-   window.addEventListener('scroll', () => update());
    useEffect(() => {
+      window.addEventListener('resize', update);
+      window.addEventListener('scroll', update, { passive: true });
       update();
-      setTimeout(() => update(), 150);
+      const lateInit = setTimeout(update, 150);
+      return () => {
+         window.removeEventListener('resize', update);
+         window.removeEventListener('scroll', update);
+         clearTimeout(lateInit);
+      };
    });
+   const entries = Object.entries(activeSections);
+   if(entries.length === 0) {
+      return null;
+   }
    return <div className="quick-links">
      {
-      [...Object.entries(activeSections)].map(([k, v]) => 
+      entries.map(([k, v]) =>
          (<QuickLink label={k} page={v.page} key={k} />)
       )
      }

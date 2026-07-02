@@ -19,6 +19,7 @@ interface Entry {
    readonly year: number;
    readonly link: string;
    readonly order?: number;
+   readonly note?: string;
 }
 
 const entries: Entry[] = [{
@@ -66,6 +67,7 @@ const entries: Entry[] = [{
    shortTitle: 'OOPSLA \'26',
    year: 2026,
    order: 3,
+   note: 'Rounds 1 & 2',
    link: 'https://2026.splashcon.org/committee/splash-2026-artifact-evaluation-artifact-evaluation-committee'
 }, {
    type: 'artifact-eval',
@@ -154,12 +156,13 @@ export function getService() {
          conference,
          shortTitle,
          link,
-         year
+         year,
+         note
       }) => {
          return <li key={shortTitle} style={year > currentYear ? { opacity: 0.72 } : undefined}>
             <a href={link} target="_blank" rel="noreferrer">
-               <strong>{TypeMap[type]}</strong> for {shortTitle}<br />
-               {conference}
+               <strong>{TypeMap[type]}</strong> for {shortTitle}{note && <span className='service-note'> ({note})</span>}<br />
+               <span className='service-conference' title={conference}>{conference}</span>
             </a>
          </li>;
       });

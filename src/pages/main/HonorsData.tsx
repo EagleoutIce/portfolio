@@ -41,7 +41,7 @@ honors.push({
 })
 honors.push({
    type: 'award',
-   title: 'Rising Star award at the RSECon25',
+   title: 'Rising Star Award at RSECon \'25',
    year: 2025,
    month: 9,
    link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/rising-star-award-at-rsecon25/'
@@ -51,6 +51,7 @@ honors.push({
    title: 'DAAD stipend for a research stay at the CU/CTU in Prague',
    year: 2025,
    month: 6,
+   amount: 2000,
    link: 'https://prl-prg.github.io/'
 })
 honors.push({
@@ -77,7 +78,7 @@ honors.push({
 })
 honors.push({
    type: 'award',
-   title: 'YoungRSE Prize at the deRSE 2024',
+   title: 'YoungRSE Award at deRSE \'24',
    year: 2024,
    month: 3,
    link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/youngrse-award-at-derse24/'
@@ -106,22 +107,35 @@ export function formatEuro(amount: number): string {
    return `€${amount.toLocaleString('en-US')}`;
 }
 
-export function getGrantCount(): { count: number; grants: Array<{ title: string; amount?: number }> } {
-   const grants = honors
+function grantsByImportance(): Honors[] {
+   return honors
       .filter(h => h.type === 'grant')
-      .toSorted((a, b) => {
-         const hasA = a.amount !== undefined ? 1 : 0;
-         const hasB = b.amount !== undefined ? 1 : 0;
-         if (hasB !== hasA) return hasB - hasA;
-         return b.year - a.year || b.month - a.month;
-      });
+      .toSorted((a, b) =>
+         (b.amount ?? -1) - (a.amount ?? -1) || b.year - a.year || b.month - a.month
+      );
+}
+
+export function getGrantCount(): { count: number; grants: Array<{ title: string; amount?: number }> } {
+   const grants = grantsByImportance();
    return { count: grants.length, grants: grants.map(g => ({ title: g.title, amount: g.amount })) };
 }
 
-export function getHonors(): [li: JSX.Element, tooltip: JSX.Element | undefined][] {
+export function getFeaturedGrants(n = 3): Honors[] {
+   return grantsByImportance().slice(0, n);
+}
+
+export function getFeaturedAwards(n = 3): Honors[] {
+   return honors
+      .filter(h => h.type === 'award')
+      .toSorted((a, b) => b.year - a.year || b.month - a.month)
+      .slice(0, n);
+}
+
+export function getHonors(exclude?: ReadonlySet<string>): [li: JSX.Element, tooltip: JSX.Element | undefined][] {
    return honors.toSorted(
       (a, b) => b.year - a.year || b.month - a.month || a.title.localeCompare(b.title)
    )
+   .filter(({title}) => !exclude?.has(title))
    .map(({type, title, year, month, link, note, amount}) => {
       const id = escapeId(title).substring(0,10);
 

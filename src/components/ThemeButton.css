@@ -8,7 +8,7 @@
    right: 42px;
    transform-origin: top right;
    opacity: .25;
-   transition: opacity .5s;
+   transition: opacity .5s, transform .35s ease, top .35s ease, right .35s ease;
    z-index: 4000;
    transform: rotate(-90deg) translateX(-15%) scale(.2);
 }
@@ -19,6 +19,15 @@
       right: 10px;
       transform: scale(.15);
    }
+}
+
+/* while the compact header bar is shown, sit vertically centered inside it;
+   the scaled pill is 100px * .2 = 20px tall */
+body.compact-header .wrapper {
+   top: calc((var(--header-bar-height, 64px) - 20px) / 2);
+   right: 16px;
+   transform: scale(.2);
+   opacity: .5;
 }
 
 #hide-checkbox {
@@ -173,7 +182,7 @@
 }
 
 #hide-checkbox:checked+.toggle .star {
-   animation: move 2s infinite;
+   animation: move 3s ease-in-out infinite;
    transform: none;
    box-shadow: none;
 }
@@ -255,16 +264,13 @@
    box-shadow: -1px 0 2px 0 rgba(0, 0, 0, 0.1);
 }
 
+/* symmetric loop, starts and ends at the same spot so the cycle never snaps */
 @keyframes move {
-   0% {
-      transform: none;
-   }
-
-   25% {
+   0%, 100% {
       transform: translateX(2px);
    }
 
-   100% {
+   50% {
       transform: translateX(-2px);
    }
 }

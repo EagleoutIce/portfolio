@@ -1,7 +1,8 @@
 .title-name-card {
   display: flex;
   align-items: center;
-  transition: background-color .5s ease-in-out, color .5s ease-in-out;
+  /* match the body's theme transition, a faster fade here reads as a glitch */
+  transition: background-color 1s, color 1s;
   min-width: 10em;
   margin-bottom: 1em;
   padding: calc(3px * var(--p));
@@ -10,6 +11,34 @@
 
 .header.sticky .title-name-card {
   margin-bottom: 0em;
+  padding: 0;
+}
+
+.header.sticky .profile-image {
+  margin-top: 0;
+}
+
+/* in the compact bar, a tight name-over-icons stack, centered next to the avatar */
+.header.sticky .title-name-card > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .15em;
+}
+
+.header.sticky .profile-name {
+  font-size: .7em;
+  line-height: 1.1;
+}
+
+.header.sticky .profile-name br {
+  display: none;
+}
+
+.header.sticky .profile-sm {
+  padding: 0;
+  width: auto;
+  line-height: 1;
 }
 
 .profile-image {

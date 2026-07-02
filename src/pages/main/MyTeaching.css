@@ -8,10 +8,23 @@
   margin-bottom: 5px;
 }
 
+/* lectures are short entries, two columns keep the section compact on wide screens */
+@media (min-width: 1400px) {
+  .lectures-columns {
+    columns: 2;
+    column-gap: 2.5em;
+  }
+
+  .lectures-columns > li {
+    break-inside: avoid;
+  }
+}
+
 .theses-author-meta {
   word-break: keep-all;
   white-space: nowrap;
 }
+
 
 .slides-list, .documents-list {
   display: flex;
@@ -50,12 +63,13 @@
   box-shadow: 0 0 12px 0 var(--soft-glow);
   opacity: .625;
   border-radius: 8px;
-  transition: background-color 1s, box-shadow 1s, opacity .5s, width 1s;
+  transition: background-color 1s, box-shadow 1s, opacity .5s, width 1s, transform .2s ease;
 }
 
 .slide-cover:hover, .slide-cover:focus, .document-cover:hover, .document-cover:focus {
-  box-shadow: 0 0 20px 0 var(--soft-glow);
+  box-shadow: 0 6px 24px 0 var(--soft-glow), 0 0 16px color-mix(in srgb, var(--main-color) 15%, transparent);
   opacity: 1;
+  transform: translateY(-4px);
 }
 
 .slide-caption, .document-caption {
