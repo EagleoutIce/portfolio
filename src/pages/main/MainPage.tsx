@@ -117,7 +117,7 @@ function MainPage() {
 
         <CollapsibleBibliography id="posters" heading="Posters" biblatexContent={BibDataPoster} type='Posters' />
 
-        <CollapsibleBibliography id="other-publications" heading="Other" defaultOpen biblatexContent={BibDataOther} type='Other Publications' />
+        <CollapsibleBibliography id="other-publications" heading="Other" biblatexContent={BibDataOther} type='Other Publications' />
 
         <SectionHeading id="events" as="h3">Events</SectionHeading>
         
