@@ -22,7 +22,7 @@ const arxivregex = /[^"](https?:\/\/arxiv.org\/abs\/([^ "<]+))/gm;
 function entryReplace(entry: string): string {
    return entry.replace('Sihler, F.', '<b>Sihler, F.</b>')
       .replace(doiregex, ' <span class="bib-link">$1</span>')
-      .replace(arxivregex, ' <span class="bib-link"><a target="_blank" href="$1">arXiv:$2</a></span>')
+      .replace(arxivregex, ' <span class="bib-link"><a target="_blank" rel="noreferrer" href="$1">arXiv:$2</a></span>')
       .replace(urlregex,  (s) => {
         return (s.length > 30 ? '<br/>' : '') + `<div class="bib-link">${s}</div>`;
 })
@@ -157,8 +157,8 @@ export function Bibliography({ biblatexContent, type, filters, pageSize = PAGE_S
 
    return <>
       <div className="bibliography-header"><a onClick={() => downloadBib(biblatexContent, type)}>download <span className="code">.bib</span></a></div>
-      <div className="bibliography-filters filters-and">
-         {filterElems.length > 0 ? <>{filterElems}</> : <span></span>}
+      <div className="bibliography-filters">
+         {filterElems.length > 0 ? <>{filterElems}<span className='filter-mode'>(matches all)</span></> : <span></span>}
       </div>
       <div className="bibliography" dangerouslySetInnerHTML={{ __html: bib }} />
       {pagination}

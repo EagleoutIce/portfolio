@@ -21,10 +21,10 @@ export const TypeToStringMap = {
 
 function wt(first: number, last?: number) {
    last ??= first-2000 + 1
-   return <span key={'wt' + first + last}><ShortLong short={<span className='small-caps'>wt</span>} long="Winter Term"/> {first}/{last}</span>;
+   return <span key={'wt' + first + last} style={{ whiteSpace: 'nowrap' }}><ShortLong short={<span className='small-caps'>wt</span>} long="Winter Term"/>&nbsp;{first}/{last}</span>;
 }
 function st(term: number) {
-   return <span key={'st' + term}><ShortLong short={<span className='small-caps'>st</span>} long="Summer Term"/> {term}</span>;
+   return <span key={'st' + term} style={{ whiteSpace: 'nowrap' }}><ShortLong short={<span className='small-caps'>st</span>} long="Summer Term"/>&nbsp;{term}</span>;
 }
    
 
@@ -96,7 +96,7 @@ export function getTeachings(types?: ReadonlySet<TeachingRole>): { def: [li: JSX
          const id = escapeId(name);
          
          return [<li key={id}>
-            <a href={link} target="_blank" rel="noreferrer"> <span style={{ fontSize: 'smaller', color: 'gray' }}>{terms.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;{TypeToStringMap[type]('type-' + name)}</a><br /> 
+            <a href={link} target="_blank" rel="noreferrer"> <span style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>{terms.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;{TypeToStringMap[type]('type-' + name)}</a><br /> 
             {terms.map((term, i) => <>{term}{i < terms.length - 1 ? ', ' : ''}</>)}
          </li>, 
          note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/> : undefined];
@@ -191,7 +191,7 @@ export function getSlides() {
    return slides.map(({ title, href, coverSource }) => {
       return <div className="slide-container" key={title}><a href={href} target="_blank" rel="noreferrer">
          <div className="slide-caption" title={title}>{title}</div>
-         <img src={coverSource} alt={title} className="slide-cover" loading="lazy"/>
+         <img src={coverSource} alt={title} className="slide-cover" loading="lazy" decoding="async"/>
       </a></div>;
    })
 };
@@ -218,7 +218,7 @@ export function getDocuments() {
    return documents.map(({ title, href, coverSource }) => {
       return <div className="document-container" key={title}><a href={href} target="_blank" rel="noreferrer">
          <div className="document-caption" title={title}>{title}</div>
-         <img src={coverSource} alt={title} className="document-cover" loading="lazy"/>
+         <img src={coverSource} alt={title} className="document-cover" loading="lazy" decoding="async"/>
       </a></div>;
    })
 };

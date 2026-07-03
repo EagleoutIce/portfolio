@@ -90,7 +90,7 @@ button {
   padding: 8px 20px;
   appearance: none;
   border: none;
-  border-radius: 8pt;
+  border-radius: 8px;
   background-color: var(--main-color);
   color: var(--background);
   font-weight: bold;
@@ -114,14 +114,14 @@ button:active {
 }
 
 /* shared look of the filter toggles (publications, academic service,
-   teaching): compact, barely rounded, and only filled while selected */
+   teaching): compact and only filled while selected */
 button.filter-active,
 button.filter-inactive {
   padding: .2em .6em;
   font-size: .55em;
   font-weight: normal;
   border: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
-  border-radius: 3px;
+  border-radius: 8px;
   background-color: transparent;
   color: var(--semi-soft-text);
   cursor: pointer;
@@ -144,11 +144,13 @@ button.filter-inactive:hover {
   background-color: var(--main-color-transparent);
 }
 
-/* filters that have to match all at once (AND) are visibly rounder
-   than the either-or role toggles */
-.filters-and button.filter-active,
-.filters-and button.filter-inactive {
-  border-radius: 8px;
+/* small hint next to a filter row, stating whether selected filters
+   combine as "matches all" (AND) or "matches any" (OR) */
+.filter-mode {
+  font-size: .55em;
+  font-style: italic;
+  color: var(--soft-text);
+  user-select: none;
 }
 
 .filter-count {

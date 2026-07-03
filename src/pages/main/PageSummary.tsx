@@ -63,10 +63,10 @@ function Badge({ id, href, count, label, tooltipContent }: {
 
 export function PageSummary() {
   const pubEntries = useMemo(() => [
-    { ...parseBib(BibDataMain,   'Publications'), key: 'papers',  href: '#papers'             },
-    { ...parseBib(BibDataTalks,  'Talks'),        key: 'talks',   href: '#talks'              },
-    { ...parseBib(BibDataPoster, 'Posters'),      key: 'posters', href: '#posters'            },
-    { ...parseBib(BibDataOther),                  key: 'other',   href: '#other-publications' },
+    { ...parseBib(BibDataMain,   'Publications'), key: 'papers',  href: '#/papers'             },
+    { ...parseBib(BibDataTalks,  'Talks'),        key: 'talks',   href: '#/talks'              },
+    { ...parseBib(BibDataPoster, 'Posters'),      key: 'posters', href: '#/posters'            },
+    { ...parseBib(BibDataOther),                  key: 'other',   href: '#/other-publications' },
   ], []);
 
   const serviceRoles                               = getServiceRoleInfo();
@@ -84,26 +84,26 @@ export function PageSummary() {
     {serviceRoles.map(({ abbr, full, count, confs }) =>
       <Badge key={abbr}
         id={`page-sum-svc-${abbr.toLowerCase().replace(/[^a-z]+/g, '-')}`}
-        href="#service" count={count} label={abbr}
+        href="#/service" count={count} label={abbr}
         tooltipContent={`${full}: ${confs.join(', ')}`} />
     )}
 
     {(ba.count > 0 || ma.count > 0 || teachingDuties.lecturer.count > 0 || teachingDuties.teachingAssistant.count > 0) && <>
       <br />
-      {teachingDuties.lecturer.count > 0 && <Badge id="page-sum-teaching-lecturer" href="#teaching" count={teachingDuties.lecturer.count} label="Lecturer"
+      {teachingDuties.lecturer.count > 0 && <Badge id="page-sum-teaching-lecturer" href="#/teaching" count={teachingDuties.lecturer.count} label="Lecturer"
         tooltipContent={<div style={ttInner}>
           Lecturer duties, including guest lectures: {teachingDuties.lecturer.duties.join(', ')}
         </div>} />}
-      {teachingDuties.teachingAssistant.count > 0 && <Badge id="page-sum-teaching-ta" href="#teaching" count={teachingDuties.teachingAssistant.count} label="Teaching Assistant"
+      {teachingDuties.teachingAssistant.count > 0 && <Badge id="page-sum-teaching-ta" href="#/teaching" count={teachingDuties.teachingAssistant.count} label="Teaching Assistant"
         tooltipContent={<div style={ttInner}>
           Teaching assistant duties: {teachingDuties.teachingAssistant.duties.join(', ')}
         </div>} />}
       {(teachingDuties.lecturer.count > 0 || teachingDuties.teachingAssistant.count > 0) && (ba.count > 0 || ma.count > 0) && <div className="conf-year-banner"> / </div>}
-      {ba.count > 0 && <Badge id="page-sum-ba" href="#bachelor-theses" count={ba.count} label="BA"
+      {ba.count > 0 && <Badge id="page-sum-ba" href="#/theses" count={ba.count} label="BA"
         tooltipContent={<div style={ttInner}>
           Supervised Bachelor's Theses: {[...ba.students].sort((a, b) => a.localeCompare(b)).join(', ')}
         </div>} />}
-      {ma.count > 0 && <Badge id="page-sum-ma" href="#master-theses" count={ma.count} label="MA"
+      {ma.count > 0 && <Badge id="page-sum-ma" href="#/theses" count={ma.count} label="MA"
         tooltipContent={<div style={ttInner}>
           Supervised Master's Theses: {[...ma.students].sort((a, b) => a.localeCompare(b)).join(', ')}
         </div>} />}
@@ -111,7 +111,7 @@ export function PageSummary() {
     
     {grantCount > 0 && <>
       <div className="conf-year-banner"> / </div>
-      <Badge id="page-sum-grants" href="#honors-awards-and-grants" count={grantCount} label="Grants"
+      <Badge id="page-sum-grants" href="#/honors-awards-and-grants" count={grantCount} label="Grants"
         tooltipContent={<div style={ttInner}>
           {grantList.slice(0, 3).map(({ title, amount }, i) => {
             const short = title.length > 45 ? `${title.slice(0, 42)}…` : title;

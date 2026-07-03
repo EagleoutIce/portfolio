@@ -64,8 +64,8 @@ export function MyPenguinCurrentProjects() {
          title=<>Waddle&nbsp;<SocialMediaIcon className="small" icon={faPlay} key="waddle-play" suffix="&nbsp;&nbsp;&nbsp;(de)" /></>
          description="Learning game for children, introducing programming concepts."
          image={<div>
-            <img id='waddle-static' src={waddle0} alt={"A cute penguin"} />
-            <img id='waddle-play' src={animation} alt={"A cute penguin"} />
+            <img id='waddle-static' src={waddle0} alt={"A cute penguin"} loading="lazy" decoding="async" />
+            <img id='waddle-play' src={animation} alt={"A cute penguin"} loading="lazy" decoding="async" />
          </div>}
          extraClasses="waddle-anim"
          link={"https://exia.informatik.uni-ulm.de/waddle"}

@@ -56,7 +56,7 @@ function specials() {
 
 export default function TitleName({ name, subtitle, imageSrc, mediaLinks, idPrefix = '' }: TitleNameProps) {
    return <div className="title-name-card">
-      <img src={imageSrc} alt={name} className={`profile-image ${specials()}`} onClick={() => {
+      <img src={imageSrc} alt={name} decoding="async" className={`profile-image ${specials()}`} onClick={() => {
          if(headerIsSticky()) {
             window.scrollTo({top: 0, behavior: 'smooth'});
             history.replaceState(null, '', window.location.pathname + window.location.search);

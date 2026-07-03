@@ -3,11 +3,11 @@ import "./MyIntro.css";
 export function MyIntro() {
    return <div className="main" style={{ marginBottom: '0em' }}>
       Hey and welcome to my little page! 
-      My name is Florian&nbsp;(he/him) and I am currently working on my PhD at Ulm University (since September 2023). My primary research interests are in the area of Hybrid Program Analysis to support Program Comprehension and Data Scientists, mostly revolving around <a href="github.com/flowr-analysis/flowr/" target="_blank" rel="noreferrer">flowR</a>.
+      My name is Florian&nbsp;(he/him) and I am currently working on my PhD at Ulm University (since September 2023). My primary research interests are in the area of Hybrid Program Analysis to support Program Comprehension and Data Scientists, mostly revolving around <a href="https://github.com/flowr-analysis/flowr/" target="_blank" rel="noreferrer">flowR</a>.
       My work received the <a href="https://www.uni-ulm.de/in/sp/institute/news-detail/article/youngrse-award-at-derse24/" target="_blank" rel="noreferrer">YoungRSE Award</a> at deRSE '24, the <a href="https://www.uni-ulm.de/in/sp/institute/news-detail/article/award-for-the-best-masters-degree/" target="_blank" rel="noreferrer">award for the best master's degree</a> in the field of computer science at Ulm University, and the <a href="https://rsecon25.society-rse.org/awards/" target="_blank" rel="noreferrer">Rising Star Award</a> at RSECon '25.
-      Additionally, I am an Alumni of the <a href="https://www.uni-ulm.de/in/sp/institute/news-detail/article/florian-sihler-accepted-at-the-12th-heidelberg-laureate-forum/" target="_blank" rel="noreferrer">
+      Additionally, I am an Alumnus of the <a href="https://www.uni-ulm.de/in/sp/institute/news-detail/article/florian-sihler-accepted-at-the-12th-heidelberg-laureate-forum/" target="_blank" rel="noreferrer">
       12th Heidelberg Laureate Forum&nbsp;(HLF)</a>.
-      Since 2025, I am a workplace first aider and <a href="https://www.mhfa-ersthelfer.de/de/">MHFA</a> certified mental health first aider.
+      Since 2025, I am a workplace first aider and <a href="https://www.mhfa-ersthelfer.de/de/" target="_blank" rel="noreferrer">MHFA</a> certified mental health first aider.
       <br /><br />
       
       If you want to know more about my work, please check out the projects below.

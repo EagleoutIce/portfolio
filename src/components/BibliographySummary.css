@@ -1,6 +1,6 @@
 .conf-count {
    font-size: smaller;
-   color: gray;
+   color: var(--soft-text);
 }
 
 .conf-year-banner {

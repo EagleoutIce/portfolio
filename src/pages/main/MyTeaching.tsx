@@ -67,10 +67,12 @@ function SupervisedTheses() {
                <span className='small-caps'>{abbr}</span> = {label}
             </button>
          )}
+         <span className='filter-mode'>(matches any)</span>
       </div>
-      <ul className='teachings-list'>
+      {/* reversed enumeration so the newest entry shows the total count */}
+      <ol className='teachings-list theses-list' reversed start={visible.length - currentPage * THESES_PAGE_SIZE}>
          {visible.slice(currentPage * THESES_PAGE_SIZE, (currentPage + 1) * THESES_PAGE_SIZE).map(t => t.li)}
-      </ul>
+      </ol>
       <Pagination current={currentPage} total={totalPages} onChange={setPage} />
    </>;
 }
@@ -97,7 +99,7 @@ export function MyTeaching() {
       }}></StaticQuickLinks>
 
       <SectionHeading id="lectures" as="h3">Lectures, Seminars, and Projects</SectionHeading>
-      As part of my work at the University of Ulm, I am involved in teaching:
+      As part of my work at Ulm University, I am involved in teaching:
 
       <div className='filter-row'>
          {roleLegend.map(([type, abbr, lab]) =>
@@ -107,6 +109,7 @@ export function MyTeaching() {
                <span className='small-caps'>{abbr}</span> = {lab}
             </button>
          )}
+         <span className='filter-mode'>(matches any)</span>
       </div>
 
       <ul className='teachings-list lectures-columns'>
@@ -114,11 +117,14 @@ export function MyTeaching() {
       </ul>
       {teachings.map(t => t[1]).filter(e => e !== undefined)}
 
-      I have also created various teaching materials, including partial and complete lectures (e.g., with "Grundlagen der praktischen Informatik", "Software Quality Assurance", and "Functional Programming 2").
+      I have also created various teaching materials, including partial and complete lectures (e.g., with "<a className="link" target="_blank" rel="noreferrer" href="https://www.uni-ulm.de/in/sp/teaching/grundlagen-der-praktischen-informatik/">Grundlagen der praktischen Informatik</a>", "<a className="link" target="_blank" rel="noreferrer" href="https://www.uni-ulm.de/in/sp/teaching/software-quality-assurance/">Software Quality Assurance</a>", and "<a className="link" target="_blank" rel="noreferrer" href="https://www.uni-ulm.de/in/sp/teaching/functional-programming-2/">Functional Programming 2</a>").
 
       <SectionHeading id="theses" as="h3">Supervised Theses</SectionHeading>
 
       So far, I had the pleasure of supervising the following theses:
+      <div style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>
+         Please note that this list only contains theses whose authors agreed to be listed and named publicly.
+      </div>
 
       <SupervisedTheses />
 

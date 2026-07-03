@@ -8,9 +8,9 @@ export function NotFound() {
       <h1>
          Oh no! This page is not to be found!
       </h1>
-      If you consider this to be an error, please contact me at <a href="mailto:florian.siher@uni-ulm.de">florian.sihler@uni-ulm.de</a>.
+      If you consider this to be an error, please contact me at <a href="mailto:florian.sihler@uni-ulm.de">florian.sihler@uni-ulm.de</a>.
       <div className="main">
-      <a href="/portfolio/">
+      <a href="#/">
          Back to the main page
       </a>
       </div>

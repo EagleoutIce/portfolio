@@ -25,7 +25,7 @@ news.push({
 news.push({
    when: new Date("2026-05-11"),
    text: 'Bachelor\'s thesis by J. Kruger on Parallelising SA',
-   link: thesisLink('Improving Dataflow Analysis Performance in flowR — with Parallelization and Lazy Function Evaluation')
+   link: thesisLink('Improving Dataflow Analysis Performance in flowR – With Parallelization and Lazy Function Evaluation')
 })
 news.push({
    when: new Date("2026-05-04"),
@@ -33,7 +33,7 @@ news.push({
 })
 news.push({
    when: new Date("2026-04-19"),
-   text: 'Part of the AEC of SLE 2026',
+   text: 'Part of the AEC of SLE \'26',
    link: 'https://conf.researchr.org/home/sle-2026#Call-for-Artifacts'
 })
 news.push({
@@ -52,13 +52,13 @@ news.push({
    link: thesisLink('Static Analysis for Self-Modifying R Programs')
 })
 news.push({
-   when: new Date("2025-12-1"),
+   when: new Date("2025-12-01"),
    text: 'Paper accepted at ICSE NIER \'26',
    link: 'https://conf.researchr.org/track/icse-2026/icse-2026-nier'
 })
 news.push({
    when: new Date("2025-11-28"),
-   text: 'Extended Abstract accepted at SE \'26',
+   text: 'Extended abstract accepted at SE \'26',
    link: 'https://se2026.inf.unibe.ch/de/program/'
 })
 news.push({
@@ -78,7 +78,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-10-02"),
-   text: 'Selected as Junior PC Member for MSR 2026',
+   text: 'Selected as Junior PC Member for MSR \'26',
    link: 'https://2026.msrconf.org/'
 })
 news.push({
@@ -93,11 +93,11 @@ news.push({
 news.push({
    when: new Date("2025-09-24"),
    text: 'Non-Archival Paper accepted at SPLASH-E \'25',
-   link: 'https://2025.splashcon.org/details/splash-2025-SPLASH-E/10/Waddle-A-Serious-Game-to-Teach-Writing-Reading-and-Debugging-Programs '
+   link: 'https://2025.splashcon.org/details/splash-2025-SPLASH-E/10/Waddle-A-Serious-Game-to-Teach-Writing-Reading-and-Debugging-Programs'
 })
 news.push({
    when: new Date("2025-09-15"),
-   text: 'Poster-Flash Presentation at the 12th HLF',
+   text: 'Poster and flash presentation at the 12th HLF',
    link: 'https://www.youtube.com/watch?v=9C05VuVf6ik&t=1585s'
 })
 news.push({
@@ -171,7 +171,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-06-05"),
-   text: 'Presentation at the CSV 25 on Regression Analysis',
+   text: 'Presentation at the CSV \'25 on Regression Analysis',
    link: 'https://unive-ssv.github.io/events/2025/06/05/csv.html'
 })
 news.push({
@@ -196,7 +196,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-05-23"),
-   text: 'Booth for Waddle at the Uni-Ulm LaDeWi 2025',
+   text: 'Booth for Waddle at the LaDeWi 2025',
    link: 'https://www.uni-ulm.de/in/fakultaet/in-detailseiten/news-detail/article/langer-abend-der-wissenschaft-2025/'
 })
 news.push({
@@ -216,7 +216,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-04-23"),
-   text: 'Presentation accepted at the CSV 2025',
+   text: 'Presentation accepted at the CSV \'25',
    link: 'https://unive-ssv.github.io/csv.html'
 })
 news.push({
@@ -236,11 +236,11 @@ news.push({
 })
 news.push({
    when: new Date("2025-04-03"),
-   text: 'Workshop for Waddle at the Girl\'s and Boy\'s day 2025',
+   text: 'Workshop for Waddle at the Girls\' and Boys\' Day 2025',
    link: 'https://www.girls-day.de'
 })
 news.push({
-   when: new Date("2025-04-1"),
+   when: new Date("2025-04-01"),
    text: 'Bachelor\'s thesis by F. Schlegel on Pointer Analysis',
    link: thesisLink('Field-Sensitive Pointer Analysis for Static Dataflow in the R Programming Language')
 })
@@ -256,7 +256,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-02-27"),
-   text: 'Extended abstract accepted at SE 2025',
+   text: 'Extended abstract accepted at SE \'25',
    link: 'https://doi.org/10.18420/se2025-27'
 })
 news.push({

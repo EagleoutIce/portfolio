@@ -24,6 +24,7 @@ export function MyService() {
           <span className='filter-count'>{count}&times;</span>{full}
         </button>
       )}
+      <span className='filter-mode'>(matches any)</span>
    </div>
    <ul className='service-grid'>
       {getService(types)}

@@ -21,7 +21,7 @@ const router = createHashRouter([
       legalEmail="florian.sihler@uni-ulm.de"
       legalAddress={
         <div>
-          University of Ulm <br />
+          Ulm University <br />
           Institute of Software Engineering and Programming Languages<br />
           James-Franck-Ring<br />
           Gebäudekreuz O27, Niveau 4<br />

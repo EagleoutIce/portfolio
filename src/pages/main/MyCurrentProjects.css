@@ -131,14 +131,14 @@ details.peeker {
    position: relative;
    height: 100%;
    transition: color .5s;
-   padding: 24pt;
-   padding-top: 0pt;
-   width: calc(100% - 24pt);
+   padding: 32px;
+   padding-top: 0;
+   width: calc(100% - 32px);
 }
 
 details.peeker summary {
-   padding-bottom: 12pt;
-   margin-left: -12pt;
+   padding-bottom: 16px;
+   margin-left: -16px;
    opacity: .5;
 }
 

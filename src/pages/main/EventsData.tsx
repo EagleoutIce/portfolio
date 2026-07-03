@@ -56,7 +56,7 @@ export function MyEvents(): JSX.Element {
       const id = escapeId(name);
       
       return [<li key={id}>
-         <a href={link} target="_blank" rel="noreferrer"> <span style={{ fontSize: 'smaller', color: 'gray' }}>{when.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;({where})</a><br />
+         <a href={link} target="_blank" rel="noreferrer"> <span style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>{when.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;({where})</a><br />
          {when}
       </li>, 
       note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/> : undefined];

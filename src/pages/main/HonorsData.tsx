@@ -56,7 +56,7 @@ honors.push({
 })
 honors.push({
    type: 'grant',
-   title: 'iwimint-grant by the University of Ulm for Waddle',
+   title: 'iwimint-grant by Ulm University for Waddle',
    year: 2025,
    month: 6,
    amount: 4200,
@@ -142,7 +142,7 @@ export function getHonors(exclude?: ReadonlySet<string>): [li: JSX.Element, tool
       return [<li key={`list-${id}`}>
          <a href={link} target="_blank" rel="noreferrer">
             <strong id={'link-' + id}>{TypeToStringMap[type]()}&nbsp;({monthToString[month - 1]}, {year}):</strong>
-            &nbsp;{title}{amount !== undefined && <>&ensp;<span style={{ color: 'gray', fontSize: 'smaller' }}>({formatEuro(amount)})</span></>}
+            &nbsp;{title}{amount !== undefined && <>&ensp;<span style={{ color: 'var(--soft-text)', fontSize: 'smaller' }}>({formatEuro(amount)})</span></>}
          </a>
       </li>,
       note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/> : undefined];

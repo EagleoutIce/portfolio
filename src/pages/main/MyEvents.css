@@ -10,6 +10,7 @@
 
 .event-time {
   display: inline-block;
+  white-space: nowrap;
   background-color: var(--background-crumbs);
   border-radius: 999px;
   padding: 0 .55em;
@@ -19,5 +20,5 @@
 
 /* Grayed-out style for future dates */
 .future-time {
-  color: gray;
+  color: var(--soft-text);
 }

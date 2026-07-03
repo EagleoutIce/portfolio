@@ -89,7 +89,7 @@
    display: inline-block;
    text-align: left;
    border: none;
-   border-bottom: 1pt solid var(--soft-text);
+   border-bottom: 1px solid var(--soft-text);
    background-color: transparent;
    transition: all 1s, scale .1s, color .1s;
    border-radius: 1%;
@@ -122,14 +122,14 @@
 
 .news .news-filter:hover {
    cursor: text;
-   border-bottom: 1pt solid var(--text);
+   border-bottom: 1px solid var(--text);
    opacity: .9;
 }
 
 .news .news-filter:focus {
    outline: none;
    color: var(--text);
-   border-bottom: 1pt solid var(--text);
+   border-bottom: 1px solid var(--text);
    opacity: 1;
 }
 

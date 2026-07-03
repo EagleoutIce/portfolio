@@ -39,7 +39,7 @@ const entries: Entry[] = [{
    conference: 'International Conference on Software Language Engineering',
    shortTitle: 'SLE \'26',
    year: 2026,
-   order: 5,
+   order: 6,
    link: 'https://conf.researchr.org/home/sle-2026#Call-for-Artifacts'
 }, {
    type: 'reviewing',
@@ -56,7 +56,7 @@ const entries: Entry[] = [{
    link: 'https://2026.msrconf.org/committee/msr-2026-junior-pc-technical-papers---junior-program-committee'
 }, {
    type: 'artifact-eval',
-   conference: ' European Conference on Object-Oriented Programming',
+   conference: 'European Conference on Object-Oriented Programming',
    shortTitle: 'ECOOP \'26',
    year: 2026,
    order: 2,
@@ -80,7 +80,7 @@ const entries: Entry[] = [{
    conference: 'Research Software Engineering Conference',
    shortTitle: 'RSECon \'26',
    year: 2026,
-   order: 4,
+   order: 5,
    link: 'https://rsecon26.society-rse.org/'
 }, {
    type: 'reviewing',

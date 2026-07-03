@@ -22,7 +22,7 @@
    flex-direction: row;
    padding: 5px 5px 5px 42px;
    background-color: var(--background-header);
-   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+   box-shadow: 0 2px 8px var(--soft-glow);
    transform: translateY(-101%);
    visibility: hidden;
    transition: transform .3s ease, visibility .3s, background-color 1s, color 1s;

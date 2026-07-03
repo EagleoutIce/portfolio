@@ -137,7 +137,7 @@ function MainPage() {
 
         <SectionHeading id="events" as="h3">Events</SectionHeading>
         
-        Alongside my work on waddle and flowR, I contributed to and organized the following events:
+        Alongside my work on Waddle and flowR, I contributed to and organized the following events:
         
         <MyEvents/>
 

@@ -8,6 +8,17 @@
   margin-bottom: 5px;
 }
 
+/* supervised theses are enumerated (newest first, counting down) so the
+   total is visible at a glance; keep the numbers unobtrusive */
+.theses-list > li {
+  list-style-type: decimal;
+}
+
+.theses-list > li::marker {
+  color: var(--text);
+  font-size: smaller;
+}
+
 /* lectures are short entries, two columns keep the section compact on wide screens */
 @media (min-width: 1400px) {
   .lectures-columns {
@@ -23,6 +34,13 @@
 .theses-author-meta {
   word-break: keep-all;
   white-space: nowrap;
+}
+
+/* thesis type tag (ba/ma) leading each entry, fixed width so titles align */
+.thesis-type-tag {
+  display: inline-block;
+  min-width: 1.8em;
+  color: var(--soft-text);
 }
 
 
