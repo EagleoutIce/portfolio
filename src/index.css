@@ -129,9 +129,9 @@ button.filter-inactive {
 }
 
 button.filter-active {
-  background-color: var(--main-color);
+  background-color: var(--main-color-transparent);
   border-color: var(--main-color);
-  color: var(--background);
+  color: var(--text);
 }
 
 button.filter-active:hover {
@@ -141,7 +141,7 @@ button.filter-active:hover {
 button.filter-inactive:hover {
   scale: 1;
   border-color: var(--main-color);
-  background-color: var(--main-color-transparent);
+  background-color: rgba(255, 166, 0, 0.15);
 }
 
 /* small hint next to a filter row, stating whether selected filters
