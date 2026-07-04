@@ -108,7 +108,7 @@ export function PageSummary() {
           Supervised Master's Theses: {[...ma.students].sort((a, b) => a.localeCompare(b)).join(', ')}
         </div>} />}
     </>}
-    
+
     {grantCount > 0 && <>
       <div className="conf-year-banner"> / </div>
       <Badge id="page-sum-grants" href="#/honors-awards-and-grants" count={grantCount} label="Grants"

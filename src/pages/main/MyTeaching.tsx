@@ -17,7 +17,7 @@ const roleLegend = [
 ] as const;
 
 function SupervisedTheses() {
-   const [types, setTypes] = useState<ReadonlySet<ThesisType>>(new Set());
+   const [selectedType, setSelectedType] = useState<ThesisType | undefined>(undefined);
    const [page, setPage] = useState(0);
    const allTheses = useMemo(() => getTheses(), []);
 
@@ -32,7 +32,7 @@ function SupervisedTheses() {
          const target = hash.slice('#/link-'.length);
          const index = allTheses.findIndex(t => t.id === target);
          if(index >= 0) {
-            setTypes(new Set());
+            setSelectedType(undefined);
             setPage(Math.floor(index / THESES_PAGE_SIZE));
          }
       };
@@ -42,32 +42,24 @@ function SupervisedTheses() {
    }, [allTheses]);
 
    const toggle = (type: ThesisType) => {
-      setTypes(prev => {
-         const next = new Set(prev);
-         if(next.has(type)) {
-            next.delete(type);
-         } else {
-            next.add(type);
-         }
-         return next;
-      });
+      setSelectedType(prev => prev === type ? undefined : type);
       setPage(0);
    };
 
-   const visible = types.size === 0 ? allTheses : allTheses.filter(t => types.has(t.type));
+   const visible = selectedType === undefined ? allTheses : allTheses.filter(t => t.type === selectedType);
    const totalPages = Math.ceil(visible.length / THESES_PAGE_SIZE);
    const currentPage = Math.min(page, Math.max(0, totalPages - 1));
 
    return <>
       <div className='filter-row'>
          {getThesisTypes().map(({ key, abbr, label, count }) =>
-            <button key={key} className={types.has(key) ? 'filter-active' : 'filter-inactive'}
-               title="shows entries matching any selected type" onClick={() => toggle(key)}>
+            <button key={key} className={selectedType === key ? 'filter-active' : 'filter-inactive'}
+               title="shows entries of the selected type (exclusive)" onClick={() => toggle(key)}>
                <span className='filter-count'>{count}&times;</span>
                <span className='small-caps'>{abbr}</span> = {label}
             </button>
          )}
-         <span className='filter-mode'>(matches any)</span>
+         <span className='filter-mode'>(exclusive)</span>
       </div>
       {/* reversed enumeration so the newest entry shows the total count */}
       <ol className='teachings-list theses-list' reversed start={visible.length - currentPage * THESES_PAGE_SIZE}>
