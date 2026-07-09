@@ -18,6 +18,11 @@ function thesisLink(title: string): string {
 
 const news: News[] = []
 news.push({
+   when: new Date("2026-07-09"),
+   text: 'Two presentations and a poster at useR! \'26',
+   link: 'https://events.digital-research.academy/event/109/'
+})
+news.push({
    when: new Date("2026-06-18"),
    text: 'Paper accepted at ASE \'26 on Data Frame Shape Inference',
    link: 'https://conf.researchr.org/home/ase-2026'
