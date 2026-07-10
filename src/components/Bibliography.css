@@ -62,14 +62,48 @@
    color: var(--main-color);
 }
 
+/* only the DOI / arXiv / URL references (.bib-link) get the marker.
+   FALLBACK (no color-mix support): a plain grey underline. */
 .bib-link {
    display: inline;
    opacity: .8;
-   transition: color 400ms, opacity 400ms;
+   text-decoration: underline;
+   text-decoration-color: rgba(136, 136, 136, .5);
+   text-underline-offset: .12em;
+   transition: opacity 400ms, color 400ms;
 }
 
 .bib-link:hover {
    opacity: 1;
+}
+
+/* ENHANCED: a grey version of the prose highlight that grows in height on
+   hover. the surrounding entry stays a link but without any marking. */
+@supports (color: color-mix(in srgb, red, blue)) {
+   .bib-link {
+      text-decoration: none;
+      background-image: linear-gradient(
+         color-mix(in srgb, var(--soft-text) 45%, transparent),
+         color-mix(in srgb, var(--soft-text) 45%, transparent));
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      background-size: 100% .1em;
+      border-radius: .1em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      transition: background-size .18s ease, opacity 400ms, color 400ms;
+   }
+
+   .bib-link:hover {
+      background-size: 100% .55em;
+   }
+
+   /* touch devices can't hover — show the marker at rest */
+   @media (hover: none) {
+      .bib-link {
+         background-size: 100% .55em;
+      }
+   }
 }
 
 .bibliography .breadcrumb-container {

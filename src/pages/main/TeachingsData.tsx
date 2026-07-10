@@ -94,11 +94,11 @@ export function getTeachings(types?: ReadonlySet<TeachingRole>): { def: [li: JSX
       )
       .map(([name, { terms, link, type, note }]) => {
          const id = escapeId(name);
-         
+
          return [<li key={id}>
-            <a href={link} target="_blank" rel="noreferrer"> <span style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>{terms.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;{TypeToStringMap[type]('type-' + name)}</a><br /> 
+            <a href={link} target="_blank" rel="noreferrer"> <span style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>{terms.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;{TypeToStringMap[type]('type-' + name)}</a><br />
             {terms.map((term, i) => <>{term}{i < terms.length - 1 ? ', ' : ''}</>)}
-         </li>, 
+         </li>,
          note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/> : undefined];
       }), roles: roleCounter
    };

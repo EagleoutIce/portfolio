@@ -1,8 +1,11 @@
+import type { CSSProperties } from 'react';
+
 const TypeMap = {
    'reviewing': 'Reviewer',
    'artifact-eval': 'Artifact Evaluation',
    'junior-pc': 'Junior PC',
-   'local-chair': 'Local Chair'
+   'local-chair': 'Local Chair',
+   'web-chair': 'Web Chair'
 } as const;
 
 const TypeDisplayMap = {
@@ -10,6 +13,7 @@ const TypeDisplayMap = {
    'artifact-eval': { abbr: 'AEC', full: TypeMap['artifact-eval'] },
    'junior-pc': { abbr: 'Junior PC', full: TypeMap['junior-pc'] },
    'local-chair': { abbr: 'LC', full: TypeMap['local-chair'] },
+   'web-chair': { abbr: 'Web', full: TypeMap['web-chair'] },
 } as const;
 
 interface Entry {
@@ -95,6 +99,27 @@ const entries: Entry[] = [{
    shortTitle: 'DANTE \'27',
    year: 2027,
    link: 'https://www.dante.de/veranstaltungen/dante2027/'
+}, {
+   type: 'artifact-eval',
+   conference: 'International Conference on Automated Software Engineering',
+   shortTitle: 'ASE \'26',
+   year: 2026,
+   order: 7,
+   link: 'https://conf.researchr.org/home/ase-2026'
+}, {
+   type: 'artifact-eval',
+   conference: 'International Symposium on Software Testing and Analysis',
+   shortTitle: 'ISSTA \'26',
+   year: 2026,
+   order: 8,
+   link: 'https://conf.researchr.org/home/issta-2026'
+}, {
+   type: 'web-chair',
+   conference: 'International Conference on Systems, Programming, Languages and Applications: Software for Humanity',
+   shortTitle: 'SPLASH \'27',
+   year: 2027,
+   order: 1,
+   link: 'https://2027.splashcon.org/'
 }];
 
 
@@ -112,23 +137,24 @@ export function getServiceRoleInfo(): Array<{ abbr: string; full: string; count:
 }
 
 export function getServiceSummary() {
-   const byYear = new Map<number, Map<keyof typeof TypeMap, number>>();
+   const byYear = new Map<number, Map<ServiceCategory, number>>();
    for(const entry of entries) {
       if(!byYear.has(entry.year)) byYear.set(entry.year, new Map());
-      const typeMap = byYear.get(entry.year)!;
-      typeMap.set(entry.type, (typeMap.get(entry.type) ?? 0) + 1);
+      const catMap = byYear.get(entry.year)!;
+      const cat = typeToCategory[entry.type];
+      catMap.set(cat, (catMap.get(cat) ?? 0) + 1);
    }
 
    const children: JSX.Element[] = [];
    for(const year of Array.from(byYear.keys()).sort((a, b) => b - a)) {
       children.push(<div key={`year-${year}`} className="conf-year-banner">• {year}</div>);
-      for(const type of Object.keys(TypeDisplayMap) as (keyof typeof TypeDisplayMap)[]) {
-         const count = byYear.get(year)!.get(type);
+      for(const cat of Object.keys(CategoryMap) as ServiceCategory[]) {
+         const count = byYear.get(year)!.get(cat);
          if(!count) continue;
          children.push(
-            <span key={`service-${year}-${type}`} className="conf-entry">
+            <span key={`service-${year}-${cat}`} className="conf-entry">
                <span className='conf-count'>{count}×</span>
-               {TypeDisplayMap[type].abbr}
+               {CategoryMap[cat].abbr}
             </span>
          );
       }
@@ -138,46 +164,98 @@ export function getServiceSummary() {
 
 export type ServiceType = keyof typeof TypeMap;
 
-/** role types present in the data with their totals, in display order */
-export function getServiceTypes(): Array<{ key: ServiceType; full: string; count: number }> {
-   const counts = new Map<ServiceType, number>();
-   for(const e of entries) {
-      counts.set(e.type, (counts.get(e.type) ?? 0) + 1);
+/* higher-level filter categories: several related roles collapse into one
+   toggle (Junior PC counts as reviewing, all chair roles as "Chair") */
+const CategoryMap = {
+   'reviewer': { full: 'Reviewer', abbr: 'Reviewer', types: ['reviewing', 'junior-pc'] },
+   'artifact-eval': { full: 'Artifact Evaluation', abbr: 'AEC', types: ['artifact-eval'] },
+   'chair': { full: 'Chair', abbr: 'Chair', types: ['local-chair', 'web-chair'] },
+} as const satisfies Record<string, { full: string; abbr: string; types: readonly ServiceType[] }>;
+
+export type ServiceCategory = keyof typeof CategoryMap;
+
+const typeToCategory = (() => {
+   const map = {} as Record<ServiceType, ServiceCategory>;
+   for(const key of Object.keys(CategoryMap) as ServiceCategory[]) {
+      for(const t of CategoryMap[key].types) {
+         map[t] = key;
+      }
    }
-   return (Object.keys(TypeDisplayMap) as ServiceType[])
+   return map;
+})();
+
+/** filter categories present in the data with their totals, in display order */
+export function getServiceTypes(): Array<{ key: ServiceCategory; full: string; count: number }> {
+   const counts = new Map<ServiceCategory, number>();
+   for(const e of entries) {
+      const cat = typeToCategory[e.type];
+      counts.set(cat, (counts.get(cat) ?? 0) + 1);
+   }
+   return (Object.keys(CategoryMap) as ServiceCategory[])
       .filter(k => counts.has(k))
-      .map(k => ({ key: k, full: TypeMap[k], count: counts.get(k)! }));
+      .map(k => ({ key: k, full: CategoryMap[k].full, count: counts.get(k)! }));
 }
 
-export function getService(types?: ReadonlySet<ServiceType>) {
-   const currentYear = new Date().getFullYear();
+/** one compact card: role + conference pill, full name revealed on hover */
+function serviceCard({ type, conference, shortTitle, link, note }: Entry, age: number) {
+   // fade gently with age; upcoming (not-yet-happened) entries are dimmed too
+   const opacity = age < 0 ? 0.75 : Math.max(0.55, 1 - age * 0.12);
+   return <li key={shortTitle}>
+      <a href={link} target="_blank" rel="noreferrer" style={{ ['--card-opacity']: opacity } as CSSProperties}>
+         <span className='service-card-top'>
+            <span className='service-role'>{TypeMap[type]}</span>
+            <span className='service-conf'>
+               {shortTitle.replace(/\s*'\d{2}$/, '')}{note && <span className='service-note'> ({note})</span>}
+            </span>
+         </span>
+         <span className='service-reveal'>
+            <span className='service-conference' title={conference}>{conference}</span>
+         </span>
+      </a>
+   </li>;
+}
 
-   return entries
-      .filter(e => !types || types.size === 0 || types.has(e.type))
-      .toSorted(
-      (a, b) => {
-         if(b.year - a.year !== 0) {
-            return b.year - a.year;
-         } else if((a.order ?? 0) - (b.order ?? 0) !== 0) {
-            return (b.order ?? 0) - (a.order ?? 0);
-         } else {
-            return a.conference.localeCompare(b.conference);
-         }
-      }
-   )
-      .map(({
-         type,
-         conference,
-         shortTitle,
-         link,
-         year,
-         note
-      }) => {
-         return <li key={shortTitle} style={year > currentYear ? { opacity: 0.72 } : undefined}>
-            <a href={link} target="_blank" rel="noreferrer">
-               <strong>{TypeMap[type]}</strong> for {shortTitle}{note && <span className='service-note'> ({note})</span>}<br />
-               <span className='service-conference' title={conference}>{conference}</span>
-            </a>
-         </li>;
+/** a whole year, its label on the left rail and its cards to the right */
+function serviceYearGroup(year: number, es: Entry[], age: number) {
+   return <section className='service-year-group' key={`yg-${year}`}>
+      <div className='service-year-head'>{year}</div>
+      <ul className='service-grid'>
+         {es.map(e => serviceCard(e, age))}
+      </ul>
+   </section>;
+}
+
+export function getService(cats?: ReadonlySet<ServiceCategory>) {
+   const now = new Date();
+   const nowFraction = now.getFullYear() + now.getMonth() / 12;
+
+   const sorted = entries
+      .filter(e => !cats || cats.size === 0 || cats.has(typeToCategory[e.type]))
+      .toSorted((a, b) => {
+         if(b.year - a.year !== 0) return b.year - a.year;
+         if((a.order ?? 0) - (b.order ?? 0) !== 0) return (b.order ?? 0) - (a.order ?? 0);
+         return a.conference.localeCompare(b.conference);
       });
+
+   // group by year (desc) so the timeline reads in strict chronological order
+   const byYear = new Map<number, Entry[]>();
+   for(const e of sorted) {
+      if(!byYear.has(e.year)) byYear.set(e.year, []);
+      byYear.get(e.year)!.push(e);
+   }
+
+   // keep recent service in view, collapse whole years older than 2 years
+   const current: JSX.Element[] = [];
+   const older: JSX.Element[] = [];
+   let olderCount = 0;
+   for(const [year, es] of byYear) {
+      const age = nowFraction - year;
+      if(age > 2) {
+         older.push(serviceYearGroup(year, es, age));
+         olderCount += es.length;
+      } else {
+         current.push(serviceYearGroup(year, es, age));
+      }
+   }
+   return { current, older, olderCount };
 }

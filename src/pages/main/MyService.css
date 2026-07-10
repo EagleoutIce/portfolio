@@ -1,39 +1,188 @@
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(16em, 1fr));
-  gap: .6em .9em;
-  padding-left: 0;
+/* vertical timeline: one row per year, read top-to-bottom newest-first.
+   every vertical gap (between cards and between years) is the same, so the
+   whole section shares one even rhythm */
+.service-timeline {
   margin-top: 12px;
   font-size: smaller;
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+}
+
+.service-timeline-older {
+  margin-top: .5em;
+}
+
+/* year label on the left rail, its cards to the right */
+.service-year-group {
+  display: grid;
+  grid-template-columns: 2.6em 1fr;
+  gap: .5em .9em;
+  align-items: start;
+}
+
+.service-year-head {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 1em;
+  color: var(--main-color);
+  padding-top: .35em;
+  text-align: right;
+  position: relative;
+}
+
+/* a short hairline tick beside each year label. fixed height so it is
+   identical for every year, regardless of how many cards the year has */
+.service-year-head::after {
+  content: '';
+  position: absolute;
+  top: .4em;
+  height: 1em;
+  right: -.45em;
+  width: 1px;
+  background: color-mix(in srgb, var(--text) 14%, transparent);
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13em, 1fr));
+  gap: .5em;
+  padding-left: 0;
+  margin: 0;
 }
 
 .service-grid > li {
   list-style: none;
-  background-color: var(--background-crumbs);
-  border-radius: 8px;
-  padding: .5em .75em;
-  transition: background-color 1s, scale .1s;
 }
 
-.service-grid > li:hover {
-  scale: 1.02;
+/* the whole card is the link: one compact line, expands on hover */
+.service-grid > li > a {
+  display: flex;
+  flex-direction: column;
+  gap: .3em;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: var(--background-crumbs);
+  border: 1px solid transparent;
+  border-radius: 9px;
+  padding: .45em .65em;
+  text-decoration: none;
+  color: inherit;
+  opacity: var(--card-opacity, 1);
+  transition: background-color .15s ease, border-color .15s ease,
+              transform .12s ease, box-shadow .15s ease, opacity .15s ease;
+}
+
+/* clear, neutral hover: brighter surface, defined border, real lift */
+.service-grid > li > a:hover,
+.service-grid > li > a:focus-visible {
+  transform: translateY(-2px);
+  opacity: 1;
+  border-color: color-mix(in srgb, var(--text) 22%, transparent);
+  background-color: color-mix(in srgb, var(--text) 8%, var(--background));
+  box-shadow: 0 10px 22px -14px var(--soft-glow);
+  outline: none;
+}
+
+.service-card-top {
+  display: flex;
+  align-items: center;
+  gap: .5em;
+  min-width: 0;
+}
+
+/* role fills the middle and truncates gracefully if it runs long */
+.service-role {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: .88em;
+  color: var(--semi-soft-text);
+  transition: color .2s ease;
+}
+
+/* neutral grey conference pill at the trailing edge */
+.service-conf {
+  flex: none;
+  font-weight: 600;
+  font-size: .78em;
+  white-space: nowrap;
+  padding: .08em .55em;
+  border-radius: 999px;
+  color: var(--semi-soft-text);
+  background-color: color-mix(in srgb, var(--text) 9%, transparent);
+  transition: background-color .2s ease, color .2s ease;
+}
+
+/* on hover, lift text contrast so the whole card reads crisply */
+.service-grid > li > a:hover .service-role,
+.service-grid > li > a:focus-visible .service-role,
+.service-grid > li > a:hover .service-conf,
+.service-grid > li > a:focus-visible .service-conf {
+  color: var(--text);
+}
+
+.service-grid > li > a:hover .service-conf,
+.service-grid > li > a:focus-visible .service-conf {
+  background-color: color-mix(in srgb, var(--text) 14%, transparent);
+}
+
+/* full conference name is collapsed until the card is hovered/focused */
+.service-reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .12s ease;
+}
+
+.service-grid > li > a:hover .service-reveal,
+.service-grid > li > a:focus-visible .service-reveal {
+  grid-template-rows: 1fr;
 }
 
 .service-conference {
-  color: var(--semi-soft-text);
-  font-size: .85em;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  min-height: 0;
   overflow: hidden;
-}
-
-/* the note already takes a line, keep the cards evenly sized */
-.service-grid > li:has(.service-note) .service-conference {
-  -webkit-line-clamp: 2;
+  color: var(--semi-soft-text);
+  font-size: .8em;
+  line-height: 1.35;
 }
 
 .service-note {
   color: var(--soft-text);
-  font-size: .85em;
+  font-weight: normal;
 }
+
+/* touch devices can't hover — always show the full name at full strength */
+@media (hover: none) {
+  .service-reveal {
+    grid-template-rows: 1fr;
+  }
+  .service-grid > li > a {
+    opacity: 1;
+  }
+}
+
+/* narrow screens: year label stacks above its cards, single column */
+@media (max-width: 30em) {
+  .service-timeline {
+    font-size: inherit;
+  }
+  .service-year-group {
+    grid-template-columns: 1fr;
+    gap: .3em;
+  }
+  .service-year-head {
+    padding-top: 0;
+    text-align: left;
+  }
+  .service-year-head::after {
+    display: none;
+  }
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

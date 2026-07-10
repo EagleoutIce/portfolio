@@ -143,14 +143,45 @@ details.peeker summary {
 }
 
 
-details.peeker a, .main a, .link {
+/* in-text links. FALLBACK (no color-mix support): a plain accent underline so
+   links always keep their affordance. */
+details.peeker a, .main a, a.link {
    font-weight: normal;
    color: var(--text);
-   opacity: .55;
-   transition: color 1s, opacity 1s;
+   text-decoration: underline;
+   text-decoration-color: rgba(255, 166, 0, .5);
+   text-underline-offset: .15em;
 }
 
-details.peeker a:hover, .main a:hover, details.peeker a:focus, .main a:focus, .link:hover, .link:focus {
-   color: var(--main-color);
-   opacity: 1;
+/* ENHANCED: a soft accent underline at rest that grows into a low highlighter
+   "marker" on hover/focus. heights are fixed (em) so line-height can't inflate
+   them. the text itself never changes color. */
+@supports (color: color-mix(in srgb, red, blue)) {
+   details.peeker a, .main a, a.link {
+      text-decoration: none;
+      background-image: linear-gradient(
+         color-mix(in srgb, var(--main-color) 22%, transparent),
+         color-mix(in srgb, var(--main-color) 22%, transparent));
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      background-size: 100% .12em;
+      padding: 0 .05em;
+      border-radius: .1em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      transition: background-size .18s ease;
+   }
+
+   details.peeker a:hover, .main a:hover, details.peeker a:focus, .main a:focus,
+   a.link:hover, a.link:focus {
+      background-size: 100% .61em;
+   }
+
+   /* touch devices can't hover — show the marker at rest so the effect is
+      visible and links are clearly identifiable on mobile */
+   @media (hover: none) {
+      details.peeker a, .main a, a.link {
+         background-size: 100% .61em;
+      }
+   }
 }

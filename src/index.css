@@ -248,6 +248,12 @@ button.filter-inactive:hover {
   margin: .5em 0;
 }
 
+/* lighter caption for secondary reveal toggles (earlier service, more slides) */
+.collapse-title.light {
+  font-weight: normal;
+  color: var(--soft-text);
+}
+
 .collapse-chevron {
   width: .4em;
   height: .4em;

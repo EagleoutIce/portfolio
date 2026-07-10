@@ -70,8 +70,12 @@ function SupervisedTheses() {
 }
 
 // TODO: move wrapper into get* fns
+const SLIDES_PREVIEW = 2;
+
 export function MyTeaching() {
    const [roles, setRoles] = useState<ReadonlySet<TeachingRole>>(new Set());
+   const [showAllSlides, setShowAllSlides] = useState(false);
+   const [showDocuments, setShowDocuments] = useState(false);
    const toggle = (role: TeachingRole) => setRoles(prev => {
       const next = new Set(prev);
       if(next.has(role)) {
@@ -82,6 +86,8 @@ export function MyTeaching() {
       return next;
    });
    const { def: teachings, roles: teachingCounts } = getTeachings(roles);
+   const slides = getSlides();
+   const documents = getDocuments();
    return <>
       <StaticQuickLinks sections={{
          lectures: { page: 'lectures' },
@@ -122,19 +128,43 @@ export function MyTeaching() {
 
       <SectionHeading id="slides" as="h3">Slides</SectionHeading>
       <div className='slides-list'>
-         {getSlides()}
+         {slides.slice(0, SLIDES_PREVIEW)}
       </div>
+      {slides.length > SLIDES_PREVIEW &&
+         <details className='collapse-section' open={showAllSlides}
+            onToggle={e => setShowAllSlides((e.target as HTMLDetailsElement).open)}>
+            <summary>
+               <span className='collapse-title light'>More slides</span>
+               <span className='collapse-count'>{slides.length - SLIDES_PREVIEW} more</span>
+               <span className='collapse-chevron' />
+            </summary>
+            {showAllSlides &&
+               <div className='slides-list'>
+                  {slides.slice(SLIDES_PREVIEW)}
+               </div>
+            }
+         </details>
+      }
       <div className='no-outer main'>
          For more, check out my <a target="_blank" rel="noreferrer" href="https://github.com/EagleoutIce" >GitHub Page</a>.
       </div>
 
-      <SectionHeading id="documents" as="h3">Documents</SectionHeading>
-      <div className='documents-list'>
-         {getDocuments()}
-      </div>
-      <div className='no-outer main'>
-         For more, check out my <a target="_blank" rel="noreferrer" href="https://github.com/EagleoutIce" >GitHub Page</a>.
-      </div>
+      <details className='collapse-section' open={showDocuments}
+         onToggle={e => setShowDocuments((e.target as HTMLDetailsElement).open)}>
+         <summary>
+            <SectionHeading id="documents" as="h3">Documents</SectionHeading>
+            <span className='collapse-count'>{documents.length} {documents.length === 1 ? 'document' : 'documents'}</span>
+            <span className='collapse-chevron' />
+         </summary>
+         {showDocuments && <>
+            <div className='documents-list'>
+               {documents}
+            </div>
+            <div className='no-outer main'>
+               For more, check out my <a target="_blank" rel="noreferrer" href="https://github.com/EagleoutIce" >GitHub Page</a>.
+            </div>
+         </>}
+      </details>
    </>;
 }
 

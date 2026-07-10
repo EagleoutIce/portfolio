@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import './MyService.css';
 import '../../components/BibliographySummary.css';
-import { getService, getServiceSummary, getServiceTypes, type ServiceType } from './ServiceData';
+import { getService, getServiceSummary, getServiceTypes, type ServiceCategory } from './ServiceData';
 
 export function MyService() {
-  const [types, setTypes] = useState<ReadonlySet<ServiceType>>(new Set());
-  const toggle = (type: ServiceType) => setTypes(prev => {
+  const [types, setTypes] = useState<ReadonlySet<ServiceCategory>>(new Set());
+  const [showOlder, setShowOlder] = useState(false);
+  const toggle = (type: ServiceCategory) => setTypes(prev => {
     const next = new Set(prev);
     if(next.has(type)) {
       next.delete(type);
@@ -14,6 +15,7 @@ export function MyService() {
     }
     return next;
   });
+  const { current, older, olderCount } = getService(types);
   return <>
    I serve(d) as chair, reviewer, or artifact evaluator for the following conferences:
    {getServiceSummary()}
@@ -26,8 +28,19 @@ export function MyService() {
       )}
       <span className='filter-mode'>(matches any)</span>
    </div>
-   <ul className='service-grid'>
-      {getService(types)}
-   </ul>
+   <div className='service-timeline'>
+      {current}
+   </div>
+   {older.length > 0 &&
+      <details className='collapse-section' open={showOlder}
+         onToggle={e => setShowOlder((e.target as HTMLDetailsElement).open)}>
+         <summary>
+            <span className='collapse-title light'>Earlier service</span>
+            <span className='collapse-count'>{olderCount} {olderCount === 1 ? 'entry' : 'entries'}</span>
+            <span className='collapse-chevron' />
+         </summary>
+         {showOlder && <div className='service-timeline service-timeline-older'>{older}</div>}
+      </details>
+   }
  </>;
 }
