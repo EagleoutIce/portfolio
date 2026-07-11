@@ -94,18 +94,14 @@ export function PageSummary() {
         tooltipContent={<div style={ttInner}>
           Lecturer duties, including guest lectures: {teachingDuties.lecturer.duties.join(', ')}
         </div>} />}
-      {teachingDuties.teachingAssistant.count > 0 && <Badge id="page-sum-teaching-ta" href="#/teaching" count={teachingDuties.teachingAssistant.count} label="Teaching Assistant"
+      {teachingDuties.teachingAssistant.count > 0 && <Badge id="page-sum-teaching-ta" href="#/teaching" count={teachingDuties.teachingAssistant.count} label="TA"
         tooltipContent={<div style={ttInner}>
-          Teaching assistant duties: {teachingDuties.teachingAssistant.duties.join(', ')}
+          Teaching Assistant duties: {teachingDuties.teachingAssistant.duties.join(', ')}
         </div>} />}
-      {(teachingDuties.lecturer.count > 0 || teachingDuties.teachingAssistant.count > 0) && (ba.count > 0 || ma.count > 0) && <div className="conf-year-banner"> / </div>}
-      {ba.count > 0 && <Badge id="page-sum-ba" href="#/theses" count={ba.count} label="BA"
+      {(ba.count > 0 || ma.count > 0) && <Badge id="page-sum-theses" href="#/theses" count={ba.count + ma.count} label="Theses"
         tooltipContent={<div style={ttInner}>
-          Supervised Bachelor's Theses: {[...ba.students].sort((a, b) => a.localeCompare(b)).join(', ')}
-        </div>} />}
-      {ma.count > 0 && <Badge id="page-sum-ma" href="#/theses" count={ma.count} label="MA"
-        tooltipContent={<div style={ttInner}>
-          Supervised Master's Theses: {[...ma.students].sort((a, b) => a.localeCompare(b)).join(', ')}
+          {ba.count > 0 && <div>Bachelor's ({ba.count}): {[...ba.students].sort((a, b) => a.localeCompare(b)).join(', ')}</div>}
+          {ma.count > 0 && <div>Master's ({ma.count}): {[...ma.students].sort((a, b) => a.localeCompare(b)).join(', ')}</div>}
         </div>} />}
     </>}
 

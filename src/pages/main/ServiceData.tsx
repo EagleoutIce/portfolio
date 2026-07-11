@@ -8,14 +8,6 @@ const TypeMap = {
    'web-chair': 'Web Chair'
 } as const;
 
-const TypeDisplayMap = {
-   'reviewing': { abbr: 'Reviewer', full: TypeMap['reviewing'] },
-   'artifact-eval': { abbr: 'AEC', full: TypeMap['artifact-eval'] },
-   'junior-pc': { abbr: 'Junior PC', full: TypeMap['junior-pc'] },
-   'local-chair': { abbr: 'LC', full: TypeMap['local-chair'] },
-   'web-chair': { abbr: 'Web', full: TypeMap['web-chair'] },
-} as const;
-
 interface Entry {
    readonly type: keyof typeof TypeMap;
    readonly conference: string;
@@ -123,17 +115,26 @@ const entries: Entry[] = [{
 }];
 
 
+/* the top-of-page summary groups service by the same high-level categories as
+   the section filters, so Junior PC folds into Reviewer and the chair roles
+   (Local/Web) collapse into a single "Chair" badge instead of listing apart */
 export function getServiceRoleInfo(): Array<{ abbr: string; full: string; count: number; confs: string[]; }> {
-   const byType = new Map<keyof typeof TypeMap, { count: number; confs: string[]; }>();
+   const byCat = new Map<ServiceCategory, { count: number; confs: string[]; }>();
    for(const entry of entries.toSorted((a, b) => b.year - a.year)) {
-      if(!byType.has(entry.type)) byType.set(entry.type, { count: 0, confs: [] });
-      const r = byType.get(entry.type)!;
+      const cat = typeToCategory[entry.type];
+      if(!byCat.has(cat)) byCat.set(cat, { count: 0, confs: [] });
+      const r = byCat.get(cat)!;
       r.count++;
       r.confs.push(entry.shortTitle);
    }
-   return (Object.keys(TypeDisplayMap) as (keyof typeof TypeDisplayMap)[])
-      .filter(k => byType.has(k))
-      .map(k => ({ ...TypeDisplayMap[k], ...byType.get(k)!, confs: byType.get(k)!.confs.toSorted((a, b) => a.localeCompare(b)) }));
+   return (Object.keys(CategoryMap) as ServiceCategory[])
+      .filter(k => byCat.has(k))
+      .map(k => ({
+         abbr: CategoryMap[k].abbr,
+         full: CategoryMap[k].full,
+         ...byCat.get(k)!,
+         confs: byCat.get(k)!.confs.toSorted((a, b) => a.localeCompare(b)),
+      }));
 }
 
 export function getServiceSummary() {

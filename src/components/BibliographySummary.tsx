@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import "./BibliographySummary.css";
 import { Cite } from '@citation-js/core';
 import '@citation-js/plugin-bibtex';
@@ -10,7 +10,8 @@ export interface BibliographySummaryProps {
 }
 
 export function BibliographySummary({ biblatexContent }: BibliographySummaryProps) {
-   const bib = useMemo(() => {
+   const [showOlder, setShowOlder] = useState(false);
+   const { recent, older } = useMemo(() => {
       const confTypeCount: Map<string, Map<string, number>> = new Map();
       for(const [type, content] of Object.entries(biblatexContent)) {   
          const cite = new Cite(content);
@@ -72,23 +73,33 @@ export function BibliographySummary({ biblatexContent }: BibliographySummaryProp
       });
 
       const RECENT_YEARS = 2;
-      const recent = yearBlocks.slice(0, RECENT_YEARS);
-      const older = yearBlocks.slice(RECENT_YEARS);
-
-      return <>
-         <div className='bib-summary-children'>{recent.flatMap(b => b.nodes)}</div>
-         {older.length > 0 &&
-            <details className='collapse-section bib-summary-more'>
-               <summary>
-                  <span className='collapse-title light'>Earlier years</span>
-                  <span className='collapse-count'>{older.length} more {older.length === 1 ? 'year' : 'years'}</span>
-                  <span className='collapse-chevron' />
-               </summary>
-               <div className='bib-summary-children'>{older.flatMap(b => b.nodes)}</div>
-            </details>
-         }
-      </>;
+      return {
+         recent: yearBlocks.slice(0, RECENT_YEARS),
+         older: yearBlocks.slice(RECENT_YEARS),
+      };
    }, [biblatexContent]);
 
-   return bib;
+   // recent and older years share one flowing container so, once expanded, the
+   // earlier years read as a seamless continuation rather than a detached list.
+   // each older chip fades in on mount, and an inline toggle sits at the end.
+   return (
+      <div className='bib-summary-children'>
+         {recent.flatMap(b => b.nodes)}
+         {showOlder && older.flatMap(b => b.nodes.map(n =>
+            <span key={`older-${n.key}`} className='bib-summary-older'>{n}</span>
+         ))}
+         {older.length > 0 &&
+            <button
+               type='button'
+               className='bib-summary-toggle'
+               aria-expanded={showOlder}
+               onClick={() => setShowOlder(v => !v)}>
+               {showOlder
+                  ? 'show fewer'
+                  : `${older.length} earlier ${older.length === 1 ? 'year' : 'years'}`}
+               <span className='bib-summary-toggle-chevron' />
+            </button>
+         }
+      </div>
+   );
 }

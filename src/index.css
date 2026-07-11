@@ -30,6 +30,9 @@ html {
 body.dark-theme {
   --main-color: rgba(255, 166, 0, 1);
   --main-color-transparent: rgba(255, 166, 0, 0.3);
+  /* rotation applied to the flowR flower (base green ~150°) to reach the accent
+     hue; the default orange sits at ~39°, i.e. -111° away */
+  --logo-hue: -111deg;
   --text: #fafafa;
   --soft-text: #b0b0b0;
   --semi-soft-text: #e1e1e1;
@@ -44,6 +47,7 @@ body.dark-theme {
 body.light-theme {
   --main-color: rgba(255, 166, 0, 1);
   --main-color-transparent: rgba(255, 166, 0, 0.3);
+  --logo-hue: -111deg;
   --text: #202227;
   --semi-soft-text: #686868;
   --soft-text: #a0a0a0;
@@ -63,11 +67,15 @@ body.light-theme {
 body[data-accent="blue"] {
   --main-color: #3b7bb8;
   --main-color-transparent: rgba(59, 123, 184, 0.3);
+  /* blue sits at ~209° */
+  --logo-hue: 59deg;
 }
 
 body[data-accent="red"] {
   --main-color: #e63946;
   --main-color-transparent: rgba(230, 57, 70, 0.3);
+  /* red sits at ~355° */
+  --logo-hue: -155deg;
 }
 
 /* the poppy red vibrates against the dark background — soften it there */
@@ -79,6 +87,8 @@ body.dark-theme[data-accent="red"] {
 body[data-accent="green"] {
   --main-color: #4f8a5b;
   --main-color-transparent: rgba(79, 138, 91, 0.3);
+  /* already green — only a slight nudge (~132°) */
+  --logo-hue: -18deg;
 }
 
 body {

@@ -21,6 +21,16 @@
 }
 
 
+/* the flowR flower picks up the current accent: a hue-rotate shifts its green
+   gradient toward the chosen tint while preserving the petal shading. the extra
+   class keeps this ahead of the generic `.project-card img` drop-shadow, which
+   we re-declare here so it isn't lost. it eases over .5s to match the accent
+   colour interpolation. */
+.project-card.project-card-rotating-img img {
+   filter: drop-shadow(2px 2px 3px var(--soft-glow)) hue-rotate(var(--logo-hue, -111deg));
+   transition: filter .5s ease;
+}
+
 .project-card-rotating-img:hover img, .project-card-rotating-img:focus img {
    animation: rotate 50s infinite linear;
 }

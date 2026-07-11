@@ -130,18 +130,27 @@
   background-color: color-mix(in srgb, var(--text) 14%, transparent);
 }
 
-/* full conference name is collapsed until the card is hovered/focused */
+/* full conference name is collapsed until the card is hovered/focused.
+   no delay here, so leaving the row collapses it promptly */
 .service-reveal {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows .12s ease;
+  transition: grid-template-rows .16s ease;
 }
 
 /* hovering a card reveals every card sharing its visual row (row-hover is set
-   in ServiceData by matching offsetTop), so a row expands as one even block */
+   in ServiceData by matching offsetTop), so a row expands as one even block.
+   the ~0.25s delay is a hover-intent guard: just scrolling the pointer across
+   the cards no longer pops rows open — you have to actually rest on one */
 .service-grid > li.row-hover .service-reveal,
 .service-grid > li > a:focus-visible .service-reveal {
   grid-template-rows: 1fr;
+  transition: grid-template-rows .2s ease .25s;
+}
+
+/* keyboard focus is deliberate, so reveal immediately there */
+.service-grid > li > a:focus-visible .service-reveal {
+  transition-delay: 0s;
 }
 
 .service-conference {
