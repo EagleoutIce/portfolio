@@ -1,0 +1,246 @@
+.pub-page {
+   color: var(--text);
+   transition: color 1s;
+   text-align: left;
+   width: 54em;
+   max-width: calc(100vw - 3rem);
+   margin: 0 auto;
+   padding: 2.5em 0 3em;
+   font-size: .8em;
+   line-height: 1.5;
+}
+
+.pub-topbar {
+   margin-bottom: 1.5em;
+}
+
+.pub-back {
+   font-size: .85em;
+   color: var(--soft-text);
+   transition: color .3s;
+}
+
+.pub-back:hover {
+   color: var(--main-color);
+}
+
+.pub-title {
+   margin: 0 0 .2em;
+   font-size: 2.4em;
+}
+
+.pub-lead {
+   margin: 0 0 1.8em;
+   color: var(--semi-soft-text);
+   font-size: .95em;
+   max-width: 40em;
+}
+
+.pub-inline-link,
+.pub-lead .code {
+   color: var(--main-color);
+}
+
+.pub-lead .code {
+   font-family: 'Courier New', Courier, monospace;
+   font-size: .9em;
+}
+
+/* ── legend / filter chips ───────────────────────────────────────────── */
+.pub-legend {
+   display: flex;
+   flex-wrap: wrap;
+   gap: .5em;
+   margin-bottom: 2.2em;
+}
+
+.pub-legend-chip {
+   display: inline-flex;
+   align-items: center;
+   gap: .5em;
+   padding: .3em .7em;
+   font-size: .8em;
+   font-weight: normal;
+   border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+   border-radius: 999px;
+   background: transparent;
+   color: var(--semi-soft-text);
+   cursor: pointer;
+   transition: border-color .2s, background-color .2s, color .3s;
+}
+
+.pub-legend-chip:hover {
+   scale: 1;
+   border-color: var(--cat-color);
+}
+
+.pub-legend-chip.active {
+   border-color: var(--cat-color);
+   background: color-mix(in srgb, var(--cat-color) 15%, transparent);
+   color: var(--text);
+}
+
+.pub-legend-dot {
+   width: .7em;
+   height: .7em;
+   border-radius: 50%;
+   background: var(--cat-color);
+}
+
+.pub-legend-count {
+   font-size: .85em;
+   opacity: .6;
+}
+
+/* ── year groups ─────────────────────────────────────────────────────── */
+.pub-year-group {
+   display: grid;
+   grid-template-columns: 3em 1fr;
+   gap: .4em 1.2em;
+   margin-bottom: 1.6em;
+}
+
+.pub-year {
+   font-size: 1.15em;
+   font-weight: bold;
+   color: var(--main-color);
+   font-variant-numeric: tabular-nums;
+   position: sticky;
+   top: 1em;
+   height: fit-content;
+   transition: color 1s;
+}
+
+.pub-year-entries {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   display: flex;
+   flex-direction: column;
+   gap: 1em;
+}
+
+/* ── one entry ───────────────────────────────────────────────────────── */
+.pub-entry {
+   display: grid;
+   grid-template-columns: auto 1fr;
+   gap: .1em .9em;
+   padding-left: .9em;
+   border-left: 3px solid var(--cat-color);
+}
+
+.pub-tag {
+   grid-row: 1;
+   align-self: start;
+   margin-top: .15em;
+   box-sizing: border-box;
+   min-width: 3.6em;
+   padding: .2em .4em;
+   font-size: .66em;
+   font-weight: 700;
+   letter-spacing: .06em;
+   text-align: center;
+   white-space: nowrap;
+   border-radius: 5px;
+   color: var(--cat-color);
+   background: color-mix(in srgb, var(--cat-color) 15%, transparent);
+}
+
+.pub-body {
+   min-width: 0;
+}
+
+.pub-entry-title {
+   font-weight: 600;
+   color: var(--text);
+   margin-bottom: .15em;
+}
+
+.pub-authors {
+   color: var(--semi-soft-text);
+   font-size: .92em;
+}
+
+.pub-author-me {
+   font-weight: 700;
+   color: var(--text);
+}
+
+.pub-meta {
+   display: flex;
+   flex-wrap: wrap;
+   align-items: baseline;
+   gap: .4em .9em;
+   margin-top: .3em;
+}
+
+.pub-venue {
+   font-size: .9em;
+   font-style: italic;
+   color: var(--soft-text);
+}
+
+.pub-links {
+   display: inline-flex;
+   flex-wrap: wrap;
+   gap: .4em;
+}
+
+.pub-link {
+   font-size: .8em;
+   padding: .1em .55em;
+   border-radius: 5px;
+   color: var(--semi-soft-text);
+   border: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
+   transition: color .2s, border-color .2s, background-color .2s;
+}
+
+.pub-link:hover {
+   color: var(--main-color);
+   border-color: var(--main-color);
+   background: color-mix(in srgb, var(--main-color) 10%, transparent);
+}
+
+/* ── narrow screens ──────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+   .pub-year-group {
+      grid-template-columns: 1fr;
+      gap: .5em;
+   }
+
+   .pub-year {
+      position: static;
+      border-bottom: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+      padding-bottom: .1em;
+   }
+
+   .pub-entry {
+      grid-template-columns: 1fr;
+      gap: .25em;
+   }
+
+   .pub-tag {
+      justify-self: start;
+   }
+}
+
+/* ── no color-mix fallback: solid tints so tags/borders still read ───── */
+@supports not (color: color-mix(in srgb, red, blue)) {
+   .pub-tag {
+      background: transparent;
+      border: 1px solid var(--cat-color);
+   }
+
+   .pub-legend-chip {
+      border-color: rgba(128, 128, 128, .35);
+   }
+
+   .pub-legend-chip.active {
+      background: transparent;
+      color: var(--text);
+   }
+
+   .pub-link {
+      border-color: rgba(128, 128, 128, .35);
+   }
+}

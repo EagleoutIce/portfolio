@@ -20,13 +20,17 @@ const ExaminerMap ={
    'mtt': <a className='link' href='https://www.uni-ulm.de/in/sp/team/tichy/'>Prof. Dr. Matthias Tichy</a>,
    'sw': <a className='link' href='https://www.stefan-winter.net/'>Prof. Dr. Stefan Winter</a>,
    'tt': <a className='link' href='https://www.tu-braunschweig.de/isf/team/thuem'>Prof. Dr. Thomas Thüm</a>,
-   'rh': <a className='link' href='https://www.uni-ulm.de/in/sp/team/prof-dr-robert-heinrich/'>Prof. Dr. Robert Heinrich</a>
+   'rh': <a className='link' href='https://www.uni-ulm.de/in/sp/team/prof-dr-robert-heinrich/'>Prof. Dr. Robert Heinrich</a>,
+   'va': <a className='link' href='https://vincenzoarceri.github.io/'>Prof. Vincenzo Arceri</a>
 }
 
 interface Thesis {
    title: string;
    author: string | 'anonymous';
    examiners: (keyof typeof ExaminerMap)[];
+   /** overrides the "Examiners: …" detail line, e.g. for external theses that
+       list a supervisor and an advisor instead of two examiners */
+   committee?: JSX.Element;
    abstract: JSX.Element;
    type: keyof typeof TypeToStringMap;
    extra?: JSX.Element;
@@ -339,6 +343,26 @@ theses.push({
    examiners: ['mtt'],
 })
 
+theses.push({
+   author: 'Manuel Di Agostino',
+   type: 'master-thesis',
+   year: 2026,
+   month: 7,
+   title: 'Towards Statically Reasoning About R Vectors',
+   extra: <>
+   Erasmus+ exchange at <a className='link' href='https://www.uni-ulm.de/en/' target="_blank" rel="noreferrer">Ulm University</a> (<a className='link' href='https://www.unipr.it/' target="_blank" rel="noreferrer">University of Parma</a>).
+   </>,
+   committee: <>Supervisor: {ExaminerMap['va']}<br/>Advisor: Florian Sihler</>,
+   examiners: [],
+   abstract: <>
+<i>Context:</i>&nbsp;R is a dynamically typed, vector-oriented language widely used in data science and scientific computing. Its vector semantics — including automatic type coercion, recycling, and flexible selection and update operators — are pervasive, nontrivial, and deeply intertwined with the semantics of virtually every R operation. The complexity of these semantics makes static reasoning about R programs particularly challenging, and existing tools offer only shallow, best-effort analyses that fall short of reasoning about R vector-manipulating programs.
+<p/>
+<i>Objective:</i>&nbsp;In this thesis, we present a parametric abstract domain for R vectors, defined over &mu;R, a core calculus we design to capture the most representative vector manipulation operations in R. An abstract vector simultaneously captures the possible lengths of the vector, the values of its elements, and its potential attributes. The domain is parametric in the element abstract domain.
+<p/>
+<i>Method:</i>&nbsp;We define abstract operators for all &mu;R operations and equip the domain with a widening operator to ensure termination of fixpoint computation. We prove the domain forms a complete lattice and establish a formal Galois connection with the concrete domain. Formal soundness proofs are provided for the recycling and positive selection operators. We implement the domain on top of <a className='link' href='https://github.com/flowr-analysis/flowr' target="_blank" rel="noreferrer">flowR</a>, a static analysis framework for R, and evaluate it on a suite of 61&nbsp;handcrafted programs covering six categories of vector operations, demonstrating the feasibility and precision of the approach.
+</>,
+})
+
 export function getThesisCounts() {
    const sort = (a: Thesis, b: Thesis) => b.year - a.year || b.month - a.month;
    const ba = theses.filter(t => t.type === 'bachelor-thesis').toSorted(sort);
@@ -370,14 +394,14 @@ export function getTheses(): { id: string; type: ThesisType; li: JSX.Element }[]
       .toSorted(
          ({year, month}, {year: yearB, month: monthB}) => yearB - year || monthB - month
       )
-      .map(({ title, author, examiners, abstract, link, year, month, extra, type }) => {
+      .map(({ title, author, examiners, committee, abstract, link, year, month, extra, type }) => {
          const id = escapeId(title);
          const li = <li key={id}>
             <span className='small-caps thesis-type-tag'>{ThesisAbbrMap[type]}</span><strong id={'link-' + id}>{title}</strong> <span className='theses-author-meta'>({author !== 'anonymous' ? author + ', ' : ''}{monthToString[month - 1]}&nbsp;{year})</span>{link && <>&emsp;<a href={link} className="bib-link" target="_blank" rel="noreferrer">[PDF]</a></>}<br />
             {extra ? <><span> {extra} </span></> : null}
             <details style={{ margin: '0em 0 .5em 0', cursor: 'pointer', userSelect: 'none' }}>
                <summary><i>Details</i></summary>
-               <span>Examiners: {joinLastWith(examiners.map(e => ExaminerMap[e]))}</span><br/>
+               <span>{committee ?? <>Examiners: {joinLastWith(examiners.map(e => ExaminerMap[e]))}</>}</span><br/>
                <span>{link && <>Link: <a href={link} className="bib-link" target="_blank" rel="noreferrer">{link}</a></>}</span>
                <p />
                <b>Abstract</b>

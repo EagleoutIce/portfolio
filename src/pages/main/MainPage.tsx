@@ -94,7 +94,7 @@ function MainPage() {
         <MyCurrentTypographyProjects />
       </CollapsibleSection>
 
-      <SectionHeading id="publications">Publications and Travel</SectionHeading>
+      <SectionHeading id="publications" href="#/all-publications" linkHint="detailed list">Publications and Travel</SectionHeading>
          <StaticQuickLinks sections={{
             papers: { page: 'papers'},
             talks: { page: 'talks'},

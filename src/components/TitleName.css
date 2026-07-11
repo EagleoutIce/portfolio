@@ -82,13 +82,26 @@
 .profile-name {
   font-size: calc(1.5em - 0.65em * var(--p));
   font-weight: calc(700 - 300 * var(--p));
+  /* tighten the line box so the subtitle tucks up closer to the name */
+  line-height: 1.05;
 }
 
 .profile-subtitle {
   font-size: .9em;
+  /* faintly carries the current accent and breathes ever so slightly; falls
+     back to plain soft-text where color-mix is unsupported (the tinted
+     declarations are simply dropped) */
   color: var(--soft-text);
+  color: color-mix(in srgb, var(--main-color) 7%, var(--soft-text));
   opacity: calc(1 - var(--p));
   white-space: nowrap;
+  animation: subtitle-tint-pulse 8s ease-in-out infinite;
+}
+
+/* barely-there breathing: the accent is only ever a hint */
+@keyframes subtitle-tint-pulse {
+  0%, 100% { color: color-mix(in srgb, var(--main-color) 4%, var(--soft-text)); }
+  50%      { color: color-mix(in srgb, var(--main-color) 10%, var(--soft-text)); }
 }
 
 .header.sticky .profile-subtitle {

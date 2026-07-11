@@ -44,10 +44,13 @@ export function BibliographySummary({ biblatexContent }: BibliographySummaryProp
       }
          
       
-      const children: JSX.Element[] = []
       const years = Array.from(byYear.keys()).sort((a, b) => b - a);
-      for(const year of years) {
-         children.push(<div key={`year-${year}`} className="conf-year-banner">• 20{year}</div>)
+      // one render block (banner + its conference chips) per year, so we can
+      // keep the most recent years open and fold the rest away
+      const yearBlocks = years.map(year => {
+         const nodes: JSX.Element[] = [
+            <div key={`year-${year}`} className="conf-year-banner">• 20{year}</div>
+         ];
          const entries = Array.from(byYear.get(year)?.entries() ?? []);
          entries.sort((a, b) => a[0].localeCompare(b[0]));
          for(const [conf, typeMap] of entries) {
@@ -57,7 +60,7 @@ export function BibliographySummary({ biblatexContent }: BibliographySummaryProp
                byType.push(`${count}×${type}${count === 1 ? '' : 's'}`);
             }
             const safeConf = escapeId(conf);
-            children.push(
+            nodes.push(
                <span key={`conf-${year}-${safeConf}`} id={`conf-${year}-${safeConf}`} className="conf-entry">
                   <span className='conf-count'>{total}×</span>
                   {conf}
@@ -65,9 +68,26 @@ export function BibliographySummary({ biblatexContent }: BibliographySummaryProp
                </span>
             );
          }
-      }
-      
-      return <div className='bib-summary-children'> { children } </div>;
+         return { year, nodes };
+      });
+
+      const RECENT_YEARS = 2;
+      const recent = yearBlocks.slice(0, RECENT_YEARS);
+      const older = yearBlocks.slice(RECENT_YEARS);
+
+      return <>
+         <div className='bib-summary-children'>{recent.flatMap(b => b.nodes)}</div>
+         {older.length > 0 &&
+            <details className='collapse-section bib-summary-more'>
+               <summary>
+                  <span className='collapse-title light'>Earlier years</span>
+                  <span className='collapse-count'>{older.length} more {older.length === 1 ? 'year' : 'years'}</span>
+                  <span className='collapse-chevron' />
+               </summary>
+               <div className='bib-summary-children'>{older.flatMap(b => b.nodes)}</div>
+            </details>
+         }
+      </>;
    }, [biblatexContent]);
 
    return bib;

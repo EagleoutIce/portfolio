@@ -137,7 +137,9 @@
   transition: grid-template-rows .12s ease;
 }
 
-.service-grid > li > a:hover .service-reveal,
+/* hovering a card reveals every card sharing its visual row (row-hover is set
+   in ServiceData by matching offsetTop), so a row expands as one even block */
+.service-grid > li.row-hover .service-reveal,
 .service-grid > li > a:focus-visible .service-reveal {
   grid-template-rows: 1fr;
 }

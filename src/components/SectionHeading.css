@@ -2,6 +2,41 @@
    position: relative;
 }
 
+/* a heading that doubles as a link to a detailed subpage; the small hint
+   fades in on hover so the heading still reads as a heading at rest */
+.heading-link {
+   color: inherit;
+   transition: color .25s;
+}
+
+.heading-link:hover {
+   color: var(--main-color);
+}
+
+.heading-link-hint {
+   margin-left: .5em;
+   font-size: .5em;
+   font-weight: normal;
+   letter-spacing: .02em;
+   vertical-align: middle;
+   white-space: nowrap;
+   color: var(--soft-text);
+   opacity: 0;
+   transition: opacity .25s, color .25s;
+}
+
+.heading-link:hover .heading-link-hint {
+   opacity: 1;
+   color: var(--main-color);
+}
+
+/* touch devices can't hover, so keep the hint visible there */
+@media (hover: none) {
+   .heading-link-hint {
+      opacity: .7;
+   }
+}
+
 .heading-anchor {
    display: none;
    position: absolute;

@@ -19,3 +19,12 @@
 .bib-summary-children {
    margin-top: 0.5em;
 }
+
+/* the "earlier years" fold sits just beneath the recent years */
+.bib-summary-more {
+   margin-top: 0.6em;
+}
+
+.bib-summary-more .bib-summary-children {
+   margin-top: 0.4em;
+}

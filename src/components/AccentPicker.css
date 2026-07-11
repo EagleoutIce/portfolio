@@ -1,0 +1,165 @@
+/* sits just left of the day/night toggle. collapsed it shows only the current
+   accent as a single dot; hovering (or keyboard focus) expands the full row to
+   the left, away from the toggle. */
+.accent-picker {
+   position: fixed;
+   /* small screens (<=1200px): the media query drops the toggle's rotation, so
+      it is a horizontal pill whose visual centre sits at ~right:25px / top:17px.
+      centre the collapsed dot on that, just to its left. */
+   top: 8px;
+   right: 44px;
+   z-index: 4000;
+   display: inline-flex;
+   align-items: center;
+   gap: 0;
+   padding: 4px;
+   border-radius: 999px;
+   background: transparent;
+   border: 1px solid transparent;
+   /* recedes when idle — small and faint — and comes forward on hover/focus.
+      the gap/width reveal is intentionally NOT transitioned: the swatches snap
+      to full size the instant the picker opens, so they are always a solid
+      click target (an animated width made them briefly too thin to hit). */
+   opacity: .32;
+   transition: opacity .3s ease, background-color .3s, border-color .3s,
+      box-shadow .3s, top .35s ease, right .35s ease;
+}
+
+/* expanded: a clearly separate chip so the swatches never blur into the
+   neighbouring day/night toggle */
+.accent-picker:hover,
+.accent-picker:focus-within {
+   opacity: 1;
+   gap: 7px;
+   background: var(--background);
+   /* just enough edge to separate it from the page — no hard outline */
+   border-color: color-mix(in srgb, var(--text) 5%, transparent);
+   box-shadow: 0 3px 12px -4px var(--soft-glow);
+}
+
+/* touch devices can't hover, so keep it a little more present */
+@media (hover: none) {
+   .accent-picker {
+      opacity: .6;
+   }
+}
+
+/* bigger screens: the toggle is rotated to a vertical pill whose visual centre
+   lands at ~right:32px / top:53px; centre the 22px-tall collapsed picker there
+   (53 - 11) and place its right edge ~6px left of the toggle (right:42px). */
+@media (min-width: 1201px) {
+   .accent-picker {
+      top: 42px;
+      right: 48px;
+   }
+}
+
+/* compact header bar: the toggle is a horizontal pill centred in the bar with
+   its left edge at right:56px, so centre the picker on the bar just left of it */
+body.compact-header .accent-picker {
+   top: calc((var(--header-bar-height, 64px) - 22px) / 2);
+   right: 60px;
+}
+
+/* the swatches override the global filled-button look entirely */
+.accent-swatch {
+   width: 14px;
+   height: 14px;
+   min-width: 0;
+   padding: 0;
+   border-radius: 50%;
+   border: 2px solid transparent;
+   background: var(--swatch);
+   cursor: pointer;
+   font-weight: normal;
+   transition: opacity .28s ease, scale .15s ease, border-color .2s;
+}
+
+/* collapsed: everything but the current accent folds away to a single dot */
+.accent-picker:not(:hover):not(:focus-within) .accent-swatch:not(.active) {
+   width: 0;
+   opacity: 0;
+   border-width: 0;
+   pointer-events: none;
+}
+
+/* idle, the single visible dot is small and needs no selection ring */
+.accent-picker:not(:hover):not(:focus-within) .accent-swatch.active {
+   width: 10px;
+   height: 10px;
+   border-color: transparent;
+}
+
+@media (max-width: 1200px) {
+   .accent-picker:not(:hover):not(:focus-within) .accent-swatch.active {
+      width: 9px;
+      height: 9px;
+   }
+}
+
+/* against the dark background the saturated dots read as harsh, so calm them
+   at rest and only bring the full colour back on hover/focus */
+body.dark-theme .accent-swatch {
+   filter: saturate(.72) brightness(.9);
+}
+
+body.dark-theme .accent-picker:hover .accent-swatch,
+body.dark-theme .accent-picker:focus-within .accent-swatch {
+   filter: saturate(.9);
+}
+
+.accent-swatch:hover {
+   scale: 1.18;
+}
+
+.accent-swatch:active {
+   scale: .92;
+}
+
+/* selected indicator (only meaningful while the row is expanded): a soft grey
+   ring, never a hard black outline */
+.accent-swatch.active {
+   border-color: color-mix(in srgb, var(--text) 26%, transparent);
+   scale: 1.05;
+}
+
+/* touch devices can't hover, so keep the full row visible and tappable */
+@media (hover: none) {
+   .accent-picker {
+      gap: 6px;
+      background: color-mix(in srgb, var(--background) 78%, transparent);
+   }
+
+   .accent-picker .accent-swatch:not(.active) {
+      width: 14px;
+      opacity: 1;
+      border-width: 2px;
+      pointer-events: auto;
+   }
+}
+
+@media (max-width: 1200px) {
+   .accent-swatch {
+      width: 12px;
+      height: 12px;
+   }
+
+   @media (hover: none) {
+      .accent-picker .accent-swatch:not(.active) {
+         width: 12px;
+      }
+   }
+}
+
+/* no-color-mix fallback: solid backdrop, soft grey selected ring */
+@supports not (color: color-mix(in srgb, red, blue)) {
+   .accent-picker:hover,
+   .accent-picker:focus-within {
+      background: var(--background);
+      border-color: rgba(128, 128, 128, .18);
+   }
+
+   .accent-swatch.active {
+      border-color: rgba(128, 128, 128, .45);
+   }
+}

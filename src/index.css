@@ -2,6 +2,21 @@ html {
   scroll-behavior: smooth;
 }
 
+/* registering the accent as a typed <color> lets it interpolate, so switching
+   presets cross-fades instead of snapping. any color-mix() built on top of it
+   re-evaluates each frame and fades along with it. */
+@property --main-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: rgba(255, 166, 0, 1);
+}
+
+@property --main-color-transparent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: rgba(255, 166, 0, 0.3);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -22,7 +37,8 @@ body.dark-theme {
   --background: #202227;
   --background-header: #202227;
   --background-crumbs:  rgba(245, 225, 205, 0.05);
-  transition: color 1s, background-color 1s, scale .1s;
+  transition: color 1s, background-color 1s, scale .1s,
+    --main-color 500ms ease, --main-color-transparent 500ms ease;
 }
 
 body.light-theme {
@@ -32,27 +48,67 @@ body.light-theme {
   --semi-soft-text: #686868;
   --soft-text: #a0a0a0;
   --soft-glow: rgba(25, 15, 10, 0.1);
-  --background: #fdfdfd;
-  --background-header: #fdfdfd;
+  /* a soft, neutral off-white — easier on the eyes than a stark near-white,
+     without the warm/yellow cast */
+  --background: #f7f7f8;
+  --background-header: #f7f7f8;
   --background-crumbs:  rgba(20, 15, 10, 0.045);
-  transition: color 1s, background-color 1s, scale .1s;
+  transition: color 1s, background-color 1s, scale .1s,
+    --main-color 500ms ease, --main-color-transparent 500ms ease;
+}
+
+/* selectable accent presets (see AccentPicker); default is the brand orange
+   set in the theme blocks above. body[data-accent] out-specifies the theme
+   rules, so a chosen accent wins in both light and dark mode. */
+body[data-accent="blue"] {
+  --main-color: #3b7bb8;
+  --main-color-transparent: rgba(59, 123, 184, 0.3);
+}
+
+body[data-accent="red"] {
+  --main-color: #e63946;
+  --main-color-transparent: rgba(230, 57, 70, 0.3);
+}
+
+/* the poppy red vibrates against the dark background — soften it there */
+body.dark-theme[data-accent="red"] {
+  --main-color: #e07178;
+  --main-color-transparent: rgba(224, 113, 120, 0.3);
+}
+
+body[data-accent="green"] {
+  --main-color: #4f8a5b;
+  --main-color-transparent: rgba(79, 138, 91, 0.3);
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* kerning + common ligatures make the system stack read noticeably cleaner */
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  font-kerning: normal;
+  line-height: 1.5;
   background-color: var(--background);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  /* everything scales from this base; a firmer floor keeps small screens legible */
+  font-size: max(14px, calc(11px + 2vmin));
   color: var(--text);
+}
+
+/* headings sit a touch tighter and use tabular-friendly weights so they feel
+   deliberate rather than like scaled-up body text */
+h1, h2, h3, h4 {
+  letter-spacing: -0.015em;
+  line-height: 1.2;
 }
 
 #root {
@@ -141,7 +197,7 @@ button.filter-active:hover {
 button.filter-inactive:hover {
   scale: 1;
   border-color: var(--main-color);
-  background-color: rgba(255, 166, 0, 0.15);
+  background-color: color-mix(in srgb, var(--main-color) 15%, transparent);
 }
 
 /* small hint next to a filter row, stating whether selected filters

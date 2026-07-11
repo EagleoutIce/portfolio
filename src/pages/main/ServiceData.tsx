@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import { useRef, type CSSProperties } from 'react';
 
 const TypeMap = {
    'reviewing': 'Reviewer',
@@ -215,13 +215,33 @@ function serviceCard({ type, conference, shortTitle, link, note }: Entry, age: n
    </li>;
 }
 
+/* the cards of one year. hovering a card reveals the full names of every card
+   that shares its visual row (same offsetTop), so a wrapped grid expands one
+   row at a time instead of the whole year */
+function ServiceGrid({ entries, age }: { entries: Entry[]; age: number }) {
+   const ref = useRef<HTMLUListElement>(null);
+
+   const highlightRow = (target: HTMLElement | null) => {
+      const ul = ref.current;
+      if(!ul) return;
+      const top = target ? target.offsetTop : null;
+      for(const li of Array.from(ul.children) as HTMLElement[]) {
+         li.classList.toggle('row-hover', top !== null && li.offsetTop === top);
+      }
+   };
+
+   return <ul className='service-grid' ref={ref}
+      onMouseMove={e => highlightRow((e.target as HTMLElement).closest('li'))}
+      onMouseLeave={() => highlightRow(null)}>
+      {entries.map(e => serviceCard(e, age))}
+   </ul>;
+}
+
 /** a whole year, its label on the left rail and its cards to the right */
 function serviceYearGroup(year: number, es: Entry[], age: number) {
    return <section className='service-year-group' key={`yg-${year}`}>
       <div className='service-year-head'>{year}</div>
-      <ul className='service-grid'>
-         {es.map(e => serviceCard(e, age))}
-      </ul>
+      <ServiceGrid entries={es} age={age} />
    </section>;
 }
 

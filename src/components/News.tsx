@@ -18,6 +18,11 @@ function thesisLink(title: string): string {
 
 const news: News[] = []
 news.push({
+   when: new Date("2026-07-11"),
+   text: 'Master\'s thesis by M. Di Agostino on Reasoning About R Vectors',
+   link: thesisLink('Towards Statically Reasoning About R Vectors')
+})
+news.push({
    when: new Date("2026-07-09"),
    text: 'Two presentations and a poster at useR! \'26',
    link: 'https://events.digital-research.academy/event/109/'

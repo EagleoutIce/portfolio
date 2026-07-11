@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import MainPage from './pages/main/MainPage';
 import { RouterProvider, createHashRouter } from "react-router-dom";
 import { SiteNoticePage } from './pages/SiteNoticePage';
 import { ThemeButton } from './components/ThemeButton';
+import { AccentPicker } from './components/AccentPicker';
 import { NotFound } from './pages/NotFound';
 import { scrollTo } from './components/QuickLinks';
+
+/* citation-js dominates the bundle, so the detailed list loads on demand */
+const PublicationsPage = lazy(() => import('./pages/publications/PublicationsPage').then(m => ({ default: m.PublicationsPage })));
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -16,6 +20,11 @@ const router = createHashRouter([
     errorElement: <NotFound />,
     children: [
       { path: '/', element: <MainPage /> },
+      { path: 'all-publications', element:
+        <Suspense fallback={<p style={{ marginTop: '3em' }}>Loading publications...</p>}>
+          <PublicationsPage />
+        </Suspense>
+      },
       { path: 'site-notice', element: <SiteNoticePage
       legalName="Florian Sihler"
       legalEmail="florian.sihler@uni-ulm.de"
@@ -49,5 +58,6 @@ root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
     <ThemeButton />
+    <AccentPicker />
   </React.StrictMode>
 );

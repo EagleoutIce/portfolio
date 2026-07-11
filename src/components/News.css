@@ -136,3 +136,20 @@
 .show-more {
    user-select: none;
 }
+
+/* news links opt out of the prose "marker" highlight entirely: no underline,
+   no growing accent bar — just a colour tint on hover */
+.news a.link {
+   background: none;
+   padding: 0;
+   border-radius: 0;
+   text-decoration: none;
+   color: var(--semi-soft-text);
+   transition: color .4s;
+}
+
+.news a.link:hover,
+.news a.link:focus {
+   background: none;
+   color: var(--main-color);
+}
