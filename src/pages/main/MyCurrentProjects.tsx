@@ -1,8 +1,6 @@
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faDocker } from "@fortawesome/free-brands-svg-icons";
 import { ProjectCard } from "../../components/ProjectCard";
 import flowR from '../../resources/flowR.svg';
-import flowRvsc from '../../resources/flowR-vsc.svg';
-import flowRrs from '../../resources/flowR-rs.svg';
 
 import waddle0 from '../../resources/idle-0.png';
 import animation from '../../resources/animation.gif';
@@ -14,7 +12,28 @@ import listings from '../../resources/listings.svg';
 
 import "./MyCurrentProjects.css";
 import { SocialMediaIcon } from "../../components/SocialMediaIcon";
-import { faCode, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faCode, faPlay, faBoxOpen, faDatabase, faVials, faPenNib } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { IconProp } from "@fortawesome/fontawesome-svg-core";
+
+const flowrEcosystem: { name: string; desc: string; href: string; icon: IconProp; tags: string[] }[] = [
+   { name: 'Extension for Positron & VS Code', desc: 'Analyze and slice your R code directly inside Positron and VS Code.', href: 'https://github.com/flowr-analysis/vscode-flowr', icon: faCode, tags: ['TypeScript', 'extension'] },
+   { name: 'R Adapter', desc: 'Use flowR directly as a library from within R.', href: 'https://github.com/flowr-analysis/flowr-r-adapter', icon: faBoxOpen, tags: ['R', 'library'] },
+   { name: 'Addin for RStudio', desc: 'Slice and analyze your R code from within RStudio.', href: 'https://github.com/flowr-analysis/rstudio-addin-flowr', icon: faGithub, tags: ['R', 'extension'] },
+   { name: 'Script Taint Checker', desc: 'A ready-to-use Docker image that taint-checks R scripts with flowR.', href: 'https://hub.docker.com/r/eagleoutice/taint-checker', icon: faDocker, tags: ['Docker', 'security'] },
+   { name: 'Real-World R Sources', desc: 'An open dataset of real-world R scripts, useful for anyone analyzing R (not just flowR).', href: 'https://doi.org/10.5281/zenodo.18927873', icon: faDatabase, tags: ['dataset', 'R'] },
+];
+
+const sampleAnalyzers = [
+   { name: 'How to query projects', repo: 'sample-analyzer-project-query', href: 'https://github.com/flowr-analysis/sample-analyzer-project-query' },
+   { name: 'How to diff dataflows', repo: 'sample-analyzer-df-diff', href: 'https://github.com/flowr-analysis/sample-analyzer-df-diff' },
+];
+
+const notationHelpers = [
+   { name: 'The flowR logo', repo: 'flowr-logo', href: 'https://github.com/flowr-analysis/flowr-logo' },
+   { name: 'flowR visualizations', repo: 'texels', href: 'https://github.com/flowr-analysis/texels' },
+   { name: 'Reusable TeX macros', repo: 'tex-notations', href: 'https://github.com/flowr-analysis/tex-notations' },
+];
 
 export function MyCurrentProjects() {
    return <>
@@ -31,25 +50,57 @@ export function MyCurrentProjects() {
       <details className="peeker">
          <summary>flowR Ecosystem</summary>
 
-         <div className="projects">
-            <ProjectCard
-               title=<> Extension for Positron & VS Code&nbsp;<SocialMediaIcon className="small" icon={faCode} key="flowr-vsc-github" /> </>
-               description="Directly analyze and slice your R code in Positron and VS Code."
-               image={flowRvsc}
-               extraClasses="project-card-pulsating-img small-img"
-               link={"https://github.com/flowr-analysis/vscode-flowr"}
-               crumbs={["TypeScript", "extension"]}
-            />
-            <ProjectCard
-               title=<> Addin for RStudio&nbsp;<SocialMediaIcon className="small" icon={faGithub} key="flowr-rs-github" /> </>
-               description="Directly slice and analyze your R code in RStudio."
-               image={flowRrs}
-               extraClasses="project-card-pulsating-img small-img"
-               link={"https://github.com/flowr-analysis/rstudio-addin-flowr"}
-               crumbs={["R", "extension"]}
-            />
-         </div>
-         
+         <ul className="ecosystem-list">
+            {flowrEcosystem.map(e =>
+               <li key={e.name}>
+                  <a href={e.href} target="_blank" rel="noreferrer" className="ecosystem-item">
+                     <FontAwesomeIcon icon={e.icon} className="ecosystem-icon" />
+                     <span className="ecosystem-text">
+                        <span className="ecosystem-name">{e.name}</span>
+                        <span className="ecosystem-desc">{e.desc}</span>
+                     </span>
+                     <span className="ecosystem-tags">
+                        {e.tags.map(t => <span className="ecosystem-tag" key={t}>{t}</span>)}
+                     </span>
+                  </a>
+               </li>
+            )}
+            <li className="ecosystem-group">
+               <div className="ecosystem-group-head">
+                  <FontAwesomeIcon icon={faVials} className="ecosystem-icon" />
+                  <span className="ecosystem-text">
+                     <span className="ecosystem-name">Sample Analyzers</span>
+                     <span className="ecosystem-desc">Small, self-contained example analyzers built on flowR.</span>
+                  </span>
+               </div>
+               <div className="ecosystem-subgrid">
+                  {sampleAnalyzers.map(r =>
+                     <a className="ecosystem-subcard" key={r.name} href={r.href} title={r.repo} target="_blank" rel="noreferrer">
+                        <FontAwesomeIcon icon={faGithub} className="ecosystem-subcard-icon" />
+                        {r.name}
+                     </a>
+                  )}
+               </div>
+            </li>
+            <li className="ecosystem-group">
+               <div className="ecosystem-group-head">
+                  <FontAwesomeIcon icon={faPenNib} className="ecosystem-icon" />
+                  <span className="ecosystem-text">
+                     <span className="ecosystem-name">Notation Helpers</span>
+                     <span className="ecosystem-desc">The LaTeX helpers behind flowR's figures, logo, and notations.</span>
+                  </span>
+               </div>
+               <div className="ecosystem-subgrid">
+                  {notationHelpers.map(r =>
+                     <a className="ecosystem-subcard" key={r.name} href={r.href} title={r.repo} target="_blank" rel="noreferrer">
+                        <FontAwesomeIcon icon={faGithub} className="ecosystem-subcard-icon" />
+                        {r.name}
+                     </a>
+                  )}
+               </div>
+            </li>
+         </ul>
+
          <div className='no-outer main'>
          For more, check out the <a target="_blank" rel="noreferrer" href="https://github.com/flowr-analysis">flowR GitHub organization</a>.
          </div>

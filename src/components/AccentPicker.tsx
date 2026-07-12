@@ -60,7 +60,7 @@ export function AccentPicker() {
             aria-label={`${a.key} accent`}
             aria-pressed={accent === a.key}
             title={a.key}
-            onClick={() => setAccent(a.key)} />
+            onClick={e => { setAccent(a.key); e.currentTarget.blur(); }} />
       )}
    </div>;
 }

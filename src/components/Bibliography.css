@@ -1,6 +1,9 @@
 .bibliography {
    font-size: .85em;
    hyphens: auto;
+   /* tighter leading than the 1.5 body default — a reference list reads better
+      a little denser */
+   line-height: 1.4;
 }
 
 .bibliography-header {
@@ -35,8 +38,8 @@
 
 .bib-entry {
    display: flex;
-   justify-content: space-between;   
-   margin-bottom: 1em;
+   justify-content: space-between;
+   margin-bottom: .9em;
 }
 
 .csl-entry {

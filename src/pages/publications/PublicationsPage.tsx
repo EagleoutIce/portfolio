@@ -1,30 +1,32 @@
-import { useMemo, useState, type CSSProperties } from 'react';
+import { useLayoutEffect, useMemo } from 'react';
 import './PublicationsPage.css';
 import { Cite } from '@citation-js/core';
 import '@citation-js/plugin-bibtex';
 import { BibDataMain, BibDataPoster, BibDataTalks, BibDataOther } from '../main/BibliographyData';
 import { LastUpdated } from '../../components/LastUpdated';
 import { SiteNotice } from '../../components/SiteNotice';
+import { CategorizedList, type CatItem } from '../../components/CategorizedList';
 
 /* one visual class per venue kind, in the spirit of the coloured lists on
    academic homepages. colours are fixed hues (independent of the page accent)
    chosen to stay legible on both the light and dark background. */
-type Category = 'journal' | 'conference' | 'workshop' | 'demo' | 'doctoral' | 'thesis' | 'talk' | 'poster' | 'other';
+type Category = 'journal' | 'conference' | 'workshop' | 'demo' | 'doctoral' | 'thesis' | 'book' | 'talk' | 'poster' | 'other';
 
 const CATEGORY: Record<Category, { label: string; short: string; color: string }> = {
-   journal: { label: 'Journal', short: 'JRNL', color: '#3b7bb8' },
+   journal: { label: 'Journal', short: 'JOUR', color: '#3b7bb8' },
    conference: { label: 'Conference', short: 'CONF', color: '#4f8a5b' },
    workshop: { label: 'Workshop', short: 'WORK', color: '#b8873b' },
    demo: { label: 'Tool Demo', short: 'DEMO', color: '#7a6fb0' },
    doctoral: { label: 'Doctoral Symposium', short: 'DOCT', color: '#9c8b5a' },
    thesis: { label: 'Thesis', short: 'THES', color: '#a05a7a' },
+   book: { label: 'Book', short: 'BOOK', color: '#9c6b4a' },
    talk: { label: 'Talk', short: 'TALK', color: '#3e9ca0' },
-   poster: { label: 'Poster', short: 'PSTR', color: '#c0524b' },
+   poster: { label: 'Poster', short: 'POST', color: '#c0524b' },
    other: { label: 'Other', short: 'MISC', color: '#8a8a8a' },
 };
 
 /* the order categories appear in the legend / are grouped visually */
-const CATEGORY_ORDER: Category[] = ['journal', 'conference', 'workshop', 'demo', 'doctoral', 'thesis', 'talk', 'poster', 'other'];
+const CATEGORY_ORDER: Category[] = ['journal', 'conference', 'workshop', 'demo', 'doctoral', 'thesis', 'book', 'talk', 'poster', 'other'];
 
 interface Author {
    readonly text: string;
@@ -50,7 +52,7 @@ const sources: { content: string; source: 'paper' | 'talk' | 'poster' | 'other' 
 ];
 
 function stripBraces(value: unknown): string {
-   return typeof value === 'string' ? value.replace(/[{}]/g, '').trim() : '';
+   return typeof value === 'string' ? value.replace(/[{}]/g, '').replace(/\s+/g, ' ').trim() : '';
 }
 
 /* genre carries markup (award badges) and extra notes; keep it as a plain,
@@ -66,8 +68,7 @@ function formatAuthor(a: Record<string, unknown>): Author {
    }
    const family = stripBraces(a['family']);
    const given = stripBraces(a['given']);
-   const initials = given.split(/[\s.\-]+/).filter(Boolean).map(g => `${g[0].toUpperCase()}.`).join(' ');
-   const text = [initials, family].filter(Boolean).join(' ');
+   const text = [given, family].filter(Boolean).join(' ');
    const isMe = family === 'Sihler' && given.startsWith('Florian');
    return { text: text || family, isMe };
 }
@@ -75,7 +76,6 @@ function formatAuthor(a: Record<string, unknown>): Author {
 function categorize(entry: Record<string, unknown>, source: string): Category {
    if(source === 'talk') return 'talk';
    if(source === 'poster') return 'poster';
-   if(source === 'other') return 'other';
 
    const type = String(entry['type'] ?? '');
    const genre = String(entry['genre'] ?? '').toLowerCase();
@@ -84,8 +84,11 @@ function categorize(entry: Record<string, unknown>, source: string): Category {
 
    if(genre.includes('thesis')) return 'thesis';
    if(genre.includes('doctoral') || haystack.includes('doctoral')) return 'doctoral';
-   if(genre.includes('demonstration') || genre.includes('tool demo') || haystack.includes('demonstration')) return 'demo';
+   if(genre.includes('demonstration') || haystack.includes('demonstration')
+      || haystack.includes('tool demo') || /\/td\b/.test(haystack)) return 'demo';
+   if(type === 'book' || type === 'chapter') return 'book';
    if(type === 'article-journal' || type === 'article') return 'journal';
+   if(source === 'other') return 'other';
    if(haystack.includes('workshop')) return 'workshop';
    return 'conference';
 }
@@ -101,6 +104,11 @@ function buildLinks(entry: Record<string, unknown>): { label: string; href: stri
 
    const doi = typeof entry['DOI'] === 'string' ? entry['DOI'].replace(/\\_/g, '_').trim() : '';
    if(doi) push('DOI', `https://doi.org/${doi}`);
+
+   /* preprints are noted as "…, preprint: <url>" in the bib note field */
+   const note = typeof entry['note'] === 'string' ? entry['note'] : '';
+   const preprint = note.match(/preprint:\s*(\S+)/i);
+   if(preprint) push('preprint', preprint[1].replace(/[.,;]+$/, ''));
 
    const url = typeof entry['URL'] === 'string' ? entry['URL'].trim() : '';
    if(url) {
@@ -136,6 +144,16 @@ function parse(): Pub[] {
    return pubs;
 }
 
+function downloadAllBib() {
+   const content = [BibDataMain, BibDataTalks, BibDataPoster, BibDataOther].join('\n\n');
+   const url = URL.createObjectURL(new Blob([content], { type: 'application/x-bibtex' }));
+   const a = document.createElement('a');
+   a.href = url;
+   a.download = 'sihler-publications.bib';
+   a.click();
+   URL.revokeObjectURL(url);
+}
+
 function Authors({ authors }: { authors: Author[] }) {
    return <span className="pub-authors">
       {authors.map((a, i) =>
@@ -148,85 +166,31 @@ function Authors({ authors }: { authors: Author[] }) {
 }
 
 export function PublicationsPage() {
-   const pubs = useMemo(parse, []);
-   const [active, setActive] = useState<ReadonlySet<Category>>(new Set());
-
-   const counts = useMemo(() => {
-      const c = new Map<Category, number>();
-      for(const p of pubs) c.set(p.category, (c.get(p.category) ?? 0) + 1);
-      return c;
-   }, [pubs]);
-
-   const shown = pubs.filter(p => active.size === 0 || active.has(p.category));
-
-   const byYear: [number, Pub[]][] = useMemo(() => {
-      const map = new Map<number, Pub[]>();
-      for(const p of shown) {
-         if(!map.has(p.year)) map.set(p.year, []);
-         map.get(p.year)!.push(p);
-      }
-      return Array.from(map.entries()).sort((a, b) => b[0] - a[0]);
-   }, [shown]);
-
-   const toggle = (c: Category) => setActive(prev => {
-      const next = new Set(prev);
-      if(next.has(c)) next.delete(c); else next.add(c);
-      return next;
-   });
+   useLayoutEffect(() => { window.scrollTo(0, 0); }, []);
+   const items = useMemo<CatItem[]>(() => parse().map(p => ({
+      key: p.key,
+      category: p.category,
+      year: p.year,
+      month: p.month,
+      title: p.title,
+      people: p.authors.length > 0 ? <Authors authors={p.authors} /> : undefined,
+      venue: p.venue || undefined,
+      links: p.links,
+   })), []);
 
    return <div className="pub-page">
       <div className="pub-topbar">
-         <a className="pub-back" href="#/">&larr; back to overview</a>
+         <a className="pub-back" href="#/publications">&larr; back to overview</a>
       </div>
 
       <h1 className="pub-title">Publications</h1>
       <p className="pub-lead">
-         A detailed, colour-coded listing of my publications, talks, and posters. For the
-         compact overview and the downloadable <span className="code">.bib</span> files, see the
-         {' '}<a className="pub-inline-link" href="#/publications">main page</a>.
+         A detailed, color-coded listing of my publications, talks, and posters. You can
+         {' '}<a className="pub-inline-link" href="#" onClick={e => { e.preventDefault(); downloadAllBib(); }}>download the <span className="code">.bib</span> files</a>{' '}
+         or see the compact overview on the <a className="pub-inline-link" href="#/publications">main page</a>.
       </p>
 
-      <div className="pub-legend">
-         {CATEGORY_ORDER.filter(c => counts.has(c)).map(c =>
-            <button key={c}
-               className={`pub-legend-chip${active.has(c) ? ' active' : ''}`}
-               style={{ ['--cat-color']: CATEGORY[c].color } as CSSProperties}
-               aria-pressed={active.has(c)}
-               onClick={() => toggle(c)}>
-               <span className="pub-legend-dot" />
-               {CATEGORY[c].label}
-               <span className="pub-legend-count">{counts.get(c)}</span>
-            </button>
-         )}
-      </div>
-
-      <div className="pub-list">
-         {byYear.map(([year, entries]) =>
-            <section className="pub-year-group" key={year}>
-               <div className="pub-year">{year}</div>
-               <ul className="pub-year-entries">
-                  {entries.map(p =>
-                     <li className="pub-entry" key={p.key} style={{ ['--cat-color']: CATEGORY[p.category].color } as CSSProperties}>
-                        <span className="pub-tag" title={CATEGORY[p.category].label}>{CATEGORY[p.category].short}</span>
-                        <div className="pub-body">
-                           <div className="pub-entry-title">{p.title}</div>
-                           {p.authors.length > 0 && <Authors authors={p.authors} />}
-                           <div className="pub-meta">
-                              {p.venue && <span className="pub-venue">{p.venue}</span>}
-                              {p.links.length > 0 &&
-                                 <span className="pub-links">
-                                    {p.links.map(l =>
-                                       <a key={l.href} className="pub-link" href={l.href} target="_blank" rel="noreferrer">{l.label}</a>
-                                    )}
-                                 </span>}
-                           </div>
-                        </div>
-                     </li>
-                  )}
-               </ul>
-            </section>
-         )}
-      </div>
+      <CategorizedList categories={CATEGORY} order={CATEGORY_ORDER} items={items} />
 
       <SiteNotice />
       <LastUpdated />

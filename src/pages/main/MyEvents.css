@@ -22,3 +22,10 @@
 .future-time {
   color: var(--soft-text);
 }
+
+/* extra note (e.g. a thank-you) sits outside the date pill */
+.event-note {
+  color: var(--soft-text);
+  font-style: italic;
+  margin-right: .25em;
+}

@@ -65,7 +65,7 @@ export function BibliographySummary({ biblatexContent }: BibliographySummaryProp
                <span key={`conf-${year}-${safeConf}`} id={`conf-${year}-${safeConf}`} className="conf-entry">
                   <span className='conf-count'>{total}×</span>
                   {conf}
-               <Tooltip anchorSelect={`#conf-${year}-${safeConf}`} content={byType.join(', ')} key={`tt-conf-${year}-${safeConf}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/>
+               <Tooltip anchorSelect={`#conf-${year}-${safeConf}`} content={byType.join(', ')} key={`tt-conf-${year}-${safeConf}`} place="bottom" style={{ padding: '5px 9px', lineHeight: 1.35 }}/>
                </span>
             );
          }

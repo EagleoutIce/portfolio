@@ -4,6 +4,7 @@ import ShortLong from "../../components/Acronym";
 import { Tooltip } from "react-tooltip";
 import { escapeId } from "../../util/id";
 import { faInfo, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import type { CatDef, CatItem } from "../../components/CategorizedList";
 
 interface Teaching {
    terms: JSX.Element[];
@@ -35,7 +36,7 @@ teaching.set('Bachelor Seminar', {
    type: 'lecturer',
    link: 'https://www.uni-ulm.de/en/in/sp/teaching/seminar-fortgeschrittene-konzepte-der-softwaretechnik-static-program-analysis/'
 });
-teaching.set('Software Engineering Project (Bachelor & Master)', {
+teaching.set('Software Engineering Project (Bachelor and Master)', {
    terms: [<>{wt(2023)}&nbsp;<ShortLong short={<>(Code Reconstruction)&nbsp;<SocialMediaIcon icon={faInfoCircle} className="small" href="https://www.uni-ulm.de/in/fakultaet/studiumf-mi/studienplanung-se/apse-archiv/wise23/"/></>} long={'Optimizing the code reconstruction in flowR'} id={'se-flowr-layout'}/></>, <>{wt(2024)}&nbsp;<ShortLong short={<>(Waddle)&nbsp;<SocialMediaIcon icon={faInfoCircle} className="small" href="https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"/></>} long={'Improving on the Language, Level-Editor, and Tutorial for Waddle'} id={'se-waddle-1-2425'}/></>, <>{st(2025)}&nbsp;<ShortLong short={<>(R Projects)&nbsp;<SocialMediaIcon icon={faInfoCircle} className="small" href="https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"/></>} long={'Adding project support to flowR'} id={'se-flowr-1-25'}/></>, <>{st(2026)}&nbsp;<ShortLong short={<>(Security)&nbsp;<SocialMediaIcon icon={faInfoCircle} className="small" href="https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"/></>} long={'Improving the security linting for flowR'} id={'se-flowr-1-26'}/></>],
    type: 'lecturer',
    link: 'https://www.uni-ulm.de/en/in/sp/teaching/seminar-fortgeschrittene-konzepte-der-softwaretechnik-static-program-analysis/'
@@ -81,6 +82,68 @@ teaching.set('Software Engineering 2 (Static Analysis)', {
 
 export type TeachingRole = Teaching['type'];
 
+const LECTURE_CATEGORIES: Record<string, CatDef> = {
+   'lecturer': { label: 'Lecturer', short: 'LEC', color: '#3b7bb8' },
+   'project': { label: 'Project', short: 'PRJ', color: '#c0524b' },
+   'guest-lecturer': { label: 'Guest Lecturer', short: 'GL', color: '#7a6fb0' },
+   'teaching-assistant': { label: 'Teaching Assistant', short: 'TA', color: '#4f8a5b' },
+   'tutor': { label: 'Tutor', short: 'TUT', color: '#b8873b' },
+};
+
+/* courses shown under a category other than their teaching role on the detail page */
+const lectureCategory: Record<string, string> = {
+   'Software Engineering Project (Bachelor and Master)': 'project',
+};
+
+/* every term a course ran (mirrors the wt/st term list above; keep in sync).
+   the detail page lists one entry per term, so terms in the same year show
+   separately rather than being collapsed */
+const lectureTerms: Record<string, { year: number; term: 'WT' | 'ST' }[]> = {
+   'Bachelor Seminar': [{ year: 2024, term: 'WT' }, { year: 2025, term: 'ST' }],
+   'Software Engineering Project (Bachelor and Master)': [{ year: 2023, term: 'WT' }, { year: 2024, term: 'WT' }, { year: 2025, term: 'ST' }, { year: 2026, term: 'ST' }],
+   'Functional Programming': [{ year: 2022, term: 'WT' }, { year: 2023, term: 'WT' }, { year: 2024, term: 'WT' }, { year: 2025, term: 'WT' }],
+   'Functional Programming 2': [{ year: 2024, term: 'ST' }, { year: 2026, term: 'ST' }],
+   'Grundlagen der praktischen Informatik': [{ year: 2022, term: 'WT' }],
+   'Object-Oriented Programming': [{ year: 2024, term: 'ST' }, { year: 2025, term: 'ST' }, { year: 2026, term: 'ST' }],
+   'Introduction to Computer Science': [{ year: 2019, term: 'WT' }, { year: 2020, term: 'ST' }, { year: 2020, term: 'WT' }, { year: 2021, term: 'ST' }, { year: 2021, term: 'WT' }, { year: 2022, term: 'ST' }],
+   'Software Quality Assurance (Static Analysis)': [{ year: 2024, term: 'WT' }, { year: 2025, term: 'WT' }],
+   'Software Engineering 2 (Static Analysis)': [{ year: 2025, term: 'ST' }],
+};
+
+/* published teaching material (repos, slides) surfaced on the detailed page */
+const lectureMaterial: Record<string, { label: string; href: string }[]> = {
+   'Software Quality Assurance (Static Analysis)': [{ label: 'slides', href: 'https://github.com/EagleoutIce/sqa-static-analysis' }],
+   'Introduction to Computer Science': [{ label: 'slides', href: 'https://github.com/EagleoutIce/uulm-eidi-tut-ws2021-22-slides' }],
+   'Software Engineering Project (Bachelor and Master)': [{ label: 'topics', href: 'https://github.com/flowr-analysis/flowr-topics' }],
+};
+
+export function getLecturesList(): { categories: Record<string, CatDef>; order: string[]; items: CatItem[] } {
+   const items: CatItem[] = [];
+   for(const [name, { type, link, note }] of teaching.entries()) {
+      const links = [
+         ...(link ? [{ label: 'course', href: link }] : []),
+         ...(lectureMaterial[name] ?? []),
+      ];
+      for(const { year, term } of lectureTerms[name] ?? []) {
+         items.push({
+            key: `${escapeId(name)}-${year}-${term}`,
+            category: lectureCategory[name] ?? type,
+            year,
+            month: term === 'WT' ? 10 : 4,
+            title: name,
+            people: note,
+            venue: term === 'WT' ? 'Winter Term' : 'Summer Term',
+            links,
+         });
+      }
+   }
+   return {
+      categories: LECTURE_CATEGORIES,
+      order: ['lecturer', 'project', 'guest-lecturer', 'teaching-assistant', 'tutor'],
+      items,
+   };
+}
+
 export function getTeachings(types?: ReadonlySet<TeachingRole>): { def: [li: JSX.Element, tooltip: JSX.Element | undefined][], roles: Map<TeachingRole, number> } {
    const roleCounter = new Map<TeachingRole, number>();
    for(const { type, terms } of teaching.values()) {
@@ -99,7 +162,7 @@ export function getTeachings(types?: ReadonlySet<TeachingRole>): { def: [li: JSX
             <a href={link} target="_blank" rel="noreferrer"> <span style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>{terms.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;{TypeToStringMap[type]('type-' + name)}</a><br />
             {terms.map((term, i) => <>{term}{i < terms.length - 1 ? ', ' : ''}</>)}
          </li>,
-         note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/> : undefined];
+         note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '5px 9px', lineHeight: 1.35 }}/> : undefined];
       }), roles: roleCounter
    };
 }

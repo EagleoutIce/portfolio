@@ -48,7 +48,7 @@ news.push({
 })
 news.push({
    when: new Date("2026-03-25"),
-   text: 'Local Chair for DANTE 2027 in Ulm',
+   text: 'Local Chair for DANTE \'27 in Ulm',
    link: 'https://www.dante.de/veranstaltungen/'
 })
 news.push({
@@ -102,7 +102,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-09-24"),
-   text: 'Non-Archival Paper accepted at SPLASH-E \'25',
+   text: 'Non-archival paper accepted at SPLASH-E \'25',
    link: 'https://2025.splashcon.org/details/splash-2025-SPLASH-E/10/Waddle-A-Serious-Game-to-Teach-Writing-Reading-and-Debugging-Programs'
 })
 news.push({
@@ -246,7 +246,7 @@ news.push({
 })
 news.push({
    when: new Date("2025-04-03"),
-   text: 'Workshop for Waddle at the Girls\' and Boys\' Day 2025',
+   text: 'Workshop for Waddle at the Girls\' Day 2025',
    link: 'https://www.girls-day.de'
 })
 news.push({

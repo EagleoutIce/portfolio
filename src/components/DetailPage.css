@@ -1,0 +1,12 @@
+.detail-page {
+   font-size: 1em;
+}
+
+.detail-page .pub-title {
+   margin-bottom: .8em;
+}
+
+/* years on the detail pages read in the text colour, not the accent */
+.detail-page .service-year-head {
+   color: var(--text);
+}

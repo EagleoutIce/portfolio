@@ -11,6 +11,6 @@ export default function ShortLong({ short, long, id = long }: ShortLongProps) {
    const idKey = 'short-long-' + escapeId(id);
    return <>
       <span id={idKey} style={{ cursor: 'help' }}>{short}</span>
-      <Tooltip anchorSelect={`#${idKey}`} content={long} key={`tt-${idKey}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/>
+      <Tooltip anchorSelect={`#${idKey}`} content={long} key={`tt-${idKey}`} place="bottom" style={{ padding: '5px 9px', lineHeight: 1.35 }}/>
    </>
 }

@@ -27,7 +27,7 @@
 }
 
 .header.sticky .profile-name {
-  font-size: .7em;
+  font-size: .62em;
   line-height: 1.1;
 }
 
@@ -115,4 +115,6 @@
   text-align: left;
   padding-top: calc(24px * (1 - var(--p)));
   padding-bottom: calc(12px - 10px * var(--p));
+  /* the icons are links; the whitespace between them shouldn't be selectable */
+  user-select: none;
 }

@@ -10,7 +10,7 @@ import { getGrantCount, formatEuro } from './HonorsData';
 import { getThesisCounts } from './ThesesData';
 import { getTeachingDutySplitInfo } from './TeachingsData';
 
-const ttStyle    = { padding: '2px 6px', margin: '-6px 0px' } as const;
+const ttStyle    = { padding: '5px 9px', lineHeight: 1.35 } as const;
 const ttInner    = { maxWidth: '320px', wordBreak: 'break-word' } as const;
 const linkStyle  = { color: 'inherit', textDecoration: 'none' } as const;
 const yearSuffix = / '\d{2,4}$/;
@@ -92,7 +92,7 @@ export function PageSummary() {
       <br />
       {teachingDuties.lecturer.count > 0 && <Badge id="page-sum-teaching-lecturer" href="#/teaching" count={teachingDuties.lecturer.count} label="Lecturer"
         tooltipContent={<div style={ttInner}>
-          Lecturer duties, including guest lectures: {teachingDuties.lecturer.duties.join(', ')}
+          Lecturer duties (incl. guest lectures): {teachingDuties.lecturer.duties.join(', ')}
         </div>} />}
       {teachingDuties.teachingAssistant.count > 0 && <Badge id="page-sum-teaching-ta" href="#/teaching" count={teachingDuties.teachingAssistant.count} label="TA"
         tooltipContent={<div style={ttInner}>

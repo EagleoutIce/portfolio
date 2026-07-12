@@ -16,7 +16,7 @@ const roleLegend = [
    ['guest-lecturer', 'gl', 'Guest Lecturer']
 ] as const;
 
-function SupervisedTheses() {
+export function SupervisedTheses() {
    const [selectedType, setSelectedType] = useState<ThesisType | undefined>(undefined);
    const [page, setPage] = useState(0);
    const allTheses = useMemo(() => getTheses(), []);
@@ -96,7 +96,7 @@ export function MyTeaching() {
          documents: { page: 'documents' }
       }}></StaticQuickLinks>
 
-      <SectionHeading id="lectures" as="h3">Lectures, Seminars, and Projects</SectionHeading>
+      <SectionHeading id="lectures" as="h3" href="#/all-lectures" linkHint="detailed list">Lectures, Seminars, and Projects</SectionHeading>
       As part of my work at Ulm University, I am involved in teaching:
 
       <div className='filter-row'>
@@ -117,7 +117,7 @@ export function MyTeaching() {
 
       I have also created various teaching materials, including partial and complete lectures (e.g., with "<a className="link" target="_blank" rel="noreferrer" href="https://www.uni-ulm.de/in/sp/teaching/grundlagen-der-praktischen-informatik/">Grundlagen der praktischen Informatik</a>", "<a className="link" target="_blank" rel="noreferrer" href="https://www.uni-ulm.de/in/sp/teaching/software-quality-assurance/">Software Quality Assurance</a>", and "<a className="link" target="_blank" rel="noreferrer" href="https://www.uni-ulm.de/in/sp/teaching/functional-programming-2/">Functional Programming 2</a>").
 
-      <SectionHeading id="theses" as="h3">Supervised Theses</SectionHeading>
+      <SectionHeading id="theses" as="h3" href="#/all-theses" linkHint="detailed list">Supervised Theses</SectionHeading>
 
       So far, I had the pleasure of supervising the following theses:
       <div style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>

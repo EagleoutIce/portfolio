@@ -87,8 +87,10 @@ body.dark-theme[data-accent="red"] {
 body[data-accent="green"] {
   --main-color: #4f8a5b;
   --main-color-transparent: rgba(79, 138, 91, 0.3);
-  /* already green — only a slight nudge (~132°) */
+  /* already green — only a slight nudge (~132°), and it needs no saturation
+     lift (that is only to rescue the hue-rotated orange/blue/red from muddiness) */
   --logo-hue: -18deg;
+  --logo-saturate: 1.05;
 }
 
 body {
@@ -130,10 +132,16 @@ h1, h2, h3, h4 {
 
 /* present for one second after a theme switch (see ThemeButton), so every
    element fades in sync instead of some snapping to the new colors,
-   the toggle itself is excluded to not stall its day/night animation */
+   the toggle itself is excluded to not stall its day/night animation.
+   pseudo-elements (::before/::after) and filtered images/logos are covered
+   too — otherwise their solid fills snap ahead of the page and flash as
+   rectangles/dots during the fade */
 body.theme-transition,
-body.theme-transition *:not(.wrapper, .wrapper *) {
-  transition: color 1s, background-color 1s, border-color 1s, box-shadow 1s;
+body.theme-transition *:not(.wrapper, .wrapper *),
+body.theme-transition *:not(.wrapper, .wrapper *)::before,
+body.theme-transition *:not(.wrapper, .wrapper *)::after {
+  transition: color 1s, background-color 1s, border-color 1s, box-shadow 1s,
+    filter 1s, fill 1s, stroke 1s;
 }
 
 a {

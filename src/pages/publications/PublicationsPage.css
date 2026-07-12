@@ -50,8 +50,15 @@
 .pub-legend {
    display: flex;
    flex-wrap: wrap;
+   align-items: center;
    gap: .5em;
    margin-bottom: 2.2em;
+}
+
+.pub-legend-mode {
+   font-size: .72em;
+   font-style: italic;
+   color: var(--soft-text);
 }
 
 .pub-legend-chip {
@@ -101,14 +108,58 @@
 }
 
 .pub-year {
-   font-size: 1.15em;
-   font-weight: bold;
-   color: var(--main-color);
-   font-variant-numeric: tabular-nums;
    position: sticky;
    top: 1em;
    height: fit-content;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: .15em;
+}
+
+.pub-year-label {
+   font-size: 1.15em;
+   font-weight: bold;
+   color: var(--text);
+   font-variant-numeric: tabular-nums;
    transition: color 1s;
+}
+
+/* a chevron above and below the year jumps to the newer / older year */
+.pub-year-nav {
+   width: .8em;
+   height: .8em;
+   padding: 0;
+   background: none;
+   border: none;
+   border-right: 2.5px solid var(--soft-text);
+   border-bottom: 2.5px solid var(--soft-text);
+   border-radius: 0 0 2px 0;
+   opacity: .6;
+   cursor: pointer;
+   transition: opacity .2s, border-color .2s;
+}
+
+.pub-year-nav.up {
+   transform: rotate(-135deg);
+   margin-bottom: .45em;
+}
+
+.pub-year-nav.down {
+   transform: rotate(45deg);
+   margin-top: .45em;
+}
+
+.pub-year-nav:hover {
+   opacity: 1;
+   border-color: var(--main-color);
+}
+
+.pub-extra {
+   width: 100%;
+   color: var(--soft-text);
+   font-size: .9em;
+   font-style: italic;
 }
 
 .pub-year-entries {
@@ -122,6 +173,8 @@
 
 /* ── one entry ───────────────────────────────────────────────────────── */
 .pub-entry {
+   position: relative;
+   scroll-margin-top: 1em;
    display: grid;
    grid-template-columns: auto 1fr;
    gap: .1em .9em;
@@ -129,10 +182,46 @@
    border-left: 3px solid var(--cat-color);
 }
 
-.pub-tag {
+/* brief highlight when reached via a deep link */
+@keyframes pub-entry-flash {
+   from { background: color-mix(in srgb, var(--cat-color) 22%, transparent); }
+   to   { background: transparent; }
+}
+
+.pub-entry-flash {
+   animation: pub-entry-flash 2s ease-out;
+   border-radius: 4px;
+}
+
+/* collapsed abstract / details block inside an entry */
+.pub-collapse > summary {
+   cursor: pointer;
+   color: var(--soft-text);
+   font-style: normal;
+   width: fit-content;
+}
+
+.pub-collapse[open] > summary {
+   margin-bottom: .3em;
+}
+
+.pub-collapse-body {
+   font-style: normal;
+   color: var(--semi-soft-text);
+}
+
+.pub-tagcol {
    grid-row: 1;
    align-self: start;
    margin-top: .15em;
+   display: flex;
+   flex-direction: column;
+   align-items: stretch;
+   gap: .3em;
+}
+
+.pub-tag {
+   display: block;
    box-sizing: border-box;
    min-width: 3.6em;
    padding: .2em .4em;
@@ -142,8 +231,17 @@
    text-align: center;
    white-space: nowrap;
    border-radius: 5px;
+   text-decoration: none;
+   cursor: pointer;
    color: var(--cat-color);
    background: color-mix(in srgb, var(--cat-color) 15%, transparent);
+   transition: background-color .2s, box-shadow .2s;
+}
+
+/* the tag doubles as the entry's permalink */
+.pub-tag:hover {
+   background: color-mix(in srgb, var(--cat-color) 26%, transparent);
+   box-shadow: 0 0 0 1px var(--cat-color);
 }
 
 .pub-body {
@@ -156,6 +254,14 @@
    margin-bottom: .15em;
 }
 
+.pub-num {
+   font-weight: normal;
+   color: var(--soft-text);
+   font-variant-numeric: tabular-nums;
+   font-size: .82em;
+   text-align: center;
+}
+
 .pub-authors {
    color: var(--semi-soft-text);
    font-size: .92em;
@@ -166,12 +272,11 @@
    color: var(--text);
 }
 
+/* venue and link chips flow inline, so a chip always sits right next to the
+   venue (e.g. "April  link") and only wraps along with the text when needed */
 .pub-meta {
-   display: flex;
-   flex-wrap: wrap;
-   align-items: baseline;
-   gap: .4em .9em;
    margin-top: .3em;
+   line-height: 1.5;
 }
 
 .pub-venue {
@@ -181,21 +286,22 @@
 }
 
 .pub-links {
-   display: inline-flex;
-   flex-wrap: wrap;
-   gap: .4em;
+   display: inline;
 }
 
 .pub-link {
    font-size: .8em;
-   padding: .1em .55em;
-   border-radius: 5px;
+   padding: .1em .6em;
+   margin-left: .45em;
+   border-radius: .7em;
+   white-space: nowrap;
    color: var(--semi-soft-text);
+   background: var(--background);
    border: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
    transition: color .2s, border-color .2s, background-color .2s;
 }
 
-.pub-link:hover {
+.pub-link:hover, .pub-link:focus {
    color: var(--main-color);
    border-color: var(--main-color);
    background: color-mix(in srgb, var(--main-color) 10%, transparent);

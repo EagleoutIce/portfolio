@@ -131,11 +131,12 @@
 }
 
 /* full conference name is collapsed until the card is hovered/focused.
-   no delay here, so leaving the row collapses it promptly */
+   a short delay before collapsing lets the row linger open a moment after the
+   pointer leaves, so it doesn't snap shut the instant you drift off */
 .service-reveal {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows .16s ease;
+  transition: grid-template-rows .18s ease .35s;
 }
 
 /* hovering a card reveals every card sharing its visual row (row-hover is set
@@ -159,6 +160,14 @@
   color: var(--semi-soft-text);
   font-size: .8em;
   line-height: 1.35;
+}
+
+/* extra note revealed with the card (e.g. the MHFA volunteering on RSECon) */
+.service-detail {
+  display: block;
+  margin-top: .35em;
+  color: var(--soft-text);
+  font-style: italic;
 }
 
 .service-note {

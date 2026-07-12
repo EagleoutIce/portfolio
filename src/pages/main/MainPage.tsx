@@ -135,8 +135,8 @@ function MainPage() {
 
         <CollapsibleBibliography id="other-publications" heading="Other" biblatexContent={BibDataOther} type='Other Publications' />
 
-        <SectionHeading id="events" as="h3">Events</SectionHeading>
-        
+        <SectionHeading id="events" as="h3" href="#/all-events" linkHint="detailed list">Events</SectionHeading>
+
         Alongside my work on Waddle and flowR, I contributed to and organized the following events:
         
         <MyEvents/>
@@ -144,7 +144,7 @@ function MainPage() {
         <SectionHeading id="schools-seminars" as="h3">Summer Schools and Seminars</SectionHeading>
         <MySeminars />
 
-      <SectionHeading id="service">Academic Service</SectionHeading>
+      <SectionHeading id="service" href="#/all-service" linkHint="detailed list">Academic Service</SectionHeading>
       <MyService />
 
       <SectionHeading id="honors-awards-and-grants">Honors, Awards, and Grants</SectionHeading>

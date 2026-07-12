@@ -1,5 +1,6 @@
 import { escapeId } from "../../util/id";
 import { monthToString } from "./HonorsData";
+import type { CatDef, CatItem } from "../../components/CategorizedList";
 
 function joinLastWith(arr: JSX.Element[], separator = ',', lastSeparator = ' and ') {
    if (arr.length === 0) return '';
@@ -386,6 +387,40 @@ export function getThesisTypes(): Array<{ key: ThesisType; abbr: string; label: 
    return (Object.keys(TypeToStringMap) as ThesisType[])
       .map(k => ({ key: k, abbr: ThesisAbbrMap[k], label: TypeToStringMap[k], count: theses.filter(t => t.type === k).length }))
       .filter(t => t.count > 0);
+}
+
+const THESIS_CATEGORIES: Record<ThesisType, CatDef> = {
+   'master-thesis': { label: "Master's Thesis", short: 'MA', color: '#3b7bb8' },
+   'bachelor-thesis': { label: "Bachelor's Thesis", short: 'BA', color: '#4f8a5b' },
+};
+
+export function getThesesList(): { categories: Record<string, CatDef>; order: string[]; items: CatItem[] } {
+   const items: CatItem[] = theses
+      .toSorted((a, b) => b.year - a.year || b.month - a.month)
+      .map(t => {
+         const date = <>{monthToString[t.month - 1]} {t.year}</>;
+         return {
+            key: t.author !== 'anonymous' ? escapeId(`${t.author} ${t.year}`) : escapeId(t.title),
+            category: t.type,
+            year: t.year,
+            month: t.month,
+            title: t.title,
+            people: <>
+               {t.author !== 'anonymous' ? <>{t.author} &middot; {date}</> : date}
+               {t.link && <a className="pub-link" href={t.link} target="_blank" rel="noreferrer">PDF</a>}
+            </>,
+            venue: t.extra,
+            extra: <details className="pub-collapse">
+               <summary>Abstract &amp; details</summary>
+               <div className="pub-collapse-body">
+                  {t.committee ?? <>Examiners: {joinLastWith(t.examiners.map(e => ExaminerMap[e]))}</>}
+                  <p /><b>Abstract</b>
+                  <div>{t.abstract}</div>
+               </div>
+            </details>,
+         };
+      });
+   return { categories: THESIS_CATEGORIES, order: ['master-thesis', 'bachelor-thesis'], items };
 }
 
 /** all theses sorted by recency, the id backs the news deep links */

@@ -1,4 +1,5 @@
-import { useRef, type CSSProperties } from 'react';
+import { useRef, useState, type CSSProperties } from 'react';
+import type { CatDef, CatItem } from '../../components/CategorizedList';
 
 const TypeMap = {
    'reviewing': 'Reviewer',
@@ -16,6 +17,10 @@ interface Entry {
    readonly link: string;
    readonly order?: number;
    readonly note?: string;
+   /** overrides the role label (e.g. a combined "Reviewer / MHFA") */
+   readonly role?: string;
+   /** extra line shown in the reveal once the card opens */
+   readonly detail?: string;
 }
 
 const entries: Entry[] = [{
@@ -77,6 +82,8 @@ const entries: Entry[] = [{
    shortTitle: 'RSECon \'26',
    year: 2026,
    order: 5,
+   role: 'Reviewer & MHFA',
+   detail: 'Additionally volunteering as a Mental Health First Aid (MHFA) responder.',
    link: 'https://rsecon26.society-rse.org/'
 }, {
    type: 'reviewing',
@@ -137,7 +144,28 @@ export function getServiceRoleInfo(): Array<{ abbr: string; full: string; count:
       }));
 }
 
-export function getServiceSummary() {
+const SERVICE_CATEGORIES: Record<ServiceCategory, CatDef> = {
+   reviewer: { label: 'Reviewer', short: 'REV', color: '#3b7bb8' },
+   'artifact-eval': { label: 'Artifact Evaluation', short: 'AE', color: '#4f8a5b' },
+   chair: { label: 'Chair', short: 'CHR', color: '#b8873b' },
+};
+
+export function getServiceList(): { categories: Record<string, CatDef>; order: string[]; items: CatItem[] } {
+   const items: CatItem[] = entries.map((e, i) => ({
+      key: `svc-${e.shortTitle}-${e.role ?? e.type}-${i}`,
+      category: typeToCategory[e.type],
+      year: e.year,
+      title: e.conference,
+      people: e.role ?? TypeMap[e.type],
+      venue: e.shortTitle,
+      links: [{ label: 'link', href: e.link }],
+      extra: e.detail,
+   }));
+   return { categories: SERVICE_CATEGORIES, order: ['reviewer', 'artifact-eval', 'chair'], items };
+}
+
+export function ServiceSummary() {
+   const [showOlder, setShowOlder] = useState(false);
    const byYear = new Map<number, Map<ServiceCategory, number>>();
    for(const entry of entries) {
       if(!byYear.has(entry.year)) byYear.set(entry.year, new Map());
@@ -146,21 +174,34 @@ export function getServiceSummary() {
       catMap.set(cat, (catMap.get(cat) ?? 0) + 1);
    }
 
-   const children: JSX.Element[] = [];
-   for(const year of Array.from(byYear.keys()).sort((a, b) => b - a)) {
-      children.push(<div key={`year-${year}`} className="conf-year-banner">• {year}</div>);
+   const renderYear = (year: number): JSX.Element[] => {
+      const nodes: JSX.Element[] = [<div key={`year-${year}`} className="conf-year-banner">• {year}</div>];
       for(const cat of Object.keys(CategoryMap) as ServiceCategory[]) {
          const count = byYear.get(year)!.get(cat);
          if(!count) continue;
-         children.push(
+         nodes.push(
             <span key={`service-${year}-${cat}`} className="conf-entry">
                <span className='conf-count'>{count}×</span>
                {CategoryMap[cat].abbr}
             </span>
          );
       }
-   }
-   return <div className='bib-summary-children'>{children}</div>;
+      return nodes;
+   };
+
+   const years = Array.from(byYear.keys()).sort((a, b) => b - a);
+   const recent = years.slice(0, 2);
+   const older = years.slice(2);
+
+   return <div className='bib-summary-children'>
+      {recent.flatMap(renderYear)}
+      {showOlder && older.flatMap(renderYear).map(n => <span key={`older-${n.key}`} className='bib-summary-older'>{n}</span>)}
+      {older.length > 0 &&
+         <button type='button' className='bib-summary-toggle' aria-expanded={showOlder} onClick={() => setShowOlder(v => !v)}>
+            {showOlder ? 'show fewer' : `${older.length} earlier ${older.length === 1 ? 'year' : 'years'}`}
+            <span className='bib-summary-toggle-chevron' />
+         </button>}
+   </div>;
 }
 
 export type ServiceType = keyof typeof TypeMap;
@@ -169,7 +210,7 @@ export type ServiceType = keyof typeof TypeMap;
    toggle (Junior PC counts as reviewing, all chair roles as "Chair") */
 const CategoryMap = {
    'reviewer': { full: 'Reviewer', abbr: 'Reviewer', types: ['reviewing', 'junior-pc'] },
-   'artifact-eval': { full: 'Artifact Evaluation', abbr: 'AEC', types: ['artifact-eval'] },
+   'artifact-eval': { full: 'Artifact Evaluation', abbr: 'AE', types: ['artifact-eval'] },
    'chair': { full: 'Chair', abbr: 'Chair', types: ['local-chair', 'web-chair'] },
 } as const satisfies Record<string, { full: string; abbr: string; types: readonly ServiceType[] }>;
 
@@ -198,19 +239,21 @@ export function getServiceTypes(): Array<{ key: ServiceCategory; full: string; c
 }
 
 /** one compact card: role + conference pill, full name revealed on hover */
-function serviceCard({ type, conference, shortTitle, link, note }: Entry, age: number) {
+function serviceCard({ type, conference, shortTitle, link, note, role, detail }: Entry, age: number) {
    // fade gently with age; upcoming (not-yet-happened) entries are dimmed too
    const opacity = age < 0 ? 0.75 : Math.max(0.55, 1 - age * 0.12);
-   return <li key={shortTitle}>
+   return <li key={`${shortTitle}-${role ?? type}`}>
       <a href={link} target="_blank" rel="noreferrer" style={{ ['--card-opacity']: opacity } as CSSProperties}>
          <span className='service-card-top'>
-            <span className='service-role'>{TypeMap[type]}</span>
+            <span className='service-role'>{role ?? TypeMap[type]}</span>
             <span className='service-conf'>
                {shortTitle.replace(/\s*'\d{2}$/, '')}{note && <span className='service-note'> ({note})</span>}
             </span>
          </span>
          <span className='service-reveal'>
-            <span className='service-conference' title={conference}>{conference}</span>
+            <span className='service-conference' title={conference}>
+               {conference}{detail && <span className='service-detail'>{detail}</span>}
+            </span>
          </span>
       </a>
    </li>;

@@ -27,8 +27,14 @@
    we re-declare here so it isn't lost. it eases over .5s to match the accent
    colour interpolation. */
 .project-card.project-card-rotating-img img {
-   filter: drop-shadow(2px 2px 3px var(--soft-glow)) hue-rotate(var(--logo-hue, -111deg));
-   transition: filter .5s ease;
+   /* hue-rotate alone desaturates the rotated hues into a muddy tan, so we add
+      a saturation lift to keep the flower reading as a clean, vivid accent.
+      NB: no transition on the filter — animating hue-rotate between accents
+      sweeps the angle through 0° (the original green), so orange→blue would
+      blink green. we let the accent snap here instead; theme (day/night)
+      changes still cross-fade via the global .theme-transition rule. */
+   filter: drop-shadow(2px 2px 3px var(--soft-glow))
+           hue-rotate(var(--logo-hue, -111deg)) saturate(var(--logo-saturate, 1.35));
 }
 
 .project-card-rotating-img:hover img, .project-card-rotating-img:focus img {
@@ -188,10 +194,169 @@ details.peeker a, .main a, a.link {
    }
 
    /* touch devices can't hover — show the marker at rest so the effect is
-      visible and links are clearly identifiable on mobile */
+      visible and links are clearly identifiable on mobile. nudge it a hair
+      lower than the shared 100% anchor so it sits centred on the text rather
+      than riding high above the baseline */
    @media (hover: none) {
       details.peeker a, .main a, a.link {
          background-size: 100% .61em;
+         background-position: 0 calc(100% + 0.12em);
       }
+   }
+
+   /* whole-card links (the ecosystem cards) are not prose — no marker underline */
+   details.peeker a.project-card {
+      background-image: none;
+      text-decoration: none;
+      padding: 0;
+   }
+
+   /* the ecosystem list rows are links too, but not prose (re-declare the
+      padding/radius so they beat the marker rule's own values) */
+   details.peeker a.ecosystem-item {
+      background-image: none;
+      text-decoration: none;
+      padding: .6em .8em;
+      border-radius: 10px;
+   }
+
+   details.peeker .ecosystem-subcard {
+      background-image: none;
+      text-decoration: none;
+      padding: .5em .75em;
+      border-radius: 12px;
+   }
+}
+
+/* flowR ecosystem as a clean list (no logos): icon + name/description + tags */
+.ecosystem-list {
+   list-style: none;
+   padding: 0;
+   margin: .2em 0 .5em;
+   display: flex;
+   flex-direction: column;
+   gap: .3em;
+}
+
+.ecosystem-item {
+   display: flex;
+   align-items: flex-start;
+   gap: .8em;
+   padding: .6em .8em;
+   border-radius: 10px;
+   border: 1px solid transparent;
+   text-decoration: none;
+   color: inherit;
+   transition: background-color .2s, border-color .2s;
+}
+
+.ecosystem-item:hover {
+   background: color-mix(in srgb, var(--main-color) 6%, var(--background-crumbs));
+   border-color: color-mix(in srgb, var(--main-color) 25%, transparent);
+}
+
+.ecosystem-icon {
+   flex: none;
+   margin-top: .18em;
+   width: 1.05em;
+   height: 1.05em;
+   color: var(--main-color);
+   opacity: .85;
+}
+
+.ecosystem-text {
+   flex: 1 1 auto;
+   min-width: 0;
+}
+
+.ecosystem-name {
+   display: block;
+   font-weight: 600;
+   color: var(--text);
+}
+
+.ecosystem-desc {
+   display: block;
+   font-size: .88em;
+   color: var(--soft-text);
+   margin-top: .1em;
+}
+
+.ecosystem-tags {
+   flex: none;
+   align-self: center;
+   display: flex;
+   flex-wrap: wrap;
+   gap: .35em;
+}
+
+.ecosystem-tag {
+   font-size: .72em;
+   padding: .1em .55em;
+   border-radius: 999px;
+   white-space: nowrap;
+   color: var(--soft-text);
+   background: var(--background-crumbs);
+}
+
+@media (max-width: 600px) {
+   .ecosystem-tags { display: none; }
+}
+
+/* grouped repos (sample analyzers, notation helpers): a labelled row with a
+   subgrid of small repo cards underneath */
+.ecosystem-group {
+   padding: .6em .8em;
+}
+
+.ecosystem-group-head {
+   display: flex;
+   align-items: flex-start;
+   gap: .8em;
+}
+
+.ecosystem-subgrid {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(11em, 1fr));
+   gap: .5em;
+   margin: .6em 0 0 1.85em;
+}
+
+.ecosystem-subcard {
+   display: flex;
+   align-items: center;
+   gap: .5em;
+   padding: .5em .75em;
+   font-size: .9em;
+   border-radius: 12px;
+   color: var(--semi-soft-text);
+   background: var(--background);
+   border: 1px solid color-mix(in srgb, var(--text) 13%, transparent);
+   transition: color .2s, border-color .2s, background-color .2s, transform .12s, box-shadow .2s;
+}
+
+.ecosystem-subcard:hover {
+   color: var(--main-color);
+   border-color: color-mix(in srgb, var(--main-color) 45%, transparent);
+   background: color-mix(in srgb, var(--main-color) 6%, var(--background));
+   transform: translateY(-1px);
+   box-shadow: 0 4px 10px -6px var(--soft-glow);
+}
+
+.ecosystem-subcard-icon {
+   flex: none;
+   font-size: .9em;
+   color: var(--soft-text);
+   transition: color .2s;
+}
+
+.ecosystem-subcard:hover .ecosystem-subcard-icon {
+   color: var(--main-color);
+}
+
+@media (max-width: 500px) {
+   .ecosystem-subgrid {
+      grid-template-columns: 1fr;
+      margin-left: 0;
    }
 }

@@ -145,6 +145,6 @@ export function getHonors(exclude?: ReadonlySet<string>): [li: JSX.Element, tool
             &nbsp;{title}{amount !== undefined && <>&ensp;<span style={{ color: 'var(--soft-text)', fontSize: 'smaller' }}>({formatEuro(amount)})</span></>}
          </a>
       </li>,
-      note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '2px 6px', margin: '-6px 0px' }}/> : undefined];
+      note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '5px 9px', lineHeight: 1.35 }}/> : undefined];
    });
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './MyService.css';
 import '../../components/BibliographySummary.css';
-import { getService, getServiceSummary, getServiceTypes, type ServiceCategory } from './ServiceData';
+import { getService, ServiceSummary, getServiceTypes, type ServiceCategory } from './ServiceData';
 
 export function MyService() {
   const [types, setTypes] = useState<ReadonlySet<ServiceCategory>>(new Set());
@@ -18,7 +18,7 @@ export function MyService() {
   const { current, older, olderCount } = getService(types);
   return <>
    I serve(d) as chair, reviewer, or artifact evaluator for the following conferences:
-   {getServiceSummary()}
+   <ServiceSummary />
    <div className='filter-row'>
       {getServiceTypes().map(({ key, full, count }) =>
         <button key={key} className={types.has(key) ? 'filter-active' : 'filter-inactive'}

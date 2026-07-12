@@ -44,6 +44,21 @@
    }
 }
 
+/* during a day/night fade the translucent chip and the page background
+   interpolate along slightly different curves, so the chip momentarily
+   diverges from the page behind it and flashes as a rounded rectangle on the
+   header row. it carries no information during the ~1s fade, so drop its
+   surface entirely for the duration — the swatches stay put and it fades back
+   in once the theme has settled */
+body.theme-transition .accent-picker {
+   background: transparent !important;
+   border-color: transparent !important;
+   box-shadow: none !important;
+   /* snap it away instantly — if the removal itself is transitioned it just
+      fades the flashing rectangle out slowly instead of preventing it */
+   transition: none !important;
+}
+
 /* bigger screens: the toggle is rotated to a vertical pill whose visual centre
    lands at ~right:32px / top:53px; centre the 22px-tall collapsed picker there
    (53 - 11) and place its right edge ~6px left of the toggle (right:42px). */
@@ -73,6 +88,15 @@ body.compact-header .accent-picker {
    cursor: pointer;
    font-weight: normal;
    transition: opacity .28s ease, scale .15s ease, border-color .2s;
+}
+
+/* opened (hover/focus): the swatches grow a little so they read as a proper,
+   easy-to-hit row rather than tiny dots. width/height stay off the transition
+   list so they snap to full size instantly and are always a solid click target */
+.accent-picker:hover .accent-swatch,
+.accent-picker:focus-within .accent-swatch {
+   width: 18px;
+   height: 18px;
 }
 
 /* collapsed: everything but the current accent folds away to a single dot */
@@ -123,15 +147,20 @@ body.dark-theme .accent-picker:focus-within .accent-swatch {
    scale: 1.05;
 }
 
-/* touch devices can't hover, so keep the full row visible and tappable */
+/* touch devices can't hover, so the row is always "open": every swatch is
+   full-size and tappable. these override BOTH the folded-away (width:0) and the
+   shrunken active-dot (10px) collapsed rules, so the current accent is not a
+   smaller dot than the rest, and all are comfortable tap targets */
 @media (hover: none) {
    .accent-picker {
-      gap: 6px;
+      gap: 9px;
       background: color-mix(in srgb, var(--background) 78%, transparent);
    }
 
-   .accent-picker .accent-swatch:not(.active) {
-      width: 14px;
+   .accent-picker:not(:hover):not(:focus-within) .accent-swatch:not(.active),
+   .accent-picker:not(:hover):not(:focus-within) .accent-swatch.active {
+      width: 20px;
+      height: 20px;
       opacity: 1;
       border-width: 2px;
       pointer-events: auto;
@@ -144,9 +173,13 @@ body.dark-theme .accent-picker:focus-within .accent-swatch {
       height: 12px;
    }
 
+   /* keep touch targets generous on phones (the common max-width:1200 + hover:none
+      case) — full row, all swatches at a comfortable tap size */
    @media (hover: none) {
-      .accent-picker .accent-swatch:not(.active) {
-         width: 12px;
+      .accent-picker:not(:hover):not(:focus-within) .accent-swatch:not(.active),
+      .accent-picker:not(:hover):not(:focus-within) .accent-swatch.active {
+         width: 19px;
+         height: 19px;
       }
    }
 }
