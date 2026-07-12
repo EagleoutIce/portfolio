@@ -28,7 +28,8 @@
 /* expanded: a clearly separate chip so the swatches never blur into the
    neighbouring day/night toggle */
 .accent-picker:hover,
-.accent-picker:focus-within {
+.accent-picker:focus-within,
+.accent-picker.open {
    opacity: 1;
    gap: 7px;
    background: var(--background);
@@ -94,13 +95,14 @@ body.compact-header .accent-picker {
    easy-to-hit row rather than tiny dots. width/height stay off the transition
    list so they snap to full size instantly and are always a solid click target */
 .accent-picker:hover .accent-swatch,
-.accent-picker:focus-within .accent-swatch {
+.accent-picker:focus-within .accent-swatch,
+.accent-picker.open .accent-swatch {
    width: 18px;
    height: 18px;
 }
 
 /* collapsed: everything but the current accent folds away to a single dot */
-.accent-picker:not(:hover):not(:focus-within) .accent-swatch:not(.active) {
+.accent-picker:not(:hover):not(:focus-within):not(.open) .accent-swatch:not(.active) {
    width: 0;
    opacity: 0;
    border-width: 0;
@@ -108,14 +110,14 @@ body.compact-header .accent-picker {
 }
 
 /* idle, the single visible dot is small and needs no selection ring */
-.accent-picker:not(:hover):not(:focus-within) .accent-swatch.active {
+.accent-picker:not(:hover):not(:focus-within):not(.open) .accent-swatch.active {
    width: 10px;
    height: 10px;
    border-color: transparent;
 }
 
 @media (max-width: 1200px) {
-   .accent-picker:not(:hover):not(:focus-within) .accent-swatch.active {
+   .accent-picker:not(:hover):not(:focus-within):not(.open) .accent-swatch.active {
       width: 9px;
       height: 9px;
    }
@@ -128,7 +130,8 @@ body.dark-theme .accent-swatch {
 }
 
 body.dark-theme .accent-picker:hover .accent-swatch,
-body.dark-theme .accent-picker:focus-within .accent-swatch {
+body.dark-theme .accent-picker:focus-within .accent-swatch,
+body.dark-theme .accent-picker.open .accent-swatch {
    filter: saturate(.9);
 }
 
@@ -147,23 +150,13 @@ body.dark-theme .accent-picker:focus-within .accent-swatch {
    scale: 1.05;
 }
 
-/* touch devices can't hover, so the row is always "open": every swatch is
-   full-size and tappable. these override BOTH the folded-away (width:0) and the
-   shrunken active-dot (10px) collapsed rules, so the current accent is not a
-   smaller dot than the rest, and all are comfortable tap targets */
+/* touch devices can't hover, so the row stays collapsed to a single dot (its
+   open state is toggled by tap via the .open class instead). the collapsed dot
+   is enlarged to a comfortable tap target so the first tap reliably opens it */
 @media (hover: none) {
-   .accent-picker {
-      gap: 9px;
-      background: color-mix(in srgb, var(--background) 78%, transparent);
-   }
-
-   .accent-picker:not(:hover):not(:focus-within) .accent-swatch:not(.active),
-   .accent-picker:not(:hover):not(:focus-within) .accent-swatch.active {
+   .accent-picker:not(:hover):not(:focus-within):not(.open) .accent-swatch.active {
       width: 20px;
       height: 20px;
-      opacity: 1;
-      border-width: 2px;
-      pointer-events: auto;
    }
 }
 
@@ -173,11 +166,10 @@ body.dark-theme .accent-picker:focus-within .accent-swatch {
       height: 12px;
    }
 
-   /* keep touch targets generous on phones (the common max-width:1200 + hover:none
-      case) — full row, all swatches at a comfortable tap size */
+   /* keep the collapsed dot a generous tap target on phones (the common
+      max-width:1200 + hover:none case) so the first tap reliably opens the row */
    @media (hover: none) {
-      .accent-picker:not(:hover):not(:focus-within) .accent-swatch:not(.active),
-      .accent-picker:not(:hover):not(:focus-within) .accent-swatch.active {
+      .accent-picker:not(:hover):not(:focus-within):not(.open) .accent-swatch.active {
          width: 19px;
          height: 19px;
       }

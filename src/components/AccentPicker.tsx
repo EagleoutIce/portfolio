@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState, type CSSProperties } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import "./AccentPicker.css";
 
 /* the brand orange stays the default; the rest mirror the muted presets
@@ -41,18 +41,37 @@ function isAccent(value: string | null): value is AccentKey {
    return accents.some(a => a.key === value);
 }
 
+/* touch devices have no hover to collapse the row, so there we drive the
+   open/closed state explicitly: the first tap on the visible dot opens the
+   row, the next tap picks a colour and closes it again */
+function isTouch() {
+   return typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
+}
+
 export function AccentPicker() {
    const [accent, setAccent] = useState<AccentKey>(() => {
       const stored = sessionStorage.getItem('accent');
       return isAccent(stored) ? stored : weightedRandom();
    });
+   const [open, setOpen] = useState(false);
+   const ref = useRef<HTMLDivElement>(null);
 
    /* apply before paint so the chosen accent never flashes orange first */
    useLayoutEffect(() => {
       applyAccent(accent);
    }, [accent]);
 
-   return <div className="accent-picker" role="group" aria-label="Accent color">
+   /* while the touch row is open, a tap anywhere outside folds it back up */
+   useEffect(() => {
+      if(!open) return;
+      const close = (e: PointerEvent) => {
+         if(!ref.current?.contains(e.target as Node)) setOpen(false);
+      };
+      document.addEventListener('pointerdown', close);
+      return () => document.removeEventListener('pointerdown', close);
+   }, [open]);
+
+   return <div ref={ref} className={`accent-picker${open ? ' open' : ''}`} role="group" aria-label="Accent color">
       {accents.map(a =>
          <button key={a.key}
             className={`accent-swatch${accent === a.key ? ' active' : ''}`}
@@ -60,7 +79,13 @@ export function AccentPicker() {
             aria-label={`${a.key} accent`}
             aria-pressed={accent === a.key}
             title={a.key}
-            onClick={e => { setAccent(a.key); e.currentTarget.blur(); }} />
+            onClick={e => {
+               /* collapsed touch row: first tap only reveals the swatches */
+               if(isTouch() && !open) { setOpen(true); return; }
+               setAccent(a.key);
+               setOpen(false);
+               e.currentTarget.blur();
+            }} />
       )}
    </div>;
 }
