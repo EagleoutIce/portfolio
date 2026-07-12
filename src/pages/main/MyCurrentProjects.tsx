@@ -12,14 +12,15 @@ import listings from '../../resources/listings.svg';
 
 import "./MyCurrentProjects.css";
 import { SocialMediaIcon } from "../../components/SocialMediaIcon";
-import { faCode, faPlay, faBoxOpen, faDatabase, faVials, faPenNib } from "@fortawesome/free-solid-svg-icons";
+import { faCode, faPlay, faBoxOpen, faDatabase, faVials, faPenNib, faPuzzlePiece } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const flowrEcosystem: { name: string; desc: string; href: string; icon: IconProp; tags: string[] }[] = [
    { name: 'Extension for Positron & VS Code', desc: 'Analyze and slice your R code directly inside Positron and VS Code.', href: 'https://github.com/flowr-analysis/vscode-flowr', icon: faCode, tags: ['TypeScript', 'extension'] },
    { name: 'R Adapter', desc: 'Use flowR directly as a library from within R.', href: 'https://github.com/flowr-analysis/flowr-r-adapter', icon: faBoxOpen, tags: ['R', 'library'] },
-   { name: 'Addin for RStudio', desc: 'Slice and analyze your R code from within RStudio.', href: 'https://github.com/flowr-analysis/rstudio-addin-flowr', icon: faGithub, tags: ['R', 'extension'] },
+   { name: 'Addin for RStudio', desc: 'Slice and analyze your R code from within RStudio.', href: 'https://github.com/flowr-analysis/rstudio-addin-flowr', icon: faPuzzlePiece, tags: ['R', 'extension'] },
+   { name: 'Docker Image', desc: 'Run the full flowR server or REPL straight from a ready-to-use Docker image.', href: 'https://hub.docker.com/r/eagleoutice/flowr', icon: faDocker, tags: ['Docker', 'server'] },
    { name: 'Script Taint Checker', desc: 'A ready-to-use Docker image that taint-checks R scripts with flowR.', href: 'https://hub.docker.com/r/eagleoutice/taint-checker', icon: faDocker, tags: ['Docker', 'security'] },
    { name: 'Real-World R Sources', desc: 'An open dataset of real-world R scripts, useful for anyone analyzing R (not just flowR).', href: 'https://doi.org/10.5281/zenodo.18927873', icon: faDatabase, tags: ['dataset', 'R'] },
 ];

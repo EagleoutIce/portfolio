@@ -8,15 +8,18 @@ import { ThemeButton } from './components/ThemeButton';
 import { AccentPicker } from './components/AccentPicker';
 import { NotFound } from './pages/NotFound';
 import { scrollTo } from './components/QuickLinks';
-import { DetailPage } from './components/DetailPage';
-import { CategorizedList } from './components/CategorizedList';
-import { getServiceList } from './pages/main/ServiceData';
-import { getThesesList } from './pages/main/ThesesData';
-import { getEventsList } from './pages/main/EventsData';
-import { getLecturesList } from './pages/main/TeachingsData';
-
-/* citation-js dominates the bundle, so the detailed list loads on demand */
+/* the detail lists and citation-js-heavy pages all load on demand, keeping the
+   initial bundle small */
 const PublicationsPage = lazy(() => import('./pages/publications/PublicationsPage').then(m => ({ default: m.PublicationsPage })));
+const TimelinePage = lazy(() => import('./pages/timeline/TimelinePage').then(m => ({ default: m.TimelinePage })));
+const ServicePage = lazy(() => import('./pages/detail/DetailPages').then(m => ({ default: m.ServicePage })));
+const ThesesPage = lazy(() => import('./pages/detail/DetailPages').then(m => ({ default: m.ThesesPage })));
+const LecturesPage = lazy(() => import('./pages/detail/DetailPages').then(m => ({ default: m.LecturesPage })));
+const EventsPage = lazy(() => import('./pages/detail/DetailPages').then(m => ({ default: m.EventsPage })));
+
+function Lazy({ children }: { children: React.ReactNode }) {
+  return <Suspense fallback={<p style={{ marginTop: '3em' }}>Loading…</p>}>{children}</Suspense>;
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -26,15 +29,12 @@ const router = createHashRouter([
     errorElement: <NotFound />,
     children: [
       { path: '/', element: <MainPage /> },
-      { path: 'all-publications', element:
-        <Suspense fallback={<p style={{ marginTop: '3em' }}>Loading publications...</p>}>
-          <PublicationsPage />
-        </Suspense>
-      },
-      { path: 'all-service', element: <DetailPage title="Academic Service" back="service"><CategorizedList {...getServiceList()} /></DetailPage> },
-      { path: 'all-theses', element: <DetailPage title="Supervised Theses" back="theses"><CategorizedList {...getThesesList()} numbered /></DetailPage> },
-      { path: 'all-lectures', element: <DetailPage title="Lectures, Seminars, and Projects" back="lectures"><CategorizedList {...getLecturesList()} /></DetailPage> },
-      { path: 'all-events', element: <DetailPage title="Events and Travel" back="events"><CategorizedList {...getEventsList()} /></DetailPage> },
+      { path: 'all-publications', element: <Lazy><PublicationsPage /></Lazy> },
+      { path: 'all-service', element: <Lazy><ServicePage /></Lazy> },
+      { path: 'all-theses', element: <Lazy><ThesesPage /></Lazy> },
+      { path: 'all-lectures', element: <Lazy><LecturesPage /></Lazy> },
+      { path: 'all-events', element: <Lazy><EventsPage /></Lazy> },
+      { path: 'timeline', element: <Lazy><TimelinePage /></Lazy> },
       { path: 'site-notice', element: <SiteNoticePage
       legalName="Florian Sihler"
       legalEmail="florian.sihler@uni-ulm.de"

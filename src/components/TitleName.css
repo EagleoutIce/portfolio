@@ -44,11 +44,15 @@
 .profile-image {
   width: calc(6em - 4.5em * var(--p));
   height: calc(6em - 4.5em * var(--p));
-  border-radius: 50%;
+  /* a full circle in the big (non-sticky) header, softening to a rounded square
+     only as the header collapses (var(--p): 0 = hero, 1 = sticky bar); a hover
+     always snaps it back to a full circle */
+  border-radius: calc(50% - 20% * var(--p));
   object-fit: cover;
-  margin-right: calc(42px - 19px * var(--p));
+  /* tighter gap in the sticky bar so the avatar and name read as one group */
+  margin-right: calc(42px - 28px * var(--p));
   margin-top: calc(4px * var(--p));
-  transition: border-radius 0.2s, scale .1s ease-in-out;
+  transition: border-radius 0.25s ease, scale .1s ease-in-out;
   box-shadow: 6px 4px 22px -3.5px var(--soft-glow);
 }
 
@@ -59,6 +63,8 @@
   border-radius: 50% 50% 50% 50% / 62% 62% 42% 42%;
 }
 
+/* hover squares it off: the round hero image becomes a rounded rectangle
+   (and the already-square sticky image tightens a touch further) */
 .profile-image:hover {
   border-radius: 20%;
 }

@@ -1,0 +1,29 @@
+/* the timeline reuses the shared .pub-* list styling; only a couple of small
+   touches are specific to it */
+
+.tl-diamond {
+   color: var(--main-color);
+   font-size: .85em;
+}
+
+/* the merged list is long, so give the sticky year rail a touch more breathing
+   room and keep the legend comfortably wrapped on every width */
+.detail-page .pub-legend {
+   row-gap: .55em;
+}
+
+/* on phones the year rail stacks above its entries (shared rule at 640px); make
+   the year label read as a clear section divider in that "big" single-column
+   view rather than a lone number */
+@media (max-width: 640px) {
+   .detail-page .pub-year {
+      flex-direction: row;
+      align-items: baseline;
+      gap: .5em;
+      justify-content: flex-start;
+   }
+
+   .detail-page .pub-year-label {
+      font-size: 1.3em;
+   }
+}

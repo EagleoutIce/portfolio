@@ -364,6 +364,28 @@ theses.push({
 </>,
 })
 
+theses.push({
+   author: 'Pasquale Castelluccia',
+   type: 'master-thesis',
+   year: 2026,
+   month: 7,
+   title: 'Source-to-Source Rewriting and Instrumentation of R Programs Preserving Layout and the AST',
+   extra: <>
+   Erasmus+ exchange at <a className='link' href='https://www.uni-ulm.de/en/' target="_blank" rel="noreferrer">Ulm University</a> (<a className='link' href='https://www.unipr.it/' target="_blank" rel="noreferrer">University of Parma</a>).
+   </>,
+   committee: <>Supervisor: {ExaminerMap['va']}<br/>Advisor: Florian Sihler</>,
+   examiners: [],
+   abstract: <>
+<span style={{ fontSize: 'smaller', color: 'var(--soft-text)', fontStyle: 'italic' }}>Abstract translated from the Italian original.</span>
+<p/>
+<i>Context:</i>&nbsp;In R, the source code is the primary artifact of every computation. The language &mdash; interpreted and without a canonical intermediate representation &mdash; entrusts every program transformation to the source text, so preserving its syntactic structure and layout is a correctness condition, not a formal detail. Yet no existing tool transforms an R program while preserving both: edits are made manually on the text and are exposed to errors that the syntactic structure would avoid, while regenerating the source from a modified tree reformats the whole text and strips comments and indentation. For comparably popular languages a structural transformer has long existed (Spoon for Java, LibCST for Python, jscodeshift for JavaScript); for R, no equivalent did.
+<p/>
+<i>Objective:</i>&nbsp;This work closes that gap by extending <a className='link' href='https://github.com/flowr-analysis/flowr' target="_blank" rel="noreferrer">flowR</a>, a static analysis platform for R, from an analyzer into a rewriter. flowR reconstructs the abstract syntax tree, computes the dataflow graph, and resolves def-use relations, but offers no rewriting primitives. The presented system uses flowR's tree and dataflow graph to transform the source under three preservation constraints: <i>layout</i> (edits touch only the affected text and reproduce every other byte &mdash; indentation, comments, and spacing included &mdash; unchanged), <i>structure</i> (every change is addressed through the language grammar by the role a construct plays in the syntax tree, not by its position in the text), and <i>dataflow</i> (the analysis determines which occurrences belong to the same binding, so a transformation acts on those rather than on coincidentally homonymous names). The rewrite stays syntactic and layout-faithful; the dataflow does not replace it but guides where to intervene.
+<p/>
+<i>Contributions:</i>&nbsp;The thesis makes five contributions: (i)&nbsp;a field-level contract for R's modifiable structure &mdash; a tree grammar checked against flowR's node types with a minimal taxonomy of atomic operations from which composite ones are built; (ii)&nbsp;a layout-preserving rewrite that maps each operation to textual edits confined to the affected node, with a layout-aware printer for newly inserted subtrees; (iii)&nbsp;an instrumentation API whose intervention points are flowR's <i>Q</i> queries and whose inserted fragments are synthesized from templates with guaranteed substitution fidelity; (iv)&nbsp;a dataflow-guided refactoring, the isomorphic rename, built as a pointcut/advice pair over a new enrichment of the Q search and reusing the instrumentation engine without additional mechanisms; and (v)&nbsp;an empirical evaluation in which the formal properties are exercised as property tests and the correctness of the rename is verified observationally on a corpus of real-world R scripts.
+</>,
+})
+
 export function getThesisCounts() {
    const sort = (a: Thesis, b: Thesis) => b.year - a.year || b.month - a.month;
    const ba = theses.filter(t => t.type === 'bachelor-thesis').toSorted(sort);

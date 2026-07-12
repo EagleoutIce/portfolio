@@ -1,3 +1,6 @@
+import { escapeId } from "../../util/id";
+import type { CatItem } from "../../components/CategorizedList";
+
 const types = {
    'summer-school': 'Summer School',
    'seminar': 'Seminar'
@@ -60,6 +63,20 @@ function readableDateRange(startDate: Date, endDate: Date) {
    return `${startDate.toLocaleDateString('en-US', dateOptions)} - ${endDate.toLocaleDateString('en-US', dateOptions)}, ${endDate.getFullYear()}`;
   }
    return `${startDate.toLocaleDateString('en-US', dateOptions)}, ${startDate.getFullYear()} - ${endDate.toLocaleDateString('en-US', dateOptions)}, ${endDate.getFullYear()}`;
+}
+
+/** summer schools and seminars as timeline entries */
+export function getSeminarsTimeline(): CatItem[] {
+   return entries.map(e => ({
+      key: escapeId(e.shortTitle),
+      category: e.type,
+      year: e.startDate.getFullYear(),
+      month: e.startDate.getMonth() + 1,
+      title: <>{e.title} <span className="seminar-short">({e.shortTitle})</span></>,
+      people: types[e.type],
+      venue: `${readableDateRange(e.startDate, e.endDate)} · ${e.location}`,
+      links: [{ label: 'link', href: e.link }],
+   }));
 }
 
 export function getSeminars() {

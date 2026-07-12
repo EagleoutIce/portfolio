@@ -9,20 +9,22 @@ import { MyIntro } from './MyIntro';
 import { MyTeaching } from './MyTeaching';
 import { MySeminars } from './MySeminars';
 import { MyService } from './MyService';
-import { PageSummary } from './PageSummary';
 import { StaticQuickLinks } from '../../components/QuickLinks';
 import { LastUpdated } from '../../components/LastUpdated';
 import { News } from '../../components/News';
 import { MyHonors } from './MyHonors';
-import { BibliographySummary } from '../../components/BibliographySummary';
 import { MyEvents } from './EventsData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiamond } from '@fortawesome/free-solid-svg-icons';
 import { SectionHeading } from '../../components/SectionHeading';
 import './Divider.css';
 
-/* citation-js with the csl plugin dominates the bundle, load it on demand */
+/* citation-js with the csl plugin dominates the bundle, so everything that
+   parses BibTeX (the full list plus the two summaries) loads on demand — this
+   keeps citation-js out of the initial main-page payload */
 const LazyBibliography = lazy(() => import('../../components/Bibliography').then(m => ({ default: m.Bibliography })));
+const PageSummary = lazy(() => import('./PageSummary').then(m => ({ default: m.PageSummary })));
+const BibliographySummary = lazy(() => import('../../components/BibliographySummary').then(m => ({ default: m.BibliographySummary })));
 
 function Bibliography(props: BibliographyProps) {
   return <Suspense fallback={<p>Loading publications...</p>}>
@@ -70,7 +72,10 @@ function CollapsibleBibliography({ id, heading, intro, defaultOpen, ...bib }: Co
 function Divider() {
   return <div className="divider">
     <span className="divider-line left" />
-    <span className="divider-icon"><FontAwesomeIcon icon={faDiamond} /></span>
+    <a className="divider-icon divider-link" href="#/timeline" title="Open the global timeline — everything with a date"
+      aria-label="Open the global timeline">
+      <FontAwesomeIcon icon={faDiamond} />
+    </a>
     <span className="divider-line right" />
   </div>;
 }
@@ -80,7 +85,7 @@ function MainPage() {
     <MyHeader />
     <Content>
       <MyIntro />
-      <PageSummary />
+      <Suspense fallback={<div style={{ minHeight: '2em' }} />}><PageSummary /></Suspense>
       <Divider />
       <News />
       
@@ -104,12 +109,14 @@ function MainPage() {
             seminars: { page: 'schools-seminars'}
          }}></StaticQuickLinks>
          
-         <BibliographySummary biblatexContent={{
-          paper:  BibDataMain, 
-          talk:   BibDataTalks,
-          poster: BibDataPoster,
-          other:  BibDataOther
-        }} />
+         <Suspense fallback={<div style={{ minHeight: '2em' }} />}>
+          <BibliographySummary biblatexContent={{
+            paper:  BibDataMain,
+            talk:   BibDataTalks,
+            poster: BibDataPoster,
+            other:  BibDataOther
+          }} />
+        </Suspense>
          
         <CollapsibleBibliography id="papers" heading="Papers" defaultOpen pageSize={5} biblatexContent={BibDataMain} type='Papers'
           filters = {{

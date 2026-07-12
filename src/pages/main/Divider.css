@@ -41,3 +41,31 @@
    font-size: 0.8rem;
    opacity: 0.92;
 }
+
+/* the diamond doubles as the entry point to the global timeline. the row itself
+   ignores pointer events, so re-enable them just on the link. */
+.divider-link {
+   pointer-events: auto;
+   cursor: pointer;
+   color: var(--main-color);
+   text-decoration: none;
+   transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease;
+}
+
+.divider-link:hover,
+.divider-link:focus-visible {
+   transform: rotate(45deg) scale(1.08);
+   background: linear-gradient(180deg, color-mix(in srgb, var(--main-color) 22%, transparent), transparent);
+   box-shadow: 0 0 0 5px color-mix(in srgb, var(--main-color) 12%, transparent), 0 10px 22px var(--soft-glow);
+   outline: none;
+}
+
+/* keep the glyph upright while its frame rotates on hover */
+.divider-link svg {
+   transition: transform .25s ease;
+}
+
+.divider-link:hover svg,
+.divider-link:focus-visible svg {
+   transform: rotate(-45deg);
+}

@@ -4,6 +4,7 @@ import ShortLong from "../../components/Acronym";
 import { Tooltip } from "react-tooltip";
 import { escapeId } from "../../util/id";
 import { faInfo, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import type { CatItem } from "../../components/CategorizedList";
 
 interface Honors {
    type: 'honor' | 'award' | 'grant' | 'fellowship' | 'scholarship';
@@ -129,6 +130,21 @@ export function getFeaturedAwards(n = 3): Honors[] {
       .filter(h => h.type === 'award')
       .toSorted((a, b) => b.year - a.year || b.month - a.month)
       .slice(0, n);
+}
+
+/** honors/awards/grants as timeline entries (category is the global bucket) */
+export function getHonorsTimeline(): CatItem[] {
+   return honors.map(h => ({
+      key: escapeId(`${h.title}-${h.year}`),
+      category: h.type,
+      year: h.year,
+      month: h.month,
+      title: h.title,
+      people: <>{TypeToStringMap[h.type]()}{h.amount !== undefined && <> &middot; {formatEuro(h.amount)}</>}</>,
+      venue: monthToString[h.month - 1],
+      links: h.link ? [{ label: 'link', href: h.link }] : [],
+      extra: h.note,
+   }));
 }
 
 export function getHonors(exclude?: ReadonlySet<string>): [li: JSX.Element, tooltip: JSX.Element | undefined][] {

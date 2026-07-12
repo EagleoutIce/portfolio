@@ -24,15 +24,26 @@ function updateTheme(theme: string) {
    }, 50)
 }
 
+/* the light/dark theme the browser/device is asking for, if it expresses one */
+export function getSystemTheme(): string | undefined {
+   if(typeof window === 'undefined' || !window.matchMedia) return undefined;
+   if(window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark-theme';
+   if(window.matchMedia('(prefers-color-scheme: light)').matches) return 'light-theme';
+   return undefined;
+}
+
 export function getDefaultTheme() {
-   // use local date time to determine the theme
+   /* follow the browser/device preference first */
+   const system = getSystemTheme();
+   if(system) return system;
+   /* only when the OS states no preference, fall back to the local time of day */
    const hours = new Date().getHours();
    return hours < 6 || hours > 22 ? 'dark-theme' : 'light-theme';
 }
 
 /* https://codepen.io/alvarotrigo/pen/PoOXJpM */
 export function ThemeButton() {
-   // load theme from session storage
+   // load theme from session storage, else follow the device preference
    const [theme, setTheme] = useState(() => sessionStorage.getItem('theme') ?? getDefaultTheme());
 
    /* apply before paint to avoid a wrongly-themed flash */
@@ -44,6 +55,8 @@ export function ThemeButton() {
       setTheme(t => t === 'light-theme' ? 'dark-theme' : 'light-theme');
    };
 
+   /* uncontrolled on purpose: the native checkbox drives the day/night toggle
+      animation, so React must not re-assign `checked` and stutter it */
    return (<div className="wrapper">
       <input type="checkbox" id="hide-checkbox" defaultChecked={theme === 'light-theme'} onChange={changeTheme} />
       <label htmlFor="hide-checkbox" className="toggle">

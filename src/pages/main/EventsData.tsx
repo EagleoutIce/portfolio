@@ -18,7 +18,13 @@ interface Event {
    kind: EventKind;
    note?: string;
    link?: string;
+   /** the event is run together with the Waddle outreach group */
+   waddle?: boolean;
 }
+
+/* the outreach events are carried by the Waddle group (Florian included); the
+   TODO names can be filled in once confirmed */
+const WADDLE_CREDIT = <>the <a className="link" href="https://exia.informatik.uni-ulm.de/waddle" target="_blank" rel="noreferrer">Waddle</a> group (incl. Florian&nbsp;Sihler)</>;
 
 const events = new Map<string, Event>();
 
@@ -26,12 +32,14 @@ events.set('Summer Science Camp', {
    occ: [{ month: 8, year: 2024 }, { month: 8, year: 2026 }],
    where: 'Ulm University',
    kind: 'multiday',
+   waddle: true,
    link: 'https://www.uni-ulm.de/einrichtungen/ulmer-3-generationen-uni/science-camps/'
 });
 events.set('Pupil Internships', {
    occ: [{ month: 5, year: 2026 }],
    where: 'Ulm University',
    kind: 'practicum',
+   waddle: true,
 });
 events.set('BOGY (Berufs-Orientierung an Gymnasien)', {
    occ: [{ month: 4, year: 2024 }, { month: 5, year: 2024 }, { month: 4, year: 2025 },
@@ -39,18 +47,21 @@ events.set('BOGY (Berufs-Orientierung an Gymnasien)', {
       { month: 4, year: 2026 }, { month: 5, year: 2026 }],
    where: 'Ulm University',
    kind: 'singleday',
+   waddle: true,
    link: 'https://www.uni-ulm.de/studium/studienberatung/veranstaltungen-fuer-studieninteressierte/'
 });
 events.set('Girls\' Day', {
    occ: [{ month: 4, year: 2024 }, { month: 4, year: 2025 }, { month: 4, year: 2026 }],
    where: 'Ulm University',
    kind: 'singleday',
+   waddle: true,
    link: 'https://www.uni-ulm.de/einrichtungen/ulmer-3-generationen-uni/girls-boys-day/'
 });
 events.set('Langer Abend der Wissenschaft', {
    occ: [{ month: 6, year: 2024 }, { month: 5, year: 2025 }, { month: 5, year: 2026 }],
    where: 'Ulm University',
    kind: 'singleday',
+   waddle: true,
    link: 'https://www.uni-ulm.de/universitaet/hochschulkommunikation/veranstaltungen/langer-abend-der-wissenschaft/'
 });
 
@@ -67,11 +78,12 @@ function occTime(o: Occurrence) {
 }
 
 export function MyEvents(): JSX.Element {
-   const e = Array.from(events.entries()).toSorted(([a], [b]) => a.localeCompare(b)).map(([name, { occ, link, where, note }]) => {
+   const e = Array.from(events.entries()).toSorted(([a], [b]) => a.localeCompare(b)).map(([name, { occ, link, where, note, waddle }]) => {
       const id = escapeId(name);
       const when = occ.map(occTime);
       return [<li key={id}>
-         <a href={link} target="_blank" rel="noreferrer"> <span style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>{occ.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;({where})</a><br />
+         <a href={link} target="_blank" rel="noreferrer"> <span style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>{occ.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;({where})</a>
+         {waddle && <span className="event-waddle"> &mdash; with {WADDLE_CREDIT}</span>}<br />
          {when}
       </li>,
       note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '5px 9px', lineHeight: 1.35 }} /> : undefined];
@@ -93,7 +105,7 @@ const EVENT_CATEGORIES: Record<string, CatDef> = {
 
 export function getEventsList(): { categories: Record<string, CatDef>; order: string[]; items: CatItem[] } {
    const items: CatItem[] = [];
-   for(const [name, { occ, where, link, kind }] of events.entries()) {
+   for(const [name, { occ, where, link, kind, waddle }] of events.entries()) {
       for(const o of occ) {
          items.push({
             key: `${escapeId(name)}-${o.year}-${o.month ?? 'x'}`,
@@ -101,7 +113,7 @@ export function getEventsList(): { categories: Record<string, CatDef>; order: st
             year: o.year,
             month: o.month,
             title: name,
-            people: where,
+            people: waddle ? <>{where} &middot; with {WADDLE_CREDIT}</> : where,
             venue: o.month !== undefined ? monthToString[o.month - 1] : undefined,
             links: link ? [{ label: 'link', href: link }] : [],
          });

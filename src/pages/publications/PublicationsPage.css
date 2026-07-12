@@ -61,6 +61,141 @@
    color: var(--soft-text);
 }
 
+/* ── grouped legend (timeline): compact, collapsible family segments ──── */
+.pub-legend-grouped {
+   display: flex;
+   flex-wrap: wrap;
+   align-items: flex-start;
+   gap: .45em;
+   margin-bottom: 2.2em;
+}
+
+.pub-legend-group {
+   border: 1px solid color-mix(in srgb, var(--text) 11%, transparent);
+   border-radius: 999px;
+   background: color-mix(in srgb, var(--text) 3.5%, transparent);
+   /* border-radius snaps (not transitioned) so an expanding group doesn't show
+      pill corners while the chips are already visible */
+   transition: border-color .25s, background-color .25s;
+}
+
+/* expanded groups relax to a rounded rectangle so the chips sit neatly inside */
+.pub-legend-group:not(.collapsed) {
+   border-radius: 13px;
+}
+
+.pub-legend-group.filtering {
+   border-color: color-mix(in srgb, var(--g) 50%, transparent);
+   background: color-mix(in srgb, var(--g) 9%, transparent);
+}
+
+.pub-legend-grouphead {
+   display: flex;
+   align-items: center;
+}
+
+/* the family dot doubles as the "filter this whole family" toggle */
+.pub-legend-groupdot {
+   flex: none;
+   width: .72em;
+   height: .72em;
+   min-width: 0;
+   margin: 0 0 0 .7em;
+   padding: 0;
+   border: none;
+   border-radius: 50%;
+   background: var(--g);
+   opacity: .5;
+   cursor: pointer;
+   transition: opacity .2s, box-shadow .2s;
+}
+
+.pub-legend-groupdot:hover {
+   opacity: 1;
+   scale: 1;
+}
+
+.pub-legend-groupdot.all {
+   opacity: 1;
+   box-shadow: 0 0 0 3px color-mix(in srgb, var(--g) 28%, transparent);
+}
+
+/* label + count + chevron collapses / expands the family */
+.pub-legend-groupname {
+   display: inline-flex;
+   align-items: center;
+   gap: .45em;
+   padding: .34em .7em .34em .5em;
+   background: none;
+   border: none;
+   font-size: .78em;
+   font-weight: 600;
+   color: var(--semi-soft-text);
+   cursor: pointer;
+   transition: color .2s;
+}
+
+.pub-legend-groupname:hover {
+   color: var(--text);
+   scale: 1;
+}
+
+.pub-legend-groupcount {
+   font-size: .82em;
+   color: var(--soft-text);
+   font-variant-numeric: tabular-nums;
+}
+
+.pub-legend-group.filtering .pub-legend-groupcount {
+   color: var(--g);
+   font-weight: 700;
+}
+
+.pub-legend-chevron {
+   width: .42em;
+   height: .42em;
+   border-right: 2px solid currentColor;
+   border-bottom: 2px solid currentColor;
+   transform: rotate(45deg);
+   opacity: .55;
+   transition: transform .25s;
+}
+
+.pub-legend-group.collapsed .pub-legend-chevron {
+   transform: rotate(-45deg);
+}
+
+.pub-legend-chips {
+   display: flex;
+   flex-wrap: wrap;
+   gap: .3em;
+   padding: 0 .5em .5em .6em;
+}
+
+/* the chips inside groups are a touch smaller so families stay compact */
+.pub-legend-chips .pub-legend-chip {
+   font-size: .74em;
+   padding: .22em .55em;
+}
+
+.pub-legend-reset {
+   align-self: center;
+   padding: .3em .8em;
+   font-size: .72em;
+   color: var(--semi-soft-text);
+   background: none;
+   border: 1px dashed color-mix(in srgb, var(--text) 22%, transparent);
+   border-radius: 999px;
+   cursor: pointer;
+   transition: color .2s, border-color .2s;
+}
+
+.pub-legend-reset:hover {
+   color: var(--main-color);
+   border-color: var(--main-color);
+   scale: 1;
+}
+
 .pub-legend-chip {
    display: inline-flex;
    align-items: center;
@@ -193,12 +328,37 @@
    border-radius: 4px;
 }
 
-/* collapsed abstract / details block inside an entry */
+/* collapsed abstract / details block inside an entry. the default disclosure
+   triangle is replaced with a flush chevron so it lines up with the ◆ crosslink
+   above it and with the entry text */
 .pub-collapse > summary {
    cursor: pointer;
    color: var(--soft-text);
    font-style: normal;
    width: fit-content;
+   list-style: none;
+   display: inline-flex;
+   align-items: center;
+   gap: .4em;
+}
+
+.pub-collapse > summary::-webkit-details-marker {
+   display: none;
+}
+
+.pub-collapse > summary::before {
+   content: "";
+   width: .4em;
+   height: .4em;
+   border-right: 2px solid currentColor;
+   border-bottom: 2px solid currentColor;
+   transform: rotate(-45deg);
+   opacity: .7;
+   transition: transform .2s;
+}
+
+.pub-collapse[open] > summary::before {
+   transform: rotate(45deg);
 }
 
 .pub-collapse[open] > summary {
@@ -208,6 +368,56 @@
 .pub-collapse-body {
    font-style: normal;
    color: var(--semi-soft-text);
+}
+
+/* fetched abstracts: keep paragraphs airy and promote the IMRaD leads */
+.pub-abstract {
+   max-width: 46em;
+}
+
+.pub-abstract-p {
+   margin: 0 0 .55em;
+}
+
+.pub-abstract-p:last-child {
+   margin-bottom: 0;
+}
+
+.pub-abstract-head {
+   color: var(--text);
+   font-weight: 700;
+}
+
+/* the ◆ cross-link to the same entry elsewhere (timeline ⇄ source list) rides
+   inline with the other links, but stays small and borderless — just a tinted
+   diamond and a faint label that light up on hover. */
+/* the cross-link rides at the end of the author/date line, a small ◆ + label.
+   plain inline flow keeps its text on the same baseline as the author/date */
+.pub-crosslink {
+   margin-left: .6em;
+   font-size: .82em;
+   color: var(--soft-text);
+   opacity: .85;
+   white-space: nowrap;
+   transition: color .2s, opacity .2s;
+}
+
+.pub-crosslink:hover,
+.pub-crosslink:focus {
+   color: var(--main-color);
+   opacity: 1;
+}
+
+.pub-crosslink-diamond {
+   font-size: .9em;
+   color: var(--cat-color);
+   transition: transform .2s, color .2s;
+}
+
+.pub-crosslink:hover .pub-crosslink-diamond,
+.pub-crosslink:focus .pub-crosslink-diamond {
+   transform: rotate(45deg);
+   color: var(--main-color);
 }
 
 .pub-tagcol {
@@ -320,13 +530,19 @@
       padding-bottom: .1em;
    }
 
+   /* keep the tag as a small left column (don't let it stretch full-width) */
    .pub-entry {
-      grid-template-columns: 1fr;
-      gap: .25em;
+      grid-template-columns: auto 1fr;
+      gap: .15em .7em;
+   }
+
+   .pub-tagcol {
+      align-items: flex-start;
    }
 
    .pub-tag {
-      justify-self: start;
+      min-width: 3em;
+      font-size: .6em;
    }
 }
 

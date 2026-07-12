@@ -15,7 +15,21 @@
   border-radius: 999px;
   padding: 0 .55em;
   margin: .12em .18em .12em 0;
-  transition: background-color 1s;
+  transition: background-color 1s, color .2s, transform .18s ease, box-shadow .2s;
+}
+
+/* a small, playful lift when pointing at a date pill */
+.event-time:hover {
+  transform: translateY(-1px) scale(1.04);
+  color: var(--main-color);
+  background-color: color-mix(in srgb, var(--main-color) 16%, var(--background-crumbs));
+  box-shadow: 0 3px 9px -4px var(--soft-glow);
+}
+
+@supports not (color: color-mix(in srgb, red, blue)) {
+  .event-time:hover {
+    background-color: var(--background-crumbs);
+  }
 }
 
 /* Grayed-out style for future dates */
@@ -28,4 +42,10 @@
   color: var(--soft-text);
   font-style: italic;
   margin-right: .25em;
+}
+
+/* attribution to the Waddle outreach group */
+.event-waddle {
+  color: var(--soft-text);
+  font-size: .95em;
 }

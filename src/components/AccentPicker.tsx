@@ -5,8 +5,8 @@ import "./AccentPicker.css";
    declared in index.css (body[data-accent="…"]) */
 const accents = [
    { key: 'orange', color: 'rgba(255, 166, 0, 1)' },
-   { key: 'blue', color: '#3b7bb8' },
    { key: 'red', color: '#e63946' },
+   { key: 'blue', color: '#3b7bb8' },
    { key: 'green', color: '#4f8a5b' },
 ] as const;
 
