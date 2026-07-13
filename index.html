@@ -17,6 +17,20 @@
   <body class="light-theme">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      (function () {
+        try {
+          var t = sessionStorage.getItem('theme');
+          if (t !== 'light-theme' && t !== 'dark-theme') {
+            var mm = window.matchMedia;
+            if (mm && mm('(prefers-color-scheme: dark)').matches) t = 'dark-theme';
+            else if (mm && mm('(prefers-color-scheme: light)').matches) t = 'light-theme';
+            else { var h = new Date().getHours(); t = (h < 6 || h > 22) ? 'dark-theme' : 'light-theme'; }
+          }
+          document.body.className = t;
+        } catch (e) {}
+      })();
+    </script>
     <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

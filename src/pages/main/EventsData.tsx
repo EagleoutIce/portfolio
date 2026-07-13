@@ -20,6 +20,8 @@ interface Event {
    link?: string;
    /** the event is run together with the Waddle outreach group */
    waddle?: boolean;
+   /** explicit credit line, overriding the default Waddle-group credit */
+   by?: JSX.Element;
 }
 
 /* the outreach events are carried by the Waddle group (Florian included); the
@@ -39,7 +41,7 @@ events.set('Pupil Internships', {
    occ: [{ month: 5, year: 2026 }],
    where: 'Ulm University',
    kind: 'practicum',
-   waddle: true,
+   by: <>{'Ulm University'} &middot; Florian&nbsp;Sihler</>,
 });
 events.set('BOGY (Berufs-Orientierung an Gymnasien)', {
    occ: [{ month: 4, year: 2024 }, { month: 5, year: 2024 }, { month: 4, year: 2025 },
@@ -78,12 +80,11 @@ function occTime(o: Occurrence) {
 }
 
 export function MyEvents(): JSX.Element {
-   const e = Array.from(events.entries()).toSorted(([a], [b]) => a.localeCompare(b)).map(([name, { occ, link, where, note, waddle }]) => {
+   const e = Array.from(events.entries()).toSorted(([a], [b]) => a.localeCompare(b)).map(([name, { occ, link, where, note }]) => {
       const id = escapeId(name);
       const when = occ.map(occTime);
       return [<li key={id}>
-         <a href={link} target="_blank" rel="noreferrer"> <span style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>{occ.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;({where})</a>
-         {waddle && <span className="event-waddle"> &mdash; with {WADDLE_CREDIT}</span>}<br />
+         <a href={link} target="_blank" rel="noreferrer"> <span style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>{occ.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;({where})</a><br />
          {when}
       </li>,
       note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '5px 9px', lineHeight: 1.35 }} /> : undefined];
@@ -105,7 +106,7 @@ const EVENT_CATEGORIES: Record<string, CatDef> = {
 
 export function getEventsList(): { categories: Record<string, CatDef>; order: string[]; items: CatItem[] } {
    const items: CatItem[] = [];
-   for(const [name, { occ, where, link, kind, waddle }] of events.entries()) {
+   for(const [name, { occ, where, link, kind, waddle, by }] of events.entries()) {
       for(const o of occ) {
          items.push({
             key: `${escapeId(name)}-${o.year}-${o.month ?? 'x'}`,
@@ -113,7 +114,7 @@ export function getEventsList(): { categories: Record<string, CatDef>; order: st
             year: o.year,
             month: o.month,
             title: name,
-            people: waddle ? <>{where} &middot; with {WADDLE_CREDIT}</> : where,
+            people: by ?? (waddle ? <>{where} &middot; with {WADDLE_CREDIT}</> : where),
             venue: o.month !== undefined ? monthToString[o.month - 1] : undefined,
             links: link ? [{ label: 'link', href: link }] : [],
          });

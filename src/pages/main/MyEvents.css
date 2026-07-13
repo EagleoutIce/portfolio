@@ -20,7 +20,7 @@
 
 /* a small, playful lift when pointing at a date pill */
 .event-time:hover {
-  transform: translateY(-1px) scale(1.04);
+  transform: translateY(-1px);
   color: var(--main-color);
   background-color: color-mix(in srgb, var(--main-color) 16%, var(--background-crumbs));
   box-shadow: 0 3px 9px -4px var(--soft-glow);

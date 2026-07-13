@@ -208,6 +208,9 @@
    background: transparent;
    color: var(--semi-soft-text);
    cursor: pointer;
+   /* keep an identity scale at rest too, so hovering doesn't newly promote the
+      chip to a compositing layer and re-snap its text a sub-pixel downward */
+   scale: 1;
    transition: border-color .2s, background-color .2s, color .3s;
 }
 
@@ -409,6 +412,8 @@
 }
 
 .pub-crosslink-diamond {
+   display: inline-block;
+   margin-right: .4em;
    font-size: .9em;
    color: var(--cat-color);
    transition: transform .2s, color .2s;

@@ -56,11 +56,17 @@
   box-shadow: 6px 4px 22px -3.5px var(--soft-glow);
 }
 
-.easter {
+.easter,
+.profile-image.egg {
   /* egg shape */
   width: 4.90em;
   height: 6em;
   border-radius: 50% 50% 50% 50% / 62% 62% 42% 42%;
+}
+
+/* the seven-tap egg hatch: animate the size change while it morphs and back */
+.profile-image.egg-active {
+  transition: border-radius .4s ease, width .45s ease, height .45s ease, scale .1s ease-in-out;
 }
 
 /* hover squares it off: the round hero image becomes a rounded rectangle

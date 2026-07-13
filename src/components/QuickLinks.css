@@ -14,7 +14,7 @@
   margin-top: calc(-1.5em * (1 - var(--p, 0)));
   margin-bottom: calc(-1.5em * (1 - var(--p, 0)));
   margin-left: calc(2em * var(--p, 0));
-  margin-right: calc(-3em * var(--p, 0));
+  margin-right: 0;
   font-size: calc(1em - 0.15em * var(--p, 0));
 }
 

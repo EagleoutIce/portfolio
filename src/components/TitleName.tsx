@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import "./TitleName.css";
 import { SocialMediaIcon } from "./SocialMediaIcon";
@@ -55,13 +56,52 @@ function specials() {
 
 
 export default function TitleName({ name, subtitle, imageSrc, mediaLinks, idPrefix = '' }: TitleNameProps) {
-   return <div className="title-name-card">
-      <img src={imageSrc} alt={name} decoding="async" className={`profile-image ${specials()}`} onClick={() => {
-         if(headerIsSticky()) {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-            history.replaceState(null, '', window.location.pathname + window.location.search);
+   /* two classes so the shape can morph in and out: egg-active turns on the
+      width/height transition (kept for the whole cycle), egg is the shape */
+   const [eggActive, setEggActive] = useState(false);
+   const [eggShape, setEggShape] = useState(false);
+   const clicks = useRef<number[]>([]);
+   const eggTimers = useRef<number[]>([]);
+
+   const revertEgg = () => {
+      eggTimers.current.forEach(clearTimeout);
+      setEggShape(false);
+      eggTimers.current = [window.setTimeout(() => setEggActive(false), 450)];
+   };
+
+   const hatchEgg = () => {
+      eggTimers.current.forEach(clearTimeout);
+      setEggActive(true);
+      setEggShape(true);
+      /* hatches back on its own after a while, or sooner on seven more taps */
+      eggTimers.current = [window.setTimeout(() => revertEgg(), 10000)];
+   };
+
+   const onImageClick = () => {
+      if(headerIsSticky()) {
+         window.scrollTo({top: 0, behavior: 'smooth'});
+         history.replaceState(null, '', window.location.pathname + window.location.search);
+         return;
+      }
+      /* seven quick taps hatch the avatar into an easter egg; seven more (or a
+         ten-second wait) hatch it back */
+      const now = Date.now();
+      clicks.current = clicks.current.filter(t => now - t < 1200);
+      clicks.current.push(now);
+      if(clicks.current.length >= 7) {
+         clicks.current = [];
+         if(eggShape) {
+            revertEgg();
+         } else {
+            hatchEgg();
          }
-      }} />
+      }
+   };
+
+   return <div className="title-name-card">
+      <img src={imageSrc} alt={name} decoding="async"
+         className={`profile-image ${specials()}${eggActive ? ' egg-active' : ''}${eggShape ? ' egg' : ''}`}
+         onClick={onImageClick} />
       <div>
          <span className="profile-name">{name} <br /></span>
          <span className="profile-subtitle">{subtitle}<br /></span>

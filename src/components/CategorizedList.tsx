@@ -83,18 +83,28 @@ export function CategorizedList({ categories, order, items, lead, numbered, grou
       return next;
    });
 
-   const jump = (year: number) =>
-      document.getElementById(`y-${year}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+   /* scroll by an absolute document offset rather than scrollIntoView: the year
+      rail is position:sticky, and scrollIntoView on a group whose first child is
+      sticky lands inconsistently in Chromium, so the jump felt unreliable */
+   const jump = (year: number) => {
+      const el = document.getElementById(`y-${year}`);
+      if(!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - 8;
+      window.scrollTo({ top, behavior: 'smooth' });
+   };
 
    const entryHref = (key: string) => `${window.location.hash.split('?')[0]}?e=${encodeURIComponent(key)}`;
 
-   /* running number per entry (newest first), only when numbered */
+   /* running number per entry (newest first), only when numbered. numbered over
+      the full list, not the filtered one, so applying a filter hides entries but
+      never renumbers the ones still shown */
    const numbers = useMemo(() => {
+      const ordered = [...items].sort((a, b) => (b.year - a.year) || ((b.month ?? 0) - (a.month ?? 0)));
       const m = new Map<string, number>();
-      let n = shown.length;
-      for(const [, entries] of byYear) for(const it of entries) m.set(it.key, n--);
+      let n = ordered.length;
+      for(const it of ordered) m.set(it.key, n--);
       return m;
-   }, [byYear, shown.length]);
+   }, [items]);
 
    /* deep-link: #/all-…?e=<key> scrolls to that entry, unfolds its details,
       and briefly highlights it */

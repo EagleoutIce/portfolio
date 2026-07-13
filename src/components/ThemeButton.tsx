@@ -1,19 +1,23 @@
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import "./ThemeButton.css";
 
 const themes = ['light-theme', 'dark-theme'];
 
 let themeTransitionTimer: number | undefined;
 
-function updateTheme(theme: string) {
+function updateTheme(theme: string, animate = true) {
    const body = document.querySelector('body');
    if(!body) {
       return;
    }
-   /* fades every element in sync while the colors change, see index.css */
-   body.classList.add('theme-transition');
-   clearTimeout(themeTransitionTimer);
-   themeTransitionTimer = window.setTimeout(() => body.classList.remove('theme-transition'), 1000);
+   /* fades every element in sync while the colors change, see index.css.
+      skipped on the initial apply so the page doesn't animate from the
+      pre-paint theme into itself (that fade read as lag on load) */
+   if(animate) {
+      body.classList.add('theme-transition');
+      clearTimeout(themeTransitionTimer);
+      themeTransitionTimer = window.setTimeout(() => body.classList.remove('theme-transition'), 1000);
+   }
    for(const t of themes) {
       body.classList.remove(t);
    }
@@ -45,10 +49,12 @@ export function getDefaultTheme() {
 export function ThemeButton() {
    // load theme from session storage, else follow the device preference
    const [theme, setTheme] = useState(() => sessionStorage.getItem('theme') ?? getDefaultTheme());
+   const firstApply = useRef(true);
 
    /* apply before paint to avoid a wrongly-themed flash */
    useLayoutEffect(() => {
-      updateTheme(theme);
+      updateTheme(theme, !firstApply.current);
+      firstApply.current = false;
    }, [theme]);
 
    const changeTheme = () => {

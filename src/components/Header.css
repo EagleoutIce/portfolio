@@ -41,3 +41,10 @@
    width: 35%;
    height: 1px;
 }
+
+/* in the compact row this spacer reserves the right edge for the fixed theme
+   toggle so the quick links can't slide under it; never shrinks away */
+.header.sticky .header-glue {
+   flex: 0 0 clamp(64px, 12%, 160px);
+   width: auto;
+}
