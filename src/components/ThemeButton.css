@@ -7,6 +7,8 @@
    top: .1em;
    right: 42px;
    transform-origin: top right;
+   /* faint at rest so the day/night pill recedes and doesn't unbalance the
+      header; full opacity returns on hover */
    opacity: .25;
    transition: opacity .5s, transform .35s ease, top .35s ease, right .35s ease;
    z-index: 4000;
@@ -24,10 +26,12 @@
 /* while the compact header bar is shown, sit vertically centered inside it;
    the scaled pill is 100px * .2 = 20px tall */
 body.compact-header .wrapper {
-   top: calc((var(--header-bar-height, 64px) - 20px) / 2);
+   /* a touch smaller in the sticky bar so it doesn't dominate the nav row;
+      centring height is 100 * .16 = 16px, +2px matches the accent picker nudge */
+   top: calc((var(--header-bar-height, 64px) - 16px) / 2 + 2px);
    right: 16px;
-   transform: scale(.2);
-   opacity: .5;
+   transform: scale(.16);
+   opacity: .35;
 }
 
 #hide-checkbox {
@@ -169,13 +173,28 @@ body.compact-header .wrapper {
 }
 
 #hide-checkbox:checked+.toggle {
+   /* at rest the day sky is a pale, near-white blue so it stays light and
+      doesn't grab the eye; the full cyan only comes back on hover (below) */
+   background: #b8edf9;
+}
+
+.wrapper:hover #hide-checkbox:checked+.toggle {
    background: #24D7F7;
 }
 
 #hide-checkbox:checked+.toggle .toggle-button {
    background: #F7FFFF;
    transform: translateX(102px);
-   box-shadow: 0 0 35px 5px rgba(255, 255, 255);
+   /* light mode only: a faint cool-grey rim so the white sun stays legible
+      against the pale sky, plus the usual white glow */
+   box-shadow: 0 0 0 5px rgba(70, 90, 110, .28), 0 0 35px 5px rgba(255, 255, 255);
+}
+
+/* the big non-sticky desktop toggle reads larger, so its rim can be finer */
+@media (min-width: 1201px) {
+   body:not(.compact-header) #hide-checkbox:checked+.toggle .toggle-button {
+      box-shadow: 0 0 0 3px rgba(70, 90, 110, .28), 0 0 35px 5px rgba(255, 255, 255);
+   }
 }
 
 #hide-checkbox:checked+.toggle .toggle-button .crater {

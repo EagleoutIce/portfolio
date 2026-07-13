@@ -19,8 +19,10 @@
    /* recedes when idle — small and faint — and comes forward on hover/focus.
       the gap/width reveal is intentionally NOT transitioned: the swatches snap
       to full size the instant the picker opens, so they are always a solid
-      click target (an animated width made them briefly too thin to hit). */
-   opacity: .32;
+      click target (an animated width made them briefly too thin to hit).
+      kept deliberately faint at rest so the two header controls recede and
+      don't unbalance the bar — full colour only returns on hover/focus. */
+   opacity: .18;
    transition: opacity .3s ease, background-color .3s, border-color .3s,
       box-shadow .3s, top .35s ease, right .35s ease;
 }
@@ -41,7 +43,7 @@
 /* touch devices can't hover, so keep it a little more present */
 @media (hover: none) {
    .accent-picker {
-      opacity: .6;
+      opacity: .4;
    }
 }
 
@@ -60,6 +62,16 @@ body.theme-transition .accent-picker {
    transition: none !important;
 }
 
+/* small screens (<=1200px, no compact bar): the toggle is a non-rotated
+   horizontal pill whose visual centre sits at ~top:17.5px (top:10 + 15/2).
+   centre the picker on the same line by its own centre, height-independent. */
+@media (max-width: 1200px) {
+   .accent-picker {
+      top: 17.5px;
+      transform: translateY(-50%);
+   }
+}
+
 /* bigger screens: the toggle is rotated to a vertical pill whose visual centre
    lands at ~right:32px / top:53px; centre the 22px-tall collapsed picker there
    (53 - 11) and place its right edge ~6px left of the toggle (right:42px). */
@@ -73,8 +85,14 @@ body.theme-transition .accent-picker {
 /* compact header bar: the toggle is a horizontal pill centred in the bar with
    its left edge at right:56px, so centre the picker on the bar just left of it */
 body.compact-header .accent-picker {
-   top: calc((var(--header-bar-height, 64px) - 22px) / 2);
-   right: 60px;
+   /* centre on the bar's midline by its own centre, not an assumed height, so
+      the collapsed dot lines up with the (non-rotated) toggle's centre; nudged
+      down a hair so it sits on the nav row rather than above it */
+   top: calc(var(--header-bar-height, 64px) / 2 + 2px);
+   transform: translateY(-50%);
+   /* the sticky toggle is scale .16 (32px wide, left edge ~right:48px), so sit
+      just left of it rather than the old right:60 gap */
+   right: 52px;
 }
 
 /* the swatches override the global filled-button look entirely */
