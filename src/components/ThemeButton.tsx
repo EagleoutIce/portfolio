@@ -49,12 +49,17 @@ export function getDefaultTheme() {
 export function ThemeButton() {
    // load theme from session storage, else follow the device preference
    const [theme, setTheme] = useState(() => sessionStorage.getItem('theme') ?? getDefaultTheme());
-   const firstApply = useRef(true);
+   const prevTheme = useRef(theme);
 
-   /* apply before paint to avoid a wrongly-themed flash */
+   /* apply before paint to avoid a wrongly-themed flash. guards on whether
+      `theme` itself actually changed (not a one-shot "have we run yet" flag):
+      React.StrictMode double-invokes effects on mount in dev, and a flag would
+      see the first invocation flip it, then wrongly treat the second
+      (same-theme) invocation as a real change — animating the whole page for
+      a spurious second on every dev-mode load. */
    useLayoutEffect(() => {
-      updateTheme(theme, !firstApply.current);
-      firstApply.current = false;
+      updateTheme(theme, prevTheme.current !== theme);
+      prevTheme.current = theme;
    }, [theme]);
 
    const changeTheme = () => {

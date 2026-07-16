@@ -9,7 +9,13 @@
    justify-content: center;
    align-items: center;
    background-color: var(--background);
-   transition: background-color 1s, color 1s;
+   /* no unconditional transition here on purpose: background/color only ever
+      change on an actual theme toggle (accent changes don't touch them), and
+      that's already handled by the synced body.theme-transition rule in
+      index.css. an always-on transition here instead fired on this element's
+      own first style resolution (e.g. once this stylesheet attaches, slightly
+      later than body's), fading it in on its own while body (already correct
+      instantly) sat still beside it — visible as a rectangle fading out. */
 }
 
 .header.sticky {
@@ -25,7 +31,8 @@
    box-shadow: 0 2px 8px var(--soft-glow);
    transform: translateY(-101%);
    visibility: hidden;
-   transition: transform .3s ease, visibility .3s, background-color 1s, color 1s;
+   /* background-color/color deliberately left out — see .header above */
+   transition: transform .3s ease, visibility .3s;
 }
 
 .header.sticky.shown {
@@ -43,8 +50,12 @@
 }
 
 /* in the compact row this spacer reserves the right edge for the fixed theme
-   toggle so the quick links can't slide under it; never shrinks away */
+   toggle so the quick links can't slide under it; never shrinks away.
+   the accent picker (right:52px in compact-header, see AccentPicker.css) opens
+   leftward on hover to ~101px wide, reaching about right:153px, plus the
+   toggle itself — so the floor/ceiling need enough room for both, with a
+   little slack, or the last quick link overlaps the open swatches */
 .header.sticky .header-glue {
-   flex: 0 0 clamp(64px, 12%, 160px);
+   flex: 0 0 clamp(90px, 13%, 180px);
    width: auto;
 }

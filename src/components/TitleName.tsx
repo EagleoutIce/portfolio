@@ -99,7 +99,7 @@ export default function TitleName({ name, subtitle, imageSrc, mediaLinks, idPref
    };
 
    return <div className="title-name-card">
-      <img src={imageSrc} alt={name} decoding="async"
+      <img src={imageSrc} alt={name} decoding="async" width={96} height={96}
          className={`profile-image ${specials()}${eggActive ? ' egg-active' : ''}${eggShape ? ' egg' : ''}`}
          onClick={onImageClick} />
       <div>

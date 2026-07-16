@@ -8,6 +8,10 @@ interface Occurrence {
    year: number;
    month?: number;
    note?: string;
+   /** page for this specific occurrence, if the event published a dated one
+       (e.g. an archived per-year program page); falls back to the event's
+       own `link` when not given */
+   href?: string;
 }
 
 type EventKind = 'multiday' | 'practicum' | 'singleday';
@@ -67,14 +71,17 @@ events.set('Langer Abend der Wissenschaft', {
    link: 'https://www.uni-ulm.de/universitaet/hochschulkommunikation/veranstaltungen/langer-abend-der-wissenschaft/'
 });
 
-function occTime(o: Occurrence) {
+function occTime(o: Occurrence, fallbackLink?: string) {
    const now = new Date();
    const isFuture = o.year > now.getFullYear()
       || (o.year === now.getFullYear() && o.month !== undefined && o.month > now.getMonth() + 1);
+   const href = o.href ?? fallbackLink;
+   const className = 'event-time' + (isFuture ? ' future-time' : '');
+   const label = <>{o.month !== undefined ? monthToString[o.month - 1] + ' ' : ''}{o.year}</>;
    return <span key={`t-${o.month ?? 'x'}-${o.year}`}>
-      <span className={'event-time' + (isFuture ? ' future-time' : '')}>
-         {o.month !== undefined ? monthToString[o.month - 1] + ' ' : ''}{o.year}
-      </span>
+      {href
+         ? <a className={className} href={href} target="_blank" rel="noreferrer">{label}</a>
+         : <span className={className}>{label}</span>}
       {o.note ? <span className="event-note"> ({o.note})</span> : null}
    </span>;
 }
@@ -82,7 +89,7 @@ function occTime(o: Occurrence) {
 export function MyEvents(): JSX.Element {
    const e = Array.from(events.entries()).toSorted(([a], [b]) => a.localeCompare(b)).map(([name, { occ, link, where, note }]) => {
       const id = escapeId(name);
-      const when = occ.map(occTime);
+      const when = occ.map(o => occTime(o, link));
       return [<li key={id}>
          <a href={link} target="_blank" rel="noreferrer"> <span style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>{occ.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;({where})</a><br />
          {when}

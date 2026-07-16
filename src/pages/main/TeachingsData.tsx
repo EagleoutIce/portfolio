@@ -117,6 +117,19 @@ const lectureMaterial: Record<string, { label: string; href: string }[]> = {
    'Software Engineering Project (Bachelor and Master)': [{ label: 'topics', href: 'https://github.com/flowr-analysis/flowr-topics' }],
 };
 
+/* the specific project topic supervised that term (the course-level list
+   above already shows this via the info-icon tooltip baked into `terms`; the
+   timeline builds its items from lectureTerms instead, which only carries
+   year/term, so it's kept here too — mirrors the wt/st term list, keep in sync) */
+const lectureTopics: Record<string, { year: number; term: 'WT' | 'ST'; topic: string; desc: string; href: string }[]> = {
+   'Software Engineering Project (Bachelor and Master)': [
+      { year: 2023, term: 'WT', topic: 'Code Reconstruction', desc: 'Optimizing the code reconstruction in flowR', href: 'https://www.uni-ulm.de/in/fakultaet/studiumf-mi/studienplanung-se/apse-archiv/wise23/' },
+      { year: 2024, term: 'WT', topic: 'Waddle', desc: 'Improving on the Language, Level-Editor, and Tutorial for Waddle', href: 'https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/' },
+      { year: 2025, term: 'ST', topic: 'R Projects', desc: 'Adding project support to flowR', href: 'https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/' },
+      { year: 2026, term: 'ST', topic: 'Security', desc: 'Improving the security linting for flowR', href: 'https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/' },
+   ],
+};
+
 export function getLecturesList(): { categories: Record<string, CatDef>; order: string[]; items: CatItem[] } {
    const items: CatItem[] = [];
    for(const [name, { type, link, note }] of teaching.entries()) {
@@ -125,15 +138,17 @@ export function getLecturesList(): { categories: Record<string, CatDef>; order: 
          ...(lectureMaterial[name] ?? []),
       ];
       for(const { year, term } of lectureTerms[name] ?? []) {
+         const topic = lectureTopics[name]?.find(t => t.year === year && t.term === term);
          items.push({
             key: `${escapeId(name)}-${year}-${term}`,
             category: lectureCategory[name] ?? type,
             year,
             month: term === 'WT' ? 10 : 4,
-            title: name,
+            title: topic ? <>{name}&nbsp;&mdash;&nbsp;{topic.topic}</> : name,
             people: note,
             venue: term === 'WT' ? 'Winter Term' : 'Summer Term',
-            links,
+            links: topic ? [...links, { label: 'details', href: topic.href }] : links,
+            extra: topic?.desc,
          });
       }
    }

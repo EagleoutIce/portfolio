@@ -35,10 +35,15 @@
       changes still cross-fade via the global .theme-transition rule. */
    filter: drop-shadow(2px 2px 3px var(--soft-glow))
            hue-rotate(var(--logo-hue, -111deg)) saturate(var(--logo-saturate, 1.35));
+   /* always-on animation, paused at rest: this lets hover-out freeze the
+      current rotation instead of snapping back to 0deg (which happened when
+      the animation was only added on :hover/:focus and removed on leave) */
+   animation: rotate 50s infinite linear;
+   animation-play-state: paused;
 }
 
 .project-card-rotating-img:hover img, .project-card-rotating-img:focus img {
-   animation: rotate 50s infinite linear;
+   animation-play-state: running;
 }
 
 .project-card-pulsating-img:hover img, .project-card-pulsating-img:focus img {
@@ -46,14 +51,13 @@
    animation: pulsate 6s infinite;
 }
 
-body.light-theme .fwhite img { 
-   transition: filter 1s;
-}
-
-body.dark-theme .fwhite img { 
-   /* fake white */
+body.dark-theme .fwhite img {
+   /* fake white; unconditional transition removed on purpose — the global
+      .theme-transition rule in index.css already fades filter changes during
+      a theme switch. an always-on transition here made the filter fade in/out
+      on first mount/re-render too, flashing the un-inverted logo briefly
+      whenever the page loads directly into dark mode */
    filter: invert(100%) saturate(100%) brightness(100%);
-   transition: filter 1s;
 }
 
 @keyframes pulsate {
@@ -113,7 +117,11 @@ body.dark-theme .fwhite img {
 }
 
 .pengu-anim:hover img, .pengu-anim:focus img {
-   /* slowly move up and down */
+   /* slowly move up and down; unlike the flowR spin, this is a fast (6s),
+      small-amplitude round trip through 0 already — freezing it mid-bounce
+      and resuming from an arbitrary point (like .project-card-rotating-img
+      does) produces uneven, jittery jumps on repeated hover in/out, so it
+      restarts cleanly from 0 on each hover instead */
    animation: pengu 6s infinite ease-in-out;
 }
 

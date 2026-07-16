@@ -13,6 +13,15 @@
     <link rel="apple-touch-icon" href="./logo192.png" />
     <link rel="manifest" href="./manifest.json" />
     <title>Florian Sihler | Portfolio</title>
+    <!-- paints the correct theme before index.css attaches (avoids a
+         white/default flash on load); :where() keeps this at zero specificity
+         so index.css's real body{background-color:var(--background)} rule
+         (see src/index.css) permanently takes over once it loads, keeping
+         later theme-toggle transitions intact. -->
+    <style>
+      :where(body.light-theme) { background: #f7f7f8; color: #202227; }
+      :where(body.dark-theme) { background: #202227; color: #fafafa; }
+    </style>
   </head>
   <body class="light-theme">
     <noscript>You need to enable JavaScript to run this app.</noscript>

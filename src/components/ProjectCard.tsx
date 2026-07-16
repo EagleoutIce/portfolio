@@ -11,7 +11,8 @@ interface ProjectCard {
 
 export function ProjectCard({ title, description, image, link, extraClasses, crumbs }: ProjectCard) {
    return <a className={`project-card ${extraClasses}`} href={link} rel="noreferrer" target="_blank">
-         <div>{ typeof image === 'string' ? <img src={image} alt={description} loading="lazy" decoding="async" /> : image }</div>
+         {/* decorative: the visible title/description already give the link its accessible name */}
+         <div>{ typeof image === 'string' ? <img src={image} alt="" loading="lazy" decoding="async" /> : image }</div>
          <div className="project-card-details">
          <div className="project-card-title">
             {title}
@@ -20,12 +21,13 @@ export function ProjectCard({ title, description, image, link, extraClasses, cru
             {description}
          </div>
          <div className="project-card-breadcrumbs">
-            {crumbs?.map(crumb => 
+            {crumbs?.map(crumb =>
                typeof crumb === 'string' ?
                <div className="breadcrumb" key={`crumb-${crumb}`}>{crumb}</div> :
                <div className="breadcrumb-raw" key={`crumb-${crumb.key}`}>{crumb}</div>
             )}
          </div>
          </div>
+         <span className="sr-only"> (opens in a new tab)</span>
    </a>;
 }
