@@ -141,7 +141,7 @@ export function getHonorsTimeline(): CatItem[] {
       month: h.month,
       title: h.title,
       people: <>{TypeToStringMap[h.type]()}{h.amount !== undefined && <> &middot; {formatEuro(h.amount)}</>}</>,
-      venue: monthToString[h.month - 1],
+      date: monthToString[h.month - 1],
       links: h.link ? [{ label: 'link', href: h.link }] : [],
       extra: h.note,
    }));

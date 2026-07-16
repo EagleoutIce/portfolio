@@ -340,14 +340,13 @@ details.peeker a, .main a, a.link {
    color: var(--semi-soft-text);
    background: var(--background);
    border: 1px solid color-mix(in srgb, var(--text) 13%, transparent);
-   transition: color .2s, border-color .2s, background-color .2s, transform .12s, box-shadow .2s;
+   transition: color .2s, border-color .2s, background-color .2s, box-shadow .2s;
 }
 
 .ecosystem-subcard:hover {
    color: var(--main-color);
    border-color: color-mix(in srgb, var(--main-color) 45%, transparent);
    background: color-mix(in srgb, var(--main-color) 6%, var(--background));
-   transform: translateY(-1px);
    box-shadow: 0 4px 10px -6px var(--soft-glow);
 }
 

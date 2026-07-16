@@ -122,7 +122,7 @@ export function getEventsList(): { categories: Record<string, CatDef>; order: st
             month: o.month,
             title: name,
             people: by ?? (waddle ? <>{where} &middot; with {WADDLE_CREDIT}</> : where),
-            venue: o.month !== undefined ? monthToString[o.month - 1] : undefined,
+            date: o.month !== undefined ? monthToString[o.month - 1] : undefined,
             links: link ? [{ label: 'link', href: link }] : [],
          });
       }

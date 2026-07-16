@@ -5,6 +5,7 @@ import { Tooltip } from "react-tooltip";
 import { escapeId } from "../../util/id";
 import { faInfo, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import type { CatDef, CatItem } from "../../components/CategorizedList";
+import { monthToString } from "./HonorsData";
 
 interface Teaching {
    terms: JSX.Element[];
@@ -139,13 +140,15 @@ export function getLecturesList(): { categories: Record<string, CatDef>; order: 
       ];
       for(const { year, term } of lectureTerms[name] ?? []) {
          const topic = lectureTopics[name]?.find(t => t.year === year && t.term === term);
+         const month = term === 'WT' ? 10 : 4;
          items.push({
             key: `${escapeId(name)}-${year}-${term}`,
             category: lectureCategory[name] ?? type,
             year,
-            month: term === 'WT' ? 10 : 4,
+            month,
             title: topic ? <>{name}&nbsp;&mdash;&nbsp;{topic.topic}</> : name,
             people: note,
+            date: monthToString[month - 1],
             venue: term === 'WT' ? 'Winter Term' : 'Summer Term',
             links: topic ? [...links, { label: 'details', href: topic.href }] : links,
             extra: topic?.desc,

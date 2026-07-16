@@ -5,6 +5,7 @@ import { BibDataMain, BibDataPoster, BibDataTalks, BibDataOther } from '../main/
 import type { CatDef, CatItem } from '../../components/CategorizedList';
 import { PUB_ABSTRACTS } from './abstracts';
 import { escapeId } from '../../util/id';
+import { monthToString } from '../main/HonorsData';
 
 /* one visual class per venue kind, in the spirit of the coloured lists on
    academic homepages. colours are fixed hues (independent of the page accent)
@@ -246,6 +247,7 @@ export function getPublicationsItems(): CatItem[] {
       month: p.month,
       title: p.title,
       people: p.authors.length > 0 ? <Authors authors={p.authors} /> : undefined,
+      date: p.month ? monthToString[p.month - 1] : undefined,
       venue: p.venue || undefined,
       links: p.links,
       extra: abstractDetails(p),

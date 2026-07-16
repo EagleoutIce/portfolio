@@ -256,11 +256,45 @@
 }
 
 .pub-year-label {
+   display: inline-flex;
+   align-items: center;
+   gap: .3em;
    font-size: 1.15em;
    font-weight: bold;
+   font-family: inherit;
    color: var(--text);
    font-variant-numeric: tabular-nums;
-   transition: color 1s;
+   background: none;
+   border: none;
+   padding: 0;
+   cursor: pointer;
+   transition: color .2s;
+}
+
+.pub-year-label:hover {
+   color: var(--main-color);
+}
+
+/* entry count next to the year, shown at rest; the chevron flips to show
+   collapsed/expanded state (same idiom as .pub-legend-chevron) */
+.pub-year-count {
+   font-size: .58em;
+   font-weight: normal;
+   color: var(--soft-text);
+}
+
+.pub-year-chevron {
+   width: .38em;
+   height: .38em;
+   border-right: 2px solid currentColor;
+   border-bottom: 2px solid currentColor;
+   opacity: .5;
+   transform: rotate(45deg);
+   transition: transform .25s;
+}
+
+.pub-year-group.collapsed .pub-year-chevron {
+   transform: rotate(-45deg);
 }
 
 /* a chevron above and below the year jumps to the newer / older year */
@@ -492,6 +526,13 @@
 .pub-meta {
    margin-top: .3em;
    line-height: 1.5;
+}
+
+.pub-date {
+   font-size: .9em;
+   font-variant-numeric: tabular-nums;
+   color: var(--soft-text);
+   margin-right: .6em;
 }
 
 .pub-venue {

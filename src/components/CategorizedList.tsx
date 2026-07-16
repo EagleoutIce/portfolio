@@ -15,6 +15,10 @@ export interface CatItem {
    readonly month?: number;
    readonly title: ReactNode;
    readonly people?: ReactNode;
+   /** a compact date label (e.g. a month name), shown next to venue when the
+       source knows more about the date than just the year already used as the
+       section header */
+   readonly date?: ReactNode;
    readonly venue?: ReactNode;
    readonly links?: { label: string; href: string }[];
    readonly extra?: ReactNode;
@@ -41,6 +45,9 @@ export function CategorizedList({ categories, order, items, lead, numbered, grou
       collapsed so the filter bar stays compact until you dig in */
    const [collapsed, setCollapsed] = useState<ReadonlySet<string>>(
       () => new Set((groups ?? []).map(g => g.label)));
+   /* years fold to just their header + count; starts empty (all expanded) so
+      deep links and the default view always land fully open */
+   const [collapsedYears, setCollapsedYears] = useState<ReadonlySet<number>>(new Set());
 
    const counts = useMemo(() => {
       const c = new Map<string, number>();
@@ -80,6 +87,12 @@ export function CategorizedList({ categories, order, items, lead, numbered, grou
    const toggleCollapse = (label: string) => setCollapsed(prev => {
       const next = new Set(prev);
       if(next.has(label)) next.delete(label); else next.add(label);
+      return next;
+   });
+
+   const toggleYear = (year: number) => setCollapsedYears(prev => {
+      const next = new Set(prev);
+      if(next.has(year)) next.delete(year); else next.add(year);
       return next;
    });
 
@@ -170,17 +183,25 @@ export function CategorizedList({ categories, order, items, lead, numbered, grou
          </div>}
 
       <div className="pub-list">
-         {byYear.map(([year, entries], i) =>
-            <section className="pub-year-group" id={`y-${year}`} key={year}>
+         {byYear.map(([year, entries], i) => {
+            const isYearCollapsed = collapsedYears.has(year);
+            return <section className={`pub-year-group${isYearCollapsed ? ' collapsed' : ''}`} id={`y-${year}`} key={year}>
                <div className="pub-year">
                   {i > 0 &&
                      <button className="pub-year-nav up" aria-label="Previous (newer) year"
                         onClick={() => jump(byYear[i - 1][0])} />}
-                  <span className="pub-year-label">{year}</span>
+                  <button className="pub-year-label" aria-expanded={!isYearCollapsed}
+                     title={isYearCollapsed ? `Expand ${year}` : `Collapse ${year}`}
+                     onClick={() => toggleYear(year)}>
+                     {year}
+                     <span className="pub-year-count">{entries.length}</span>
+                     <span className="pub-year-chevron" aria-hidden />
+                  </button>
                   {i < byYear.length - 1 &&
                      <button className="pub-year-nav down" aria-label="Next (older) year"
                         onClick={() => jump(byYear[i + 1][0])} />}
                </div>
+               {!isYearCollapsed &&
                <ul className="pub-year-entries">
                   {entries.map(it =>
                      <li className="pub-entry" id={`e-${it.key}`} key={it.key} style={{ ['--cat-color']: categories[it.category].color } as CSSProperties}>
@@ -198,8 +219,9 @@ export function CategorizedList({ categories, order, items, lead, numbered, grou
                                        <span className="pub-crosslink-diamond" aria-hidden>◆</span>{it.crosslink.label}
                                     </a>}
                               </div>}
-                           {(it.venue || (it.links && it.links.length > 0)) &&
+                           {(it.date || it.venue || (it.links && it.links.length > 0)) &&
                               <div className="pub-meta">
+                                 {it.date && <span className="pub-date">{it.date}</span>}
                                  {it.venue && <span className="pub-venue">{it.venue}</span>}
                                  {it.links && it.links.length > 0 &&
                                     <span className="pub-links">
@@ -212,9 +234,9 @@ export function CategorizedList({ categories, order, items, lead, numbered, grou
                         </div>
                      </li>
                   )}
-               </ul>
-            </section>
-         )}
+               </ul>}
+            </section>;
+         })}
       </div>
    </>;
 }

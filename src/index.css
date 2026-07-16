@@ -52,8 +52,13 @@ body.dark-theme {
   --background: #202227;
   --background-header: #202227;
   --background-crumbs:  rgba(245, 225, 205, 0.05);
-  transition: color 1s, background-color 1s, scale .1s,
-    --main-color 500ms ease, --main-color-transparent 500ms ease;
+  /* only the accent cross-fade lives here unconditionally (AccentPicker swaps
+     never add .theme-transition); color/background-color must NOT be listed
+     here too — that duplicated the gated rule below but unconditionally, so
+     the light-theme->dark-theme class swap on load (index.html ships
+     class="light-theme" as a static default, then a script corrects it)
+     always played a 1s fade, regardless of .theme-transition being present */
+  transition: scale .1s, --main-color 500ms ease, --main-color-transparent 500ms ease;
 }
 
 body.light-theme {
@@ -69,8 +74,8 @@ body.light-theme {
   --background: #f7f7f8;
   --background-header: #f7f7f8;
   --background-crumbs:  rgba(20, 15, 10, 0.045);
-  transition: color 1s, background-color 1s, scale .1s,
-    --main-color 500ms ease, --main-color-transparent 500ms ease;
+  /* see body.dark-theme above: color/background-color intentionally excluded */
+  transition: scale .1s, --main-color 500ms ease, --main-color-transparent 500ms ease;
 }
 
 /* selectable accent presets (see AccentPicker); default is the brand orange
