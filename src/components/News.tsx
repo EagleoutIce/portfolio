@@ -33,6 +33,11 @@ news.push({
    link: 'https://conf.researchr.org/home/ase-2026'
 })
 news.push({
+   when: new Date("2026-06-15"),
+   text: 'Reviewer, MHFA responder & awards reviewer for RSECon \'26',
+   link: 'https://rsecon26.society-rse.org/'
+})
+news.push({
    when: new Date("2026-05-11"),
    text: 'Bachelor\'s thesis by J. Kruger on Parallelising SA',
    link: thesisLink('Improving Dataflow Analysis Performance in flowR – With Parallelization and Lazy Function Evaluation')

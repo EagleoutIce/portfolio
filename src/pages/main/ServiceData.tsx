@@ -82,8 +82,8 @@ const entries: Entry[] = [{
    shortTitle: 'RSECon \'26',
    year: 2026,
    order: 5,
-   role: 'Reviewer & MHFA',
-   detail: 'Additionally volunteering as a Mental Health First Aid (MHFA) responder.',
+   role: 'Reviewer & MHFA & Awards',
+   detail: 'Additionally volunteering as a Mental Health First Aid (MHFA) responder and serving as an awards reviewer.',
    link: 'https://rsecon26.society-rse.org/'
 }, {
    type: 'reviewing',
