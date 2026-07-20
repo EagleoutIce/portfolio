@@ -68,6 +68,7 @@ const entries: Entry[] = [{
    shortTitle: 'OOPSLA \'26',
    year: 2026,
    order: 3,
+   note: '1&2',
    link: 'https://2026.splashcon.org/committee/splash-2026-artifact-evaluation-artifact-evaluation-committee'
 }, {
    type: 'artifact-eval',
