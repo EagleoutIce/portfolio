@@ -345,6 +345,31 @@ theses.push({
 })
 
 theses.push({
+   author: 'Henry Schuler',
+   type: 'master-thesis',
+   year: 2026,
+   month: 7,
+   title: 'A Comparison of the Interval and the Closed Pentagon Domain for Dead Code Detection in R',
+   committee: <>Examiners: {joinLastWith([ExaminerMap['mtt'], ExaminerMap['rh']])}<br/>Advisors: Florian Sihler and <a className='link' href='https://www.uni-ulm.de/in/sp/team/oliver-gerstl/' target="_blank" rel="noreferrer">Oliver Gerstl</a></>,
+   examiners: ['mtt', 'rh'],
+   abstract: <>This thesis presents a theoretical concept and a proof-of-concept implementation for inferring numerical constraints to detect dead code on the statement level in R using abstract interpretation with two numerical domains.
+<p/>
+<i>Context:</i>&nbsp;The R programming language is mostly used by domain experts with limited programming experience. Recent studies show, that scientific code tends to suffer from bad code quality like, for example, dead code. However, current static code analysis tools for R have only limited support for detecting dead code.
+<p/>
+<i>Objective:</i>&nbsp;To address this issue, we present a theoretical concept and proof-of-concept implementation using abstract interpretation, to infer numerical constraints for dead code detection. Therefore, we collect numerical operators and functions that are relevant for detecting dead code. We define and implement their abstract semantics using two different abstract domains, the interval and the closed pentagon abstract domain, and compare both approaches to determine which domain is better for dead code detection in R.
+<p/>
+<i>Method:</i>&nbsp;To identify relevant numerical operators and functions, we use <a className='link' href='https://github.com/flowr-analysis/flowr' target="_blank" rel="noreferrer">flowR</a>, a static code analysis tool for R, to extract the most frequent numerical operators and functions in conditions of <code>if</code>, <code>while</code>, and <code>stopifnot</code> statements in a collection of real-world R scripts. We combine the gathered information with function type signature information to identify functions that produce or consume numeric scalar values. Then, we define the abstract domains and abstract semantics of the identified concrete operators and functions for both domains. We implement and integrate the theoretical concept as a proof-of-concept implementation into the existing abstract interpretation framework of flowR. Finally, we evaluate our implementation using a selection of 90&nbsp;executable and deterministic R scripts that we instrument to obtain a ground truth for evaluating the correctness and accuracy of our implementation. Additionally, we perform a large-scale evaluation on 10&nbsp;000&nbsp;scripts from GitHub to compare both domains regarding their ability to detect dead code and measure the runtime performance of the implementation.
+<p/>
+<i>Limitations:</i>&nbsp;There are several limitations to our concept and implementation. R is a highly dynamic language providing the user various abilities to manipulate the semantics of the language, for example, using the S3 and S4 object systems, which are only partially supported by flowR. Therefore, we rely on a set of soundiness assumptions regarding the use of these language features, which may not hold for all R scripts. As the scope of this thesis is limited, we further focus on a subset of numerical operators and functions, and refer to coarse-grained abstract semantics to support a wider range of operators and functions, instead of defining precise semantics for each operator and function.
+<p/>
+<i>Results:</i>&nbsp;We find that while our implementation is correct for all points of interest in the ground truth evaluation, the large-scale evaluation reveals correctness issues for both domains due to bugs in the implementation and the soundiness assumptions. In the 84&nbsp;analyzed scripts, we correctly identify 31.69&nbsp;% of the numeric scalar points of interest as numeric scalar, whereof we infer the exact values in 55.09&nbsp;% of the cases, overapproximating the remaining cases to intervals with at least one infinite bound. Thereby, the interval and pentagon domain infer the same intervals. While the large-scale evaluation reveals that the pentagon domain infers additional non-trivial upper bounds in 1.86&nbsp;% of the inferred values, the additional information does not aid in detecting more dead code.
+Both domains infer the same number of dead branches. Out of the 9&nbsp;962&nbsp;analyzed scripts, we infer 0.68&nbsp;% to contain dead code. We manually checked 37&nbsp;scripts where we reported 81&nbsp;dead branches and find that 44&nbsp;% where actually dead, with the remaining branches being false positives.
+We find that except for a few outliers, where the pentagon domain is substantially slower, our implementation of the pentagon domain is slightly faster than the implementation of the interval domain. However, we cannot conclude that the pentagon domain is generally faster than the interval domain, as we assume this to be caused by an optimization that was only applied to the implementation of the pentagon domain. The interval analysis required on average 53.91&nbsp;ms with a median of 21.65&nbsp;ms, while the pentagon analysis required on average 67.27&nbsp;ms with a median of 17.26&nbsp;ms to analyze a script. The combined 95th&nbsp;percentile runtime of all analyzing steps requires 743.88&nbsp;ms, which we consider to be fast enough for most use cases.
+For our proof-of-concept implementation, we therefore conclude, that the pentagon domain does not provide an advantage over the interval domain in terms of identifying dead branches in real-world R scripts, but rather introduces additional complexity while producing the same results as the interval domain.
+</>,
+})
+
+theses.push({
    author: 'Manuel Di Agostino',
    type: 'master-thesis',
    year: 2026,
@@ -456,8 +481,8 @@ export function getTheses(): { id: string; type: ThesisType; li: JSX.Element }[]
          const li = <li key={id}>
             <span className='small-caps thesis-type-tag'>{ThesisAbbrMap[type]}</span><strong id={'link-' + id}>{title}</strong> <span className='theses-author-meta'>({author !== 'anonymous' ? author + ', ' : ''}{monthToString[month - 1]}&nbsp;{year})</span>{link && <>&emsp;<a href={link} className="bib-link" target="_blank" rel="noreferrer">[PDF]</a></>}<br />
             {extra ? <><span> {extra} </span></> : null}
-            <details style={{ margin: '0em 0 .5em 0', cursor: 'pointer', userSelect: 'none' }}>
-               <summary><i>Details</i></summary>
+            <details style={{ margin: '0em 0 .5em 0' }}>
+               <summary style={{ cursor: 'pointer', userSelect: 'none' }}><i>Details</i></summary>
                <span>{committee ?? <>Examiners: {joinLastWith(examiners.map(e => ExaminerMap[e]))}</>}</span><br/>
                <span>{link && <>Link: <a href={link} className="bib-link" target="_blank" rel="noreferrer">{link}</a></>}</span>
                <p />

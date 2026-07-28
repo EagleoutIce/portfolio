@@ -28,6 +28,11 @@ news.push({
    link: 'https://events.digital-research.academy/event/109/'
 })
 news.push({
+   when: new Date("2026-07-08"),
+   text: 'Master\'s thesis by H. Schuler on Dead Code Detection',
+   link: thesisLink('A Comparison of the Interval and the Closed Pentagon Domain for Dead Code Detection in R')
+})
+news.push({
    when: new Date("2026-06-18"),
    text: 'Paper accepted at ASE \'26 on Data Frame Shape Inference',
    link: 'https://conf.researchr.org/home/ase-2026'
