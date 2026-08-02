@@ -35,12 +35,42 @@ interface Thesis {
    abstract: JSX.Element;
    type: keyof typeof TypeToStringMap;
    extra?: JSX.Element;
+   /** note on where the author continues with a doctorate */
+   phd?: JSX.Element;
    link?: string;
    year: number;
    month: number;
 }
 
+interface Institute {
+   name: string;
+   href: string;
+   /** the university the institute belongs to */
+   at: string;
+}
+
+/** institutes at which former students continue with their doctorate, one-offs are passed inline */
+const InstituteMap = {
+   'sp':  { name: 'Institute of Software Engineering and Programming Languages', href: 'https://www.uni-ulm.de/in/sp/', at: 'Ulm University' },
+   'vs':  { name: 'Institute of Distributed Systems', href: 'https://www.uni-ulm.de/in/vs/', at: 'Ulm University' },
+   'isf': { name: 'Institute of Software Engineering and Automotive Informatics', href: 'https://www.tu-braunschweig.de/isf/', at: 'TU Braunschweig' },
+} satisfies Record<string, Institute>;
+
+/** "Now pursuing a PhD …" note, `href` overrides the institute link (e.g. with a personal team page) */
+function phdAt(institute: keyof typeof InstituteMap | Institute, field = 'computer science', href?: string): JSX.Element {
+   const { name, at, href: instituteHref } = typeof institute === 'string' ? InstituteMap[institute] : institute;
+   return <>
+   Now pursuing a PhD in {field} at the <a className='link' href={href ?? instituteHref} target="_blank" rel="noreferrer">{name}</a> ({at}).
+   </>;
+}
+
 const theses: Thesis[] = [];
+
+/** the "Erasmus…"/"Award…" notes and the doctorate note, as shown below the title */
+function thesisNotes({ extra, phd }: Thesis): JSX.Element | undefined {
+   if (!extra || !phd) return extra ?? phd;
+   return <>{extra}<br />{phd}</>;
+}
 
 theses.push({
    title: 'Improving Code Coverage Metrics using Static Program Slicing for R',
@@ -64,9 +94,11 @@ With regards to slicing coverage’s accuracy, we find that mutants introduced i
 </>,
    author: 'Lukas Pietzschmann',
    examiners: ['mtt', 'sw'],
+   phd: phdAt('vs'),
 })
 theses.push({
    author: 'Ruben Dunkel',
+   phd: phdAt('isf', 'computer science', 'https://www.tu-braunschweig.de/isf/team/ruben-dunkel'),
    type: 'master-thesis',
    year: 2025,
    month: 4,
@@ -108,6 +140,7 @@ Our results show that our algorithm provides a solid proof of concept, while our
 })
 theses.push({
    author: 'Oliver Gerstl',
+   phd: phdAt('sp'),
    type: 'master-thesis',
    year: 2025,
    month: 8,
@@ -378,6 +411,7 @@ theses.push({
    extra: <>
    Erasmus+ exchange at <a className='link' href='https://www.uni-ulm.de/en/' target="_blank" rel="noreferrer">Ulm University</a> (<a className='link' href='https://www.unipr.it/' target="_blank" rel="noreferrer">University of Parma</a>).
    </>,
+   phd: phdAt({ name: 'Department of Mathematical, Physical and Computer Sciences', href: 'https://smfi.unipr.it/en', at: 'University of Parma' }, 'mathematics'),
    committee: <>Supervisor: {ExaminerMap['va']}<br/>Advisor: Florian Sihler</>,
    examiners: [],
    abstract: <>
@@ -456,7 +490,7 @@ export function getThesesList(): { categories: Record<string, CatDef>; order: st
                {t.author !== 'anonymous' ? <>{t.author} &middot; {date}</> : date}
                {t.link && <a className="pub-link" href={t.link} target="_blank" rel="noreferrer">PDF</a>}
             </>,
-            venue: t.extra,
+            venue: thesisNotes(t),
             extra: <details className="pub-collapse">
                <summary>Abstract &amp; details</summary>
                <div className="pub-collapse-body">
@@ -476,11 +510,13 @@ export function getTheses(): { id: string; type: ThesisType; li: JSX.Element }[]
       .toSorted(
          ({year, month}, {year: yearB, month: monthB}) => yearB - year || monthB - month
       )
-      .map(({ title, author, examiners, committee, abstract, link, year, month, extra, type }) => {
+      .map(thesis => {
+         const { title, author, examiners, committee, abstract, link, year, month, type } = thesis;
+         const notes = thesisNotes(thesis);
          const id = escapeId(title);
          const li = <li key={id}>
             <span className='small-caps thesis-type-tag'>{ThesisAbbrMap[type]}</span><strong id={'link-' + id}>{title}</strong> <span className='theses-author-meta'>({author !== 'anonymous' ? author + ', ' : ''}{monthToString[month - 1]}&nbsp;{year})</span>{link && <>&emsp;<a href={link} className="bib-link" target="_blank" rel="noreferrer">[PDF]</a></>}<br />
-            {extra ? <><span> {extra} </span></> : null}
+            {notes ? <><span> {notes} </span></> : null}
             <details style={{ margin: '0em 0 .5em 0' }}>
                <summary style={{ cursor: 'pointer', userSelect: 'none' }}><i>Details</i></summary>
                <span>{committee ?? <>Examiners: {joinLastWith(examiners.map(e => ExaminerMap[e]))}</>}</span><br/>
