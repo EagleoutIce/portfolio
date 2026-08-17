@@ -12,11 +12,12 @@ import listings from '../../resources/listings.svg';
 
 import "./MyCurrentProjects.css";
 import { SocialMediaIcon } from "../../components/SocialMediaIcon";
-import { faCode, faPlay, faBoxOpen, faDatabase, faVials, faPenNib, faPuzzlePiece } from "@fortawesome/free-solid-svg-icons";
+import { faCode, faPlay, faBoxOpen, faDatabase, faVials, faPenNib, faPuzzlePiece, faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const flowrEcosystem: { name: string; desc: string; href: string; icon: IconProp; tags: string[] }[] = [
+   { name: 'Source Code', desc: 'The flowR repository, with its issue tracker and releases.', href: 'https://github.com/flowr-analysis/flowr', icon: faGithub, tags: ['TypeScript', 'repository'] },
    { name: 'Extension for Positron & VS Code', desc: 'Analyze and slice your R code directly inside Positron and VS Code.', href: 'https://github.com/flowr-analysis/vscode-flowr', icon: faCode, tags: ['TypeScript', 'extension'] },
    { name: 'R Adapter', desc: 'Use flowR directly as a library from within R.', href: 'https://github.com/flowr-analysis/flowr-r-adapter', icon: faBoxOpen, tags: ['R', 'library'] },
    { name: 'Addin for RStudio', desc: 'Slice and analyze your R code from within RStudio.', href: 'https://github.com/flowr-analysis/rstudio-addin-flowr', icon: faPuzzlePiece, tags: ['R', 'extension'] },
@@ -40,10 +41,10 @@ export function MyCurrentProjects() {
    return <>
       <div className="projects">
          <ProjectCard
-            title={<>flowR&nbsp;<SocialMediaIcon className="small" icon={faGithub} key="flowr-github" /></>}
+            title={<>flowR&nbsp;<SocialMediaIcon className="small" icon={faGlobe} key="flowr-site" /></>}
             description={"A Dataflow Analysis Framework for R (Dependency Analysis, Program Slicing, ...)."}
             image={flowR}
-            link={"https://github.com/flowr-analysis/flowr"}
+            link={"https://flowr-analysis.github.io/flowr/"}
             extraClasses="project-card-rotating-img"
             crumbs={["R", "static analysis", "program comprehension"]}
          />
