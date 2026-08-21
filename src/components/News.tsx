@@ -18,6 +18,11 @@ function thesisLink(title: string): string {
 
 const news: News[] = []
 news.push({
+   when: new Date("2026-06-21"),
+   text: 'Paper accepted at NSAD \'26 on a Domain for R Vectors',
+   link: 'https://conf.researchr.org/home/nsad-2026'
+})
+news.push({
    when: new Date("2026-07-11"),
    text: 'Master\'s theses by M. Di Agostino and P. Castelluccia (Erasmus+ from the Univ. of Parma)',
    link: thesisLink('Towards Statically Reasoning About R Vectors')
