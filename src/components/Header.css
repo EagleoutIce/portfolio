@@ -40,10 +40,6 @@
    visibility: visible;
 }
 
-.header.sticky .hide-on-sticky {
-   display: none;
-}
-
 .header-glue {
    width: 35%;
    height: 1px;

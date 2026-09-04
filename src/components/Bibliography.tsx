@@ -1,13 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import "./Bibliography.css";
 import { Pagination } from "./Pagination";
-import { Cite } from '@citation-js/core';
-import '@citation-js/plugin-bibtex';
-import '@citation-js/plugin-csl';
+import bibliography from "../data/bibliography.json";
+import { loadBib } from "../data/bibSources";
 
+
+export type BibSource = keyof typeof bibliography;
 
 export interface BibliographyProps {
-   readonly biblatexContent: string;
+   /** key into the pre-rendered bibliography.json */
+   readonly source: BibSource;
    readonly type: string;
    readonly pageSize?: number;
    readonly filters?: { [name: string]:
@@ -29,8 +31,8 @@ function entryReplace(entry: string): string {
       ;
 }
 
-function downloadBib(content: string, name: string): void {
-   const blob = new Blob([content], { type: 'text/plain' });
+async function downloadBib(source: BibSource, name: string): Promise<void> {
+   const blob = new Blob([await loadBib(source)], { type: 'text/plain' });
    const link = document.createElement('a');
    link.href = URL.createObjectURL(blob);
    link.download = name.toLocaleLowerCase().replace(/[^a-z0-9]/g, '-') + '.bib';
@@ -39,16 +41,10 @@ function downloadBib(content: string, name: string): void {
    document.body.removeChild(link);
 }
 
-interface IssuedObject {
-   issued: {
-      'date-parts': [year: number, month?: number, day?: number][];
-   }
-}
-
 const PAGE_SIZE = 10;
 
 // https://citation.js.org/api/0.3/tutorial-output_formats.html
-export function Bibliography({ biblatexContent, type, filters, pageSize = PAGE_SIZE }: BibliographyProps) {
+export function Bibliography({ source, type, filters, pageSize = PAGE_SIZE }: BibliographyProps) {
    const [activeFilters, setActiveFilters] = useState<{ [name: string]: boolean }>(() => {
       const init: { [name: string]: boolean } = {};
       if(filters) {
@@ -61,49 +57,12 @@ export function Bibliography({ biblatexContent, type, filters, pageSize = PAGE_S
    const [currentPage, setCurrentPage] = useState(0);
 
    const { formatted, data } = useMemo(() => {
-      const cite = new Cite(biblatexContent);
-      cleanUpData(cite);
-      sortAccordingToYear(cite);
-
-      const res = cite.format('bibliography', {
-         format: 'html',
-         template: 'apa',
-         lang: 'en-US',
-         asEntryArray: true,
-         nosort: true,
-         prepend(entry: object) {
-            let prefix: string = '<div style="position: relative">';
-            if('DOI' in entry && typeof entry['DOI'] === 'string') {
-               prefix += '<a href="https://doi.org/' + entry['DOI'] + '" target="_blank" rel="noreferrer">';
-            } else if('URL' in entry) {
-               prefix += '<a href="' + entry['URL'] + '" target="_blank" rel="noreferrer">';
-            }
-            if('event' in entry) {
-               prefix += ` <div class="breadcrumb-container"><span class="breadcrumb">${entry['event']}</span></div>`;
-            }
-            return prefix;
-         },
-         append(entry: object) {
-            let suffix = '';
-            if('DOI' in entry || 'URL' in entry) {
-               suffix += '</a>';
-            }
-            if('note' in entry) {
-               suffix += `&emsp;${entry['note']}`;
-            }
-            suffix += '</div>';
-            return suffix;
-         }
-      });
-
-      const formatted = res.map(
-         ([_, entry]: string[], index: number) => {
-            return `<div key=${index} class="bib-entry">
-            <div class="bib-index">[<span class="bib-number">${res.length - index}</span>]</div> ${entryReplace(entry)}</div>`;
-         }
-      );
-      return { formatted, data: cite.data as Record<string, unknown>[] };
-   }, [biblatexContent]);
+      const { entries, data } = bibliography[source];
+      const formatted = entries.map((entry, index) =>
+         `<div key=${index} class="bib-entry">
+            <div class="bib-index">[<span class="bib-number">${entries.length - index}</span>]</div> ${entryReplace(entry)}</div>`);
+      return { formatted, data: data as Record<string, unknown>[] };
+   }, [source]);
 
    const allEntries = useMemo(() => formatted.filter((_entry: string, index: number) => {
       if(!filters) {
@@ -152,40 +111,15 @@ export function Bibliography({ biblatexContent, type, filters, pageSize = PAGE_S
    }
 
    const pagination = needsPagination && (
-      <Pagination current={currentPage} total={totalPages} onChange={setCurrentPage} />
+      <Pagination current={currentPage} total={totalPages} onChange={setCurrentPage} label={type} />
    );
 
    return <>
-      <div className="bibliography-header"><a onClick={() => downloadBib(biblatexContent, type)}>download <span className="code">.bib</span></a></div>
+      <div className="bibliography-header"><button type="button" onClick={() => void downloadBib(source, type)}>download <span className="code">.bib</span></button></div>
       <div className="bibliography-filters">
          {filterElems.length > 0 ? <>{filterElems}<span className='filter-mode'>(matches all)</span></> : <span></span>}
       </div>
       <div className="bibliography" dangerouslySetInnerHTML={{ __html: bib }} />
       {pagination}
    </>;
-}
-
-function sortAccordingToYear(cite: any) {
-   cite.sort(({ issued: a }: IssuedObject, { issued: b }: IssuedObject) => {
-      const yearA = a['date-parts'][0][0];
-      const yearB = b['date-parts'][0][0];
-      if(yearA !== yearB) {
-         return yearB - yearA;
-      }
-      const monthA = a['date-parts'][0][1] || 0;
-      const monthB = b['date-parts'][0][1] || 0;
-      return monthB - monthA;
-   });
-}
-
-function cleanUpData(cite: any) {
-   cite.set(cite.data.map((entry: object) => {
-      if(entry === undefined || typeof entry !== 'object') {
-         return entry;
-      }
-      if('DOI' in entry && typeof entry['DOI'] === 'string') {
-         entry['DOI'] = entry['DOI'].replaceAll(String.raw`\_`, '_').trim();
-      }
-      return entry;
-   }));
 }

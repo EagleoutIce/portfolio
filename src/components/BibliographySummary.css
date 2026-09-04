@@ -58,7 +58,7 @@
 
 .bib-summary-toggle:hover,
 .bib-summary-toggle:focus-visible {
-   color: var(--main-color);
+   color: var(--accent-text);
    outline: none;
 }
 

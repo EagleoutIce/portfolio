@@ -1,57 +1,24 @@
-import { lazy, Suspense, useMemo, useState, type ReactNode } from 'react';
+import { PageFooter } from '../../components/PageFooter';
+import { Icon } from '../../components/Icon';
 import { Content } from '../../components/Content';
-import { SiteNotice } from '../../components/SiteNotice';
-import { MyHeader } from './MyHeader';
-import { MyCurrentProjects, MyCurrentTypographyProjects, MyPenguinCurrentProjects } from './MyCurrentProjects';
-import type { BibliographyProps } from '../../components/Bibliography';
-import { BibDataMain, BibDataPoster, BibDataTalks, BibDataOther } from './BibliographyData';
-import { MyIntro } from './MyIntro';
-import { MyTeaching } from './MyTeaching';
-import { MySeminars } from './MySeminars';
-import { MyService } from './MyService';
+import { MyHeader } from './Header';
+import { MyCurrentProjects, MyCurrentTypographyProjects, MyPenguinCurrentProjects } from './Projects';
+import { Bibliography, type BibliographyProps } from '../../components/Bibliography';
+import bibliography from '../../data/bibliography.json';
+import { BibliographySummary } from '../../components/BibliographySummary';
+import { PageSummary } from './PageSummary';
+import { MyIntro } from './Intro';
+import { MyTeaching } from './Teaching';
+import { MySeminars } from './Seminars';
+import { MyService } from './Service';
 import { StaticQuickLinks } from '../../components/QuickLinks';
-import { LastUpdated } from '../../components/LastUpdated';
 import { News } from '../../components/News';
-import { MyHonors } from './MyHonors';
-import { MyEvents } from './EventsData';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { MyHonors } from './Honors';
+import { MyEvents } from './Events';
 import { faDiamond } from '@fortawesome/free-solid-svg-icons';
 import { SectionHeading } from '../../components/SectionHeading';
+import { Collapsible } from '../../components/Collapsible';
 import './Divider.css';
-
-/* citation-js with the csl plugin dominates the bundle, so everything that
-   parses BibTeX (the full list plus the two summaries) loads on demand — this
-   keeps citation-js out of the initial main-page payload */
-const LazyBibliography = lazy(() => import('../../components/Bibliography').then(m => ({ default: m.Bibliography })));
-const PageSummary = lazy(() => import('./PageSummary').then(m => ({ default: m.PageSummary })));
-const BibliographySummary = lazy(() => import('../../components/BibliographySummary').then(m => ({ default: m.BibliographySummary })));
-
-function Bibliography(props: BibliographyProps) {
-  return <Suspense fallback={<p>Loading publications...</p>}>
-    <LazyBibliography {...props} />
-  </Suspense>;
-}
-
-interface CollapsibleSectionProps {
-  readonly id: string;
-  readonly heading: string;
-  readonly summary: string;
-  readonly defaultOpen?: boolean;
-  readonly children: ReactNode;
-}
-
-/* only renders the content while expanded */
-function CollapsibleSection({ id, heading, summary, defaultOpen = false, children }: CollapsibleSectionProps) {
-  const [open, setOpen] = useState(defaultOpen);
-  return <details className="collapse-section" open={open} onToggle={e => setOpen((e.target as HTMLDetailsElement).open)}>
-    <summary>
-      <SectionHeading id={id} as="h3">{heading}</SectionHeading>
-      <span className="collapse-count">{summary}</span>
-      <span className="collapse-chevron" />
-    </summary>
-    {open && children}
-  </details>;
-}
 
 interface CollapsibleBibliographyProps extends BibliographyProps {
   readonly id: string;
@@ -61,12 +28,12 @@ interface CollapsibleBibliographyProps extends BibliographyProps {
 }
 
 function CollapsibleBibliography({ id, heading, intro, defaultOpen, ...bib }: CollapsibleBibliographyProps) {
-  const count = useMemo(() => (bib.biblatexContent.match(/^\s*@/gm) ?? []).length, [bib.biblatexContent]);
-  return <CollapsibleSection id={id} heading={heading} defaultOpen={defaultOpen}
-    summary={`${count} ${count === 1 ? 'entry' : 'entries'}`}>
+  const count = bibliography[bib.source].entries.length;
+  return <Collapsible defaultOpen={defaultOpen} count={`${count} ${count === 1 ? 'entry' : 'entries'}`}
+    title={<SectionHeading id={id} as="h3">{heading}</SectionHeading>}>
     {intro}
     <Bibliography {...bib} />
-  </CollapsibleSection>;
+  </Collapsible>;
 }
 
 function Divider() {
@@ -74,7 +41,7 @@ function Divider() {
     <span className="divider-line left" />
     <a className="divider-icon divider-link" href="#/timeline" title="Open the global timeline — everything with a date"
       aria-label="Open the global timeline">
-      <FontAwesomeIcon icon={faDiamond} />
+      <Icon icon={faDiamond} />
     </a>
     <span className="divider-line right" />
   </div>;
@@ -85,7 +52,7 @@ function MainPage() {
     <MyHeader />
     <Content>
       <MyIntro />
-      <Suspense fallback={<div style={{ minHeight: '2em' }} />}><PageSummary /></Suspense>
+      <PageSummary />
       <Divider />
       <News />
       
@@ -95,9 +62,10 @@ function MainPage() {
       <SectionHeading id="penguins" as="h3">Penguins</SectionHeading>
       <MyPenguinCurrentProjects />
 
-      <CollapsibleSection id="typography" heading="TeX, Typst, and Typography" summary="4 projects">
+      <Collapsible count="4 projects"
+        title={<SectionHeading id="typography" as="h3">TeX, Typst, and Typography</SectionHeading>}>
         <MyCurrentTypographyProjects />
-      </CollapsibleSection>
+      </Collapsible>
 
       <SectionHeading id="publications" href="#/all-publications" linkHint="detailed list">Publications and Travel</SectionHeading>
          <StaticQuickLinks sections={{
@@ -109,16 +77,14 @@ function MainPage() {
             seminars: { page: 'schools-seminars'}
          }}></StaticQuickLinks>
          
-         <Suspense fallback={<div style={{ minHeight: '2em' }} />}>
-          <BibliographySummary biblatexContent={{
-            paper:  BibDataMain,
-            talk:   BibDataTalks,
-            poster: BibDataPoster,
-            other:  BibDataOther
-          }} />
-        </Suspense>
+         <BibliographySummary sources={{
+            paper:  'paper',
+            talk:   'talk',
+            poster: 'poster',
+            other:  'other'
+         }} />
          
-        <CollapsibleBibliography id="papers" heading="Papers" defaultOpen pageSize={5} biblatexContent={BibDataMain} type='Papers'
+        <CollapsibleBibliography id="papers" heading="Papers" defaultOpen pageSize={5} source='paper' type='Papers'
           filters = {{
             ['first author']: (entry: Record<string, unknown>) => {
                 if('author' in entry && Array.isArray(entry['author']) && entry['author'].length > 0) {
@@ -135,12 +101,12 @@ function MainPage() {
           }}
         />
               
-        <CollapsibleBibliography id="talks" heading="Talks" biblatexContent={BibDataTalks} type='Talks'
+        <CollapsibleBibliography id="talks" heading="Talks" source='talk' type='Talks'
           intro={<p>Talks refer to all presentations that do not have an accompanying full/short paper publication, e.g., invited talks or talks at workshops without proceedings.</p>} />
 
-        <CollapsibleBibliography id="posters" heading="Posters" biblatexContent={BibDataPoster} type='Posters' />
+        <CollapsibleBibliography id="posters" heading="Posters" source='poster' type='Posters' />
 
-        <CollapsibleBibliography id="other-publications" heading="Other" biblatexContent={BibDataOther} type='Other Publications' />
+        <CollapsibleBibliography id="other-publications" heading="Other" source='other' type='Other Publications' />
 
         <SectionHeading id="events" as="h3" href="#/all-events" linkHint="detailed list">Events</SectionHeading>
 
@@ -160,8 +126,7 @@ function MainPage() {
       <SectionHeading id="teaching">Teaching</SectionHeading>
       <MyTeaching />
     </Content>
-    <SiteNotice />
-    <LastUpdated />
+    <PageFooter />
   </>
   );
 }

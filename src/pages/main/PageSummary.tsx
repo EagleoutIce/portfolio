@@ -1,14 +1,12 @@
 import { useMemo } from 'react';
 import { type ReactNode } from 'react';
-import { Cite } from '@citation-js/core';
-import '@citation-js/plugin-bibtex';
+import bibliography from '../../data/bibliography.json';
 import { Tooltip } from 'react-tooltip';
 import '../../components/BibliographySummary.css';
-import { BibDataMain, BibDataPoster, BibDataTalks, BibDataOther } from './BibliographyData';
-import { getServiceRoleInfo } from './ServiceData';
-import { getGrantCount, formatEuro } from './HonorsData';
-import { getThesisCounts } from './ThesesData';
-import { getTeachingDutySplitInfo } from './TeachingsData';
+import { getServiceRoleInfo } from './Service';
+import { getGrantCount, formatEuro } from './Honors';
+import { getThesisCounts } from './Theses';
+import { getTeachingDutySplitInfo } from './Teaching';
 
 const ttStyle    = { padding: '5px 9px', lineHeight: 1.35 } as const;
 const ttInner    = { maxWidth: '320px', wordBreak: 'break-word' } as const;
@@ -23,8 +21,8 @@ const CSL_LABEL: Record<string, string> = {
   'article-journal':  'Article',
 };
 
-function parseBib(content: string, label?: string) {
-  const data    = new Cite(content).data as Record<string, unknown>[];
+function parseBib(source: keyof typeof bibliography, label?: string) {
+  const data    = bibliography[source].data as Record<string, unknown>[];
   const byConf  = new Map<string, number>();
   const byType  = new Map<string, number>();
   for (const entry of data) {
@@ -63,10 +61,10 @@ function Badge({ id, href, count, label, tooltipContent }: {
 
 export function PageSummary() {
   const pubEntries = useMemo(() => [
-    { ...parseBib(BibDataMain,   'Publications'), key: 'papers',  href: '#/papers'             },
-    { ...parseBib(BibDataTalks,  'Talks'),        key: 'talks',   href: '#/talks'              },
-    { ...parseBib(BibDataPoster, 'Posters'),      key: 'posters', href: '#/posters'            },
-    { ...parseBib(BibDataOther),                  key: 'other',   href: '#/other-publications' },
+    { ...parseBib('paper',  'Publications'), key: 'papers',  href: '#/papers'             },
+    { ...parseBib('talk',   'Talks'),        key: 'talks',   href: '#/talks'              },
+    { ...parseBib('poster', 'Posters'),      key: 'posters', href: '#/posters'            },
+    { ...parseBib('other'),                  key: 'other',   href: '#/other-publications' },
   ], []);
 
   const serviceRoles                               = getServiceRoleInfo();

@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { Content } from "../components/Content";
 
 interface SiteNoticePageProps {
@@ -8,8 +7,6 @@ interface SiteNoticePageProps {
 }
 
 export function SiteNoticePage({ legalName, legalEmail, legalAddress }: SiteNoticePageProps) {
-   const navigate = useNavigate();
-
    return <Content>
       <h1>Site Notice</h1>
       <i>{legalName}</i>
@@ -20,7 +17,7 @@ export function SiteNoticePage({ legalName, legalEmail, legalAddress }: SiteNoti
       <button
          onClick={e => {
             e.preventDefault();
-            navigate(-1);
+            window.history.back();
          }}>Back</button>
    </Content>;
 }  

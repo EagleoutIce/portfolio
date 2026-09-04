@@ -1,10 +1,10 @@
 import type { CatDef, CatItem } from '../../components/CategorizedList';
-import { getThesesList } from '../main/ThesesData';
-import { getEventsList } from '../main/EventsData';
-import { getLecturesList } from '../main/TeachingsData';
-import { getServiceList } from '../main/ServiceData';
-import { getHonorsTimeline } from '../main/HonorsData';
-import { getSeminarsTimeline } from '../main/SeminarsData';
+import { getThesesList } from '../main/Theses';
+import { getEventsList } from '../main/Events';
+import { getLecturesList } from '../main/Teaching';
+import { getServiceList } from '../main/Service';
+import { getHonorsTimeline } from '../main/Honors';
+import { getSeminarsTimeline } from '../main/Seminars';
 import { getPublicationsItems } from '../publications/publicationsData';
 import { TL_CATEGORIES, TL_ORDER, TL_SOURCES, type SourceId } from './timelineSources';
 

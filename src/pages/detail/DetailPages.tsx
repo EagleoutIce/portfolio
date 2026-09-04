@@ -1,10 +1,10 @@
 import { DetailPage } from '../../components/DetailPage';
 import { CategorizedList } from '../../components/CategorizedList';
 import { withTimelineCrosslinks } from '../timeline/timelineSources';
-import { getServiceList } from '../main/ServiceData';
-import { getThesesList } from '../main/ThesesData';
-import { getLecturesList } from '../main/TeachingsData';
-import { getEventsList } from '../main/EventsData';
+import { getServiceList } from '../main/Service';
+import { getThesesList } from '../main/Theses';
+import { getLecturesList } from '../main/Teaching';
+import { getEventsList } from '../main/Events';
 
 /* the detail lists are bundled together into one lazily-loaded chunk so their
    markup (and CategorizedList) stays out of the initial page load. */

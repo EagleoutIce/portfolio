@@ -1,0 +1,15 @@
+{
+   "main": [
+      {"name": "flowR", "icon": "globe", "desc": "A Dataflow Analysis Framework for R (Dependency Analysis, Program Slicing, ...).", "image": "flowr", "anim": "rotating", "link": "https://flowr-analysis.github.io/flowr/", "tags": ["R", "static analysis", "program comprehension"]}
+   ],
+   "penguins": [
+      {"name": "Waddle", "icon": "play", "suffix": "(de)", "desc": "Learning game for children, introducing programming concepts.", "image": "waddle", "anim": "waddle", "link": "https://exia.informatik.uni-ulm.de/waddle", "tags": ["TypeScript", "game", "program comprehension"]},
+      {"name": "TikZpingus", "icon": "github", "desc": "Cute Penguins in LaTeX with TikZ.", "image": "pengu", "anim": "pengu", "link": "https://github.com/EagleoutIce/tikzpingus", "tags": ["LaTeX", "tikz", "package"]}
+   ],
+   "typography": [
+      {"name": "fancyqr", "icon": "github", "desc": "Creating rounded and colorful QR codes in LaTeX.", "image": "fancyqr", "anim": "dangle", "link": "https://github.com/EagleoutIce/fancyqr", "tags": ["LaTeX", "qr"]},
+      {"name": "beamer-themes", "icon": "github", "desc": "A collection of beamer-themes I have created over the years.", "image": "montage", "anim": "pulsating", "link": "https://github.com/EagleoutIce/beamer-themes", "tags": ["LaTeX", "beamer"]},
+      {"name": "sopra-collection", "icon": "github", "desc": "A collection of various useful LaTeX packages.", "image": "listings", "anim": "pulsating-white", "link": "https://github.com/EagleoutIce/sopra-collection", "tags": ["LaTeX", "packages"]},
+      {"name": "TexCHR", "icon": "github", "desc": "A plain-tex implementation of FreeCHR.", "image": "texchr", "anim": "pulsating-white", "link": "https://github.com/EagleoutIce/TeXCHR", "tags": ["TeX", "CHR"]}
+   ]
+}

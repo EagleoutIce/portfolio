@@ -1,329 +1,12 @@
+import { Icon } from './Icon';
 import { useMemo, useState } from "react";
+import { Collapsible } from "./Collapsible";
 import "./News.css"
 import { getLastUpdated } from "./LastUpdated";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { escapeId } from "../util/id";
-
-interface News {
-   when: Date,
-   text: string,
-   link?: string
-}
-
-/** internal permalink to a supervised thesis, see getTheses in ThesesData */
-function thesisLink(title: string): string {
-   return '#/link-' + escapeId(title);
-}
-
-const news: News[] = []
-news.push({
-   when: new Date("2026-06-21"),
-   text: 'Paper accepted at NSAD \'26 on a Domain for R Vectors',
-   link: 'https://conf.researchr.org/home/nsad-2026'
-})
-news.push({
-   when: new Date("2026-07-11"),
-   text: 'Master\'s theses by M. Di Agostino and P. Castelluccia (Erasmus+ from the Univ. of Parma)',
-   link: thesisLink('Towards Statically Reasoning About R Vectors')
-})
-news.push({
-   when: new Date("2026-07-09"),
-   text: 'Two presentations and a poster at useR! \'26',
-   link: 'https://events.digital-research.academy/event/109/'
-})
-news.push({
-   when: new Date("2026-07-08"),
-   text: 'Master\'s thesis by H. Schuler on Dead Code Detection',
-   link: thesisLink('A Comparison of the Interval and the Closed Pentagon Domain for Dead Code Detection in R')
-})
-news.push({
-   when: new Date("2026-06-18"),
-   text: 'Paper accepted at ASE \'26 on Data Frame Shape Inference',
-   link: 'https://conf.researchr.org/home/ase-2026'
-})
-news.push({
-   when: new Date("2026-06-15"),
-   text: 'Reviewer, MHFA responder & awards reviewer for RSECon \'26',
-   link: 'https://rsecon26.society-rse.org/'
-})
-news.push({
-   when: new Date("2026-05-11"),
-   text: 'Bachelor\'s thesis by J. Kruger on Parallelising SA',
-   link: thesisLink('Improving Dataflow Analysis Performance in flowR – With Parallelization and Lazy Function Evaluation')
-})
-news.push({
-   when: new Date("2026-05-04"),
-   text: 'Pupil started a 1-week internship at the institute',
-})
-news.push({
-   when: new Date("2026-04-19"),
-   text: 'Part of the AEC of SLE \'26',
-   link: 'https://conf.researchr.org/home/sle-2026#Call-for-Artifacts'
-})
-news.push({
-   when: new Date("2026-03-25"),
-   text: 'Local Chair for DANTE \'27 in Ulm',
-   link: 'https://www.dante.de/veranstaltungen/'
-})
-news.push({
-   when: new Date("2026-03-18"),
-   text: 'Paper accepted at FSE Tool Demonstrations \'26',
-   link: 'https://conf.researchr.org/track/fse-2026/fse-2026-demonstrations'
-})
-news.push({
-   when: new Date("2026-01-16"),
-   text: 'Bachelor\'s thesis by L. Schlecker on String Inference',
-   link: thesisLink('Static Analysis for Self-Modifying R Programs')
-})
-news.push({
-   when: new Date("2025-12-01"),
-   text: 'Paper accepted at ICSE NIER \'26',
-   link: 'https://conf.researchr.org/track/icse-2026/icse-2026-nier'
-})
-news.push({
-   when: new Date("2025-11-28"),
-   text: 'Extended abstract accepted at SE \'26',
-   link: 'https://se2026.inf.unibe.ch/de/program/'
-})
-news.push({
-   when: new Date("2025-10-18"),
-   text: 'Presentation at SPLASH-E \'25',
-   link: 'https://2025.splashcon.org/details/splash-2025-SPLASH-E/10/Waddle-A-Serious-Game-to-Teach-Writing-Reading-and-Debugging-Programs'
-})
-news.push({
-   when: new Date("2025-10-17"),
-   text: 'Presentation at OOPSLA \'25',
-   link: 'https://2025.splashcon.org/details/OOPSLA/103/Statically-Analyzing-the-Dataflow-of-R-Programs'
-})
-news.push({
-   when: new Date("2025-10-16"),
-   text: 'Poster at OOPSLA \'25',
-   link: 'https://2025.splashcon.org/details/OOPSLA/103/Statically-Analyzing-the-Dataflow-of-R-Programs'
-})
-news.push({
-   when: new Date("2025-10-02"),
-   text: 'Selected as Junior PC Member for MSR \'26',
-   link: 'https://2026.msrconf.org/'
-})
-news.push({
-   when: new Date("2025-09-30"),
-   text: 'Presentation at the R Core Meeting 2025',
-})
-news.push({
-   when: new Date("2025-09-29"),
-   text: 'Unrestricted Gift by Posit for a "Security and Taint Analysis for R"',
-   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/flowr-receives-unrestricted-gift-from-posit/'
-})
-news.push({
-   when: new Date("2025-09-24"),
-   text: 'Non-archival paper accepted at SPLASH-E \'25',
-   link: 'https://2025.splashcon.org/details/splash-2025-SPLASH-E/10/Waddle-A-Serious-Game-to-Teach-Writing-Reading-and-Debugging-Programs'
-})
-news.push({
-   when: new Date("2025-09-15"),
-   text: 'Poster and flash presentation at the 12th HLF',
-   link: 'https://www.youtube.com/watch?v=9C05VuVf6ik&t=1585s'
-})
-news.push({
-   when: new Date("2025-09-11"),
-   text: 'Received the Rising Star Award at RSECon \'25',
-   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/rising-star-award-at-rsecon25/'
-})
-news.push({
-   when: new Date("2025-08-31"),
-   text: 'Finished Research Stay with Jan Vitek at PRL-PRG', // Charles University
-   link: 'https://prl-prg.github.io/'
-})
-news.push({
-   when: new Date("2025-08-13"),
-   text: 'Paper accepted at OOPSLA \'25',
-   link: 'https://2025.splashcon.org/'
-})
-news.push({
-   when: new Date("2025-08-11"),
-   text: 'Invited to the R Core Meeting 2025',
-})
-news.push({
-   when: new Date("2025-08-06"),
-   text: 'Released flowR v2.4.0 (Forward-Slicing, Bugfixes)',
-   link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.4.0'
-})
-news.push({
-   when: new Date("2025-08-01"),
-   text: 'Started Research Stay with Jan Vitek at PRL-PRG', // Charles University
-   link: 'https://prl-prg.github.io/'
-})
-news.push({
-   when: new Date("2025-07-21"),
-   text: 'Released flowR v2.3.0 (Data Frame Shape Inference)',
-   link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.3.0'
-})
-news.push({
-   when: new Date("2025-06-27"),
-   text: 'Received a DAAD stipend for a research stay at CU/CTU',
-   link: 'https://prl-prg.github.io/'
-})
-news.push({
-   when: new Date("2025-06-24"),
-   text: 'Received the iwimint-grant for Waddle',
-   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/waddle-receives-iwimint-funding/'
-})
-news.push({
-   when: new Date("2025-06-24"),
-   text: 'Poster and flash presentation accepted at the 12th HLF',
-   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/florian-sihler-accepted-at-the-12th-heidelberg-laureate-forum/'
-})
-news.push({
-   when: new Date("2025-06-24"),
-   text: 'Paper accepted at SEAA \'25',
-   link: 'https://dsd-seaa.com/seaa2025/'
-})
-news.push({
-   when: new Date("2025-06-13"),
-   text: 'Presentation accepted at RSECon \'25',
-   link: 'https://rsecon25.society-rse.org/'
-})
-news.push({
-   when: new Date("2025-06-11"),
-   text: 'Received the Abbe Grant by the Carl-Zeiss-Stiftung (HLF)',
-   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/florian-sihler-accepted-at-the-12th-heidelberg-laureate-forum/'
-})
-news.push({
-   when: new Date("2025-06-09"),
-   text: 'Presentation at the tidyteam meeting',
-   link: 'https://github.com/tidyverse'
-})
-news.push({
-   when: new Date("2025-06-05"),
-   text: 'Presentation at the CSV \'25 on Regression Analysis',
-   link: 'https://unive-ssv.github.io/events/2025/06/05/csv.html'
-})
-news.push({
-   when: new Date("2025-06-02"),
-   text: 'Released flowR v2.2.15 (Value-Vector-Support)',
-   link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.2.15'
-})
-news.push({
-   when: new Date("2025-05-31"),
-   text: 'Released flowR v2.2.14 (Linting)',
-   link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.2.14'
-})
-news.push({
-   when: new Date("2025-05-27"),
-   text: 'Released flowR v2.2.13 (CFG, Graphics, Aliasing)',
-   link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.2.13'
-})
-news.push({
-   when: new Date("2025-05-26"),
-   text: 'Presentation at the GRK 2624 Seminar',
-   link: 'https://grk2624.statistik.tu-dortmund.de/seminar/'
-})
-news.push({
-   when: new Date("2025-05-23"),
-   text: 'Booth for Waddle at the LaDeWi 2025',
-   link: 'https://www.uni-ulm.de/in/fakultaet/in-detailseiten/news-detail/article/langer-abend-der-wissenschaft-2025/'
-})
-news.push({
-   when: new Date("2025-05-01"),
-   text: 'Book on Algorithmic Game Theory published',
-   link: 'https://www.lehmanns.de/shop/mathematik-informatik/76728693-9783965435797-algorithmische-spieltheorie'
-})
-news.push({
-   when: new Date("2025-05-15"),
-   text: 'Presentation at the 42nd HiRSE (YoungRSE Award)',
-   link: 'https://www.helmholtz-hirse.de/series/2025_05_15-seminar_42.html'
-})
-news.push({
-   when: new Date("2025-05-02"),
-   text: 'Reviewing for RSECon \'25',
-   link: 'https://rsecon25.society-rse.org/'
-})
-news.push({
-   when: new Date("2025-04-23"),
-   text: 'Presentation accepted at the CSV \'25',
-   link: 'https://unive-ssv.github.io/csv.html'
-})
-news.push({
-   when: new Date("2025-04-14"),
-   text: 'Master\'s thesis by R. Dunkel on Feature Slicing',
-   link: thesisLink('Cut to the Core – Automated Feature Extraction in R Using Program Slicing')
-})
-news.push({
-   when: new Date("2025-04-11"),
-   text: 'Accepted at the 12th Heidelberg Laureate Forum (HLF)',
-   link: 'https://www.uni-ulm.de/in/sp/institute/news-detail/article/florian-sihler-accepted-at-the-12th-heidelberg-laureate-forum/'
-})
-news.push({
-   when: new Date("2025-04-09"),
-   text: 'Workshop on LaTeX at the ConVeY Retreat 2025',
-   link: 'https://convey.ifi.lmu.de/workshops/2025/spring/program.html'
-})
-news.push({
-   when: new Date("2025-04-03"),
-   text: 'Workshop for Waddle at the Girls\' Day 2025',
-   link: 'https://www.girls-day.de'
-})
-news.push({
-   when: new Date("2025-04-01"),
-   text: 'Bachelor\'s thesis by F. Schlegel on Pointer Analysis',
-   link: thesisLink('Field-Sensitive Pointer Analysis for Static Dataflow in the R Programming Language')
-})
-news.push({
-   when: new Date("2025-03-17"),
-   text: 'Released flowR v2.2.12 (Vectors, Graphics, String Eval)',
-   link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.2.12'
-})
-news.push({
-   when: new Date("2025-03-02"),
-   text: 'Released flowR v2.2.11 (Compression, Projects)',
-   link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.2.11'
-})
-news.push({
-   when: new Date("2025-02-27"),
-   text: 'Extended abstract accepted at SE \'25',
-   link: 'https://doi.org/10.18420/se2025-27'
-})
-news.push({
-   when: new Date("2025-02-26"),
-   text: 'Presentation at deRSE \'25',
-   link: 'https://events.hifis.net/event/1741/contributions/13407/'
-})
-news.push({
-   when: new Date("2025-02-23"),
-   text: 'Released flowR v2.2.10 (Linking Definitions and setNames)',
-   link: 'https://github.com/flowr-analysis/flowr/releases/tag/v2.2.10'
-})
-news.push({
-   when: new Date("2025-01-21"),
-   text: 'Presentation at the DLR'
-})
-news.push({
-   when: new Date("2025-01-02"),
-   text: 'Master\'s thesis by L. Pietzschmann on Slicing Coverage',
-   link: thesisLink('Improving Code Coverage Metrics using Static Program Slicing for R')
-})
-news.push({
-   when: new Date("2024-01-24"),
-   text: 'Paper accepted at MSR \'24',
-   link: 'https://doi.org/10.1145/3643991.3644911'
-})
-news.push({
-   when: new Date("2023-08-13"),
-   text: 'Master\'s thesis by me on flowR',
-   link: 'http://dx.doi.org/10.18725/OPARU-50107'
-})
-news.push({
-   when: new Date("2021-11-30"),
-   text: 'Bachelor\'s thesis by me on One-Way Transformations',
-   link: 'http://dx.doi.org/10.18725/OPARU-47275'
-})
-
-
-news.sort((a, b) => b.when.getTime() - a.when.getTime());
+import { news, type NewsItem } from "../data/news";
 
 export function News() {
-   const [open, setOpen] = useState(false);
    const [showLast, setShowLast] = useState(5);
    const [filter, setFilter] = useState('');
 
@@ -334,22 +17,16 @@ export function News() {
       );
    }, [filter])
 
-   return <details className="news collapse-section" open={open} onToggle={e => setOpen((e.target as HTMLDetailsElement).open)}>
-      <summary>
-         <span className="collapse-title">News</span>
-         {!open && <span className="news-teaser">{getDate(news[0])}: {news[0].text}</span>}
-         {/* preventDefault keeps clicks on the filter from toggling the details */}
-         {open && <span className="news-filter-box" onClick={e => e.preventDefault()}>
-            <input type="text" className="news-filter" placeholder="filter news" value={filter}
-               onChange={(e) => {
-                  setFilter(e.target.value);
-               }}
-            />{filter.length > 0 ? <button className='clear-news' onClick={() => {
-                  setFilter('');
-            }}><FontAwesomeIcon icon={faTimes} /></button> : <></> }
-         </span>}
-         <span className="collapse-chevron" />
-      </summary>
+   return <Collapsible className="news" title="News" extra={open => <>
+      {!open && <span className="news-teaser">{getDate(news[0])}: {news[0].text}</span>}
+      {/* preventDefault keeps clicks on the filter from toggling the details */}
+      {open && <span className="news-filter-box" onClick={e => e.preventDefault()}>
+         <input type="text" className="news-filter" placeholder="filter news" value={filter}
+            onChange={e => setFilter(e.target.value)}
+         />{filter.length > 0 &&
+            <button className='clear-news' aria-label='clear the news filter' onClick={() => setFilter('')}><Icon icon={faTimes} /></button>}
+      </span>}
+   </>}>
       <ul>
          {filteredNews.slice(0, showLast).map((item, index) => (
             <li key={index} style={{
@@ -377,10 +54,10 @@ export function News() {
             <span className="news-asof">as of {getLastUpdated()}</span>
          </li>
       </ul>
-   </details>;
+   </Collapsible>;
 }
 
-function getDate(item: News, short = true) {
+function getDate(item: NewsItem, short = true) {
    return item.when.toLocaleDateString('en-US', {
       year: 'numeric',
       month: short ? 'short' : 'long',

@@ -1,23 +1,22 @@
 import { useMemo, useState } from "react";
 import "./BibliographySummary.css";
-import { Cite } from '@citation-js/core';
-import '@citation-js/plugin-bibtex';
+import bibliography from "../data/bibliography.json";
 import { Tooltip } from "react-tooltip";
 import { escapeId } from "../util/id";
 
 export interface BibliographySummaryProps {
-   readonly biblatexContent: { [type: string]: string };
+   /** the pre-rendered bibliography sources to summarize, labelled by kind */
+   readonly sources: { [label: string]: keyof typeof bibliography };
 }
 
-export function BibliographySummary({ biblatexContent }: BibliographySummaryProps) {
+export function BibliographySummary({ sources }: BibliographySummaryProps) {
    const [showOlder, setShowOlder] = useState(false);
    const { recent, older } = useMemo(() => {
       const confTypeCount: Map<string, Map<string, number>> = new Map();
-      for(const [type, content] of Object.entries(biblatexContent)) {   
-         const cite = new Cite(content);
+      for(const [type, source] of Object.entries(sources)) {
          // maps conference id to count of types
-         for(const entry of cite.data) { 
-            const conf = entry['event'] ?? entry['event-title'] ?? '??';
+         for(const entry of bibliography[source].data as Record<string, unknown>[]) {
+            const conf = String(entry['event'] ?? entry['event-title'] ?? '??');
             if(!confTypeCount.has(conf)) {
                confTypeCount.set(conf, new Map());
             }
@@ -77,7 +76,7 @@ export function BibliographySummary({ biblatexContent }: BibliographySummaryProp
          recent: yearBlocks.slice(0, RECENT_YEARS),
          older: yearBlocks.slice(RECENT_YEARS),
       };
-   }, [biblatexContent]);
+   }, [sources]);
 
    // recent and older years share one flowing container so, once expanded, the
    // earlier years read as a seamless continuation rather than a detached list.

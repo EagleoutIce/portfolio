@@ -3,20 +3,10 @@ import "./ThemeButton.css";
 
 const themes = ['light-theme', 'dark-theme'];
 
-let themeTransitionTimer: number | undefined;
-
-function updateTheme(theme: string, animate = true) {
+function applyTheme(theme: string) {
    const body = document.querySelector('body');
    if(!body) {
       return;
-   }
-   /* fades every element in sync while the colors change, see index.css.
-      skipped on the initial apply so the page doesn't animate from the
-      pre-paint theme into itself (that fade read as lag on load) */
-   if(animate) {
-      body.classList.add('theme-transition');
-      clearTimeout(themeTransitionTimer);
-      themeTransitionTimer = window.setTimeout(() => body.classList.remove('theme-transition'), 1000);
    }
    for(const t of themes) {
       body.classList.remove(t);
@@ -26,6 +16,26 @@ function updateTheme(theme: string, animate = true) {
    setTimeout(() => {
       window.getSelection()?.removeAllRanges();
    }, 50)
+}
+
+/* one composited cross-fade of the whole page instead of a 1s transition on
+   every element; theme-switching suppresses those for the duration, see
+   index.css */
+function updateTheme(theme: string, animate = true) {
+   const body = document.body;
+   const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+   if(!animate) {
+      applyTheme(theme);
+      return;
+   }
+   body.classList.add('theme-switching');
+   if(!reduced && document.startViewTransition) {
+      document.startViewTransition(() => applyTheme(theme))
+         .finished.finally(() => body.classList.remove('theme-switching'));
+   } else {
+      applyTheme(theme);
+      requestAnimationFrame(() => body.classList.remove('theme-switching'));
+   }
 }
 
 /* the light/dark theme the browser/device is asking for, if it expresses one */
@@ -69,7 +79,8 @@ export function ThemeButton() {
    /* uncontrolled on purpose: the native checkbox drives the day/night toggle
       animation, so React must not re-assign `checked` and stutter it */
    return (<div className="wrapper">
-      <input type="checkbox" id="hide-checkbox" defaultChecked={theme === 'light-theme'} onChange={changeTheme} />
+      <input type="checkbox" id="hide-checkbox" aria-label="Toggle dark mode"
+         defaultChecked={theme === 'light-theme'} onChange={changeTheme} />
       <label htmlFor="hide-checkbox" className="toggle">
          <span className="toggle-button" />
          <span className="star star-1"></span>

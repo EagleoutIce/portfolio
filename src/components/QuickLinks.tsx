@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "./QuickLinks.css";
 import { headerIsSticky } from "./Header";
 
@@ -46,9 +46,10 @@ export function scrollTo(id: string, addToHistory = true) {
 
 export function QuickLink({ label, page }: { label: string; page: string }) {
    return (
-      <div className="quick-link" onClick={() => scrollTo(page)}>
+      <a className="quick-link" href={`#/${page}`}
+         onClick={e => { e.preventDefault(); scrollTo(page); }}>
          [<span className="quick-link-label">{label}</span>]
-      </div>
+      </a>
    )
 }
 

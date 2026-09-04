@@ -2,7 +2,7 @@
    touches are specific to it */
 
 .tl-diamond {
-   color: var(--main-color);
+   color: var(--accent-text);
    font-size: .85em;
 }
 

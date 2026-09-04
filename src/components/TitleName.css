@@ -4,7 +4,7 @@
   /* match the body's theme transition, a faster fade here reads as a glitch */
   transition: background-color 1s, color 1s;
   min-width: 10em;
-  margin-bottom: 1em;
+  margin-bottom: calc(1em - 4px);
   padding: calc(3px * var(--p));
   padding-top: calc(1px * var(--p));
 }
@@ -52,6 +52,7 @@
   /* tighter gap in the sticky bar so the avatar and name read as one group */
   margin-right: calc(42px - 28px * var(--p));
   margin-top: calc(4px * var(--p));
+  margin-bottom: calc(10px * (1 - var(--p)));
   transition: border-radius 0.25s ease, scale .1s ease-in-out;
   box-shadow: 6px 4px 22px -3.5px var(--soft-glow);
 }
@@ -92,6 +93,8 @@
 }
 
 .profile-name {
+  margin: 0;
+  letter-spacing: normal;
   font-size: calc(1.5em - 0.65em * var(--p));
   font-weight: calc(700 - 300 * var(--p));
   /* tighten the line box so the subtitle tucks up closer to the name */
@@ -126,7 +129,7 @@
   width: 100%;
   text-align: left;
   padding-top: calc(24px * (1 - var(--p)));
-  padding-bottom: calc(12px - 10px * var(--p));
+  padding-bottom: calc(0px + 2px * var(--p));
   /* the icons are links; the whitespace between them shouldn't be selectable */
   user-select: none;
 }

@@ -5,7 +5,7 @@ export interface ContentProps extends PropsWithChildren<{}> {
 }
 
 export function Content({ children }: ContentProps) {
-   return <div className="content">
+   return <main id="main-content" className="content">
       {children}
-   </div>;
+   </main>;
 }

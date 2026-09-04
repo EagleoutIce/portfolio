@@ -1,15 +1,13 @@
+import { PageFooter } from '../../components/PageFooter';
 import { useLayoutEffect, useMemo } from 'react';
 import './PublicationsPage.css';
-import { BibDataMain, BibDataPoster, BibDataTalks, BibDataOther } from '../main/BibliographyData';
-import { LastUpdated } from '../../components/LastUpdated';
-import { SiteNotice } from '../../components/SiteNotice';
+import { loadAllBib } from '../../data/bibSources';
 import { CategorizedList, type CatItem } from '../../components/CategorizedList';
 import { CATEGORY, CATEGORY_ORDER, getPublicationsItems } from './publicationsData';
 import { withTimelineCrosslinks } from '../timeline/timelineSources';
 
-function downloadAllBib() {
-   const content = [BibDataMain, BibDataTalks, BibDataPoster, BibDataOther].join('\n\n');
-   const url = URL.createObjectURL(new Blob([content], { type: 'application/x-bibtex' }));
+async function downloadAllBib() {
+   const url = URL.createObjectURL(new Blob([await loadAllBib()], { type: 'application/x-bibtex' }));
    const a = document.createElement('a');
    a.href = url;
    a.download = 'sihler-publications.bib';
@@ -35,7 +33,6 @@ export function PublicationsPage() {
 
       <CategorizedList {...withTimelineCrosslinks({ categories: CATEGORY, order: CATEGORY_ORDER, items }, 'publication')} />
 
-      <SiteNotice />
-      <LastUpdated />
+      <PageFooter />
    </div>;
 }

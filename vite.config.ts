@@ -1,9 +1,17 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/portfolio/',
   plugins: [react()],
-  assetsInclude: ['**/*.bib']
+  assetsInclude: ['**/*.bib'],
+  resolve: {
+    alias: {
+      'react/jsx-runtime': 'preact/jsx-runtime',
+      'react-dom/client': 'preact/compat/client',
+      react: 'preact/compat',
+      'react-dom': 'preact/compat'
+    }
+  }
 })

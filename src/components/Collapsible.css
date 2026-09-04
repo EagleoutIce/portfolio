@@ -1,0 +1,82 @@
+/* collapsible sections with an inline heading, count, and chevron;
+   collapsed sections flow next to each other on one line */
+.collapse-section:not([open]) {
+   display: inline-block;
+   margin-right: 2em;
+}
+
+.collapse-section > summary {
+   cursor: pointer;
+   user-select: none;
+   display: flex;
+   align-items: baseline;
+   gap: .75em;
+   list-style: none;
+}
+
+.collapse-section > summary::-webkit-details-marker {
+   display: none;
+}
+
+.collapse-count {
+   font-size: .7em;
+   color: var(--soft-text);
+   white-space: nowrap;
+   transition: color .2s;
+}
+
+.collapse-title {
+   font-weight: bold;
+   margin: .5em 0;
+   transition: color .2s;
+}
+
+/* lighter caption for secondary reveal toggles (earlier service, more slides) */
+.collapse-title.light {
+   font-weight: normal;
+   color: var(--soft-text);
+}
+
+.collapse-chevron {
+   align-self: center;
+   flex: none;
+   width: .4em;
+   height: .4em;
+   border-right: 2px solid var(--soft-text);
+   border-bottom: 2px solid var(--soft-text);
+   transform: rotate(-45deg);
+   transition: transform .25s, border-color .2s;
+}
+
+.collapse-section[open] > summary .collapse-chevron {
+   transform: rotate(45deg) translate(-15%, -15%);
+}
+
+.collapse-section > summary .section-heading {
+   transition: color .2s;
+}
+
+.collapse-section > summary:hover .collapse-title,
+.collapse-section > summary:focus-visible .collapse-title,
+.collapse-section > summary:hover .heading-link,
+.collapse-section > summary:hover .section-heading {
+   color: var(--accent-text);
+}
+
+.collapse-section > summary:hover .collapse-count,
+.collapse-section > summary:focus-visible .collapse-count {
+   color: var(--semi-soft-text);
+}
+
+.collapse-section > summary:hover .collapse-chevron,
+.collapse-section > summary:focus-visible .collapse-chevron {
+   border-color: var(--accent-text);
+}
+
+.collapse-section:not([open]) > summary:hover .collapse-chevron {
+   transform: rotate(-45deg) translate(15%, 15%);
+}
+
+.collapse-section > summary:focus-visible {
+   outline: none;
+}

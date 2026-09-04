@@ -1,0 +1,12 @@
+{
+   "name": "Florian Sihler",
+   "subtitle": "PhD Student at Ulm University",
+   "links": [
+      {"label": "GitHub Profile", "icon": "github", "href": "https://github.com/EagleoutIce"},
+      {"label": "University Website", "icon": "university", "href": "https://www.uni-ulm.de/en/in/sp/team/florian-sihler/"},
+      {"label": "LinkedIn Profile", "icon": "linkedin", "href": "https://www.linkedin.com/in/florian-sihler-334050293/"},
+      {"label": "Google Scholar", "icon": "scholar", "href": "https://scholar.google.de/citations?user=DnwmgrsAAAAJ"},
+      {"label": "E-Mail", "icon": "mail", "href": "mailto:florian.sihler@uni-ulm.de"}
+   ],
+   "intro": "Hey and welcome to my little page! My name is Florian (he/him) and I am currently working on my PhD at Ulm University (since September 2023). My primary research interests are in the area of Hybrid Program Analysis to support Program Comprehension and Data Scientists, mostly revolving around [flowR](https://flowr-analysis.github.io/flowr/). My work received the [YoungRSE Award](https://www.uni-ulm.de/in/sp/institute/news-detail/article/youngrse-award-at-derse24/) at deRSE '24, the [award for the best master's degree](https://www.uni-ulm.de/in/sp/institute/news-detail/article/award-for-the-best-masters-degree/) in the field of computer science at Ulm University, and the [Rising Star Award](https://rsecon25.society-rse.org/awards/) at RSECon '25. Additionally, I am an Alumnus of the [12th Heidelberg Laureate Forum (HLF)](https://www.uni-ulm.de/in/sp/institute/news-detail/article/florian-sihler-accepted-at-the-12th-heidelberg-laureate-forum/). Since 2025, I am a workplace first aider and [MHFA](https://www.mhfa-ersthelfer.de/de/) certified mental health first aider.\n\nIf you want to know more about my work, please check out the projects below. In case you are interested in open theses and projects regarding my work at Ulm University, please have a look at the appropriate [section on my institute website](https://www.uni-ulm.de/in/sp/team/florian-sihler/#c978079)."
+}

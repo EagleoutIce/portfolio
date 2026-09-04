@@ -21,7 +21,7 @@
 }
 
 .pub-back:hover {
-   color: var(--main-color);
+   color: var(--accent-text);
 }
 
 .pub-title {
@@ -38,7 +38,7 @@
 
 .pub-inline-link,
 .pub-lead .code {
-   color: var(--main-color);
+   color: var(--accent-text);
 }
 
 .pub-lead .code {
@@ -191,8 +191,8 @@
 }
 
 .pub-legend-reset:hover {
-   color: var(--main-color);
-   border-color: var(--main-color);
+   color: var(--accent-text);
+   border-color: var(--accent-text);
    scale: 1;
 }
 
@@ -240,7 +240,7 @@
 /* ── year groups ─────────────────────────────────────────────────────── */
 .pub-year-group {
    display: grid;
-   grid-template-columns: 3em 1fr;
+   grid-template-columns: minmax(3em, auto) 1fr;
    gap: .4em 1.2em;
    margin-bottom: 1.6em;
 }
@@ -272,7 +272,7 @@
 }
 
 .pub-year-label:hover {
-   color: var(--main-color);
+   color: var(--accent-text);
 }
 
 /* entry count next to the year, shown at rest; the chevron flips to show
@@ -324,7 +324,7 @@
 
 .pub-year-nav:hover {
    opacity: 1;
-   border-color: var(--main-color);
+   border-color: var(--accent-text);
 }
 
 .pub-extra {
@@ -402,7 +402,21 @@
    margin-bottom: .3em;
 }
 
+.pub-collapse > summary {
+   transition: color .2s;
+}
+
+.pub-collapse > summary:hover,
+.pub-collapse > summary:focus-visible {
+   color: var(--accent-text);
+}
+
+.pub-collapse > summary:hover::before {
+   opacity: 1;
+}
+
 .pub-collapse-body {
+   min-height: 0;
    font-style: normal;
    color: var(--semi-soft-text);
 }
@@ -441,7 +455,7 @@
 
 .pub-crosslink:hover,
 .pub-crosslink:focus {
-   color: var(--main-color);
+   color: var(--accent-text);
    opacity: 1;
 }
 
@@ -456,7 +470,7 @@
 .pub-crosslink:hover .pub-crosslink-diamond,
 .pub-crosslink:focus .pub-crosslink-diamond {
    transform: rotate(45deg);
-   color: var(--main-color);
+   color: var(--accent-text);
 }
 
 .pub-tagcol {
@@ -558,8 +572,8 @@
 }
 
 .pub-link:hover, .pub-link:focus {
-   color: var(--main-color);
-   border-color: var(--main-color);
+   color: var(--accent-text);
+   border-color: var(--accent-text);
    background: color-mix(in srgb, var(--main-color) 10%, transparent);
 }
 

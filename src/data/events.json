@@ -1,0 +1,7 @@
+[
+   {"name": "Summer Science Camp", "kind": "multiday", "where": "Ulm University", "waddle": true, "link": "https://www.uni-ulm.de/einrichtungen/ulmer-3-generationen-uni/science-camps/", "occ": [{"month": 8, "year": 2024}, {"month": 8, "year": 2026}]},
+   {"name": "Pupil Internships", "kind": "practicum", "where": "Ulm University", "credit": "Florian Sihler", "occ": [{"month": 5, "year": 2026}]},
+   {"name": "BOGY (Berufs-Orientierung an Gymnasien)", "kind": "singleday", "where": "Ulm University", "waddle": true, "link": "https://www.uni-ulm.de/studium/studienberatung/veranstaltungen-fuer-studieninteressierte/", "occ": [{"month": 4, "year": 2024}, {"month": 5, "year": 2024}, {"month": 4, "year": 2025}, {"month": 1, "year": 2026, "note": "thank you to J. Schubert"}, {"month": 2, "year": 2026}, {"month": 4, "year": 2026}, {"month": 5, "year": 2026}]},
+   {"name": "Girls' Day", "kind": "singleday", "where": "Ulm University", "waddle": true, "link": "https://www.uni-ulm.de/einrichtungen/ulmer-3-generationen-uni/girls-boys-day/", "occ": [{"month": 4, "year": 2024}, {"month": 4, "year": 2025}, {"month": 4, "year": 2026}]},
+   {"name": "Langer Abend der Wissenschaft", "kind": "singleday", "where": "Ulm University", "waddle": true, "link": "https://www.uni-ulm.de/universitaet/hochschulkommunikation/veranstaltungen/langer-abend-der-wissenschaft/", "occ": [{"month": 6, "year": 2024}, {"month": 5, "year": 2025}, {"month": 5, "year": 2026}]}
+]

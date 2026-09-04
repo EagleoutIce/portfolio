@@ -1,0 +1,22 @@
+{
+   "parts": [
+      {"name": "Source Code", "desc": "The flowR repository, with its issue tracker and releases.", "href": "https://github.com/flowr-analysis/flowr", "icon": "github", "tags": ["TypeScript", "repository"]},
+      {"name": "Extension for Positron & VS Code", "desc": "Analyze and slice your R code directly inside Positron and VS Code.", "href": "https://github.com/flowr-analysis/vscode-flowr", "icon": "code", "tags": ["TypeScript", "extension"]},
+      {"name": "R Adapter", "desc": "Use flowR directly as a library from within R.", "href": "https://github.com/flowr-analysis/flowr-r-adapter", "icon": "box", "tags": ["R", "library"]},
+      {"name": "Addin for RStudio", "desc": "Slice and analyze your R code from within RStudio.", "href": "https://github.com/flowr-analysis/rstudio-addin-flowr", "icon": "puzzle", "tags": ["R", "extension"]},
+      {"name": "Docker Image", "desc": "Run the full flowR server or REPL straight from a ready-to-use Docker image.", "href": "https://hub.docker.com/r/eagleoutice/flowr", "icon": "docker", "tags": ["Docker", "server"]},
+      {"name": "Script Taint Checker", "desc": "A ready-to-use Docker image that taint-checks R scripts with flowR.", "href": "https://hub.docker.com/r/eagleoutice/taint-checker", "icon": "docker", "tags": ["Docker", "security"]},
+      {"name": "Real-World R Sources", "desc": "An open dataset of real-world R scripts, useful for anyone analyzing R (not just flowR).", "href": "https://doi.org/10.5281/zenodo.18927873", "icon": "database", "tags": ["dataset", "R"]}
+   ],
+   "groups": [
+      {"name": "Sample Analyzers", "desc": "Small, self-contained example analyzers built on flowR.", "icon": "vials", "repos": [
+         {"name": "How to query projects", "repo": "sample-analyzer-project-query", "href": "https://github.com/flowr-analysis/sample-analyzer-project-query"},
+         {"name": "How to diff dataflows", "repo": "sample-analyzer-df-diff", "href": "https://github.com/flowr-analysis/sample-analyzer-df-diff"}
+      ]},
+      {"name": "Notation Helpers", "desc": "The LaTeX helpers behind flowR's figures, logo, and notations.", "icon": "pen", "repos": [
+         {"name": "The flowR logo", "repo": "flowr-logo", "href": "https://github.com/flowr-analysis/flowr-logo"},
+         {"name": "flowR visualizations", "repo": "texels", "href": "https://github.com/flowr-analysis/texels"},
+         {"name": "Reusable TeX macros", "repo": "tex-notations", "href": "https://github.com/flowr-analysis/tex-notations"}
+      ]}
+   ]
+}

@@ -19,7 +19,7 @@
 }
 
 .quick-link {
-  color: lightgray;
+  color: var(--soft-text);
   font-size: .7em;
   user-select: none;
   transition: color 1s, opacity .45s, scale 0s;
@@ -37,7 +37,7 @@
 .quick-link-label {
   color: var(--soft-text);
   font-weight: 550;
-  opacity: .6;
+  opacity: .9;
   transition: opacity .65s, color .65s, display 1s;
   white-space: nowrap;
 }
@@ -48,7 +48,7 @@
 
 .quick-link-label:hover {
   opacity: .92;
-  color: var(--main-color);
+  color: var(--accent-text);
 }
 
 @media (max-width: 800px) {

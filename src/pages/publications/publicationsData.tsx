@@ -1,11 +1,9 @@
 import type { ReactNode } from 'react';
-import { Cite } from '@citation-js/core';
-import '@citation-js/plugin-bibtex';
-import { BibDataMain, BibDataPoster, BibDataTalks, BibDataOther } from '../main/BibliographyData';
+import bibliography from '../../data/bibliography.json';
 import type { CatDef, CatItem } from '../../components/CategorizedList';
 import { PUB_ABSTRACTS } from './abstracts';
 import { escapeId } from '../../util/id';
-import { monthToString } from '../main/HonorsData';
+import { monthToString } from '../main/Honors';
 
 /* one visual class per venue kind, in the spirit of the coloured lists on
    academic homepages. colours are fixed hues (independent of the page accent)
@@ -49,12 +47,7 @@ export interface Pub {
    readonly abstract?: string;
 }
 
-const sources: { content: string; source: 'paper' | 'talk' | 'poster' | 'other' }[] = [
-   { content: BibDataMain, source: 'paper' },
-   { content: BibDataTalks, source: 'talk' },
-   { content: BibDataPoster, source: 'poster' },
-   { content: BibDataOther, source: 'other' },
-];
+const sources = ['paper', 'talk', 'poster', 'other'] as const;
 
 function stripBraces(value: unknown): string {
    return typeof value === 'string' ? value.replace(/[{}]/g, '').replace(/\s+/g, ' ').trim() : '';
@@ -145,9 +138,8 @@ function buildLinks(entry: Record<string, unknown>): { label: string; href: stri
 export function getPublications(): Pub[] {
    const pubs: Pub[] = [];
    const usedKeys = new Set<string>();
-   for(const { content, source } of sources) {
-      const cite = new Cite(content);
-      for(const entry of cite.data as Record<string, unknown>[]) {
+   for(const source of sources) {
+      for(const entry of bibliography[source].data as Record<string, unknown>[]) {
          if(!entry || typeof entry !== 'object') continue;
          const id = String(entry['id'] ?? entry['title'] ?? '');
          const dateParts = (entry['issued'] as { 'date-parts'?: number[][] } | undefined)?.['date-parts']?.[0] ?? [];

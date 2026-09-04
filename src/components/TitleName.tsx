@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import "./TitleName.css";
 import { SocialMediaIcon } from "./SocialMediaIcon";
 import { Tooltip } from "react-tooltip";
@@ -11,12 +11,13 @@ export interface TitleNameProps {
    readonly imageSrc: string;
    readonly mediaLinks: {
       [key: string]: {
-         icon: IconProp;
+         icon: IconDefinition;
          href: string;
       };
    };
    /** keeps element ids unique when the component is rendered more than once */
    readonly idPrefix?: string;
+   readonly heading?: boolean;
 }
 
 // based on https://stackoverflow.com/a/1284335
@@ -55,7 +56,7 @@ function specials() {
 }
 
 
-export default function TitleName({ name, subtitle, imageSrc, mediaLinks, idPrefix = '' }: TitleNameProps) {
+export default function TitleName({ name, subtitle, imageSrc, mediaLinks, idPrefix = '', heading = false }: TitleNameProps) {
    /* two classes so the shape can morph in and out: egg-active turns on the
       width/height transition (kept for the whole cycle), egg is the shape */
    const [eggActive, setEggActive] = useState(false);
@@ -103,13 +104,15 @@ export default function TitleName({ name, subtitle, imageSrc, mediaLinks, idPref
          className={`profile-image ${specials()}${eggActive ? ' egg-active' : ''}${eggShape ? ' egg' : ''}`}
          onClick={onImageClick} />
       <div>
-         <span className="profile-name">{name} <br /></span>
+         {heading
+            ? <h1 className="profile-name">{name} <br /></h1>
+            : <span className="profile-name">{name} <br /></span>}
          <span className="profile-subtitle">{subtitle}<br /></span>
          <span className="profile-sm">{
             Object.entries(mediaLinks).map(([key, {icon, href}]) => {
                const idKey = idPrefix + key.replace(/\s/g, '-').toLowerCase();
                return <div key={idKey} style={{display: 'inline'}}>
-                  <SocialMediaIcon href={href} icon={icon} key={idKey} id={`small-media-icon-${idKey}`} />
+                  <SocialMediaIcon href={href} icon={icon} label={key} key={idKey} id={`small-media-icon-${idKey}`} />
                   <Tooltip anchorSelect={`#small-media-icon-${idKey}`} content={key} key={`tt-${idKey}`} place="bottom" noArrow style={{ padding: '5px 9px', lineHeight: 1.35}}/>
                </div>;
             })

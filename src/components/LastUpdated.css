@@ -1,8 +1,8 @@
 .last-updated-position {
    font-size: .35em;
    font-weight: normal;
-   opacity: .5;
-   color: var(--soft-text);
+   opacity: .8;
+   color: var(--semi-soft-text);
    position: fixed;
    left: 10px;
    bottom: 10px;

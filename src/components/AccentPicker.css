@@ -47,21 +47,6 @@
    }
 }
 
-/* during a day/night fade the translucent chip and the page background
-   interpolate along slightly different curves, so the chip momentarily
-   diverges from the page behind it and flashes as a rounded rectangle on the
-   header row. it carries no information during the ~1s fade, so drop its
-   surface entirely for the duration — the swatches stay put and it fades back
-   in once the theme has settled */
-body.theme-transition .accent-picker {
-   background: transparent !important;
-   border-color: transparent !important;
-   box-shadow: none !important;
-   /* snap it away instantly — if the removal itself is transitioned it just
-      fades the flashing rectangle out slowly instead of preventing it */
-   transition: none !important;
-}
-
 /* small screens (<=1200px, no compact bar): the toggle is a non-rotated
    horizontal pill whose visual centre sits at ~top:17.5px (top:10 + 15/2).
    centre the picker on the same line by its own centre, height-independent. */

@@ -1,8 +1,7 @@
+import { PageFooter } from './PageFooter';
 import { useLayoutEffect, type ReactNode } from 'react';
 import '../pages/publications/PublicationsPage.css';
 import './DetailPage.css';
-import { SiteNotice } from './SiteNotice';
-import { LastUpdated } from './LastUpdated';
 
 interface DetailPageProps {
    readonly title: string;
@@ -19,7 +18,6 @@ export function DetailPage({ title, back, children }: DetailPageProps) {
       </div>
       <h1 className="pub-title">{title}</h1>
       {children}
-      <SiteNotice />
-      <LastUpdated />
+      <PageFooter />
    </div>;
 }

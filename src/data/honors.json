@@ -1,0 +1,12 @@
+[
+   {"type": "grant", "title": "Unrestricted Gift by Posit for a \"Security and Taint Analysis for R\"", "year": 2026, "month": 1, "amount": 60000, "link": "https://www.uni-ulm.de/in/sp/institute/news-detail/article/flowr-receives-unrestricted-gift-from-posit/"},
+   {"type": "award", "title": "Rising Star Award at RSECon '25", "year": 2025, "month": 9, "link": "https://www.uni-ulm.de/in/sp/institute/news-detail/article/rising-star-award-at-rsecon25/"},
+   {"type": "grant", "title": "DAAD stipend for a research stay at the CU/CTU in Prague", "year": 2025, "month": 6, "amount": 2000, "link": "https://prl-prg.github.io/"},
+   {"type": "grant", "title": "iwimint-grant by Ulm University for Waddle", "year": 2025, "month": 6, "amount": 4200, "link": "https://www.uni-ulm.de/in/sp/institute/news-detail/article/waddle-receives-iwimint-funding/"},
+   {"type": "grant", "title": "Abbe Grant by the Carl-Zeiss-Stiftung", "year": 2025, "month": 6, "link": "https://www.uni-ulm.de/in/sp/institute/news-detail/article/florian-sihler-accepted-at-the-12th-heidelberg-laureate-forum/"},
+   {"type": "award", "title": "Best Master's Degree in Computer Science at Ulm University", "year": 2024, "month": 6, "link": "https://www.uni-ulm.de/in/sp/institute/news-detail/article/award-for-the-best-masters-degree/"},
+   {"type": "award", "title": "YoungRSE Award at deRSE '24", "year": 2024, "month": 3, "link": "https://www.uni-ulm.de/in/sp/institute/news-detail/article/youngrse-award-at-derse24/"},
+   {"type": "award", "title": "Various prizes for the Abitur", "year": 2018, "month": 7, "note": "Ferry Porsche Award, Physics Abitur Award (DPG), Paul-Schempp Award, Math Abitur Award (DMV)"},
+   {"type": "scholarship", "title": "e-fellows online scholarship", "year": 2018, "month": 7},
+   {"type": "scholarship", "title": "Glemser Stiftung For Future Excellency", "year": 2018, "month": 6}
+]

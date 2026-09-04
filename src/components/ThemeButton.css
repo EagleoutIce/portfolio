@@ -71,14 +71,6 @@ body.compact-header .wrapper {
    transition: all 500ms ease-out;
 }
 
-.crater {
-   position: absolute;
-   display: inline-block;
-   background: #FAEAF1;
-   border-radius: 50%;
-   transition: 500ms;
-}
-
 .star {
    position: absolute;
    display: inline-block;
@@ -197,10 +189,6 @@ body.compact-header .wrapper {
    }
 }
 
-#hide-checkbox:checked+.toggle .toggle-button .crater {
-   transform: rotate(-45deg) translateX(70px);
-}
-
 #hide-checkbox:checked+.toggle .star {
    animation: move 3s ease-in-out infinite;
    transform: none;
@@ -300,8 +288,4 @@ body.compact-header .wrapper {
    letter-spacing: 15px;
    background: #34495e;
    color: #FFF;
-}
-
-.wrapper p.morning {
-   background: #e67e22;
 }

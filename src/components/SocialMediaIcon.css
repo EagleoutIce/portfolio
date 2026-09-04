@@ -1,7 +1,7 @@
 
 .small-media-icon {
    background: none;
-   opacity: 0.35;
+   opacity: 0.55;
    font-size: 1em;
    transition: opacity 0.25s ease-in-out, padding-right 0.25s ease-in-out;
    padding-right: 15px;

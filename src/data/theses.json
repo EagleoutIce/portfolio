@@ -1,0 +1,183 @@
+[
+   {
+      "title": "Improving Code Coverage Metrics using Static Program Slicing for R",
+      "author": "Lukas Pietzschmann",
+      "type": "master-thesis",
+      "year": 2025,
+      "month": 1,
+      "examiners": [
+         "mtt",
+         "sw"
+      ],
+      "phd": {
+         "institute": "vs"
+      }
+   },
+   {
+      "title": "Cut to the Core – Automated Feature Extraction in R Using Program Slicing",
+      "author": "Ruben Dunkel",
+      "type": "master-thesis",
+      "year": 2025,
+      "month": 4,
+      "link": "https://doi.org/10.18725/OPARU-57508",
+      "examiners": [
+         "mtt",
+         "tt"
+      ],
+      "phd": {
+         "institute": "isf",
+         "href": "https://www.tu-braunschweig.de/isf/team/ruben-dunkel"
+      }
+   },
+   {
+      "title": "Field-Sensitive Pointer Analysis for Static Dataflow in the R Programming Language",
+      "author": "Felix Schlegel",
+      "type": "bachelor-thesis",
+      "year": 2025,
+      "month": 4,
+      "examiners": [
+         "mtt"
+      ]
+   },
+   {
+      "title": "Tracking the Shape of Data Frames in R Programs Using Abstract Interpretation",
+      "author": "Oliver Gerstl",
+      "type": "master-thesis",
+      "year": 2025,
+      "month": 8,
+      "link": "https://doi.org/10.18725/OPARU-58621",
+      "examiners": [
+         "mtt",
+         "rh"
+      ],
+      "phd": {
+         "institute": "sp"
+      }
+   },
+   {
+      "title": "Investigating a Package-Based Dynamic Analysis Framework in R for Provenance",
+      "author": "Adrian Skutecki",
+      "type": "master-thesis",
+      "year": 2025,
+      "month": 10,
+      "examiners": [
+         "mtt",
+         "rh"
+      ]
+   },
+   {
+      "title": "Designing a Query Language for Linting R Scripts to Improve Reproducibility",
+      "author": "Julian Schubert",
+      "type": "bachelor-thesis",
+      "year": 2025,
+      "month": 8,
+      "link": "https://doi.org/10.18725/OPARU-58026",
+      "examiners": [
+         "mtt"
+      ]
+   },
+   {
+      "title": "A New Error Tolerant Parser for R",
+      "author": "Elias Gerster",
+      "type": "bachelor-thesis",
+      "year": 2025,
+      "month": 8,
+      "examiners": [
+         "mtt"
+      ]
+   },
+   {
+      "title": "Improving Linting for Semantic Errors in the Data Science Domain With the Help of Large Language Models",
+      "author": "Simon Martin",
+      "type": "bachelor-thesis",
+      "year": 2025,
+      "month": 8,
+      "examiners": [
+         "mtt"
+      ]
+   },
+   {
+      "title": "typeR: Static Interprocedural Subtype Inference for R Programs",
+      "author": "Lukas Rohde",
+      "type": "bachelor-thesis",
+      "year": 2025,
+      "month": 9,
+      "link": "https://doi.org/10.18725/OPARU-59821",
+      "examiners": [
+         "mtt"
+      ],
+      "extra": "Received the [**Award for the Best Bachelor’s Degree 2026**](https://www.uni-ulm.de/in/sp/institute/news-detail/article/award-for-the-best-bachelors-degree/) by Ulm University."
+   },
+   {
+      "title": "Static Analysis for Self-Modifying R Programs",
+      "author": "Luca Schlecker",
+      "type": "bachelor-thesis",
+      "year": 2026,
+      "month": 1,
+      "examiners": [
+         "mtt"
+      ]
+   },
+   {
+      "title": "Improving Dataflow Analysis Performance in flowR – With Parallelization and Lazy Function Evaluation",
+      "author": "Jonas Kruger",
+      "type": "bachelor-thesis",
+      "year": 2026,
+      "month": 5,
+      "examiners": [
+         "mtt"
+      ]
+   },
+   {
+      "title": "A Comparison of the Interval and the Closed Pentagon Domain for Dead Code Detection in R",
+      "author": "Henry Schuler",
+      "type": "master-thesis",
+      "year": 2026,
+      "month": 7,
+      "examiners": [
+         "mtt",
+         "rh"
+      ],
+      "advisors": [
+         "Florian Sihler",
+         "[Oliver Gerstl](https://www.uni-ulm.de/in/sp/team/oliver-gerstl/)"
+      ]
+   },
+   {
+      "title": "Towards Statically Reasoning About R Vectors",
+      "author": "Manuel Di Agostino",
+      "type": "master-thesis",
+      "year": 2026,
+      "month": 7,
+      "examiners": [],
+      "supervisors": [
+         "va"
+      ],
+      "advisors": [
+         "Florian Sihler"
+      ],
+      "extra": "Erasmus+ exchange at [Ulm University](https://www.uni-ulm.de/en/) ([University of Parma](https://www.unipr.it/)).",
+      "phd": {
+         "name": "Department of Mathematical, Physical and Computer Sciences",
+         "href": "https://smfi.unipr.it/en",
+         "at": "University of Parma",
+         "field": "mathematics"
+      }
+   },
+   {
+      "title": "Source-to-Source Rewriting and Instrumentation of R Programs Preserving Layout and the AST",
+      "author": "Pasquale Castelluccia",
+      "type": "master-thesis",
+      "year": 2026,
+      "month": 7,
+      "examiners": [],
+      "supervisors": [
+         "va"
+      ],
+      "advisors": [
+         "Florian Sihler"
+      ],
+      "extra": "Erasmus+ exchange at [Ulm University](https://www.uni-ulm.de/en/) ([University of Parma](https://www.unipr.it/)).",
+      "note": "Abstract translated from the Italian original."
+   }
+]

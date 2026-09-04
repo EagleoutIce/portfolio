@@ -10,7 +10,7 @@
 }
 
 .heading-link:hover {
-   color: var(--main-color);
+   color: var(--accent-text);
 }
 
 .heading-link-hint {
@@ -20,14 +20,14 @@
    letter-spacing: .02em;
    vertical-align: middle;
    white-space: nowrap;
-   color: var(--soft-text);
-   opacity: .6;
+   color: var(--semi-soft-text);
+   opacity: .8;
    transition: opacity .25s, color .25s;
 }
 
 .heading-link:hover .heading-link-hint {
    opacity: 1;
-   color: var(--main-color);
+   color: var(--accent-text);
 }
 
 .heading-anchor {

@@ -151,5 +151,5 @@
 .news a.link:hover,
 .news a.link:focus {
    background: none;
-   color: var(--main-color);
+   color: var(--accent-text);
 }

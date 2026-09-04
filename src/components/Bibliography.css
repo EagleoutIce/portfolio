@@ -15,18 +15,25 @@
    flex-direction: row-reverse;
 }
 
-.bibliography-header a {
+.bibliography-header button {
+   appearance: none;
+   border: none;
+   background: none;
+   padding: 0;
+
    font-size: x-small;
    font-weight: normal;
    color: var(--text);
-   opacity: .55;
+   opacity: .7;
    transition: color 1s, opacity 1s;
    cursor: pointer;
 }
 
-.bibliography-header a:hover, .bibliography-header a:focus {
-   color: var(--main-color);
+.bibliography-header button:hover, .bibliography-header button:focus,
+.bibliography-header button:active {
+   color: var(--accent-text);
    opacity: 1;
+   scale: 1;
 }
 
 .bibliography-header .code {
@@ -62,7 +69,7 @@
 }
 
 .bib-entry .bib-number {
-   color: var(--main-color);
+   color: var(--accent-text);
 }
 
 /* only the DOI / arXiv / URL references (.bib-link) get the marker.
@@ -119,6 +126,7 @@
 }
 
 .bibliography .breadcrumb {
+   color: var(--semi-soft-text);
    font-size: 0.75rem;
    word-break: keep-all;
    white-space: nowrap;

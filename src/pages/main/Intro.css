@@ -1,0 +1,15 @@
+.main {
+   margin-bottom: 2.2em;
+   /* hyphens justfied */
+   text-align: justify;
+   text-justify: newspaper;
+   transition: all 0s;
+   padding-top: 2em;
+}
+.intro-p {
+   margin: 0 0 1.2em;
+}
+
+.intro-p:last-child {
+   margin-bottom: 0;
+}

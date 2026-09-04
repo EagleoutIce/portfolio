@@ -17,26 +17,32 @@ export interface PaginationProps {
    readonly current: number;
    readonly total: number;
    readonly onChange: (page: number) => void;
+   readonly label?: string;
 }
 
-export function Pagination({ current, total, onChange }: PaginationProps) {
+export function Pagination({ current, total, onChange, label }: PaginationProps) {
    if(total <= 1) {
       return null;
    }
-   return <div className="pagination">
+   return <nav className="pagination" aria-label={label ? `${label} pagination` : 'Pagination'}>
       <span className="page-label">Pages:</span>
-      <a className={current > 0 ? 'page-link page-arrow' : 'page-arrow page-arrow-disabled'}
-         aria-label="previous page" onClick={() => current > 0 && onChange(current - 1)}>&lsaquo;</a>
+      <button type="button" className={current > 0 ? 'page-link page-arrow' : 'page-arrow page-arrow-disabled'}
+         aria-label="previous page" disabled={current === 0}
+         onClick={() => current > 0 && onChange(current - 1)}>&lsaquo;</button>
       {pageItems(current, total).map((item, i) =>
          item === '...'
             ? <span key={`ellipsis-${i}`} className="page-ellipsis">&hellip;</span>
-            : <a
+            : <button
+                 type="button"
                  key={item}
                  className={item === current ? 'page-current' : 'page-link'}
+                 aria-label={`page ${item + 1}`}
+                 aria-current={item === current ? 'page' : undefined}
                  onClick={() => onChange(item)}
-              >{item + 1}</a>
+              >{item + 1}</button>
       )}
-      <a className={current < total - 1 ? 'page-link page-arrow' : 'page-arrow page-arrow-disabled'}
-         aria-label="next page" onClick={() => current < total - 1 && onChange(current + 1)}>&rsaquo;</a>
-   </div>;
+      <button type="button" className={current < total - 1 ? 'page-link page-arrow' : 'page-arrow page-arrow-disabled'}
+         aria-label="next page" disabled={current === total - 1}
+         onClick={() => current < total - 1 && onChange(current + 1)}>&rsaquo;</button>
+   </nav>;
 }

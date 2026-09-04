@@ -1,0 +1,6 @@
+[
+   {"type": "seminar", "title": "Software Engineering Forschungsmethodentraining", "shortTitle": "SEFMT '23", "start": "2023-10-25", "end": "2023-10-27", "location": "Dagstuhl", "link": "https://www.dagstuhl.de/23433"},
+   {"type": "summer-school", "title": "Programming Language Implementation Summer School", "shortTitle": "PLISS '23", "start": "2023-09-03", "end": "2023-09-09", "location": "Bertinoro", "link": "https://pliss.org/2023/"},
+   {"type": "summer-school", "title": "Lipari Summer School on Abstract Interpretation", "shortTitle": "AbsInt '24", "start": "2024-09-01", "end": "2024-09-07", "location": "Lipari", "link": "https://absint24.liparischool.it/"},
+   {"type": "summer-school", "title": "Lipari Summer School on Abstract Interpretation", "shortTitle": "AbsInt '26", "start": "2026-08-30", "end": "2026-09-05", "location": "Lipari", "link": "https://absint26.liparischool.it/"}
+]
