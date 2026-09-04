@@ -53,9 +53,9 @@ export function getServiceRoleInfo(): Array<{ abbr: string; full: string; count:
 }
 
 const SERVICE_CATEGORIES: Record<ServiceCategory, CatDef> = {
-   reviewer: { label: 'Reviewer', short: 'REV', color: '#3b7bb8' },
-   'artifact-eval': { label: 'Artifact Evaluation', short: 'AE', color: '#4f8a5b' },
    chair: { label: 'Chair', short: 'CHR', color: '#b8873b' },
+   'artifact-eval': { label: 'Artifact Evaluation', short: 'AE', color: '#4f8a5b' },
+   reviewer: { label: 'Reviewer', short: 'REV', color: '#3b7bb8' },
 };
 
 export function getServiceList(): { categories: Record<string, CatDef>; order: string[]; items: CatItem[] } {
@@ -69,7 +69,7 @@ export function getServiceList(): { categories: Record<string, CatDef>; order: s
       links: [{ label: 'link', href: e.link }],
       extra: e.detail,
    }));
-   return { categories: SERVICE_CATEGORIES, order: ['reviewer', 'artifact-eval', 'chair'], items };
+   return { categories: SERVICE_CATEGORIES, order: ['chair', 'artifact-eval', 'reviewer'], items };
 }
 
 export function ServiceSummary() {
@@ -115,11 +115,13 @@ export function ServiceSummary() {
 export type ServiceType = keyof typeof TypeMap;
 
 /* higher-level filter categories: several related roles collapse into one
-   toggle (Junior PC counts as reviewing, all chair roles as "Chair") */
+   toggle (Junior PC counts as reviewing, all chair roles as "Chair"). the key
+   order is the display order everywhere (summary, filters, list), with the most
+   senior role first */
 const CategoryMap = {
-   'reviewer': { full: 'Reviewer', abbr: 'Reviewer', types: ['reviewing', 'junior-pc'] },
-   'artifact-eval': { full: 'Artifact Evaluation', abbr: 'AE', types: ['artifact-eval'] },
    'chair': { full: 'Chair', abbr: 'Chair', types: ['local-chair', 'web-chair'] },
+   'artifact-eval': { full: 'Artifact Evaluation', abbr: 'AE', types: ['artifact-eval'] },
+   'reviewer': { full: 'Reviewer', abbr: 'Reviewer', types: ['reviewing', 'junior-pc'] },
 } as const satisfies Record<string, { full: string; abbr: string; types: readonly ServiceType[] }>;
 
 export type ServiceCategory = keyof typeof CategoryMap;

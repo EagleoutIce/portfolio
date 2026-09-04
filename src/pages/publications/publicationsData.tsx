@@ -8,7 +8,7 @@ import { monthToString } from '../main/Honors';
 /* one visual class per venue kind, in the spirit of the coloured lists on
    academic homepages. colours are fixed hues (independent of the page accent)
    chosen to stay legible on both the light and dark background. */
-export type Category = 'journal' | 'conference' | 'workshop' | 'demo' | 'doctoral' | 'master-thesis' | 'bachelor-thesis' | 'book' | 'talk' | 'poster' | 'other';
+export type Category = 'journal' | 'conference' | 'workshop' | 'demo' | 'doctoral' | 'extended-abstract' | 'master-thesis' | 'bachelor-thesis' | 'book' | 'talk' | 'poster' | 'other';
 
 export const CATEGORY: Record<Category, CatDef> = {
    journal: { label: 'Journal', short: 'JOUR', color: '#3b7bb8' },
@@ -16,6 +16,7 @@ export const CATEGORY: Record<Category, CatDef> = {
    workshop: { label: 'Workshop', short: 'WORK', color: '#b8873b' },
    demo: { label: 'Tool Demo', short: 'DEMO', color: '#7a6fb0' },
    doctoral: { label: 'Doctoral Symposium', short: 'DOCT', color: '#9c8b5a' },
+   'extended-abstract': { label: 'Extended Abstract', short: 'EABS', color: '#7fa86b' },
    'master-thesis': { label: "Master's Thesis", short: 'MA', color: '#8d4e86' },
    'bachelor-thesis': { label: "Bachelor's Thesis", short: 'BA', color: '#b06fa6' },
    book: { label: 'Book', short: 'BOOK', color: '#9c6b4a' },
@@ -25,7 +26,7 @@ export const CATEGORY: Record<Category, CatDef> = {
 };
 
 /* the order categories appear in the legend / are grouped visually */
-export const CATEGORY_ORDER: Category[] = ['journal', 'conference', 'workshop', 'demo', 'doctoral', 'master-thesis', 'bachelor-thesis', 'book', 'talk', 'poster', 'other'];
+export const CATEGORY_ORDER: Category[] = ['journal', 'conference', 'workshop', 'demo', 'doctoral', 'extended-abstract', 'master-thesis', 'bachelor-thesis', 'book', 'talk', 'poster', 'other'];
 
 export interface Author {
    readonly text: string;
@@ -45,6 +46,8 @@ export interface Pub {
    readonly category: Category;
    readonly links: { label: string; href: string }[];
    readonly abstract?: string;
+   /** position in the source bibliography, used to break date ties */
+   readonly seq: number;
 }
 
 const sources = ['paper', 'talk', 'poster', 'other'] as const;
@@ -99,6 +102,10 @@ function categorize(entry: Record<string, unknown>, source: string): Category {
       .filter(Boolean).join(' ').toLowerCase();
 
    if(genre.includes('thesis')) return genre.includes('bachelor') ? 'bachelor-thesis' : 'master-thesis';
+   /* summaries of an already-published paper (the SE Fachtagung re-presents
+      accepted papers) are not conference papers of their own */
+   if(stripBraces(entry['title']).toLowerCase().includes('extended abstract')
+      || haystack.includes('fachtagung des gi-fachbereichs')) return 'extended-abstract';
    if(genre.includes('doctoral') || haystack.includes('doctoral')) return 'doctoral';
    if(genre.includes('demonstration') || haystack.includes('demonstration')
       || haystack.includes('tool demo') || /\/td\b/.test(haystack)) return 'demo';
@@ -161,7 +168,7 @@ export function getPublications(): Pub[] {
          usedKeys.add(key);
 
          pubs.push({
-            key, id, title, authors, year,
+            key, id, title, authors, year, seq: pubs.length,
             month: Number(dateParts[1] ?? 0),
             venue,
             category: categorize(entry, source),
@@ -170,7 +177,9 @@ export function getPublications(): Pub[] {
          });
       }
    }
-   pubs.sort((a, b) => (b.year - a.year) || (b.month - a.month) || a.title.localeCompare(b.title));
+   /* within the same month the .bib order decides, so entries that share a month
+      can be ranked by hand (there is no day in the data) */
+   pubs.sort((a, b) => (b.year - a.year) || (b.month - a.month) || (a.seq - b.seq));
    return pubs;
 }
 

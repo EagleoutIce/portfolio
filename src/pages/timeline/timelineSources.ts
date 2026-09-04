@@ -11,7 +11,8 @@ export const TL_CATEGORIES = {
    conference: { label: 'Conf.', short: 'CONF', color: '#3d82c0' },
    workshop: { label: 'Workshop', short: 'WORK', color: '#5a9bd4' },
    demo: { label: 'Demo', short: 'DEMO', color: '#79b4e4' },
-   doctoral: { label: 'Doctoral', short: 'DOCT', color: '#98c8ec' },
+   doctoral: { label: 'DocSym', short: 'DOCT', color: '#98c8ec' },
+   'extended-abstract': { label: 'Ext. Abstr', short: 'EABS', color: '#b0d6f2' },
    book: { label: 'Book', short: 'BOOK', color: '#58749e' },
    other: { label: 'Other', short: 'MISC', color: '#a6bcd6' },
    /* ── talks & posters: shared teal family, two shades ─────────────────── */
@@ -30,19 +31,19 @@ export const TL_CATEGORIES = {
    multiday: { label: 'Camp', short: 'CAMP', color: '#6a63b4' },
    practicum: { label: 'Practicum', short: 'PRAC', color: '#8781c8' },
    singleday: { label: 'Single-day', short: 'DAY', color: '#a7a2dc' },
-   /* ── academic service: orange family ─────────────────────────────────── */
-   reviewer: { label: 'Reviewer', short: 'REV', color: '#c07a2c' },
+   /* ── academic service: orange family, darkest shade for the top role ─── */
+   chair: { label: 'Chair', short: 'CHR', color: '#c07a2c' },
    'artifact-eval': { label: 'AE', short: 'AE', color: '#d6923d' },
-   chair: { label: 'Chair', short: 'CHR', color: '#e6ad5d' },
+   reviewer: { label: 'Reviewer', short: 'REV', color: '#e6ad5d' },
    /* ── honors & grants: gold family ────────────────────────────────────── */
-   award: { label: 'Award', short: 'AWRD', color: '#c39a1f' },
-   grant: { label: 'Grant', short: 'GRNT', color: '#d7b23f' },
+   grant: { label: 'Grant', short: 'GRNT', color: '#c39a1f' },
+   award: { label: 'Award', short: 'AWRD', color: '#d7b23f' },
    scholarship: { label: 'Scholarship', short: 'SCHL', color: '#e6cb6f' },
    fellowship: { label: 'Fellowship', short: 'FELL', color: '#efdc98' },
    honor: { label: 'Honor', short: 'HON', color: '#b6a44a' },
    /* ── schools & seminars: brown family ────────────────────────────────── */
-   'summer-school': { label: 'Summer School', short: 'SUSC', color: '#97663f' },
-   seminar: { label: 'Seminar', short: 'SEM', color: '#b1875f' },
+   seminar: { label: 'Seminar', short: 'SEM', color: '#97663f' },
+   'summer-school': { label: 'Summer School', short: 'SUSC', color: '#b1875f' },
 } as const satisfies Record<string, CatDef>;
 
 export type TLCategory = keyof typeof TL_CATEGORIES;
@@ -50,14 +51,14 @@ export type TLCategory = keyof typeof TL_CATEGORIES;
 /* the legend is grouped by family so the many sub-kinds stay navigable and it
    is obvious which colours belong together */
 export const TL_GROUPS: { label: string; cats: TLCategory[] }[] = [
-   { label: 'Publications', cats: ['journal', 'conference', 'workshop', 'demo', 'doctoral', 'book', 'other'] },
+   { label: 'Publications', cats: ['journal', 'conference', 'workshop', 'demo', 'doctoral', 'extended-abstract', 'book', 'other'] },
    { label: 'Talks & Posters', cats: ['talk', 'poster'] },
    { label: 'Theses', cats: ['master-thesis', 'bachelor-thesis'] },
    { label: 'Teaching', cats: ['lecturer', 'project', 'guest-lecturer', 'teaching-assistant', 'tutor'] },
    { label: 'Outreach', cats: ['multiday', 'practicum', 'singleday'] },
-   { label: 'Service', cats: ['reviewer', 'artifact-eval', 'chair'] },
-   { label: 'Honors & Grants', cats: ['award', 'grant', 'scholarship', 'fellowship', 'honor'] },
-   { label: 'Schools & Seminars', cats: ['summer-school', 'seminar'] },
+   { label: 'Service', cats: ['chair', 'artifact-eval', 'reviewer'] },
+   { label: 'Honors & Grants', cats: ['grant', 'award', 'scholarship', 'fellowship', 'honor'] },
+   { label: 'Schools & Seminars', cats: ['seminar', 'summer-school'] },
 ];
 
 /* family-contiguous flat order (fallback when no grouped legend is used) */

@@ -266,13 +266,24 @@
    font-variant-numeric: tabular-nums;
    background: none;
    border: none;
-   padding: 0;
+   /* a little padding so the count and chevron are comfortably clickable */
+   padding: .15em .3em;
    cursor: pointer;
    transition: color .2s;
 }
 
 .pub-year-label:hover {
    color: var(--accent-text);
+}
+
+/* the global button hover/active scaling moves the edges of these small rail
+   controls under the cursor, so a press on the count or chevron could land its
+   mouseup outside the button and never fire a click — keep them steady */
+.pub-year-label:hover,
+.pub-year-label:active,
+.pub-year-nav:hover,
+.pub-year-nav:active {
+   scale: 1;
 }
 
 /* entry count next to the year, shown at rest; the chevron flips to show

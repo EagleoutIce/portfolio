@@ -41,10 +41,9 @@ interface CategorizedListProps {
 
 export function CategorizedList({ categories, order, items, lead, numbered, groups }: CategorizedListProps) {
    const [active, setActive] = useState<ReadonlySet<string>>(new Set());
-   /* families collapsed to just their header; the group legend starts fully
-      collapsed so the filter bar stays compact until you dig in */
-   const [collapsed, setCollapsed] = useState<ReadonlySet<string>>(
-      () => new Set((groups ?? []).map(g => g.label)));
+   /* families collapsed to just their header; starts empty (all families
+      expanded) so every kind is visible without digging into the legend */
+   const [collapsed, setCollapsed] = useState<ReadonlySet<string>>(new Set());
    /* years fold to just their header + count; starts empty (all expanded) so
       deep links and the default view always land fully open */
    const [collapsedYears, setCollapsedYears] = useState<ReadonlySet<number>>(new Set());
@@ -150,6 +149,10 @@ export function CategorizedList({ categories, order, items, lead, numbered, grou
       ?.map(g => ({ ...g, cats: g.cats.filter(c => counts.has(c)) }))
       .filter(g => g.cats.length > 0);
 
+   /* one switch for the whole legend: fold every family down to its header, or
+      open them all again */
+   const allCollapsed = (presentGroups ?? []).every(g => collapsed.has(g.label));
+
    return <>
       {lead && <p className="pub-lead">{lead}</p>}
       {presentGroups
@@ -158,6 +161,10 @@ export function CategorizedList({ categories, order, items, lead, numbered, grou
                const isCollapsed = collapsed.has(g.label);
                const allOn = g.cats.every(c => active.has(c));
                const activeN = g.cats.filter(c => active.has(c)).length;
+               /* the badge counts entries, not kinds: the whole family, or just
+                  the selected kinds while the family is filtering */
+               const sum = (cats: string[]) => cats.reduce((n, c) => n + (counts.get(c) ?? 0), 0);
+               const shownN = activeN ? sum(g.cats.filter(c => active.has(c))) : sum(g.cats);
                return <div className={`pub-legend-group${isCollapsed ? ' collapsed' : ''}${activeN ? ' filtering' : ''}`}
                   key={g.label} style={{ ['--g']: categories[g.cats[0]].color } as CSSProperties}>
                   <div className="pub-legend-grouphead">
@@ -166,13 +173,21 @@ export function CategorizedList({ categories, order, items, lead, numbered, grou
                      <button className="pub-legend-groupname" aria-expanded={!isCollapsed}
                         onClick={() => toggleCollapse(g.label)}>
                         <span className="pub-legend-grouplabel">{g.label}</span>
-                        <span className="pub-legend-groupcount">{activeN || g.cats.length}</span>
+                        <span className="pub-legend-groupcount">{shownN}</span>
                         <span className="pub-legend-chevron" aria-hidden />
                      </button>
                   </div>
                   {!isCollapsed && <div className="pub-legend-chips">{g.cats.map(chip)}</div>}
                </div>;
             })}
+            {presentGroups.length > 1 &&
+               <button className="pub-legend-reset"
+                  aria-expanded={!allCollapsed}
+                  onClick={() => setCollapsed(allCollapsed
+                     ? new Set()
+                     : new Set(presentGroups.map(g => g.label)))}>
+                  {allCollapsed ? 'expand all' : 'collapse all'}
+               </button>}
             {active.size > 0 &&
                <button className="pub-legend-reset" onClick={() => setActive(new Set())}>clear filters</button>}
          </div>
