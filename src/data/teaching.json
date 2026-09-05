@@ -7,10 +7,11 @@
       {"year": 2023, "term": "WT", "topic": "Code Reconstruction", "desc": "Optimizing the code reconstruction in flowR", "href": "https://www.uni-ulm.de/in/fakultaet/studiumf-mi/studienplanung-se/apse-archiv/wise23/"},
       {"year": 2024, "term": "WT", "topic": "Waddle", "desc": "Improving on the Language, Level-Editor, and Tutorial for Waddle", "href": "https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"},
       {"year": 2025, "term": "ST", "topic": "R Projects", "desc": "Adding project support to flowR", "href": "https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"},
-      {"year": 2026, "term": "ST", "topic": "Security", "desc": "Improving the security linting for flowR", "href": "https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"}
+      {"year": 2026, "term": "ST", "topic": "Security", "desc": "Improving the security linting for flowR", "href": "https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"},
+      {"year": 2026, "term": "WT", "topic": "Validity", "desc": "Validity Linting and Taint-Analysis with flowR", "href": "https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"}
    ]},
    {"name": "Functional Programming", "role": "teaching-assistant", "link": "https://www.uni-ulm.de/in/sp/teaching/functional-programming/", "terms": [
-      {"year": 2022, "term": "WT"}, {"year": 2023, "term": "WT"}, {"year": 2024, "term": "WT"}, {"year": 2025, "term": "WT"}
+      {"year": 2022, "term": "WT"}, {"year": 2023, "term": "WT"}, {"year": 2024, "term": "WT"}, {"year": 2025, "term": "WT"}, {"year": 2026, "term": "WT"}
    ]},
    {"name": "Functional Programming 2", "role": "teaching-assistant", "link": "https://www.uni-ulm.de/in/sp/teaching/functional-programming-2/", "terms": [
       {"year": 2024, "term": "ST"}, {"year": 2026, "term": "ST"}
@@ -21,7 +22,7 @@
    {"name": "Object-Oriented Programming", "role": "teaching-assistant", "link": "https://www.uni-ulm.de/in/sp/teaching/objektorientierte-programmierung/", "terms": [
       {"year": 2024, "term": "ST", "suffix": "[some lecturing]"},
       {"year": 2025, "term": "ST", "suffix": "[some lecturing]"},
-      {"year": 2026, "term": "ST"}
+      {"year": 2026, "term": "ST", "suffix": "[some lecturing]"}
    ]},
    {"name": "Introduction to Computer Science", "role": "tutor", "material": [{"label": "slides", "href": "https://github.com/EagleoutIce/uulm-eidi-tut-ws2021-22-slides"}], "terms": [
       {"year": 2019, "term": "WT"}, {"year": 2020, "term": "ST"}, {"year": 2020, "term": "WT"}, {"year": 2021, "term": "ST"},
@@ -30,7 +31,8 @@
    ]},
    {"name": "Software Quality Assurance (Static Analysis)", "role": "lecturer", "note": "Specifically for three lectures on static analysis", "link": "https://www.uni-ulm.de/in/sp/teaching/software-quality-assurance/", "material": [{"label": "slides", "href": "https://github.com/EagleoutIce/sqa-static-analysis"}], "terms": [
       {"year": 2024, "term": "WT", "github": "https://github.com/EagleoutIce/sqa-static-analysis"},
-      {"year": 2025, "term": "WT", "github": "https://github.com/EagleoutIce/sqa-static-analysis"}
+      {"year": 2025, "term": "WT", "github": "https://github.com/EagleoutIce/sqa-static-analysis"},
+      {"year": 2026, "term": "WT", "github": "https://github.com/EagleoutIce/sqa-static-analysis"}
    ]},
    {"name": "Software Engineering 2 (Static Analysis)", "role": "guest-lecturer", "note": "I was invited to give a guest lecture on static analysis at the TU Braunschweig", "link": "https://www.tu-braunschweig.de/isf/teaching/se2", "terms": [
       {"year": 2025, "term": "ST", "suffix": "at TU Braunschweig"}
