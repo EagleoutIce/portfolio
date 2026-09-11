@@ -1,9 +1,19 @@
-import { useRef, useState } from "react";
+import { useRef, useState, type PointerEvent } from "react";
 import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import "./TitleName.css";
 import { SocialMediaIcon } from "./SocialMediaIcon";
 import { Tooltip } from "react-tooltip";
 import { headerIsSticky } from "./Header";
+
+/* faster shapes on hover; the playback rate keeps them in place, a new
+   animation-duration would make them jump */
+function setPace(e: PointerEvent<HTMLElement>, rate: number) {
+   for(const a of e.currentTarget.getAnimations({ subtree: true })) {
+      if(a instanceof CSSAnimation && a.animationName.startsWith('shape-walk')) {
+         a.updatePlaybackRate(rate);
+      }
+   }
+}
 
 export interface TitleNameProps {
    readonly name: string;
@@ -100,9 +110,17 @@ export default function TitleName({ name, subtitle, imageSrc, mediaLinks, idPref
    };
 
    return <div className="title-name-card">
-      <img src={imageSrc} alt={name} decoding="async" width={96} height={96}
-         className={`profile-image ${specials()}${eggActive ? ' egg-active' : ''}${eggShape ? ' egg' : ''}`}
-         onClick={onImageClick} />
+      <div className={`profile-avatar ${specials()}${eggActive ? ' egg-active' : ''}${eggShape ? ' egg' : ''}`}
+         onClick={onImageClick}
+         onPointerEnter={e => setPace(e, 1.7)} onPointerLeave={e => setPace(e, 1)}>
+         <span className="profile-blob" aria-hidden="true" />
+         <span className="profile-pane" aria-hidden="true" />
+         <span className="profile-crop">
+            <img src={imageSrc} alt={name} decoding="async" width={260} height={344}
+               className="profile-image" />
+         </span>
+         <span className="profile-gloss" aria-hidden="true" />
+      </div>
       <div>
          {heading
             ? <h1 className="profile-name">{name} <br /></h1>

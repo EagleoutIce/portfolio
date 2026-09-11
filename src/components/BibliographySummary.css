@@ -20,6 +20,16 @@
    margin-top: 0.5em;
 }
 
+/* gaps shrink with the column, so the page summary wraps later */
+.page-summary {
+   container-type: inline-size;
+}
+
+.page-summary .conf-entry,
+.page-summary .conf-year-banner {
+   margin-right: clamp(.35em, 5.2cqi - 1.6em, 1em);
+}
+
 /* revealed earlier years flow inline in the same container as the recent ones,
    so the list reads as one continuous run; each fades in cleanly on reveal */
 .bib-summary-older {

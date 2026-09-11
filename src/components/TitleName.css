@@ -14,8 +14,19 @@
   padding: 0;
 }
 
-.header.sticky .profile-image {
+.header.sticky .profile-avatar {
   margin-top: 0;
+}
+
+/* sticky bar: no accent shape, closer on the face */
+.header.sticky .profile-blob {
+  display: none;
+}
+
+.header.sticky .profile-image {
+  object-position: 50% 0;
+  scale: 1.3;
+  transform-origin: 50% 4%;
 }
 
 /* in the compact bar, a tight name-over-icons stack, centered next to the avatar */
@@ -41,54 +52,269 @@
   line-height: 1;
 }
 
-.profile-image {
-  width: calc(6em - 4.5em * var(--p));
-  height: calc(6em - 4.5em * var(--p));
-  /* a full circle in the big (non-sticky) header, softening to a rounded square
-     only as the header collapses (var(--p): 0 = hero, 1 = sticky bar); a hover
-     always snaps it back to a full circle */
-  border-radius: calc(50% - 20% * var(--p));
-  object-fit: cover;
+/* an accent shape behind a glass blob; the portrait is cut by the glass at
+   the sides and bottom, so the head sticks out on top */
+.profile-avatar {
+  position: relative;
+  flex: 0 0 auto;
+  /* var(--p): 0 = hero, 1 = sticky bar */
+  width: calc(5.3em - 3.85em * var(--p));
+  height: calc(6.1em - 4.5em * var(--p));
   /* tighter gap in the sticky bar so the avatar and name read as one group */
   margin-right: calc(42px - 28px * var(--p));
   margin-top: calc(4px * var(--p));
   margin-bottom: calc(10px * (1 - var(--p)));
-  transition: border-radius 0.25s ease, scale .1s ease-in-out;
-  box-shadow: 6px 4px 22px -3.5px var(--soft-glow);
+  cursor: pointer;
+  /* no selection flash on repeated taps */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.easter,
-.profile-image.egg {
-  /* egg shape */
+.profile-blob,
+.profile-pane,
+.profile-crop,
+.profile-gloss {
+  position: absolute;
+  animation: shape-walk-glass 20s linear infinite;
+  transition: translate .35s ease;
+}
+
+/* on hover (--out: 1) the two shapes drift apart */
+.profile-blob {
+  inset: calc(8% - 2% * var(--out, 0)) calc(-3% - 2.5% * var(--out, 0)) calc(26% - 2% * var(--out, 0));
+  translate: calc(.14em * var(--out, 0)) calc(-.12em * var(--out, 0));
+  background-color: var(--main-color-transparent);
+  background-image: linear-gradient(200deg,
+     color-mix(in srgb, var(--main-color) 95%, var(--background)),
+     color-mix(in srgb, var(--main-color) 35%, var(--background)));
+  transition-property: inset, translate;
+  animation-name: shape-walk-back;
+  animation-duration: 27s;
+}
+
+/* one box for the glass, the portrait and the light, so the cut stays on the
+   glass edge */
+.profile-pane,
+.profile-crop,
+.profile-gloss {
+  inset: -7% -4% -1% -8%;
+  translate: calc(-.1em * var(--out, 0)) calc(.07em * var(--out, 0));
+}
+
+/* frosted glass behind the portrait */
+.profile-pane {
+  background-color: color-mix(in srgb, var(--main-color) 22%, transparent);
+  background-image: linear-gradient(150deg,
+     color-mix(in srgb, #fff 16%, transparent),
+     color-mix(in srgb, #fff 6%, transparent) 60%);
+  -webkit-backdrop-filter: blur(5px) saturate(1.6);
+  backdrop-filter: blur(5px) saturate(1.6);
+}
+
+/* plus distortion, only in Chromium: Firefox would drop the blur as well */
+@supports (app-region: drag) {
+  .profile-pane {
+    backdrop-filter: blur(5px) url(#profile-glass) saturate(1.6);
+  }
+}
+
+.profile-crop {
+  /* keeps the portrait at the avatar's width */
+  padding: 0 4% 0 8%;
+  animation-name: shape-walk-crop;
+}
+
+/* light on the glass: top edge, a streak, accent at the foot */
+.profile-gloss {
+  background-image:
+     linear-gradient(to bottom,
+        color-mix(in srgb, #fff 48%, transparent) 0,
+        color-mix(in srgb, #fff 10%, transparent) 2%,
+        transparent 5%),
+     linear-gradient(112deg,
+        color-mix(in srgb, #fff 26%, transparent) 0 8%,
+        color-mix(in srgb, #fff 7%, transparent) 18%,
+        transparent 32%),
+     linear-gradient(to top,
+        color-mix(in srgb, var(--main-color) 10%, transparent) 0,
+        transparent 18%);
+  filter: url(#profile-glass);
+  pointer-events: none;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 10%;
+  /* clicks belong to the wrapper */
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+/* generated rounded pentagons, every point drifting on its own phase. the
+   polygons are literal: through var() the keyframes would jump */
+@keyframes shape-walk-crop {
+  0%, 100% {
+    clip-path: polygon(
+      6.9% 0%, 95.2% 0%, 95.2% 55.4%, 95.2% 56.4%, 95.2% 57.6%, 95.2% 58.7%, 95.2% 60%,
+      95.2% 61.3%, 95.2% 62.5%, 93.3% 86.5%, 92.6% 89.2%, 91.1% 91.6%, 88.9% 93.8%, 86% 95.4%,
+      82.6% 96.5%, 79% 97%, 24.8% 98.9%, 20.9% 98.7%, 17.2% 97.7%, 14% 96%, 11.5% 93.8%,
+      9.8% 91.2%, 9.1% 88.3%, 6.9% 52.1%);
+    rotate: -1.1deg;
+  }
+  25% {
+    clip-path: polygon(
+      4.3% 0%, 91.1% 0%, 91.1% 56.5%, 91.1% 57.5%, 91.1% 58.5%, 91.1% 59.6%, 91.1% 60.7%,
+      91.1% 61.9%, 91.1% 63.1%, 92% 84.7%, 91.5% 87.7%, 90% 90.5%, 87.6% 92.9%, 84.4% 94.7%,
+      80.6% 95.9%, 76.6% 96.1%, 27.7% 95.3%, 24.4% 95%, 21.2% 94.1%, 18.4% 92.7%, 16.1% 90.8%,
+      14.4% 88.7%, 13.3% 86.3%, 4.3% 52.7%);
+    rotate: 0.5deg;
+  }
+  50% {
+    clip-path: polygon(
+      8.1% 0%, 96.5% 0%, 96.5% 53.6%, 96.5% 55%, 96.5% 56.8%, 96.5% 58.8%, 96.5% 61%,
+      96.5% 63.1%, 96.1% 65.3%, 89.4% 84.1%, 88.3% 86.3%, 86.6% 88.2%, 84.5% 89.9%, 81.9% 91.1%,
+      79.1% 92%, 76.1% 92.4%, 28.7% 95.3%, 24.9% 95.1%, 21.2% 94.3%, 18% 92.7%, 15.3% 90.7%,
+      13.5% 88.1%, 12.6% 85.4%, 8.1% 54.4%);
+    rotate: 1.3deg;
+  }
+  75% {
+    clip-path: polygon(
+      10.5% 0%, 100% 0%, 100% 52.2%, 100% 53.9%, 100% 55.7%, 100% 57.8%, 100% 60%,
+      99.9% 62.1%, 99.2% 64.3%, 89.2% 85.5%, 88.1% 87.3%, 86.5% 89%, 84.6% 90.4%, 82.3% 91.6%,
+      79.9% 92.4%, 77.2% 92.8%, 25.7% 98.5%, 21.3% 98.5%, 17.1% 97.6%, 13.5% 95.8%, 10.7% 93.3%,
+      9% 90.3%, 8.5% 87%, 10.5% 53.6%);
+    rotate: 0.2deg;
+  }
+}
+
+@keyframes shape-walk-glass {
+  0%, 100% {
+    clip-path: polygon(
+      6.9% 52.1%, 7.2% 49.5%, 8.3% 47%, 10.1% 44.7%, 12.7% 42.8%, 15.7% 41.5%, 19.1% 40.7%,
+      61.4% 34.6%, 64.3% 34.4%, 67.1% 34.6%, 69.8% 35.2%, 72.4% 36.1%, 74.6% 37.4%, 76.5% 39%,
+      92.4% 55.4%, 93.3% 56.4%, 94% 57.6%, 94.6% 58.7%, 95% 60%, 95.2% 61.3%, 95.2% 62.5%,
+      93.3% 86.5%, 92.6% 89.2%, 91.1% 91.6%, 88.9% 93.8%, 86% 95.4%, 82.6% 96.5%, 79% 97%,
+      24.8% 98.9%, 20.9% 98.7%, 17.2% 97.7%, 14% 96%, 11.5% 93.8%, 9.8% 91.2%, 9.1% 88.3%);
+    rotate: -1.1deg;
+  }
+  25% {
+    clip-path: polygon(
+      4.5% 52.7%, 4.3% 49.6%, 5.3% 46.5%, 7.5% 43.7%, 10.7% 41.6%, 14.5% 40.1%, 18.7% 39.6%,
+      60.8% 38.5%, 63.2% 38.6%, 65.4% 39%, 67.6% 39.6%, 69.7% 40.4%, 71.5% 41.4%, 73.1% 42.7%,
+      87.9% 56.5%, 88.8% 57.5%, 89.6% 58.5%, 90.2% 59.6%, 90.7% 60.7%, 91% 61.9%, 91.1% 63.1%,
+      92% 84.7%, 91.5% 87.7%, 90% 90.5%, 87.6% 92.9%, 84.4% 94.7%, 80.6% 95.9%, 76.6% 96.1%,
+      27.7% 95.3%, 24.4% 95%, 21.2% 94.1%, 18.4% 92.7%, 16.1% 90.8%, 14.4% 88.7%, 13.3% 86.3%);
+    rotate: 0.5deg;
+  }
+  50% {
+    clip-path: polygon(
+      8.1% 54.4%, 8.2% 51.3%, 9.4% 48.4%, 11.7% 45.9%, 14.7% 43.9%, 18.4% 42.6%, 22.5% 42.1%,
+      61.9% 41%, 63.6% 41%, 65.3% 41.2%, 66.9% 41.5%, 68.5% 41.9%, 69.9% 42.4%, 71.4% 43.1%,
+      90.4% 53.6%, 92.7% 55%, 94.4% 56.8%, 95.7% 58.8%, 96.4% 61%, 96.5% 63.1%, 96.1% 65.3%,
+      89.4% 84.1%, 88.3% 86.3%, 86.6% 88.2%, 84.5% 89.9%, 81.9% 91.1%, 79.1% 92%, 76.1% 92.4%,
+      28.7% 95.3%, 24.9% 95.1%, 21.2% 94.3%, 18% 92.7%, 15.3% 90.7%, 13.5% 88.1%, 12.6% 85.4%);
+    rotate: 1.3deg;
+  }
+  75% {
+    clip-path: polygon(
+      10.5% 53.6%, 11% 51.2%, 12.2% 49%, 14% 46.9%, 16.4% 45.3%, 19.2% 44%, 22.3% 43.2%,
+      61.8% 36.9%, 64.1% 36.7%, 66.4% 36.7%, 68.7% 37%, 70.8% 37.6%, 72.9% 38.4%, 74.8% 39.3%,
+      94.8% 52.2%, 96.9% 53.9%, 98.5% 55.7%, 99.5% 57.8%, 100% 60%, 99.9% 62.1%, 99.2% 64.3%,
+      89.2% 85.5%, 88.1% 87.3%, 86.5% 89%, 84.6% 90.4%, 82.3% 91.6%, 79.9% 92.4%, 77.2% 92.8%,
+      25.7% 98.5%, 21.3% 98.5%, 17.1% 97.6%, 13.5% 95.8%, 10.7% 93.3%, 9% 90.3%, 8.5% 87%);
+    rotate: 0.2deg;
+  }
+}
+
+@keyframes shape-walk-back {
+  0%, 100% {
+    clip-path: polygon(
+      9.1% 15.8%, 10% 11.7%, 12% 8.1%, 15% 5.1%, 18.6% 3.1%, 22.6% 2.1%, 26.8% 2.3%,
+      84.8% 13%, 88.5% 14.1%, 91.7% 16.2%, 94.3% 19%, 96.1% 22.4%, 97% 26.1%, 97% 29.9%,
+      90.9% 70.1%, 90.3% 72.7%, 89.2% 75.2%, 87.6% 77.4%, 85.7% 79.4%, 83.5% 80.9%, 81% 82%,
+      38.1% 96.9%, 34.4% 97.6%, 30.5% 97.4%, 26.8% 96.2%, 23.6% 94.2%, 21% 91.3%, 19.2% 87.9%,
+      7.1% 55.8%, 6.8% 54.7%, 6.5% 53.7%, 6.3% 52.6%, 6.2% 51.5%, 6.2% 50.3%, 6.2% 49.2%);
+    rotate: 7deg;
+  }
+  25% {
+    clip-path: polygon(
+      10.5% 16.6%, 11.8% 13.3%, 13.9% 10.4%, 16.6% 8.1%, 19.7% 6.5%, 23.2% 5.6%, 26.8% 5.6%,
+      85.2% 12.5%, 89.1% 13.5%, 92.6% 15.6%, 95.5% 18.5%, 97.4% 22%, 98.3% 26%, 98.2% 30%,
+      91% 70%, 90.3% 72.6%, 89.1% 75.1%, 87.5% 77.3%, 85.6% 79.2%, 83.3% 80.6%, 80.7% 81.7%,
+      37.3% 95.2%, 33.9% 95.9%, 30.4% 95.7%, 27.1% 94.8%, 24.1% 93.2%, 21.6% 90.9%, 19.6% 88%,
+      3.6% 58.2%, 2.8% 56.5%, 2.2% 54.7%, 1.9% 52.8%, 1.8% 50.9%, 1.9% 49.1%, 2.3% 47.2%);
+    rotate: 9.5deg;
+  }
+  50% {
+    clip-path: polygon(
+      10.7% 16.7%, 12.2% 13.6%, 14.4% 10.9%, 17.2% 8.8%, 20.3% 7.3%, 23.7% 6.6%, 27.2% 6.8%,
+      83.6% 15.4%, 87.1% 16.3%, 90.2% 18.1%, 92.9% 20.6%, 94.8% 23.6%, 96% 27%, 96.3% 30.6%,
+      95.1% 70.1%, 94.7% 73.4%, 93.4% 76.6%, 91.5% 79.4%, 89% 81.7%, 86% 83.4%, 82.8% 84.4%,
+      37.1% 92.5%, 34.3% 92.7%, 31.5% 92.5%, 28.9% 91.6%, 26.4% 90.4%, 24.2% 88.6%, 22.3% 86.5%,
+      2.8% 59.4%, 1.6% 57.4%, 0.7% 55.2%, 0.2% 52.9%, 0% 50.5%, 0.2% 48.1%, 0.8% 45.8%);
+    rotate: 11deg;
+  }
+  75% {
+    clip-path: polygon(
+      8.7% 16%, 9.8% 12%, 12% 8.6%, 15% 5.8%, 18.7% 4%, 22.7% 3.2%, 26.7% 3.6%,
+      82.7% 16%, 85.9% 17.1%, 88.8% 18.8%, 91.2% 21.2%, 93% 24.1%, 94.1% 27.3%, 94.5% 30.6%,
+      94.5% 70.2%, 94.1% 73.6%, 93% 76.8%, 91.2% 79.6%, 88.8% 82%, 85.9% 83.8%, 82.6% 84.9%,
+      37.4% 94.5%, 34.2% 94.8%, 31% 94.5%, 27.9% 93.4%, 25.2% 91.7%, 22.8% 89.5%, 21% 86.8%,
+      5.4% 57.1%, 4.7% 55.7%, 4.2% 54.2%, 3.9% 52.7%, 3.7% 51.1%, 3.7% 49.5%, 3.9% 47.9%);
+    rotate: 8deg;
+  }
+}
+
+.profile-avatar:hover {
+  --out: 1;
+}
+
+.profile-avatar:is(.easter, .egg) {
   width: 4.90em;
   height: 6em;
-  border-radius: 50% 50% 50% 50% / 62% 62% 42% 42%;
+}
+
+.profile-avatar:is(.easter, .egg) .profile-blob {
+  display: none;
+}
+
+/* egg shape */
+.profile-avatar:is(.easter, .egg) :is(.profile-pane, .profile-crop, .profile-gloss) {
+  clip-path: ellipse(50% 49% at 50% 50%);
+  inset: 0;
+  padding: 0;
+  animation: none;
+}
+
+.profile-avatar:is(.easter, .egg) .profile-image {
+  object-position: 50% 0;
+  translate: 0 6%;
 }
 
 /* the seven-tap egg hatch: animate the size change while it morphs and back */
-.profile-image.egg-active {
-  transition: border-radius .4s ease, width .45s ease, height .45s ease, scale .1s ease-in-out;
+.profile-avatar.egg-active {
+  transition: width .45s ease, height .45s ease;
 }
 
-/* hover squares it off: the round hero image becomes a rounded rectangle
-   (and the already-square sticky image tightens a touch further) */
-.profile-image:hover {
-  border-radius: 20%;
-}
-
-.profile-image:active {
+.profile-avatar:active {
   animation: click-anim .25s;
 }
 
 @keyframes click-anim {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(.942);
-  }
-  100% {
-    transform: scale(1);
+  0%, 100% { scale: 1; }
+  50%      { scale: .942; }
+}
+
+/* paused rather than removed, so the shapes keep their first outline */
+@media (prefers-reduced-motion: reduce) {
+  .profile-blob,
+  .profile-pane,
+  .profile-crop,
+  .profile-gloss {
+    animation-play-state: paused;
   }
 }
 

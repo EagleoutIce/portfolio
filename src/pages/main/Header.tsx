@@ -22,8 +22,21 @@ const sections = {
    teaching: { page: 'teaching' },
 };
 
+/* drifting noise displacement for the avatar's glass (see TitleName.css) */
+function GlassFilter() {
+   return <svg width="0" height="0" aria-hidden="true" focusable="false" style={{ position: 'absolute' }}>
+      <filter id="profile-glass" x="-15%" y="-15%" width="130%" height="130%" colorInterpolationFilters="sRGB">
+         <feTurbulence type="fractalNoise" baseFrequency="0.014 0.022" numOctaves={2} seed={7} result="noise">
+            <animate attributeName="baseFrequency" dur="26s" repeatCount="indefinite"
+               values="0.014 0.022; 0.022 0.014; 0.014 0.022" />
+         </feTurbulence>
+         <feDisplacementMap in="SourceGraphic" in2="noise" scale="9" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+   </svg>;
+}
+
 export function MyHeader() {
-   return <Header compact={<>
+   return <><GlassFilter /><Header compact={<>
       <TitleName
          name={profile.name}
          subtitle={profile.subtitle}
@@ -41,5 +54,5 @@ export function MyHeader() {
          mediaLinks={mediaLinks}
       />
       <QuickLinks sections={sections} />
-   </Header>;
+   </Header></>;
 }

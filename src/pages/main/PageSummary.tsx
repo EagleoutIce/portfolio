@@ -55,7 +55,7 @@ function Badge({ id, href, count, label, tooltipContent }: {
   return <a id={id} href={href} className="conf-entry" style={linkStyle}>
     <span className="conf-count">{count}×</span>{label}
     <Tooltip anchorSelect={`#${id}`} render={() => <>{tooltipContent}</>}
-      place="top" style={ttStyle} positionStrategy="fixed" />
+      place="top" style={ttStyle} positionStrategy="absolute" />
   </a>;
 }
 
@@ -72,7 +72,7 @@ export function PageSummary() {
   const { ba, ma }                                 = getThesisCounts();
   const teachingDuties                             = getTeachingDutySplitInfo();
 
-  return <div className="bib-summary-children" style={{ marginTop: '1em', marginBottom: '-.5em', textAlign: 'center' }}>
+  return <div className="bib-summary-children page-summary" style={{ marginTop: '1em', marginBottom: '-.5em', textAlign: 'center' }}>
     {pubEntries.filter(e => e.total > 0).map(({ key, href, label, total, detail }) =>
       <Badge key={key} id={`page-sum-${key}`} href={href} count={total} label={label} tooltipContent={detail} />
     )}
