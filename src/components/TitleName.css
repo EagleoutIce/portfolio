@@ -318,6 +318,24 @@
   }
 }
 
+@media (max-width: 480px) {
+  .header:not(.sticky) .profile-avatar {
+    font-size: .8em;
+    margin-right: 20px;
+  }
+
+  .header:not(.sticky) .profile-name {
+    font-size: 1.25em;
+  }
+
+  /* a block, so its own line height spaces the wrapped lines */
+  .header:not(.sticky) .profile-subtitle {
+    display: block;
+    white-space: normal;
+    line-height: 1.25;
+  }
+}
+
 .profile-name {
   margin: 0;
   letter-spacing: normal;
