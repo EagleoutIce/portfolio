@@ -85,9 +85,9 @@
   inset: calc(8% - 2% * var(--out, 0)) calc(-3% - 2.5% * var(--out, 0)) calc(26% - 2% * var(--out, 0));
   translate: calc(.14em * var(--out, 0)) calc(-.12em * var(--out, 0));
   background-color: var(--main-color-transparent);
-  background-image: linear-gradient(200deg,
-     color-mix(in srgb, var(--main-color) 95%, var(--background)),
-     color-mix(in srgb, var(--main-color) 35%, var(--background)));
+  background-image: linear-gradient(135deg,
+     color-mix(in srgb, var(--main-color) 58%, var(--blob-lift)),
+     var(--main-color));
   transition-property: inset, translate;
   animation-name: shape-walk-back;
   animation-duration: 27s;
@@ -104,18 +104,18 @@
 
 /* frosted glass behind the portrait */
 .profile-pane {
-  background-color: color-mix(in srgb, var(--main-color) 22%, transparent);
+  background-color: color-mix(in srgb, var(--main-color) 15%, transparent);
   background-image: linear-gradient(150deg,
      color-mix(in srgb, #fff 16%, transparent),
      color-mix(in srgb, #fff 6%, transparent) 60%);
-  -webkit-backdrop-filter: blur(5px) saturate(1.6);
-  backdrop-filter: blur(5px) saturate(1.6);
+  -webkit-backdrop-filter: blur(4px) saturate(1.6);
+  backdrop-filter: blur(4px) saturate(1.6);
 }
 
 /* plus distortion, only in Chromium: Firefox would drop the blur as well */
 @supports (app-region: drag) {
   .profile-pane {
-    backdrop-filter: blur(5px) url(#profile-glass) saturate(1.6);
+    backdrop-filter: blur(3px) url(#profile-glass) saturate(1.6);
   }
 }
 
