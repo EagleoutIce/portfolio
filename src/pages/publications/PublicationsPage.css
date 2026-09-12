@@ -292,6 +292,9 @@
    font-size: .58em;
    font-weight: normal;
    color: var(--soft-text);
+   min-width: 1.8em;
+   text-align: center;
+   font-variant-numeric: tabular-nums;
 }
 
 .pub-year-chevron {

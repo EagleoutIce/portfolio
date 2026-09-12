@@ -53,7 +53,7 @@ export type TLCategory = keyof typeof TL_CATEGORIES;
 export const TL_GROUPS: { label: string; cats: TLCategory[] }[] = [
    { label: 'Publications', cats: ['journal', 'conference', 'workshop', 'demo', 'doctoral', 'extended-abstract', 'book', 'other'] },
    { label: 'Talks & Posters', cats: ['talk', 'poster'] },
-   { label: 'Theses', cats: ['master-thesis', 'bachelor-thesis'] },
+   { label: 'Sup. theses', cats: ['master-thesis', 'bachelor-thesis'] },
    { label: 'Teaching', cats: ['lecturer', 'project', 'guest-lecturer', 'teaching-assistant', 'tutor'] },
    { label: 'Outreach', cats: ['multiday', 'practicum', 'singleday'] },
    { label: 'Service', cats: ['chair', 'artifact-eval', 'reviewer'] },
