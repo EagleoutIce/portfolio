@@ -19,6 +19,7 @@ export interface TitleNameProps {
    readonly name: string;
    readonly subtitle: string;
    readonly imageSrc: string;
+   readonly imageSrcDark: string;
    readonly mediaLinks: {
       [key: string]: {
          icon: IconDefinition;
@@ -66,7 +67,7 @@ function specials() {
 }
 
 
-export default function TitleName({ name, subtitle, imageSrc, mediaLinks, idPrefix = '', heading = false }: TitleNameProps) {
+export default function TitleName({ name, subtitle, imageSrc, imageSrcDark, mediaLinks, idPrefix = '', heading = false }: TitleNameProps) {
    /* two classes so the shape can morph in and out: egg-active turns on the
       width/height transition (kept for the whole cycle), egg is the shape */
    const [eggActive, setEggActive] = useState(false);
@@ -117,7 +118,9 @@ export default function TitleName({ name, subtitle, imageSrc, mediaLinks, idPref
          <span className="profile-pane" aria-hidden="true" />
          <span className="profile-crop">
             <img src={imageSrc} alt={name} decoding="async" width={260} height={344}
-               className="profile-image" />
+               className="profile-image profile-image-light" />
+            <img src={imageSrcDark} alt="" aria-hidden="true" decoding="async" width={260} height={344}
+               className="profile-image profile-image-dark" />
          </span>
          <span className="profile-gloss" aria-hidden="true" />
       </div>

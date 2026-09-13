@@ -123,6 +123,9 @@
   /* keeps the portrait at the avatar's width */
   padding: 0 4% 0 8%;
   animation-name: shape-walk-crop;
+  /* one cell for both cutouts, so they stack inside the padded box */
+  display: grid;
+  grid-template: 100% / 100%;
 }
 
 /* light on the glass: top edge, a streak, accent at the foot */
@@ -144,6 +147,7 @@
 }
 
 .profile-image {
+  grid-area: 1 / 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -151,6 +155,30 @@
   /* clicks belong to the wrapper */
   pointer-events: none;
   -webkit-user-drag: none;
+}
+
+/* the matte left the fine hair as a pale haze: invisible on the light page, a
+   ghost halo on the dark one. me-dark.webp is me.webp with that haze pulled to
+   the background colour and thinned out. it is keyed on brightness, not on
+   alpha alone, so the dark strands keep their own soft edge and the outline
+   stays where it is: with lum the pixel's luminance,
+   haze = clamp((lum - 80) / 110, 0, 1)^0.7 * (1 - alpha)^0.35,
+   rgb = mix(rgb, #202227, haze), alpha = alpha * (1 - 0.9 * haze) */
+.profile-image-dark {
+  opacity: 0;
+}
+
+body.dark-theme .profile-image-light {
+  opacity: 0;
+}
+
+body.dark-theme .profile-image-dark {
+  opacity: 1;
+}
+
+.profile-image-light,
+.profile-image-dark {
+  transition: opacity 1s;
 }
 
 /* generated rounded pentagons, every point drifting on its own phase. the

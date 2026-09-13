@@ -3,6 +3,7 @@ import { Header } from "../../components/Header";
 import TitleName from "../../components/TitleName";
 import { faGithub, faGoogleScholar, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import me from '../../resources/me.webp';
+import meDark from '../../resources/me-dark.webp';
 import QuickLinks from '../../components/QuickLinks';
 import type { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import profile from '../../data/profile.json';
@@ -41,6 +42,7 @@ export function MyHeader() {
          name={profile.name}
          subtitle={profile.subtitle}
          imageSrc={me}
+         imageSrcDark={meDark}
          mediaLinks={mediaLinks}
          idPrefix="sticky-"
       />
@@ -51,6 +53,7 @@ export function MyHeader() {
          name={profile.name}
          subtitle={profile.subtitle}
          imageSrc={me}
+         imageSrcDark={meDark}
          mediaLinks={mediaLinks}
       />
       <QuickLinks sections={sections} />
