@@ -7,14 +7,28 @@ import { SocialMediaIcon } from "../../components/SocialMediaIcon";
 import ecosystem from "../../data/flowr-ecosystem.json";
 import projects from "../../data/projects.json";
 
-import flowR from '../../resources/flowR.svg';
+import flowRBack from '../../resources/flowR-back.svg';
+import flowRFront from '../../resources/flowR-front.svg';
 import waddle0 from '../../resources/idle-0.png';
-import animation from '../../resources/animation.gif';
+import waddle0Scarf from '../../resources/idle-0-scarf.png';
+import waddleSheet from '../../resources/waddle-sheet.png';
+import waddleSheetScarf from '../../resources/waddle-sheet-scarf.png';
 import pengu0 from '../../resources/minimal-0.webp';
+import pengu0Tie from '../../resources/minimal-0-tie.webp';
 import fancyqr from '../../resources/fqr.webp';
-import montage from '../../resources/montage.webp';
+import montageBack from '../../resources/montage-back.webp';
+import montageMid from '../../resources/montage-mid.webp';
+import montageFront from '../../resources/montage-front.webp';
 import texchr from '../../resources/texchr.svg';
 import listings from '../../resources/listings.svg';
+import lambda from '../../resources/lambda.svg';
+import lambdaArrows from '../../resources/lambda-arrows.svg';
+import ghciBase from '../../resources/magic-haskell-base.svg';
+import ghciAnswer from '../../resources/magic-haskell-answer.svg';
+import ghciCursor from '../../resources/magic-haskell-cursor.svg';
+import satex from '../../resources/satex.svg';
+import satexLine1 from '../../resources/satex-line1.svg';
+import satexLine2 from '../../resources/satex-line2.svg';
 
 import "./Projects.css";
 
@@ -23,16 +37,20 @@ const ICONS: Record<string, IconDefinition> = {
    play: faPlay, puzzle: faPuzzlePiece, database: faDatabase, vials: faVials, pen: faPenNib
 };
 
-const IMAGES: Record<string, string> = { flowr: flowR, pengu: pengu0, fancyqr, montage, texchr, listings };
+const IMAGES: Record<string, string> = { fancyqr, texchr, listings };
 
 /** the animation classes a project card can opt into */
 const ANIMATIONS: Record<string, string> = {
    rotating: 'project-card-rotating-img',
-   pulsating: 'project-card-pulsating-img',
    'pulsating-white': 'project-card-pulsating-img fwhite',
    dangle: 'project-card-dangle-3d-img',
    waddle: 'waddle-anim',
-   pengu: 'pengu-anim'
+   pengu: 'pengu-anim',
+   jelly: 'project-card-jelly-img fwhite',
+   deck: 'project-card-deck-img',
+   ghci: 'project-card-ghci-img',
+   reduce: 'project-card-reduce-img',
+   typeset: 'project-card-typeset-img fhue accent-glow'
 };
 
 interface Project {
@@ -46,17 +64,51 @@ interface Project {
    tags: string[];
 }
 
-/** the penguin swaps to an animated sprite on hover, so it ships two images */
+/** a logo built from layers stacked in one grid cell, each with its own class
+    to animate or tint it */
+function stack(layers: [src: string, cls: string][], cls = '') {
+   return <div className={`logo-stack ${cls}`}>
+      {layers.map(([src, c], i) => <img key={i} className={c} src={src} alt="" loading="lazy" decoding="async" />)}
+   </div>;
+}
+
+/** `tint` layers are hue-rotated toward the accent */
+function layers(base: string, tint?: string, cls = '') {
+   return stack(tint ? [[base, ''], [tint, 'tint']] : [[base, '']], cls);
+}
+
+/** the penguin swaps to an animated sprite sheet on hover; the scarf is a
+    separate layer so it can follow the accent, which is why this is not a gif
+    (two gifs would not stay in sync) */
 const waddleImage = <div>
-   <img id='waddle-static' src={waddle0} alt="A cute penguin" loading="lazy" decoding="async" />
-   <img id='waddle-play' src={animation} alt="A cute penguin" loading="lazy" decoding="async" />
+   <div id='waddle-static'>{layers(waddle0, waddle0Scarf)}</div>
+   <div id='waddle-play'>{layers(waddleSheet, waddleSheetScarf, 'sprite')}</div>
 </div>;
+
+const LAYERED: Record<string, JSX.Element> = {
+   waddle: waddleImage,
+   pengu: layers(pengu0, pengu0Tie),
+   /* the two petal rings spin at different speeds */
+   flowr: stack([[flowRBack, 'flowr-back'], [flowRFront, 'flowr-front']]),
+   /* the slides fan out */
+   montage: stack([[montageBack, 'deck-back'], [montageMid, 'deck-mid'], [montageFront, 'deck-front']]),
+   /* GHCi types its answer while the cursor blinks */
+   ghci: stack([[ghciBase, ''], [ghciAnswer, 'ghci-answer'], [ghciCursor, 'ghci-cursor']]),
+   /* the β-arrow draws, then the step happens; the arrow layer repeats the
+      term (it lies exactly on the base) and is clipped to the arrow's band */
+   lambda: stack([[lambda, 'lc-rows'], [lambdaArrows, 'lc-arrow']]),
+   /* title and both tagline lines animate separately */
+   satex: <div className="logo-col">
+      {[[satex, 'satex-title'], [satexLine1, 'satex-line1'], [satexLine2, 'satex-line2']].map(([src, c]) =>
+         <img key={c} className={c} src={src} alt="" loading="lazy" decoding="async" />)}
+   </div>
+};
 
 function card(p: Project) {
    return <ProjectCard key={p.name}
       title={<>{p.name}&nbsp;<SocialMediaIcon className="small" icon={ICONS[p.icon]} suffix={p.suffix && `\u00a0\u00a0\u00a0${p.suffix}`} /></>}
       description={p.desc}
-      image={p.image === 'waddle' ? waddleImage : IMAGES[p.image]}
+      image={LAYERED[p.image] ?? IMAGES[p.image]}
       link={p.link}
       extraClasses={ANIMATIONS[p.anim]}
       crumbs={p.tags} />;

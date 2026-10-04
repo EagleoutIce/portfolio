@@ -11,7 +11,8 @@
    "groups": [
       {"name": "Sample Analyzers", "desc": "Small, self-contained example analyzers built on flowR.", "icon": "vials", "repos": [
          {"name": "How to query projects", "repo": "sample-analyzer-project-query", "href": "https://github.com/flowr-analysis/sample-analyzer-project-query"},
-         {"name": "How to diff dataflows", "repo": "sample-analyzer-df-diff", "href": "https://github.com/flowr-analysis/sample-analyzer-df-diff"}
+         {"name": "How to diff dataflows", "repo": "sample-analyzer-df-diff", "href": "https://github.com/flowr-analysis/sample-analyzer-df-diff"},
+         {"name": "How to find transitive calls", "repo": "sample-analyzer-transitive-calls", "href": "https://github.com/flowr-analysis/sample-analyzer-transitive-calls"}
       ]},
       {"name": "Notation Helpers", "desc": "The LaTeX helpers behind flowR's figures, logo, and notations.", "icon": "pen", "repos": [
          {"name": "The flowR logo", "repo": "flowr-logo", "href": "https://github.com/flowr-analysis/flowr-logo"},

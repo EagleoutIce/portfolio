@@ -3,6 +3,7 @@ import { Icon } from '../../components/Icon';
 import { Content } from '../../components/Content';
 import { MyHeader } from './Header';
 import { MyCurrentProjects, MyCurrentTypographyProjects, MyPenguinCurrentProjects } from './Projects';
+import projects from '../../data/projects.json';
 import { Bibliography, type BibliographyProps } from '../../components/Bibliography';
 import bibliography from '../../data/bibliography.json';
 import { BibliographySummary } from '../../components/BibliographySummary';
@@ -62,8 +63,8 @@ function MainPage() {
       <SectionHeading id="penguins" as="h3">Penguins</SectionHeading>
       <MyPenguinCurrentProjects />
 
-      <Collapsible count="4 projects"
-        title={<SectionHeading id="typography" as="h3">TeX, Typst, and Typography</SectionHeading>}>
+      <Collapsible count={`${projects.typography.length} projects`}
+        title={<SectionHeading id="typography" as="h3">TeX and Typography</SectionHeading>}>
         <MyCurrentTypographyProjects />
       </Collapsible>
 

@@ -107,33 +107,28 @@ body.dark-theme .fwhite img {
    scale: .835;
 }
 
-.pengu-anim img {
-   scale: 1;
+.pengu-anim .logo-stack {
    opacity: .8;
 }
 
 .pengu-anim:hover img, .pengu-anim:focus img {
-   /* slowly move up and down; unlike the flowR spin, this is a fast (6s),
+   /* sway; unlike the flowR spin, this is a fast (2.6s),
       small-amplitude round trip through 0 already — freezing it mid-bounce
       and resuming from an arbitrary point (like .project-card-rotating-img
       does) produces uneven, jittery jumps on repeated hover in/out, so it
       restarts cleanly from 0 on each hover instead */
-   animation: pengu 6s infinite ease-in-out;
+   transform-origin: 50% 92%;
+   animation: pengu 2.6s infinite;
 }
 
+/* a gentle sway on the feet. the extremes ease in and out; the loop seam and
+   the midpoint pass through upright at full speed, so the sway never stalls
+   there */
 @keyframes pengu {
-   0% {
-      transform: translateY(-0px);
-   }
-   25% {
-      transform: translateY(-4px);
-   }
-   75% {
-      transform: translateY(4px);
-   }
-   100% {
-      transform: translateY(0px);
-   }
+   0% { transform: rotate(0deg); animation-timing-function: cubic-bezier(.33, .66, .66, 1); }
+   25% { transform: rotate(-5deg) translateY(-1px); animation-timing-function: cubic-bezier(.33, 0, .67, 1); }
+   75% { transform: rotate(5deg) translateY(-1px); animation-timing-function: cubic-bezier(.33, 0, .66, .33); }
+   100% { transform: rotate(0deg); }
 }
 
 .waddle-anim:not(:hover):not(:focus) #waddle-play, .waddle-anim:hover #waddle-static, .waddle-anim:focus #waddle-static {
@@ -376,4 +371,260 @@ details.peeker a, .main a, a.link {
       grid-template-columns: 1fr;
       margin-left: 0;
    }
+}
+
+/* xlistings: a squishy jello wobble, then a short rest */
+.project-card-jelly-img:hover img, .project-card-jelly-img:focus img {
+   transform-origin: center bottom;
+   animation: jelly 2.4s infinite ease-in-out;
+}
+
+@keyframes jelly {
+   0%, 45%, 100% { transform: scale(1, 1); }
+   10% { transform: scale(1.12, .88); }
+   18% { transform: scale(.9, 1.1); }
+   26% { transform: scale(1.05, .95) skewX(-3deg); }
+   34% { transform: scale(.98, 1.02) skewX(2deg); }
+   40% { transform: scale(1.01, .99); }
+}
+
+/* beamer-themes: the slide deck fans out and gathers again */
+.project-card-deck-img .logo-stack > img {
+   transform-origin: 30% 60%;
+}
+
+.project-card-deck-img:hover .deck-front, .project-card-deck-img:focus .deck-front {
+   animation: deck-front 2.4s infinite ease-in-out;
+}
+
+.project-card-deck-img:hover .deck-mid, .project-card-deck-img:focus .deck-mid {
+   animation: deck-mid 2.4s infinite ease-in-out;
+}
+
+.project-card-deck-img:hover .deck-back, .project-card-deck-img:focus .deck-back {
+   animation: deck-back 2.4s infinite ease-in-out;
+}
+
+@keyframes deck-front {
+   0%, 100% { transform: none; }
+   40%, 60% { transform: translate(-9%, -7%) rotate(-6deg); }
+}
+
+@keyframes deck-mid {
+   0%, 100% { transform: none; }
+   40%, 60% { transform: translate(-1%, 1%) rotate(-1deg); }
+}
+
+@keyframes deck-back {
+   0%, 100% { transform: none; }
+   40%, 60% { transform: translate(8%, 7%) rotate(5deg); }
+}
+
+/* magic-haskell: GHCi types its answer while the cursor blinks. the purple
+   (~255°) follows the accent. */
+.project-card-ghci-img .logo-stack > img {
+   filter: hue-rotate(calc(var(--accent-hue, 39deg) - 255deg));
+}
+
+.project-card-ghci-img:hover .ghci-answer, .project-card-ghci-img:focus .ghci-answer {
+   animation: ghci-answer 2.4s infinite;
+}
+
+.project-card-ghci-img:hover .ghci-cursor, .project-card-ghci-img:focus .ghci-cursor {
+   animation: ghci-cursor .6s infinite step-end;
+}
+
+@keyframes ghci-answer {
+   0%, 15% { clip-path: inset(0 100% 0 0); animation-timing-function: steps(12, end); }
+   55%, 100% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes ghci-cursor {
+   50% { opacity: 0; }
+}
+
+/* lc-visualizer: the β-arrow draws from the argument to its binder, then the
+   reduced row appears. the bands match lambda.svg (arrow above 27 %, second
+   row below 64 %). the teal (~175°) follows the accent. */
+.project-card-reduce-img .logo-stack > img {
+   filter: hue-rotate(calc(var(--accent-hue, 39deg) - 175deg));
+}
+
+body.dark-theme .project-card-reduce-img .logo-stack > img {
+   filter: invert(100%) hue-rotate(calc(var(--accent-hue, 39deg) + 5deg)) brightness(1.15);
+}
+
+.project-card .lc-arrow { clip-path: inset(0 0 73% 0); }
+
+.project-card-reduce-img:hover .lc-rows, .project-card-reduce-img:focus .lc-rows {
+   animation: lc-rows 2.4s infinite ease-out;
+}
+
+.project-card-reduce-img:hover .lc-arrow, .project-card-reduce-img:focus .lc-arrow {
+   animation: lc-arrow 2.4s infinite ease-in-out;
+}
+
+@keyframes lc-rows {
+   0%, 45% { clip-path: inset(0 0 36% 0); }
+   60%, 100% { clip-path: inset(0); }
+}
+
+/* the arrow runs right to left, so the reveal shrinks the left inset */
+@keyframes lc-arrow {
+   0%, 5% { clip-path: inset(0 0 73% 100%); }
+   40%, 100% { clip-path: inset(0 0 73% 0); }
+}
+
+/* SaTeX: title and the two tagline lines sit in a column. on hover the title
+   is stamped, the first line is typed, and the second rises in */
+.logo-col {
+   display: inline-flex;
+   flex-direction: column;
+   gap: .15em;
+   width: 7em;
+   margin-right: 20px;
+}
+
+.project-card .logo-col img {
+   width: 100%;
+   height: auto;
+   margin: 0;
+}
+
+@media (max-width: 600px) {
+   .logo-col {
+      width: 50%;
+      max-width: 8em;
+      margin: -18px 0 -10px auto;
+   }
+}
+
+.project-card-typeset-img:hover .satex-title, .project-card-typeset-img:focus .satex-title {
+   transform-origin: 50% 100%;
+   animation: satex-stamp 3.6s infinite;
+}
+
+.project-card-typeset-img:hover .satex-line1, .project-card-typeset-img:focus .satex-line1 {
+   animation: satex-type 3.6s infinite;
+}
+
+.project-card-typeset-img:hover .satex-line2, .project-card-typeset-img:focus .satex-line2 {
+   animation: satex-rise 3.6s infinite;
+}
+
+@keyframes satex-stamp {
+   0% { transform: none; animation-timing-function: ease-out; }
+   10% { transform: translateY(-14%) scale(1.06); animation-timing-function: ease-in; }
+   18% { transform: scale(1.08, .9); animation-timing-function: ease-out; }
+   26% { transform: scale(.97, 1.03); animation-timing-function: ease-in-out; }
+   32%, 100% { transform: none; }
+}
+
+@keyframes satex-type {
+   0%, 20% { clip-path: inset(0 100% 0 0); animation-timing-function: steps(19, end); }
+   50%, 100% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes satex-rise {
+   0%, 50% { opacity: 0; transform: translateY(60%); animation-timing-function: ease-out; }
+   70%, 100% { opacity: 1; transform: none; }
+}
+
+/* the GHCi drawing is wider than tall: contain, not crop */
+.project-card-ghci-img img {
+   object-fit: contain;
+}
+
+/* the reduction keeps its own aspect ratio, so the clip bands of its
+   animation (in % of the box) match the drawing; centered like SaTeX */
+.project-card-reduce-img > div:first-child, .project-card-typeset-img > div:first-child {
+   align-self: center;
+}
+
+.project-card.project-card-reduce-img img {
+   height: auto;
+}
+
+@media (min-width: 601px) {
+   .project-card.project-card-reduce-img img {
+      width: 8em;
+   }
+}
+
+/* like .fwhite, but the hue-rotate turns the colors back after inverting, so the
+   blue accent and rose kerns keep their hue in dark mode */
+body.dark-theme .fhue img {
+   filter: invert(100%) hue-rotate(180deg) brightness(1.15);
+}
+
+/* a faint glow in the accent color; the dark variant keeps the .fhue inversion
+   (the drop-shadow comes last, so its color is not inverted) */
+.project-card.accent-glow img {
+   filter: drop-shadow(0 0 3px color-mix(in srgb, var(--main-color) 15%, transparent));
+}
+
+body.dark-theme .project-card.fhue.accent-glow img {
+   filter: invert(100%) hue-rotate(180deg) brightness(1.15)
+           drop-shadow(0 0 3px color-mix(in srgb, var(--main-color) 15%, transparent));
+}
+
+/* layered logos: all layers share one grid cell */
+.logo-stack {
+   display: inline-grid;
+}
+
+.logo-stack > img {
+   grid-area: 1 / 1;
+}
+
+@media (max-width: 600px) {
+   .logo-stack {
+      display: grid;
+      grid-template-columns: 100%;
+   }
+}
+
+/* tinted layers rotate from their own hue to the accent hue; black, white, and
+   gray pixels are unaffected by a hue-rotate, so only the colored part shifts */
+.waddle-anim .logo-stack > img.tint {
+   /* the scarf is a dark red (~0°); lift it so e.g. orange does not turn brown */
+   filter: hue-rotate(var(--accent-hue, 39deg)) brightness(1.35);
+}
+
+.pengu-anim .logo-stack > img.tint {
+   /* the tie is blue (~212°) */
+   filter: hue-rotate(calc(var(--accent-hue, 39deg) - 212deg));
+}
+
+/* the waddle walk cycle is a two-frame sprite sheet; cover shows one frame and
+   the object-position steps between them (in sync for the scarf layer) */
+.waddle-anim .sprite > img {
+   aspect-ratio: 1;
+   object-fit: cover;
+   object-position: 0 0;
+   animation: waddle-step 1s infinite step-end;
+}
+
+@keyframes waddle-step {
+   0% { object-position: 0 0; }
+   50%, 100% { object-position: 100% 0; }
+}
+
+/* flowR: the back ring turns the other way, faster than the front, and breathes */
+.project-card.project-card-rotating-img img.flowr-front {
+   animation-duration: 40s;
+}
+
+.project-card.project-card-rotating-img img.flowr-back {
+   animation: rotate 24s linear infinite reverse, breathe 4s ease-in-out infinite;
+   animation-play-state: paused;
+}
+
+.project-card.project-card-rotating-img:hover img.flowr-back,
+.project-card.project-card-rotating-img:focus img.flowr-back {
+   animation-play-state: running;
+}
+
+@keyframes breathe {
+   50% { scale: 1.03; }
 }

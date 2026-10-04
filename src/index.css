@@ -52,6 +52,8 @@ body.dark-theme {
   /* rotation applied to the flowR flower (base green ~150°) to reach the accent
      hue; the default orange sits at ~39°, i.e. -111° away */
   --logo-hue: -111deg;
+  /* the accent hue itself, for logo layers that are tinted toward it */
+  --accent-hue: 39deg;
   --text: #fafafa;
   --soft-text: #b0b0b0;
   --semi-soft-text: #e1e1e1;
@@ -68,6 +70,7 @@ body.light-theme {
   --main-color-transparent: rgba(255, 166, 0, 0.3);
   --accent-text: rgba(255, 166, 0, 1);
   --logo-hue: -111deg;
+  --accent-hue: 39deg;
   --text: #202227;
   --semi-soft-text: #45474b;
   --soft-text: #5f6062;
@@ -91,6 +94,7 @@ body[data-accent="blue"] {
   --accent-text: #3773ac;
   /* blue sits at ~209° */
   --logo-hue: 59deg;
+  --accent-hue: 209deg;
 }
 
 body.dark-theme[data-accent="blue"] {
@@ -103,6 +107,7 @@ body[data-accent="red"] {
   --accent-text: #db1c2a;
   /* red sits at ~355° */
   --logo-hue: -155deg;
+  --accent-hue: 355deg;
 }
 
 /* the poppy red vibrates against the dark background — soften it there */
@@ -119,6 +124,7 @@ body[data-accent="green"] {
   /* already green — only a slight nudge (~132°), and it needs no saturation
      lift (that is only to rescue the hue-rotated orange/blue/red from muddiness) */
   --logo-hue: -18deg;
+  --accent-hue: 132deg;
   --logo-saturate: 1.05;
 }
 

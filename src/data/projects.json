@@ -1,6 +1,7 @@
 {
    "main": [
-      {"name": "flowR", "icon": "globe", "desc": "A Dataflow Analysis Framework for R (Dependency Analysis, Program Slicing, ...).", "image": "flowr", "anim": "rotating", "link": "https://flowr-analysis.github.io/flowr/", "tags": ["R", "static analysis", "program comprehension"]}
+      {"name": "flowR", "icon": "globe", "desc": "A Dataflow Analysis Framework for R (Dependency Analysis, Program Slicing, ...).", "image": "flowr", "anim": "rotating", "link": "https://flowr-analysis.github.io/flowr/", "tags": ["R", "static analysis", "program comprehension"]},
+      {"name": "SaTeX", "icon": "globe", "desc": "An Abstract Interpreter for (La)TeX (Linting, Slicing, ...).", "image": "satex", "anim": "typeset", "link": "https://eagleoutice.github.io/satex-analyzer/", "tags": ["(La)TeX", "abstract interpretation"]}
    ],
    "penguins": [
       {"name": "Waddle", "icon": "play", "suffix": "(de)", "desc": "Learning game for children, introducing programming concepts.", "image": "waddle", "anim": "waddle", "link": "https://exia.informatik.uni-ulm.de/waddle", "tags": ["TypeScript", "game", "program comprehension"]},
@@ -8,8 +9,10 @@
    ],
    "typography": [
       {"name": "fancyqr", "icon": "github", "desc": "Creating rounded and colorful QR codes in LaTeX.", "image": "fancyqr", "anim": "dangle", "link": "https://github.com/EagleoutIce/fancyqr", "tags": ["LaTeX", "qr"]},
-      {"name": "beamer-themes", "icon": "github", "desc": "A collection of beamer-themes I have created over the years.", "image": "montage", "anim": "pulsating", "link": "https://github.com/EagleoutIce/beamer-themes", "tags": ["LaTeX", "beamer"]},
-      {"name": "sopra-collection", "icon": "github", "desc": "A collection of various useful LaTeX packages.", "image": "listings", "anim": "pulsating-white", "link": "https://github.com/EagleoutIce/sopra-collection", "tags": ["LaTeX", "packages"]},
-      {"name": "TexCHR", "icon": "github", "desc": "A plain-tex implementation of FreeCHR.", "image": "texchr", "anim": "pulsating-white", "link": "https://github.com/EagleoutIce/TeXCHR", "tags": ["TeX", "CHR"]}
+      {"name": "beamer-themes", "icon": "github", "desc": "A collection of beamer-themes I have created over the years.", "image": "montage", "anim": "deck", "link": "https://github.com/EagleoutIce/beamer-themes", "tags": ["LaTeX", "beamer"]},
+      {"name": "xlistings", "icon": "github", "desc": "An extension to the LaTeX listings package.", "image": "listings", "anim": "jelly", "link": "https://github.com/EagleoutIce/xlistings", "tags": ["LaTeX", "listings"]},
+      {"name": "magic-haskell", "icon": "github", "desc": "Automated, intelligent highlighting of Haskell code in LaTeX with ghci support.", "image": "ghci", "anim": "ghci", "link": "https://github.com/EagleoutIce/magic-haskell", "tags": ["LaTeX", "Haskell", "highlighting"]},
+      {"name": "lc-visualizer", "icon": "github", "desc": "A visualizer for the lambda calculus in LaTeX.", "image": "lambda", "anim": "reduce", "link": "https://github.com/EagleoutIce/latex-lambda-calculus-visualizer", "tags": ["LaTeX", "lambda calculus"]},
+      {"name": "TexCHR", "icon": "github", "desc": "A plain-TeX implementation of FreeCHR (Constraint Handling Rules).", "image": "texchr", "anim": "pulsating-white", "link": "https://github.com/EagleoutIce/TeXCHR", "tags": ["TeX", "CHR"]}
    ]
 }
