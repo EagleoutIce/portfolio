@@ -8,7 +8,8 @@
       {"year": 2024, "term": "WT", "topic": "Waddle", "desc": "Improving on the Language, Level-Editor, and Tutorial for Waddle", "href": "https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"},
       {"year": 2025, "term": "ST", "topic": "R Projects", "desc": "Adding project support to flowR", "href": "https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"},
       {"year": 2026, "term": "ST", "topic": "Security", "desc": "Improving the security linting for flowR", "href": "https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"},
-      {"year": 2026, "term": "WT", "topic": "Validity", "desc": "Validity Linting and Taint-Analysis with flowR", "href": "https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"}
+      {"year": 2026, "term": "WT", "topic": "Validity", "desc": "Validity Linting and Taint-Analysis with flowR", "href": "https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"},
+      {"year": 2026, "term": "WT", "topic": "Waddle", "desc": "Working on the multi-pengu and multi-level support", "href": "https://www.uni-ulm.de/in/fakultaet/studium/fachbereich-informatik/fuer-studierende/apse/"}
    ]},
    {"name": "Functional Programming", "role": "teaching-assistant", "link": "https://www.uni-ulm.de/in/sp/teaching/functional-programming/", "terms": [
       {"year": 2022, "term": "WT"}, {"year": 2023, "term": "WT"}, {"year": 2024, "term": "WT"}, {"year": 2025, "term": "WT"}, {"year": 2026, "term": "WT"}
