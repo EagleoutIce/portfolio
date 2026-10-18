@@ -1,4 +1,5 @@
 [
+   {"date": "2026-10-13", "text": "Master's thesis by T. Schöller on Taint Analysis for Data Science Code", "thesis": "taintR: Taint Analysis for Data Science Code"},
    {"date": "2026-09-13", "text": "Attending the Dagstuhl Seminar on Artifact Sharing and Open Science", "link": "https://www.dagstuhl.de/26381"},
    {"date": "2026-09-09", "text": "Presented a poster at RSECon '26", "link": "https://virtual.oxfordabstracts.com/event/76908/program?g_submission=4"},
    {"date": "2026-08-30", "text": "Attending the Lipari School on Abstract Interpretation", "link": "https://absint26.liparischool.it"},

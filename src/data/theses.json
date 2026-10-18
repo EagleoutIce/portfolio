@@ -180,5 +180,19 @@
       ],
       "extra": "Erasmus+ exchange at [Ulm University](https://www.uni-ulm.de/en/) ([University of Parma](https://www.unipr.it/)).",
       "note": "Abstract translated from the Italian original."
+   },
+   {
+      "title": "taintR: Taint Analysis for Data Science Code",
+      "author": "Thomas Maximilian Schöller",
+      "type": "master-thesis",
+      "year": 2026,
+      "month": 10,
+      "examiners": [
+         "mtt",
+         "rh"
+      ],
+      "advisors": [
+         "Florian Sihler"
+      ]
    }
 ]
