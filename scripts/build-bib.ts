@@ -20,15 +20,24 @@ interface RenderedSource {
 }
 
 function cleanUpData(cite: Cite): void {
+   const errors: string[] = [];
    cite.set(cite.data.map(entry => {
       if(entry === undefined || typeof entry !== 'object') {
          return entry;
       }
       if(typeof entry.DOI === 'string') {
          entry.DOI = entry.DOI.replaceAll(String.raw`\_`, '_').trim();
+         // the DOI gets prefixed with https://doi.org/ on render, so a URL here breaks the link
+         const bareDoi = entry.DOI.replace(/^(https?:\/\/)?(dx\.)?doi\.org\//i, '');
+         if(bareDoi !== entry.DOI) {
+            errors.push(`entry "${entry.id}" has a doi URL ("${entry.DOI}"), expected a bare DOI ("${bareDoi}")`);
+         }
       }
       return entry;
    }));
+   if(errors.length > 0) {
+      throw new Error(`[bib] invalid doi fields, fix them in the .bib file:\n  - ${errors.join('\n  - ')}`);
+   }
 }
 
 function sortAccordingToYear(cite: Cite): void {
