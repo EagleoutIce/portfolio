@@ -87,4 +87,5 @@ page.
 credit line.
 
 **`honors.json`** — `type` is `honor`, `award`, `grant`, `fellowship`, or
-`scholarship`; `amount` is in Euro and drives the featured-grant ordering.
+`scholarship`; `amount` is in Euro and drives the featured-grant ordering;
+`featured: true` pins a grant to the featured ones regardless of amount.

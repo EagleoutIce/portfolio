@@ -1,5 +1,6 @@
 [
    {"type": "grant", "title": "Unrestricted Gift by Posit for a \"Security and Taint Analysis for R\"", "year": 2026, "month": 1, "amount": 60000, "link": "https://www.uni-ulm.de/in/sp/institute/news-detail/article/flowr-receives-unrestricted-gift-from-posit/"},
+   {"type": "grant", "title": "DFG project ImplicitR (PI: Matthias Tichy)", "year": 2026, "month": 10, "featured": true, "note": "Funds one PhD position for three years. Principal investigator: Matthias Tichy. As a PhD student, I was responsible for the design and writing of the project proposal, which builds on flowR.", "link": "https://www.uni-ulm.de/in/sp/research/projects/flowr-ng/"},
    {"type": "award", "title": "Rising Star Award at RSECon '25", "year": 2025, "month": 9, "link": "https://www.uni-ulm.de/in/sp/institute/news-detail/article/rising-star-award-at-rsecon25/"},
    {"type": "grant", "title": "DAAD stipend for a research stay at the CU/CTU in Prague", "year": 2025, "month": 6, "amount": 2000, "link": "https://prl-prg.github.io/"},
    {"type": "grant", "title": "iwimint-grant by Ulm University for Waddle", "year": 2025, "month": 6, "amount": 4200, "link": "https://www.uni-ulm.de/in/sp/institute/news-detail/article/waddle-receives-iwimint-funding/"},

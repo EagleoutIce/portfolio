@@ -17,6 +17,8 @@ export interface Honors {
    link?: string;
    /** in Euro */
    amount?: number;
+   /** pin to the featured grants regardless of amount */
+   featured?: boolean;
 }
 
 const honors = honorsData as Honors[];
@@ -43,6 +45,7 @@ function grantsByImportance(): Honors[] {
    return honors
       .filter(h => h.type === 'grant')
       .toSorted((a, b) =>
+         Number(b.featured ?? false) - Number(a.featured ?? false) ||
          (b.amount ?? -1) - (a.amount ?? -1) || b.year - a.year || b.month - a.month
       );
 }
@@ -96,6 +99,8 @@ export function getHonors(exclude?: ReadonlySet<string>): [li: JSX.Element, tool
    });
 }
 
+const featuredId = (title: string) => `featured-${escapeId(title)}`;
+
 export function MyHonors() {
   const grants = getFeaturedGrants();
   const awards = getFeaturedAwards();
@@ -104,8 +109,8 @@ export function MyHonors() {
     So far, me and my work received the following honors, awards, and grants/stipends:
 
     <div className='featured-grants'>
-      {grants.map(({ title, amount, link, year, month }) =>
-        <a key={title} className='featured-grant' href={link} target="_blank" rel="noreferrer" title={title}>
+      {grants.map(({ title, amount, link, year, month, note }) =>
+        <a key={title} id={featuredId(title)} className='featured-grant' href={link} target="_blank" rel="noreferrer" title={note ? undefined : title}>
           <span className='featured-grant-amount'>{amount !== undefined ? formatEuro(amount) : year}</span>
           <span className='featured-grant-title'>{title}</span>
           <span className='featured-grant-meta'>Grant, {monthToString[month - 1]} {year}</span>
@@ -114,14 +119,18 @@ export function MyHonors() {
     </div>
 
     <div className='featured-grants'>
-      {awards.map(({ title, link, year, month }) =>
-        <a key={title} className='featured-grant' href={link} target="_blank" rel="noreferrer" title={title}>
+      {awards.map(({ title, link, year, month, note }) =>
+        <a key={title} id={featuredId(title)} className='featured-grant' href={link} target="_blank" rel="noreferrer" title={note ? undefined : title}>
           <span className='featured-grant-amount'><Icon icon={faAward} /> {year}</span>
           <span className='featured-grant-title'>{title}</span>
           <span className='featured-grant-meta'>Award, {monthToString[month - 1]} {year}</span>
         </a>
       )}
     </div>
+
+    {[...grants, ...awards].filter(h => h.note).map(({ title, note }) =>
+      <Tooltip key={`tt-${featuredId(title)}`} anchorSelect={`#${featuredId(title)}`} content={note} place="bottom" style={{ padding: '5px 9px', lineHeight: 1.35 }}/>
+    )}
 
     <Collapsible className='honors-other' title='Other honors, grants, and scholarships'
       count={`${others.length} ${others.length === 1 ? 'entry' : 'entries'}`}>
