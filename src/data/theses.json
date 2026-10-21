@@ -142,7 +142,8 @@
       "advisors": [
          "Florian Sihler",
          "[Oliver Gerstl](https://www.uni-ulm.de/in/sp/team/oliver-gerstl/)"
-      ]
+      ],
+      "link": "https://doi.org/10.18725/OPARU-61443"
    },
    {
       "title": "Towards Statically Reasoning About R Vectors",
