@@ -8,6 +8,73 @@
   margin-bottom: 5px;
 }
 
+/* lectures hang off a role tag instead of a bullet: the tag carries the role
+   color (same palette as the detailed list), the terms follow as a quiet line */
+.lectures-list {
+  padding-left: 0;
+}
+
+.lectures-list > li.teaching-entry {
+  --role-color: var(--main-color);
+  list-style: none;
+  position: relative;
+  padding-left: 3.1em;
+  margin-bottom: 7px;
+}
+
+.teaching-role-tag {
+  position: absolute;
+  left: 0;
+  top: .2em;
+  box-sizing: border-box;
+  min-width: 2.6em;
+  padding: .1em .4em;
+  text-align: center;
+  font-size: .66em;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  border-radius: 5px;
+  color: var(--role-color);
+  background: color-mix(in srgb, var(--role-color) 13%, transparent);
+  transition: background-color .3s, color .3s;
+}
+
+.teaching-entry:hover .teaching-role-tag {
+  color: var(--background);
+  background: var(--role-color);
+}
+
+.teaching-count {
+  margin-left: .4em;
+  font-size: .8em;
+  color: var(--soft-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.teaching-terms {
+  font-size: .92em;
+  color: var(--soft-text);
+}
+
+/* each term stays in one piece, a small role-colored dot leads it */
+.teaching-term {
+  display: inline-block;
+  white-space: nowrap;
+  margin-right: .85em;
+}
+
+.teaching-term::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  margin-right: .4em;
+  border-radius: 50%;
+  vertical-align: middle;
+  background: color-mix(in srgb, var(--role-color) 75%, transparent);
+}
+
 /* supervised theses are enumerated (newest first, counting down) so the
    total is visible at a glance; keep the numbers unobtrusive */
 .theses-list > li {

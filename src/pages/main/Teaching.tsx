@@ -10,7 +10,7 @@ import { monthToString } from "./Honors";
 import teachingData from "../../data/teaching.json";
 import slidesData from "../../data/slides.json";
 import documentsData from "../../data/documents.json";
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type CSSProperties } from 'react';
 import { StaticQuickLinks } from '../../components/QuickLinks';
 import { SectionHeading } from '../../components/SectionHeading';
 import { Pagination } from '../../components/Pagination';
@@ -129,9 +129,13 @@ export function getTeachings(types?: ReadonlySet<TeachingRole>): { def: [li: JSX
       .map(({ name, terms, link, role, note }): [JSX.Element, JSX.Element | undefined] => {
          const id = escapeId(name);
          const { short, long } = RoleMap[role];
-         return [<li key={id}>
-            <MaybeLink href={link}> <span style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>{terms.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;<ShortLong short={<span className='small-caps'>{short}</span>} long={long} id={'type-' + name} /></MaybeLink><br />
-            {terms.map((t, i) => <span key={`${t.year}-${t.term}`}>{termNode(name, t)}{i < terms.length - 1 ? ', ' : ''}</span>)}
+         const style = { '--role-color': LECTURE_CATEGORIES[role].color } as CSSProperties;
+         return [<li key={id} className='teaching-entry' style={style}>
+            <span className='teaching-role-tag'><ShortLong short={short} long={long} id={'type-' + name} /></span>
+            <MaybeLink href={link}><strong id={'link-' + id}>{name}</strong></MaybeLink><span className='teaching-count'>{terms.length}&times;</span><br />
+            <span className='teaching-terms'>
+               {terms.map(t => <span key={`${t.year}-${t.term}`} className='teaching-term'>{termNode(name, t)}</span>)}
+            </span>
          </li>,
          note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '5px 9px', lineHeight: 1.35 }} /> : undefined];
       });
@@ -278,7 +282,7 @@ export function MyTeaching() {
          <span className='filter-mode'>(matches any)</span>
       </div>
 
-      <ul className='teachings-list lectures-columns'>
+      <ul className='teachings-list lectures-columns lectures-list'>
          {teachings.map(t => t[0])}
       </ul>
       {teachings.map(t => t[1]).filter(e => e !== undefined)}
