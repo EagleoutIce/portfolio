@@ -35,8 +35,8 @@
       {"year": 2025, "term": "WT", "github": "https://github.com/EagleoutIce/sqa-static-analysis"},
       {"year": 2026, "term": "WT", "github": "https://github.com/EagleoutIce/sqa-static-analysis"}
    ]},
-   {"name": "Guest Lectures", "role": "guest-lecturer", "note": "Invited guest lectures at other universities", "material": [{"label": "R statistics slides", "href": "https://github.com/EagleoutIce/statistics-r-lecture"}], "terms": [
-      {"year": 2025, "term": "ST", "topic": "Static Analysis, TUBS", "desc": "Software Engineering 2 at TU Braunschweig", "href": "https://www.tu-braunschweig.de/isf/teaching/se2"},
-      {"year": 2026, "term": "WT", "topic": "Statistics with R, Uni Stuttgart", "desc": "Research Methods in Software Engineering at the University of Stuttgart", "href": "https://campus.uni-stuttgart.de/cusonline/ee/ui/ca2/app/desktop/#/slc.tm.cp/student/courses/458378"}
+   {"name": "Guest Lectures", "role": "guest-lecturer", "note": "Invited guest lectures at other universities", "terms": [
+      {"year": 2025, "term": "ST", "topic": "Static Analysis, TUBS", "desc": "Software Engineering 2 at TU Braunschweig", "href": "https://www.tu-braunschweig.de/isf/teaching/se2", "github": "https://github.com/TUBS-ISF/Course-on-Software-Engineering/tree/main/se2/content-archive/static-analysis", "material": [{"label": "slides (LaTeX sources)", "href": "https://github.com/TUBS-ISF/Course-on-Software-Engineering/tree/main/se2/content-archive/static-analysis"}]},
+      {"year": 2026, "term": "WT", "topic": "Statistics with R, Uni Stuttgart", "desc": "Research Methods in Software Engineering at the University of Stuttgart", "href": "https://campus.uni-stuttgart.de/cusonline/ee/ui/ca2/app/desktop/#/slc.tm.cp/student/courses/458378", "pdf": "https://github.com/EagleoutIce/statistics-r-lecture/releases/download/latest/r-statistics.pdf", "github": "https://github.com/EagleoutIce/statistics-r-lecture", "material": [{"label": "slides (PDF)", "href": "https://github.com/EagleoutIce/statistics-r-lecture/releases/download/latest/r-statistics.pdf"}, {"label": "repository", "href": "https://github.com/EagleoutIce/statistics-r-lecture"}]}
    ]}
 ]

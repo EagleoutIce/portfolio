@@ -1,6 +1,6 @@
 import { MaybeLink } from "../../components/MaybeLink";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faFilePdf, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { Tooltip } from "react-tooltip";
 import { SocialMediaIcon } from "../../components/SocialMediaIcon";
 import ShortLong from "../../components/Acronym";
@@ -27,6 +27,10 @@ interface Term {
    desc?: string;
    href?: string;
    github?: string;
+   /** the slides as a PDF, shown as an icon next to the term */
+   pdf?: string;
+   /** links for this term only, added to the course's on the detail page */
+   material?: { label: string; href: string }[];
    /** free-form addition, e.g. "[some lecturing]" */
    suffix?: string;
 }
@@ -78,12 +82,16 @@ function termLabel({ year, term }: Term) {
 
 function termNode(name: string, t: Term) {
    const label = <span style={{ whiteSpace: 'nowrap' }}>{termLabel(t)}</span>;
+   const icons = <>
+      {t.pdf && <>&nbsp;<SocialMediaIcon icon={faFilePdf} className="small" href={t.pdf} label={`${name} slides as PDF`} /></>}
+      {t.github && <>&nbsp;<SocialMediaIcon icon={faGithub} className="small" href={t.github} label={`${name} material on GitHub`} /></>}
+   </>;
    if(t.topic) {
       return <>{label}&nbsp;<ShortLong id={escapeId(`${name}-${t.year}-${t.term}`)} long={t.desc ?? t.topic}
-         short={<>({t.topic})&nbsp;<SocialMediaIcon icon={faInfoCircle} className="small" href={t.href} label={`details on ${t.desc ?? t.topic}`} /></>} /></>;
+         short={<>({t.topic})&nbsp;<SocialMediaIcon icon={faInfoCircle} className="small" href={t.href} label={`details on ${t.desc ?? t.topic}`} /></>} />{icons}</>;
    }
-   if(t.github) {
-      return <>{label}&nbsp;<SocialMediaIcon icon={faGithub} className="small" href={t.github} label={`${name} material on GitHub`} /></>;
+   if(t.github || t.pdf) {
+      return <>{label}{icons}</>;
    }
    return t.suffix ? <>{label}&nbsp;{t.suffix}</> : label;
 }
@@ -96,6 +104,7 @@ export function getLecturesList(): { categories: Record<string, CatDef>; order: 
          ...(material ?? []),
       ];
       for(const t of terms) {
+         const termLinks = [...links, ...(t.material ?? [])];
          const month = t.term === 'WT' ? 10 : 4;
          items.push({
             key: `${escapeId(name)}-${t.year}-${t.term}`,
@@ -106,7 +115,7 @@ export function getLecturesList(): { categories: Record<string, CatDef>; order: 
             people: note,
             date: monthToString[month - 1],
             venue: t.term === 'WT' ? 'Winter Term' : 'Summer Term',
-            links: t.href ? [...links, { label: 'details', href: t.href }] : links,
+            links: t.href ? [...termLinks, { label: 'details', href: t.href }] : termLinks,
             extra: t.desc,
          });
       }
@@ -131,7 +140,7 @@ export function getTeachings(types?: ReadonlySet<TeachingRole>): { def: [li: JSX
          const { short, long } = RoleMap[role];
          const style = { '--role-color': LECTURE_CATEGORIES[role].color } as CSSProperties;
          return [<li key={id} className='teaching-entry' style={style}>
-            <span className='teaching-role-tag'><ShortLong short={short} long={long} id={'type-' + name} /></span>
+            <ShortLong short={<span className='teaching-role-tag'>{short}</span>} long={long} id={'type-' + name} />
             <MaybeLink href={link}><strong id={'link-' + id}>{name}</strong></MaybeLink><span className='teaching-count'>{terms.length}&times;</span><br />
             <span className='teaching-terms'>
                {terms.map(t => <span key={`${t.year}-${t.term}`} className='teaching-term'>{termNode(name, t)}</span>)}

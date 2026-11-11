@@ -74,7 +74,8 @@ the initial bundle.
 **`teaching.json`** — one entry per course; every term it ran goes into `terms`
 as `{"year", "term": "WT" | "ST"}`. A term may add `topic` + `desc` + `href`
 (shown as an info icon in the list and as the entry title in the timeline),
-`github` (a repository icon), or `suffix` (free text). `role` picks the label,
+`github` (a repository icon), `pdf` (a PDF icon), `material` (links for that term
+on the detail page), or `suffix` (free text). `role` picks the label,
 `category` overrides the timeline bucket, `material` adds links to the detail
 page.
 

@@ -17,17 +17,20 @@
 .lectures-list > li.teaching-entry {
   --role-color: var(--main-color);
   list-style: none;
-  position: relative;
+  /* not position: relative: a positioned entry would keep its tooltips inside
+     the multi-column flow, so that opening one grows the columns */
   padding-left: 3.1em;
   margin-bottom: 7px;
 }
 
+/* hangs in the entry's padding: 3.1em of the entry are 4.697em at this font size */
 .teaching-role-tag {
-  position: absolute;
-  left: 0;
-  top: .2em;
+  display: inline-block;
   box-sizing: border-box;
-  min-width: 2.6em;
+  width: 2.6em;
+  margin-left: -4.697em;
+  margin-right: 2.097em;
+  vertical-align: .15em;
   padding: .1em .4em;
   text-align: center;
   font-size: .66em;
@@ -62,6 +65,10 @@
   display: inline-block;
   white-space: nowrap;
   margin-right: .85em;
+}
+
+.teaching-term .react-tooltip {
+  white-space: normal;
 }
 
 .teaching-term::before {
