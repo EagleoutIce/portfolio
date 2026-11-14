@@ -16,7 +16,9 @@
     "prebuild": "npm run bib",
     "start": "vite",
     "build": "tsc && vite build",
-    "preview": "npm run build && vite preview --mode production"
+    "typecheck": "tsc",
+    "preview": "npm run build && vite preview --mode production",
+    "prepare": "git config core.hooksPath .githooks || true"
   },
   "browserslist": {
     "production": [

@@ -1,0 +1,8 @@
+#!/bin/sh
+# Typecheck before every push: the deploy workflow runs `tsc` on main and a
+# single type error (e.g. a JSON entry missing a field the code expects) fails
+# the whole Pages deploy. Bypass in an emergency with `git push --no-verify`.
+npm run --silent bib >/dev/null && npm run --silent typecheck || {
+   echo "pre-push: typecheck failed, push aborted (see errors above)" >&2
+   exit 1
+}

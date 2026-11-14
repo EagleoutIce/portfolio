@@ -16,7 +16,8 @@ interface Entry {
    readonly startDate: Date;
    readonly endDate: Date;
    readonly location: string;
-   readonly link: string;
+   /** optional: entries without a page render as plain text */
+   readonly link?: string;
 }
 
 const entries: Entry[] = seminarsData.map(e => ({
@@ -50,7 +51,7 @@ export function getSeminarsTimeline(): CatItem[] {
       title: <>{e.title} <span className="seminar-short">({e.shortTitle})</span></>,
       people: types[e.type],
       venue: `${readableDateRange(e.startDate, e.endDate)} · ${e.location}`,
-      links: [{ label: 'link', href: e.link }],
+      links: e.link ? [{ label: 'link', href: e.link }] : undefined,
    }));
 }
 
