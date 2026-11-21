@@ -1,6 +1,7 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import './typography.css';
 import MainPage from './pages/main/MainPage';
 import { SiteNoticePage } from './pages/SiteNoticePage';
 import { ThemeButton } from './components/ThemeButton';
@@ -8,6 +9,8 @@ import { AccentPicker } from './components/AccentPicker';
 import { NotFound } from './pages/NotFound';
 import { scrollTo } from './components/QuickLinks';
 import { ErrorBoundary, useRoute } from './util/router';
+import { Tooltip } from 'react-tooltip';
+import { INLINE_TOOLTIP_ID } from './util/text';
 
 /* the detail lists load on demand, keeping the initial bundle small */
 const PublicationsPage = lazy(() => import('./pages/publications/PublicationsPage').then(m => ({ default: m.PublicationsPage })));
@@ -62,6 +65,10 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <ErrorBoundary fallback={<NotFound />}>
       <App />
     </ErrorBoundary>
+    {/* shared tooltip for [text](href "tooltip") links in the data files; it is
+        mounted outside .content, so it scales itself to match the other tooltips
+        (react-tooltip's 90% of the .7em .content text) */}
+    <Tooltip id={INLINE_TOOLTIP_ID} place="bottom" style={{ padding: '5px 9px', lineHeight: 1.35, maxWidth: '24em', fontSize: '.63em' }} />
     <section aria-label="Appearance settings">
       <ThemeButton />
       <AccentPicker />

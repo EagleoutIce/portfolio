@@ -1,4 +1,5 @@
 [
+   {"date": "2026-11-20", "text": "Public lecture on Waddle in the u3gu ring lecture at Ulm University", "link": "https://www.uni-ulm.de/department/u3gu/u3gu-ringvorlesung/"},
    {"date": "2026-11-09", "text": "Guest lecture at the Univ. of Stuttgart on Statistics with R", "link": "https://github.com/EagleoutIce/statistics-r-lecture"},
    {"date": "2026-10-13", "text": "Master's thesis by T. Schöller on Taint Analysis for Data Science Code", "thesis": "taintR: Taint Analysis for Data Science Code"},
    {"date": "2026-09-13", "text": "Attending the Dagstuhl Seminar on Artifact Sharing and Open Science", "link": "https://www.dagstuhl.de/26381"},

@@ -191,3 +191,54 @@ body.dark-theme .accent-picker.open .accent-swatch {
       border-color: rgba(128, 128, 128, .45);
    }
 }
+
+/* font choices sit left of the colours (the row expands leftward), each an
+   "Aa" set in its own typeface. like the swatches they override the global
+   filled-button look and fold away completely while the picker is collapsed */
+.font-swatch {
+   min-width: 0;
+   height: 22px;
+   padding: 0 5px;
+   border-radius: 6px;
+   border: 1px solid transparent;
+   margin: 0 1px;
+   background: transparent;
+   color: var(--soft-text);
+   font-size: 14px;
+   font-weight: normal;
+   line-height: 1;
+   letter-spacing: 0;
+   cursor: pointer;
+   transition: opacity .28s ease, scale .15s ease, border-color .2s, background-color .2s;
+}
+
+.font-swatch.font-serif {
+   font-size: 16px;
+}
+
+/* quiet text controls: no fill on hover (it collided with the neighbour's
+   ring), only the ink darkens; the current face keeps a soft ring */
+.font-swatch:hover {
+   color: var(--text);
+}
+
+.font-swatch.active {
+   color: var(--text);
+   border-color: color-mix(in srgb, var(--text) 26%, transparent);
+}
+
+.picker-divider {
+   width: 1px;
+   height: 16px;
+   background: color-mix(in srgb, var(--text) 18%, transparent);
+}
+
+.accent-picker:not(:hover):not(:focus-within):not(.open) :is(.font-swatch, .picker-divider) {
+   width: 0;
+   height: 0;
+   padding: 0;
+   opacity: 0;
+   border-width: 0;
+   overflow: hidden;
+   pointer-events: none;
+}

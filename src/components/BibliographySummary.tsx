@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import "./BibliographySummary.css";
 import bibliography from "../data/bibliography.json";
 import { Tooltip } from "react-tooltip";
+import { caps } from "../util/text";
 import { escapeId } from "../util/id";
 
 export interface BibliographySummaryProps {
@@ -63,7 +64,7 @@ export function BibliographySummary({ sources }: BibliographySummaryProps) {
             nodes.push(
                <span key={`conf-${year}-${safeConf}`} id={`conf-${year}-${safeConf}`} className="conf-entry">
                   <span className='conf-count'>{total}×</span>
-                  {conf}
+                  {caps(conf, conf)}
                <Tooltip anchorSelect={`#conf-${year}-${safeConf}`} content={byType.join(', ')} key={`tt-conf-${year}-${safeConf}`} place="bottom" style={{ padding: '5px 9px', lineHeight: 1.35 }}/>
                </span>
             );

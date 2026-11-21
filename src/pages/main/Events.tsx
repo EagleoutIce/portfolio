@@ -4,6 +4,7 @@ import { escapeId } from "../../util/id";
 import { monthToString } from "./Honors";
 import type { CatDef, CatItem } from "../../components/CategorizedList";
 import eventsData from "../../data/events.json";
+import { typeset } from "../../util/text";
 import './Events.css'
 
 interface Occurrence {
@@ -57,7 +58,7 @@ export function MyEvents(): JSX.Element {
       const id = escapeId(name);
       const when = occ.map(o => occTime(o, link));
       return [<li key={id}>
-         <MaybeLink href={link}> <span style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>{occ.length}×</span><strong id={'link-' + id}>{name}</strong>&nbsp;&nbsp;({where})</MaybeLink><br />
+         <MaybeLink href={link}> <span style={{ fontSize: 'smaller', color: 'var(--soft-text)' }}>{occ.length}×</span><strong id={'link-' + id}>{typeset(name)}</strong>&nbsp;&nbsp;({where})</MaybeLink><br />
          {when}
       </li>,
       note ? <Tooltip anchorSelect={`#${'link-' + id}`} content={note} key={`tt-${'link-' + id}`} place="bottom" style={{ padding: '5px 9px', lineHeight: 1.35 }} /> : undefined];

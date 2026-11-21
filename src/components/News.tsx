@@ -1,4 +1,5 @@
 import { Icon } from './Icon';
+import { typeset } from "../util/text";
 import { useMemo, useState } from "react";
 import { Collapsible } from "./Collapsible";
 import "./News.css"
@@ -18,7 +19,7 @@ export function News() {
    }, [filter])
 
    return <Collapsible className="news" title="News" extra={open => <>
-      {!open && <span className="news-teaser">{getDate(news[0])}: {news[0].text}</span>}
+      {!open && <span className="news-teaser">{getDate(news[0])}: {typeset(news[0].text)}</span>}
       {/* preventDefault keeps clicks on the filter from toggling the details */}
       {open && <span className="news-filter-box" onClick={e => e.preventDefault()}>
          <input type="text" className="news-filter" placeholder="filter news" value={filter}
@@ -33,7 +34,7 @@ export function News() {
                opacity: showLast <= 5 && filteredNews.length > 5 ? 
                   1 - (index / 5) : 1
             }}>
-               <span className="date">{getDate(item)}:</span> <span className="news-content">{item.link ? <a href={item.link} {...item.link.startsWith('#') ? {} : { target: '_blank', rel: 'noreferrer' }} className="link">{item.text}</a> : <span className="link" style={{ color: 'var(--text)' }}>{item.text}</span>}</span>
+               <span className="date">{getDate(item)}:</span> <span className="news-content">{item.link ? <a href={item.link} {...item.link.startsWith('#') ? {} : { target: '_blank', rel: 'noreferrer' }} className="link">{typeset(item.text)}</a> : <span className="link" style={{ color: 'var(--text)' }}>{typeset(item.text)}</span>}</span>
             </li>
          ))}
          <li className="show-more">

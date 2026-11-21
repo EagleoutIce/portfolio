@@ -1,0 +1,204 @@
+/* site typography. the faces are chosen via the font switch in the
+   AccentPicker (body[data-font="…"]; the system sans stack from index.css is
+   the default and sets no attribute). the alternatives are self-hosted (SIL OFL, latin subset) so no third-party font CDN is
+   contacted, and font-display:swap keeps text visible while they load. */
+
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('./resources/fonts/eb-garamond-wght-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('./resources/fonts/eb-garamond-wght-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./resources/fonts/atkinson-hyperlegible-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./resources/fonts/atkinson-hyperlegible-700-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./resources/fonts/atkinson-hyperlegible-400-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./resources/fonts/atkinson-hyperlegible-700-italic.woff2') format('woff2');
+}
+
+/* ---- shared typesetting, whatever the face ---- */
+
+/* no orphans or ragged single-word last lines in prose; headings break into
+   even lines instead of one long and one stub */
+p, li, dd, blockquote {
+  text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/* form controls default to the UA's system font; keep them in the page face */
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+/* justified text without hyphenation opens rivers between words; let the
+   browser hyphenate (lang="en"), but never fragments shorter than 3 letters */
+.main, .intro-p {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-limit-chars: 7 3 3;
+}
+
+/* counts ("3×") are data, not prose: lining, even-width figures so a row of
+   them reads as a calm column */
+.conf-count {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* ---- serif: a book-like, typographic reading of the page ---- */
+body[data-font="serif"] {
+  font-family: 'EB Garamond', 'Iowan Old Style', 'Palatino Linotype', Palatino,
+    'Book Antiqua', Georgia, serif;
+  /* Garamond has a small x-height; nudge it up so it matches the sans in
+     perceived size instead of reading as shrunken */
+  font-size: calc(clamp(16px, calc(11px + 2vmin), 28px) * 1.1);
+  line-height: 1.45;
+  /* old-style figures, proper ligatures and kerning are what make it feel set
+     rather than typed */
+  /* lining figures by default (dates, counts, years); old-style figures
+     only inside running prose, see below */
+  font-variant-numeric: lining-nums proportional-nums;
+  font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+  hyphens: auto;
+  hanging-punctuation: first allow-end last;
+}
+
+body[data-font="serif"] p,
+body[data-font="serif"] li {
+  text-wrap: pretty;
+}
+
+/* headings: lining caps want air, not the tight sans tracking */
+body[data-font="serif"] :is(h1, h2, h3, h4) {
+  font-weight: 500;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+body[data-font="serif"] :is(h2, h3, h4) {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.04em;
+}
+
+/* old-style figures sit inside lowercase prose (2023 doesn't shout), so they
+   are kept for the running text: the intro, abstracts and news sentences */
+body[data-font="serif"] :is(.intro-p, .abstract-p, .pub-abstract-p, .news-content, .news-teaser) {
+  font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+/* tabular data (dates, counts) still lines up */
+body[data-font="serif"] :is(table, time, .tabular, .conf-count, .conf-year-banner, .date) {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* captions and labels: Garamond's bold is blunt, so hierarchy comes from size
+   and a medium weight instead, as in a book */
+body[data-font="serif"] :is(.collapse-title, .conf-year-banner, .service-year-head, .pub-year-label) {
+  font-weight: 500;
+  font-size: 1.15em;
+  line-height: 1.1;
+}
+
+body[data-font="serif"] :is(.seminars-list strong, .events-list strong, .project-card-title,
+  .pub-entry-title, .ecosystem-name, .slide-caption, .document-caption, .featured-grant-amount) {
+  font-weight: 500;
+  font-size: 1.08em;
+}
+
+body[data-font="serif"] em,
+body[data-font="serif"] i {
+  /* the real Garamond italic is lovely — no synthesised slant */
+  font-synthesis: none;
+}
+
+/* the thin Garamond strokes thin out further on a dark ground (light text
+   blooms less than ink); a touch more weight restores the colour of the page */
+body.dark-theme[data-font="serif"] {
+  font-weight: 440;
+}
+
+/* acronyms in running text are set in letter-spaced small caps, as in a book,
+   so GI or IEEE don't shout out of the line */
+body[data-font="serif"] .caps {
+  font-variant-caps: all-small-caps;
+  letter-spacing: .06em;
+}
+
+body[data-font="serif"] .conf-count {
+  font-size: .8em;
+  letter-spacing: 0;
+}
+
+/* the link marker (Projects.css) grows to .61em on hover, sized for the sans
+   x-height; Garamond's lowercase is much shorter, so the marker stops lower
+   to stay a highlighter rather than covering the letters entirely */
+@supports (color: color-mix(in srgb, red, blue)) {
+  body[data-font="serif"] :is(details.peeker a, .main a, a.link):is(:hover, :focus) {
+    background-size: 100% .5em;
+  }
+
+  @media (hover: none) {
+    body[data-font="serif"] :is(details.peeker a, .main a, a.link) {
+      background-size: 100% .5em;
+    }
+  }
+}
+
+/* ---- readable: Atkinson Hyperlegible, designed for low-vision readers,
+   with clearly distinguishable letterforms (Il1, O0, rn/m) ---- */
+body[data-font="readable"] {
+  font-family: 'Atkinson Hyperlegible', Verdana, Tahoma, sans-serif;
+  line-height: 1.65;
+  letter-spacing: 0.02em;
+  word-spacing: 0.08em;
+  font-variant-ligatures: none;
+  font-feature-settings: 'kern' 1;
+}
+
+body[data-font="readable"] :is(h1, h2, h3, h4) {
+  letter-spacing: 0;
+}
+
+body[data-font="readable"] p,
+body[data-font="readable"] li {
+  /* no justification or hyphen breaks: ragged-right is easier to track */
+  text-align: start;
+  hyphens: manual;
+}

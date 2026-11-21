@@ -67,3 +67,32 @@
 .seminar-meta {
   color: var(--semi-soft-text);
 }
+
+/* collapsed: the last shown entries grow fainter and the line runs on past the
+   final dot into nothing, hinting that the timeline continues */
+.seminars-collapsed > li:nth-last-child(2) {
+  opacity: .75;
+}
+
+.seminars-collapsed > li:last-child {
+  opacity: .45;
+  padding-bottom: 1.4em;
+  border-left-color: transparent;
+}
+
+.seminars-collapsed > li:last-child::after {
+  height: 100%;
+  background: linear-gradient(to bottom,
+    color-mix(in srgb, var(--text) 22%, transparent), transparent);
+}
+
+/* entries revealed by the toggle ease in like the earlier publication years */
+.seminars-list > li:nth-child(n + 6) {
+  animation: bib-older-in .32s ease both;
+}
+
+.seminars-toggle {
+  margin-top: .3em;
+  margin-left: .4em;
+  font-size: .75em;
+}

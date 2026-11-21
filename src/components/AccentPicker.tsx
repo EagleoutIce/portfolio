@@ -41,6 +41,33 @@ function isAccent(value: string | null): value is AccentKey {
    return accents.some(a => a.key === value);
 }
 
+/* typefaces, see typography.css. sans is the default; readable (Atkinson
+   Hyperlegible) is only ever picked on purpose, never rolled */
+const fonts = [
+   { key: 'sans', label: 'Sans serif', family: "'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif" },
+   { key: 'serif', label: 'Serif', family: "'EB Garamond', Palatino, Georgia, serif" },
+   { key: 'readable', label: 'Readable (Atkinson Hyperlegible)', family: "'Atkinson Hyperlegible', Verdana, sans-serif" },
+] as const;
+
+type FontKey = typeof fonts[number]['key'];
+
+function randomFont(): FontKey {
+   return Math.random() < 0.3 ? 'serif' : 'sans';
+}
+
+function applyFont(font: FontKey) {
+   if(font === 'sans') {
+      delete document.body.dataset.font;
+   } else {
+      document.body.dataset.font = font;
+   }
+   sessionStorage.setItem('font', font);
+}
+
+function isFont(value: string | null): value is FontKey {
+   return fonts.some(f => f.key === value);
+}
+
 /* touch devices have no hover to collapse the row, so there we drive the
    open/closed state explicitly: the first tap on the visible dot opens the
    row, the next tap picks a colour and closes it again */
@@ -53,6 +80,10 @@ export function AccentPicker() {
       const stored = sessionStorage.getItem('accent');
       return isAccent(stored) ? stored : weightedRandom();
    });
+   const [font, setFont] = useState<FontKey>(() => {
+      const stored = sessionStorage.getItem('font');
+      return isFont(stored) ? stored : randomFont();
+   });
    const [open, setOpen] = useState(false);
    const ref = useRef<HTMLDivElement>(null);
 
@@ -60,6 +91,10 @@ export function AccentPicker() {
    useLayoutEffect(() => {
       applyAccent(accent);
    }, [accent]);
+
+   useLayoutEffect(() => {
+      applyFont(font);
+   }, [font]);
 
    /* while the touch row is open, a tap anywhere outside folds it back up */
    useEffect(() => {
@@ -71,7 +106,22 @@ export function AccentPicker() {
       return () => document.removeEventListener('pointerdown', close);
    }, [open]);
 
-   return <div ref={ref} className={`accent-picker${open ? ' open' : ''}`} role="group" aria-label="Accent color">
+   return <div ref={ref} className={`accent-picker${open ? ' open' : ''}`} role="group" aria-label="Accent color and font">
+      {fonts.map(f =>
+         <button key={f.key}
+            className={`font-swatch font-${f.key}${font === f.key ? ' active' : ''}`}
+            style={{ fontFamily: f.family }}
+            aria-label={`${f.label} font`}
+            aria-pressed={font === f.key}
+            title={f.label}
+            onClick={e => {
+               if(isTouch() && !open) { setOpen(true); return; }
+               setFont(f.key);
+               setOpen(false);
+               e.currentTarget.blur();
+            }}>Aa</button>
+      )}
+      <span className="picker-divider" aria-hidden="true" />
       {accents.map(a =>
          <button key={a.key}
             className={`accent-swatch${accent === a.key ? ' active' : ''}`}
