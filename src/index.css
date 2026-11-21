@@ -97,8 +97,11 @@ body[data-accent="blue"] {
   --accent-hue: 209deg;
 }
 
+/* on the dark background the light-mode blue reads dull — lift it */
 body.dark-theme[data-accent="blue"] {
-  --accent-text: #548fc8;
+  --main-color: #5b9bd8;
+  --main-color-transparent: rgba(91, 155, 216, 0.3);
+  --accent-text: #64a3e0;
 }
 
 body[data-accent="red"] {
@@ -110,11 +113,13 @@ body[data-accent="red"] {
   --accent-hue: 355deg;
 }
 
-/* the poppy red vibrates against the dark background — soften it there */
+/* the light-mode red is too dark on the dark background, and desaturating it
+   turned it pink — keep it a clear, saturated red, lifted just enough in
+   lightness to read (contrast ~5.3:1, text ~5.8:1 on #202227) */
 body.dark-theme[data-accent="red"] {
-  --main-color: #e07178;
-  --main-color-transparent: rgba(224, 113, 120, 0.3);
-  --accent-text: #e07178;
+  --main-color: #ff5c63;
+  --main-color-transparent: rgba(255, 92, 99, 0.3);
+  --accent-text: #ff6b70;
 }
 
 body[data-accent="green"] {
@@ -129,7 +134,9 @@ body[data-accent="green"] {
 }
 
 body.dark-theme[data-accent="green"] {
-  --accent-text: #579965;
+  --main-color: #5fae6f;
+  --main-color-transparent: rgba(95, 174, 111, 0.3);
+  --accent-text: #66b476;
 }
 
 body {
