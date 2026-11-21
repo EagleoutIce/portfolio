@@ -1,5 +1,16 @@
 html {
   scroll-behavior: smooth;
+  /* stop mobile browsers from inflating text on rotation */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* last line of defence: nothing may ever widen the page sideways on phones
+   (a wider layout viewport also drags the fixed theme controls off-screen).
+   clip, unlike hidden, creates no scroll container, so fixed/sticky bits and
+   smooth scrolling are unaffected. real overflow is still fixed at the source. */
+html, body {
+  overflow-x: clip;
 }
 
 /* registering the accent as a typed <color> lets it interpolate, so switching
@@ -151,6 +162,8 @@ body {
   font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
   font-kerning: normal;
   line-height: 1.5;
+  /* long urls/identifiers break instead of overflowing their box */
+  overflow-wrap: break-word;
   background-color: var(--background);
   min-height: 100vh;
   display: flex;
@@ -363,6 +376,9 @@ details.peeker::details-content,
 .pub-collapse::details-content {
   display: grid;
   grid-template-rows: 0fr;
+  /* an auto column would grow to the widest unbreakable child (a long url,
+     a nowrap row) and push the opened section past the screen on phones */
+  grid-template-columns: minmax(0, 1fr);
   overflow: hidden;
   opacity: 0;
   transition: grid-template-rows .3s ease, opacity .2s ease, content-visibility .3s allow-discrete;
@@ -379,6 +395,7 @@ details.peeker[open]::details-content,
 
 .collapse-body {
   min-height: 0;
+  min-width: 0;
 }
 
 

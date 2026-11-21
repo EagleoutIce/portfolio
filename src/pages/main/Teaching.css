@@ -67,6 +67,15 @@
   margin-right: .85em;
 }
 
+/* a single long term (several courses) must still wrap on narrow phones
+   instead of pushing the page sideways */
+@media (max-width: 600px) {
+  .teaching-term {
+    white-space: normal;
+    max-width: 100%;
+  }
+}
+
 .teaching-term .react-tooltip {
   white-space: normal;
 }

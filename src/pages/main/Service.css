@@ -16,7 +16,7 @@
 /* year label on the left rail, its cards to the right */
 .service-year-group {
   display: grid;
-  grid-template-columns: 2.6em 1fr;
+  grid-template-columns: 2.6em minmax(0, 1fr);
   gap: .5em .9em;
   align-items: start;
 }
@@ -191,7 +191,7 @@
     font-size: inherit;
   }
   .service-year-group {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: .3em;
   }
   .service-year-head {
@@ -202,7 +202,7 @@
     display: none;
   }
   .service-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

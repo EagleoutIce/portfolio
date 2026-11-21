@@ -240,7 +240,7 @@
 /* ── year groups ─────────────────────────────────────────────────────── */
 .pub-year-group {
    display: grid;
-   grid-template-columns: minmax(3em, auto) 1fr;
+   grid-template-columns: minmax(3em, auto) minmax(0, 1fr);
    gap: .4em 1.2em;
    margin-bottom: 1.6em;
 }
@@ -362,7 +362,7 @@
    position: relative;
    scroll-margin-top: 1em;
    display: grid;
-   grid-template-columns: auto 1fr;
+   grid-template-columns: auto minmax(0, 1fr);
    gap: .1em .9em;
    padding-left: .9em;
    border-left: 3px solid var(--cat-color);
@@ -573,7 +573,10 @@
    display: inline;
 }
 
+/* inline-block: the links are rendered back to back without whitespace, so
+   plain nowrap inlines would fuse into one unbreakable run on narrow screens */
 .pub-link {
+   display: inline-block;
    font-size: .8em;
    padding: .1em .6em;
    margin-left: .45em;
@@ -594,7 +597,7 @@
 /* ── narrow screens ──────────────────────────────────────────────────── */
 @media (max-width: 640px) {
    .pub-year-group {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: .5em;
    }
 
@@ -606,7 +609,7 @@
 
    /* keep the tag as a small left column (don't let it stretch full-width) */
    .pub-entry {
-      grid-template-columns: auto 1fr;
+      grid-template-columns: auto minmax(0, 1fr);
       gap: .15em .7em;
    }
 
