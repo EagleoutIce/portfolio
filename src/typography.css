@@ -95,7 +95,9 @@ body[data-font="serif"] {
   /* lining figures by default (dates, counts, years); old-style figures
      only inside running prose, see below */
   font-variant-numeric: lining-nums proportional-nums;
-  font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+  /* no discretionary ligatures: Garamond's historic ct/st/sp forms read as
+     glitches in a web page, especially in names and acronyms */
+  font-variant-ligatures: common-ligatures contextual;
   hyphens: auto;
   hanging-punctuation: first allow-end last;
 }
@@ -103,6 +105,16 @@ body[data-font="serif"] {
 body[data-font="serif"] p,
 body[data-font="serif"] li {
   text-wrap: pretty;
+}
+
+/* phones: the size bump above makes Garamond ~21px there, i.e. barely 40
+   characters a line — justification then opens wide gaps and the many links
+   and small caps crowd every line. a smaller size gets back to ~50 characters */
+@media (max-width: 600px) {
+  body[data-font="serif"] {
+    font-size: 18px;
+    line-height: 1.42;
+  }
 }
 
 /* headings: lining caps want air, not the tight sans tracking */
@@ -174,9 +186,16 @@ body[data-font="serif"] .conf-count {
     background-size: 100% .5em;
   }
 
+  /* touch devices show the marker at rest, so in a link-dense paragraph it
+     smears a bar under every other word. the serif page uses a thin accent
+     underline below the baseline instead: still clearly a link, but calm */
   @media (hover: none) {
     body[data-font="serif"] :is(details.peeker a, .main a, a.link) {
-      background-size: 100% .5em;
+      background-size: 100% .07em;
+      background-position: 0 calc(100% - .08em);
+      background-image: linear-gradient(
+        color-mix(in srgb, var(--main-color) 70%, transparent),
+        color-mix(in srgb, var(--main-color) 70%, transparent));
     }
   }
 }

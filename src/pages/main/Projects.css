@@ -491,11 +491,28 @@ body.dark-theme .project-card-reduce-img .logo-stack > img {
    margin: 0;
 }
 
+/* small screens: the card stacks, and every other logo sits on the right. the
+   wordmark is wide and flat, so at the square logos' 50% it shrinks to a
+   sliver whose kern boxes read as rendering glitches — give it more width so
+   its visual weight matches the others, and pin it right like them */
 @media (max-width: 600px) {
+   .project-card.project-card-typeset-img > div:first-child {
+      align-self: flex-end;
+   }
+
    .logo-col {
-      width: 50%;
-      max-width: 8em;
-      margin: -18px 0 -10px auto;
+      display: flex;
+      width: 11em;
+      max-width: 70vw;
+      gap: .3em;
+      margin: -8px 0 14px;
+   }
+
+   /* the generic small-screen logo caps (8em) would leave the wider column
+      half empty and push the wordmark off the right edge */
+   .project-card .logo-col img {
+      max-width: none;
+      max-height: none;
    }
 }
 
