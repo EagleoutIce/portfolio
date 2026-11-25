@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { type ReactNode } from 'react';
+import { type MouseEvent, type ReactNode } from 'react';
 import bibliography from '../../data/bibliography.json';
 import { Tooltip } from 'react-tooltip';
 import '../../components/BibliographySummary.css';
@@ -7,6 +7,7 @@ import { getServiceRoleInfo } from './Service';
 import { getGrantCount, formatEuro } from './Honors';
 import { getThesisCounts } from './Theses';
 import { getTeachingDutySplitInfo } from './Teaching';
+import { scrollTo } from '../../components/QuickLinks';
 
 const ttStyle    = { padding: '5px 9px', lineHeight: 1.35 } as const;
 const ttInner    = { maxWidth: '320px', wordBreak: 'break-word' } as const;
@@ -52,7 +53,17 @@ function parseBib(source: keyof typeof bibliography, label?: string) {
 function Badge({ id, href, count, label, tooltipContent }: {
   id: string; href: string; count: number; label: string; tooltipContent: ReactNode;
 }) {
-  return <a id={id} href={href} className="conf-entry" style={linkStyle}>
+  /* scroll explicitly: when the hash already matches (reload, or a quick link
+     that pushed it via history), the browser fires no hashchange and the
+     router never jumps */
+  const onClick = (e: MouseEvent) => {
+    if(!href.startsWith('#/') || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) {
+      return;
+    }
+    e.preventDefault();
+    scrollTo(href.slice(2));
+  };
+  return <a id={id} href={href} className="conf-entry" style={linkStyle} onClick={onClick}>
     <span className="conf-count">{count}×</span>{label}
     <Tooltip anchorSelect={`#${id}`} render={() => <>{tooltipContent}</>}
       place="top" style={ttStyle} positionStrategy="absolute" />
